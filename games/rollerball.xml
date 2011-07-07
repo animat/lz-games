@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Bricks">
+		<attribute name="english" label="English word" type="editbox" interactive="true" />
+		<attribute name="lang" label="translation" type="editbox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Practice spelling some idiomatic expressions with AVERE</text>
+		<keyword>avere</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="value" content="guapa" type="text" />
+			<responses answer="all">
+				<response name="answer" content="la" type="text" />
+				<option name="value" content="2" type="text" />
+				<option name="value" content="3" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="perro" type="text" />
+			<responses answer="all">
+				<response name="answer" content="la" type="text" />
+				<option name="value" content="2" type="text" />
+				<option name="value" content="3" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="hombre" type="text" />
+			<responses answer="all">
+				<response name="answer" content="la" type="text" />
+				<option name="value" content="2" type="text" />
+				<option name="value" content="3" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="options" linkedto="answer">
+			<option name="value" content="la" type="text" />
+			<option name="value" content="el" type="text" />
+			<option name="value" content="l'" type="text" />
+			<option name="value" content="los" type="text" />
+			<option name="value" content="las" type="text" />
+			<option name="value" content="1" type="text" />
+			<option name="value" content="2" type="text" />
+			<option name="value" content="3" type="text" />
+			<option name="value" content="4" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>Italian</language>
+
+</xml>

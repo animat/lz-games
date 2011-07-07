@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xliff version="1.0" xml:lang="es">
+
+  <file datatype="plaintext" original="sentenceSwiper.fla" source-language="EN">
+    <header></header>
+    <body>
+      <trans-unit id="001" resname="IDS_CONGRATS">
+        <source>¡Felicitaciones!</source>
+      </trans-unit>
+      <trans-unit id="002" resname="IDS_INSTRUCTIONS">
+        <source>Oprime la barra de espacio para parar la hoja cuando la respuesta correcta sea iluminada. Trabaja rapidamente para conseguir el mejor tiempo, pero se cauteloso-respuestas incorrectas anadiran 5 segundos a tu puntaje.</source>
+      </trans-unit>
+      <trans-unit id="003" resname="IDS_PLAY">
+        <source>¡Juguemos!</source>
+      </trans-unit>
+      <trans-unit id="004" resname="IDS_PLAY_AGAIN">
+        <source>¿Jugar otra vez?</source>
+      </trans-unit>
+      <trans-unit id="005" resname="IDS_YOU_WON">
+        <source>¡Excelente trabajo! Terminaste el juego.</source>
+      </trans-unit>
+    </body>
+  </file>
+
+</xliff>

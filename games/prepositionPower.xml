@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Preposition Power" v="2.0" gametype="Matching" />
+	
+	<description>
+		<text>Shoot the correct balloons</text>
+		<keyword>Preposiciones</keyword>
+		<keyword>Prepositions</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="question" content="to the gym" type="text" />
+			<responses answer="all">
+				<response name="response" content="a" type="text" />
+			</responses>
+			<display>
+				<before>el gimnasio</before>
+				<after>al gimnasio</after>
+			</display>
+		</node>
+		
+		<node>
+			<question name="question" content="without a pen" type="text" />
+			<responses answer="all">
+				<response name="response" content="sin" type="text" />
+			</responses>
+			<display>
+				<before>una pluma</before>
+				<after>una pluma</after>
+			</display>
+		</node>
+		
+		<node>
+			<question name="question" content="at the market" type="text" />
+			<responses answer="all">
+				<response name="response" content="en" type="text" />
+			</responses>
+			<display>
+				<before>el mercado</before>
+				<after>en el mercado</after>
+			</display>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="viable answers for correct preposition" linkedto="response">
+			<option name="value" content="a" type="text" />
+			<option name="value" content="con" type="text" />
+			<option name="value" content="de" type="text" />
+			<option name="value" content="durante" type="text" />
+			<option name="value" content="en" type="text" />
+			<option name="value" content="por" type="text" />
+			<option name="value" content="para" type="text" />
+			<option name="value" content="sin" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>Spanish</language>
+
+</xml>

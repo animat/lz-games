@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<format gamename="Clothing game">
+		<attribute name="desire" interactive="true" />
+		<attribute name="dress" interactive="true" />
+		<attribute name="color" interactive="true" />
+	</format>
+		
+	<description>
+		<text>Have fun dressing up your character!</text>
+		<keyword>clothing</keyword>
+		<keyword>colors</keyword>
+		<keyword>character</keyword>
+	</description>
+	
+
+	<gamedata>
+        <question desire= "I want to wear a green half shirt" dress="upper.Half Shirt" color="Green"/>
+		<question desire= "I want to wear a yellow cap" dress="top.Cap" color="Yellow"/>
+		<question desire= "I want to wear red shorts" dress="lower.Shorts" color="Red"/>      
+	</gamedata>
+	
+	<gamedata>
+		<customdata>
+			<items>
+				<cloaths path="../media/image/dresses/">
+					<item category="top" character="boy" code="cap" name="Cap" image="cap.swf">tn_cap.swf</item>
+					<item category="upper" character="boy" code="bathrobe" name="Bathrobe" image="bathrobe.swf">tn_bathrobe.swf</item>
+   				 	<item category="middle" character="boy" code="belt" name="Belt" image="belt.swf">tn_belt.swf</item>
+   				 	<item category="bottom" character="boy" code="boot" name="Boot" image="boot.swf">tn_boot.swf</item>
+   				 	<item category="upper" character="boy" code="coat" name="Coat" image="coat.swf">tn_coat.swf</item>
+  				  	<item category="upper" character="boy" code="halfShirt" name="Half Shirt" image="halfShirt.swf">tn_halfShirt.swf</item>
+  				  	<item category="lower" character="boy" code="jeans" name="Jeans" image="jeans.swf">tn_jeans.swf</item>
+  				  	<item category="lower" character="boy" code="pant" name="Pant" image="pant.swf">tn_pant.swf</item>
+  				  	<item category="lower" character="boy" code="shorts" name="Shorts" image="shorts.swf">tn_shorts.swf</item>
+  				  	<item category="bottom" character="boy" code="sneakers" name="Sneakers" image="sneakers.swf">tn_sneakers.swf</item>
+  				  	<item category="bottomdown" character="boy" code="socks" name="socks" image="socks.swf">tn_socks.swf</item>
+  				  	<item category="upper" character="boy" code="sweater" name="Sweater" image="sweater.swf">tn_sweater.swf</item>
+  				  	<item category="upper" character="boy" code="swimSuit" name="Swim Suit" image="swimSuit.swf">tn_swimSuit.swf</item>
+  				  	<item category="upper" character="boy" code="teeShirt" name="T - Shirt" image="teeShirt.swf">tn_teeShirt.swf</item>
+				  	<item category="upper" character="boy" code="apron" name="Apron" image="apron.swf">tn_apron.swf</item>
+				  	<item category="palmDress" character="boy" code="gloves" name="Gloves" image="gloves.swf">tn_gloves.swf</item>
+				  	<item category="upper" character="boy" code="hoodedSweatshirt" name="Hooded Sweat Shirt" image="hoodedSweatshirt.swf">tn_hoodedSweatshirt.swf</item>
+				  	<item category="bottom" character="boy" code="sandals" name="Sandals" image="sandals.swf">tn_sandals.swf</item>
+				</cloaths>
+			</items>
+   			<items>
+ 				<color>
+  				  	<item name="Red">0xff0000</item>
+   				 	<item name="Green">0x00ff00</item>
+   				 	<item name="Blue">0x0000ff</item>
+   				 	<item name="Yellow">0xffff00</item> 
+   				 	<item name="Brown">0xA52A2A</item>
+   				 	<item name="Coral">0xFF7F50 </item>
+   				 	<item name="Crimson">0xDC143C</item>
+   				 	<item name="Cyan">0x00FFFF</item>
+   				 	<item name="Fuchsia">0xFF00FF</item>
+   				 	<item name="Gold">0xFFD700</item>
+   				 	<item name="Gray">0x808080</item>
+  				  	<item name="GreenYellow">0xADFF2F</item>
+				 	<item name="Ivory">0xFFFFF0</item>
+    				<item name="Khaki">0xF0E68C</item>
+   				 	<item name="Lime">0x00FF00</item>
+    				<item name="Linen">0xFAF0E6</item>
+					<item name="Magenta">0xFF00FF </item>
+  				  	<item name="Maroon">0x800000 </item>
+    				<item name="Olive">0x808000</item>
+   				 	<item name="Orange">0xFFA500 </item>
+					<item name="Pink">0xFFC0CB </item>
+   				 	<item name="Purple">0x800080 </item>
+   				 	<item name="SkyBlue">0x87CEEB</item>
+   				 	<item name="Violet">0xEE82EE </item>
+					<item name="Pink">0xFFC0CB </item>
+ 				   	<item name="White">0xFFFFFF </item>
+  				  	<item name="Salmon">0xFA8072</item>
+   				 	<item name="Peru">0xCD853F </item>
+					<item name="FireBrick">0xB22222 </item>
+  				  	<item name="DarkRed">0x8B0000 </item>
+   				 	<item name="HoneyDew">F0FFF0</item>
+   				 	<item name="Indigo">0x4B0082 </item>
+					<item name="MintCream">0xF5FFFA </item>
+   				 	<item name="YellowGreen">0x9ACD32 </item>
+    				<item name="Chocolate">0xD2691E</item>
+   				 	<item name="Black">0x000000 </item>
+					<item name="FireBrick">0xB22222 </item>
+    				<item name="DarkRed">0x8B0000 </item>
+    				<item name="HoneyDew">F0FFF0</item>
+   				 	<item name="Indigo">0x4B0082 </item>
+					<item name="MintCream">0xF5FFFA </item>
+   				 	<item name="YellowGreen">0x9ACD32 </item>
+    				<item name="Chocolate">0xD2691E</item>
+					<item name="Black">0x000000 </item>
+				</color>
+			</items>
+		</customdata>
+	</gamedata>
+	
+	<language>French</language>
+
+</xml>

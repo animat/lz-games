@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xliff version="1.0" xml:lang="fr">
+
+  <file datatype="plaintext" original="swish.fla" source-language="EN">
+    <header></header>
+    <body>
+      <trans-unit id="001" resname="IDS_INSTRUCTIONS">
+        <source>Tape la réponse correcte pour répondre a l&apos;indication.  Puis, lance la balle dans le pannier pour qu&apos;elle puisse correspondre a ta réponse.   </source>
+      </trans-unit>
+      <trans-unit id="002" resname="IDS_PLAY">
+        <source>Viens jouer!</source>
+      </trans-unit>
+      <trans-unit id="003" resname="IDS_PLAY_AGAIN">
+        <source>Encore une fois?</source>
+      </trans-unit>
+      <trans-unit id="004" resname="IDS_SORRY">
+        <source>Désolé</source>
+      </trans-unit>
+      <trans-unit id="005" resname="IDS_TRY_AGAIN">
+        <source>Essaie encore une fois</source>
+      </trans-unit>
+      <trans-unit id="006" resname="IDS_WIN">
+        <source>Bien joué! Tu as terminé le jeu.</source>
+      </trans-unit>
+    </body>
+  </file>
+
+</xliff>

@@ -1,0 +1,1 @@
+﻿import mx.utils.Delegate;import mx.transitions.Tween;//class Boy {	//	private var clip:MovieClip;	//	public function Boy(main:MovieClip) {		clip = main.attachMovie("boy", "boy", main.getNextHighestDepth());		clip._x = 100;		clip._x = 40;		clip._y = 315;		clip._xscale = 70;		clip._yscale = 70;	}	public function destroy():Void {		removeMovieClip(clip);	}}

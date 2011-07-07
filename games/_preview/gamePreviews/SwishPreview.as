@@ -1,0 +1,1 @@
+﻿class SwishPreview extends GamePreview {	//	public function SwishPreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}	public function loadSwf():Void {		clip.loadMovie(gameName+"-new.swf");	}}

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format max="10">
+		<attribute name="english" label="English word" type="editbox" interactive="true" />
+		<attribute name="lang" label="translation" type="editbox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Practice spelling some idiomatic expressions with AVERE</text>
+		<keyword>avere</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="english" content="Do you like green eggs and ham?" type="text" />
+			<response name="lang" content="Yes, I like green eggs and ham" type="text" />
+		</node>
+		<node>
+			<question name="english" content="Do you like them with a fox in socks?" type="text" />
+			<response name="lang" content="Yes, I like them with a fox in socks" type="text" />
+		</node>
+	</gamedata>
+	
+	<templatedata></templatedata>
+	
+	<language>Italian</language>
+
+</xml>

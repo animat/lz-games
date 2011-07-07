@@ -1,0 +1,1 @@
+﻿class NumberPopPreview extends GamePreview {	//	public function NumberPopPreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}}

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- in format, if type is "combobox" then values will be referenced from customdata -->
+
+<xml>
+	<format gameid="9" gamename="Grabbit" />
+
+	<description>
+		<text>In this game, the user must identify different functions in the sentence (subject, direct object, etc).</text>
+		<keyword>Challenge</keyword>
+		<keyword>Prepositions</keyword>
+		<keyword>English</keyword>
+		<keyword>Some keyword</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="question" content="Find all of the subjects" type="text" />
+			<responses answer="all">
+				<response name="response" content="the children" type="text" />
+				<response name="response" content="they" type="text" />
+				<response name="response" content="the children" type="text" />
+				<response name="response" content="the children" type="text" />
+				<response name="response" content="Suzy" type="text" />
+				<response name="response" content="she" type="text" />
+				<response name="response" content="Joe" type="text" />
+				<response name="response" content="They" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="question" content="Find all of the transitive verbs" type="text" />
+			<responses answer="all">
+				<response name="response" content="test 1" type="text" />
+				<response name="response" content="test 2" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set linkedto="part" label="grammar type">
+			<paragraph>
+				<sentence>
+					<str part="" value="In the morning"/>
+					<str part="subject" value="the children" />
+					<str part="transitive verb" value="eat" />
+					<str part="direct object" value="their cereal." />
+				</sentence>
+				<sentence>
+					<str part="" value="After" />
+					<str part="" value="they eat" />
+					<str part="" value="their cereal," />
+					<str part="subject" value="they" />
+					<str part="intrans_verb" value="run" />
+					<str part="" value="to the store." />
+				</sentence>
+				<sentence>
+					<str part="" value="At the store" />
+					<str part="subject" value="the children" />
+					<str part="transitive verb" value="buy" />
+					<str part="direct object" value="lots of candy." />
+				</sentence>
+				<sentence>
+					<str part="" value="With the candy" />
+					<str part="" value="in their pockets," />
+					<str part="subject" value="the children" />
+					<str part="intransitive verb" value="leave" />
+					<str part="" value="smiling." />
+				</sentence>
+			</paragraph>
+			<paragraph>
+				<sentence>
+					<str part="" value="On the walk home,"/>
+					<str part="subject" value="Suzy" />
+					<str part="transitive verb" value="trips" />
+					<str part="" value="on a rock." />
+				</sentence>
+				<sentence>
+					<str part="subject" value="Her candy" />
+					<str part="intransitive verb" value="falls" />
+					<str part="" value="out of her pockets," />
+					<str part="" value="and" />
+					<str part="subject" value="she" />
+					<str part="intransitive verb" value="starts to cry." />
+				</sentence>
+				<sentence>
+					<str part="subject" value="Joe" />
+					<str part="transitive verb" value="helps" />
+					<str part="direct object" value="Suzy" />
+					<str part="" value="stand up," />
+					<str part="" value="and together" />
+					<str part="subject" value="they" />
+					<str part="transitive verb" value="pick up" />
+					<str part="direct object" value="the candy." />
+				</sentence>
+			</paragraph>
+		</set>
+	</templatedata>
+</xml>

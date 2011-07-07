@@ -1,0 +1,1 @@
+﻿class DownfallPreview extends GamePreview {	//	public function DownfallPreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}	public function loadSwf():Void {		clip.loadMovie(gameName+"-new.swf");	}}

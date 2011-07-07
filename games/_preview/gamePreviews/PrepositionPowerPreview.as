@@ -1,0 +1,1 @@
+﻿class PrepositionPowerPreview extends GamePreview {	//	public function PrepositionPowerPreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}	public function loadSwf():Void {		clip.loadMovie(gameName+"-new.swf");	}}

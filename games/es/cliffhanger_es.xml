@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xliff version="1.0" xml:lang="es">
+
+  <file datatype="plaintext" original="cliffhanger.fla" source-language="EN">
+    <header></header>
+    <body>
+      <trans-unit id="001" resname="IDS_GREAT_JOB">
+        <source>¡Buen trabajo!</source>
+      </trans-unit>
+      <trans-unit id="002" resname="IDS_INSTRUCTIONS">
+        <source>Oprime los arboles a la izquierda de la pantalla y a la derecha para ayudar al pájaro a conseguir las respuestas correctas.</source>
+      </trans-unit>
+      <trans-unit id="003" resname="IDS_PLAY">
+        <source>¡Juguemos!</source>
+      </trans-unit>
+      <trans-unit id="004" resname="IDS_PLAY_AGAIN">
+        <source>¿Jugar otra vez?</source>
+      </trans-unit>
+      <trans-unit id="005" resname="IDS_SCORE">
+        <source>Porcentage:</source>
+      </trans-unit>
+      <trans-unit id="006" resname="IDS_TOTAL_POINTS">
+        <source>Porcentage total:</source>
+      </trans-unit>
+    </body>
+  </file>
+
+</xliff>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xliff version="1.0" xml:lang="xu">
+
+  <file datatype="plaintext" original="Untitled-1.fla" source-language="EN">
+    <header></header>
+    <body>
+      <trans-unit id="001" resname="IDS_GREETING">
+        <source></source>
+      </trans-unit>
+    </body>
+  </file>
+
+</xliff>

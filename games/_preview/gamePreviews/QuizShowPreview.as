@@ -1,0 +1,1 @@
+﻿class QuizShowPreview extends GamePreview {	//	public function QuizShowPreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}	public function loadSwf():Void {		clip.loadMovie(gameName+"-new.swf");	}}

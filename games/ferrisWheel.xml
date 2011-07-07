@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Ferris Wheel">
+		<attribute name="english" label="English word" type="editbox" interactive="true" />
+		<attribute name="lang" label="translation" type="editbox" interactive="true "/>
+	</format>
+	
+	<description>
+		<text>apparecchiate la tavola!</text>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="english" type="text" content="pepper" />
+			<response name="lang" type="text" content="pe" />
+		</node>
+		<node>
+			<question name="english" type="text" content="oil" />
+			<response name="lang" type="text" content="ol" />
+		</node>
+	</gamedata>
+	
+	<gamedata></gamedata>
+	
+	<language>Italian</language>
+
+</xml>

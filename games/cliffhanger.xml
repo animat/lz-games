@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Cliffhanger">
+		<attribute name="value" label="vocabulary word" type="editbox" interactive="true" />
+		<attribute name="ltarget" label="left target" type="combobox" interactive="true" />
+		<attribute name="rtarget" label="right target" type="combobox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Play Cliffhanger to practice identifying articles for things found in nature.</text>
+		<keyword>masculin</keyword>
+		<keyword>feminin</keyword>
+		<keyword>l'article defini</keyword>
+		<keyword>la salle de classe</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="question" content="maison" type="text" />
+			<responses answer="all">
+				<ltarget name="ltarget" content="la" type="text" />
+				<rtarget name="rtarget" content="feminine" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="question" content="mot" type="text" />
+			<responses answer="all">
+				<ltarget name="ltarget" content="le" type="text" />
+				<rtarget name="rtarget" content="masculine" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="left target" linkedto="ltarget">
+			<option name="value" content="le" type="text" />
+			<option name="value" content="la" type="text" />
+			<option name="value" content="les" type="text" />
+		</set>
+		<set label="right target" linkedto="rtarget">
+			<option name="value" content="masculine" type="text" />
+			<option name="value" content="feminine" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>French</language>
+
+</xml>

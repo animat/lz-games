@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Swish" v="2.0">
+		<attribute name="english" label="English form:" type="editbox" interactive="true" />
+		<attribute name="lang" label="Translation:" type="editbox" interactive="true" />
+		<attribute name="categ" label="Appropriate match:" type="combobox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Practice verb forms with your new verb vocabulary and the six tenses we have now learned in Latin.</text>
+		<keyword>tenses</keyword>
+		<keyword>perfect</keyword>
+		<keyword>verbs</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="english" content="he had given" type="text" />
+			<responses answer="all">
+				<response name="lang" content="donaverat" type="text" />
+				<response name="categ" content="3rd, sg" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="I will earn" content="merebo" type="text" />
+			<responses answer="all">
+				<response name="lang" content="I will earn" type="text" />
+				<response name="categ" content="1st, sg" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="english" content="they have carried" type="text" />
+			<responses answer="all">
+				<response name="lang" content="portaverunt" type="text" />
+				<response name="categ" content="3rd, pl" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="Possible categories:" linkedto="categ">
+			<option name="value" content="1st, sg" type="text" />
+			<option name="value" content="2nd, sg" type="text" />
+			<option name="value" content="3rd, sg" type="text" />
+			<option name="value" content="1st, pl" type="text" />
+			<option name="value" content="2nd, pl" type="text" />
+			<option name="value" content="3rd, pl" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>Latin</language>
+
+</xml>

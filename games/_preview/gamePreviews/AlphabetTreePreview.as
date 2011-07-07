@@ -1,0 +1,1 @@
+﻿class AlphabetTreePreview extends GamePreview {	//	public function AlphabetTreePreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}	public function loadSwf():Void {		clip.loadMovie(gameName+"-new.swf");	}}

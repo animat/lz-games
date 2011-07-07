@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Artist">
+		<attribute name="str" label="Sentence" type="editbox" interactive="true" />
+		<attribute name="img" label="Image" type="editbox" interactive="true" />
+		<attribute name="color" label="Color that matches" type="editbox" interactive="true" />
+	</format>
+	
+	<description></description>
+	
+	<gamedata>
+	
+		<node str="The flower is red" img="flower" color="Red" />
+		<node str="The car is yellow" img="car" color="Yellow" />
+		<node str="The ball is gree" img="ball" color="Green" />
+		<node str="The star is blue" img="star" color="Blue" />
+		<node str="The house is Green" img="house" color="Green" />
+		<node str="The dog is yellow" img="dog" color="Yellow" />
+		<node str="The book is red" img="book" color="Red" />
+		<node str="The pen is blue" img="pen" color="Blue" />
+		<node str="The pencil is red" img="pencil" color="Red" />
+		<node str="The Chair is green" img="chair" color="Green" />
+		<node str="The ice cream is blue" img="ice cream" color="Blue" />
+		<node str="The frog is green" img="frog" color="Green" />
+		<node str="The tree is green" img="tree" color="Green" />
+		<node str="The bird is yellow" img="bird" color="Yellow" />
+		<node str="The fish is blue" img="fish" color="Blue" />	
+		<node str="The Telephone is red" img="telephone" color="Red" />
+		<node str="The bed is yellow" img="bed" color="Yellow" />
+		<node str="The cup is yellow" img="cup" color="Yellow" />
+		<node str="The key is red" img="key" color="Red" />
+		<node str="The clock is green" img="clock" color="Green" />
+		<node str="The kite is blue" img="kite" color="Blue" />
+		<node str="The lamp is red" img="lamp" color="Red" />
+		<node str="The boat is blue" img="boat" color="Blue" />
+		<node str="The guiter is red" img="guiter" color="Red" />
+		<node str="The cake is yellow" img="cake" color="Yellow" />
+	</gamedata>
+	
+	<gamedata>
+		<customdata linkedto="Images" path="../media/image/paintBucket">
+			<value img="flower">flower.swf</value>
+			<value img="car">car.swf</value>
+			<value img="ball">ball.swf</value>
+			<value img="star">star.swf</value>
+			<value img="house">house.swf</value>
+			<value img="dog">dog.swf</value>
+			<value img="book">book.swf</value>
+			<value img="pen">pen.swf</value>
+			<value img="pencil">pencil.swf</value>
+			<value img="chair">chair.swf</value>
+			<value img="ice cream">icecream.swf</value>
+			<value img="frog">frog.swf</value>
+			<value img="tree">tree.swf</value>
+			<value img="bird">bird.swf</value>
+			<value img="fish">fish.swf</value>
+			<value img="telephone">telephone.swf</value>
+			<value img="bed">bed.swf</value>
+			<value img="cup">cup.swf</value>
+			<value img="key">key.swf</value>
+			<value img="clock">clock.swf</value>
+			<value img="kite">kite.swf</value>
+			<value img="lamp">lamp.swf</value>
+			<value img="boat">boat.swf</value>
+			<value img="guiter">guiter.swf</value>
+			<value img="cake">cake.swf</value>
+		</customdata>
+		<customdata linkedto="Colors">
+			<value name="Red">0xff0000</value>
+			<value name="Green">0x00ff00</value>
+			<value name="Blue">0x0000ff</value>
+			<value name="Yellow">0xffff00</value>
+	<value name="Red">0xff0000</value>
+			<value name="Green">0x00ff00</value>
+			<value name="Blue">0x0000ff</value>
+			<value name="Yellow">0xffff00</value>
+	<value name="Red">0xff0000</value>
+			<value name="Green">0x00ff00</value>
+			<value name="Blue">0x0000ff</value>
+			<value name="Yellow">0xffff00</value>
+	<value name="Red">0xff0000</value>
+			<value name="Green">0x00ff00</value>
+	
+		</customdata>
+	</gamedata>
+	
+	<language>Italian</language>
+
+</xml>

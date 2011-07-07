@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<format />
+	
+	<description>
+		<text>Play with your food!</text>
+		<keyword>food</keyword>
+		<keyword>fruits</keyword>
+		<keyword>vegetables</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="itemName" content="apple" type="text" />
+			<response name="itemPic" content="media/image/food/apple.swf" type="image" />
+		</node>
+		
+		<node>
+			<question name="itemName" content="banana" type="text" />
+			<response name="itemPic" content="media/image/food/banana.swf" type="image" />
+		</node>
+		
+		<node>
+			<question name="itemName" content="bread" type="text" />
+			<response name="itemPic" content="media/image/food/bread.swf" type="image" />
+		</node>
+	</gamedata>
+	
+	<gamedata></gamedata>
+	
+	<language>French</language>
+
+</xml>

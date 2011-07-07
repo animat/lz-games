@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Bath Tub Bubbles" v="2.0" gametype="Matching">
+		<attribute name="value" label="Noun" type="editbox" interactive="true" />
+		<attribute name="answer" label="Correct match" type="combobox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Choose the correct definite article for the noun given.</text>
+		<keyword>Definite Articles with nouns</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="value" content="guapa" type="text" />
+			<responses answer="all">
+				<response name="answer" content="la" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="perro" type="text" />
+			<responses answer="all">
+				<response name="answer" content="la" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="hombre" type="text" />
+			<responses answer="all">
+				<response name="answer" content="la" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="options" linkedto="answer">
+			<option name="value" content="la" type="text" />
+			<option name="value" content="el" type="text" />
+			<option name="value" content="l'" type="text" />
+			<option name="value" content="los" type="text" />
+			<option name="value" content="las" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>Spanish</language>
+
+</xml>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xliff version="1.0" xml:lang="es">
+
+  <file datatype="plaintext" original="swish.fla" source-language="EN">
+    <header></header>
+    <body>
+      <trans-unit id="001" resname="IDS_INSTRUCTIONS">
+        <source>Escribe la respuesta correcta basada en lo presentado y luego lanza la bola a la cesta para combinarla con tu respuesta.</source>
+      </trans-unit>
+      <trans-unit id="002" resname="IDS_PLAY">
+        <source>¡Juguemos!</source>
+      </trans-unit>
+      <trans-unit id="003" resname="IDS_PLAY_AGAIN">
+        <source>¿Jugar otra vez?</source>
+      </trans-unit>
+      <trans-unit id="004" resname="IDS_SORRY">
+        <source>Lo siento</source>
+      </trans-unit>
+      <trans-unit id="005" resname="IDS_TRY_AGAIN">
+        <source>Intenta otra vez</source>
+      </trans-unit>
+      <trans-unit id="006" resname="IDS_WIN">
+        <source>¡Excelente trabajo! Terminaste el juego.</source>
+      </trans-unit>
+    </body>
+  </file>
+
+</xliff>

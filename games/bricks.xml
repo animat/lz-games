@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Bricks">
+		<attribute name="english" label="English word" type="editbox" interactive="true" />
+		<attribute name="lang" label="translation" type="editbox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Practice spelling some idiomatic expressions with AVERE</text>
+		<keyword>avere</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="english" type="text" content="I&apos;m fretta" />
+			<response name="lang" type="text" content="ho fretta" />
+		</node>
+		<node>
+			<question name="english" type="text" content="I&apos;m afraid" />
+			<response name="response" type="text" content="ho paura" />
+		</node>
+		<node>
+			<question name="english" type="text" content="I&apos;m wrong" />
+			<response name="lang" type="text" content="ho torto" />
+		</node>
+	</gamedata>
+	
+	<gamedata></gamedata>
+	
+	<language>Italian</language>
+
+</xml>

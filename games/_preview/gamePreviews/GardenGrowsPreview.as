@@ -1,0 +1,1 @@
+﻿class GardenGrowsPreview extends GamePreview {	//	public function GardenGrowsPreview(gameName:String, clip:MovieClip, path:String) {		super(gameName, clip, path);	}	public function loadSwf():Void {		clip.loadMovie(gameName+"-new.swf");	}}

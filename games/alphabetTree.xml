@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Alphabet Tree" v="2.0" gametype="Grouping">
+		<attribute name="value" label="vocabulary word" type="editbox" interactive="true" />
+		<attribute name="decoy" label="decoy?" type="combobox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Quali sono gli oggetti che usate per apparecchiare la tavola?</text>
+		<keyword>a tavola</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="value" content="sale" type="text" />
+			<responses answer="all">
+				<response name="decoy" content="correct" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="forchetta" type="text" />
+			<responses answer="all">
+				<response name="decoy" content="correct" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="coltello" type="text" />
+			<responses answer="all">
+				<response name="decoy" content="correct" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="cappello" type="text" />
+			<responses answer="all">
+				<response name="decoy" content="incorrect" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="theme" linkedto="correctGroupName">
+			<option name="value" content="a tavola" type="text" />
+		</set>
+		<set label="This question is..." linkedto="decoy">
+			<option name="value" content="correct" type="text" />
+			<option name="value" content="incorrect" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>Italian</language>
+
+</xml>

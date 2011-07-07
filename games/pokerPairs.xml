@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<format gamename="Concentration">
+		<attribute name="english" label="English word" type="editbox" interactive="true" />
+		<attribute name="lang" label="translation" type="editbox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Type in the Latin for the given verb forms. Pay careful attention to the tense and voice of each form.</text>
+		<keyword>active </keyword>
+		<keyword>passive</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="english" type="text" content="Colin is a Sundman" />
+			<response name="language" type="text" content="Angevine" />
+		</node>
+		<node>
+			<question name="english" type="image" content="media/image/food/bread.swf" />
+			<response name="language" type="image" content="media/image/food/water.swf" />
+		</node>
+		<node>
+			<question name="english" type="image" content="media/image/food/apple.swf" />
+			<response name="language" type="image" content="media/image/food/carrot.swf" />
+		</node>
+		<node>
+			<question name="english" type="text" content="John" />
+			<response name="language" type="text" content="Doe" />
+		</node>
+	</gamedata>
+	
+	<gamedata></gamedata>
+	
+	<language>Latin</language>
+
+</xml>

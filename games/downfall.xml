@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Downfall">
+		<attribute name="value" label="question" type="editbox" interactive="true" />
+		<attribute name="group" label="group" type="combobox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Play Downfall to practice the verb "to be" (esse) in Latin.</text>
+		<keyword>verb conjugations</keyword>
+		<keyword>irregular verbs</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="value" content="we are" type="text" />
+			<responses answer="all">
+				<response name="group" content="sumus" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="he is" type="text" />
+			<responses answer="all">
+				<response name="group" content="est" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="you (PL) are" type="text" />
+			<responses answer="all">
+				<response name="group" content="estis" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="they are" type="text" />
+			<responses answer="all">
+				<response name="group" content="sunt" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="I am" type="text" />
+			<responses answer="all">
+				<response name="group" content="sum" type="text" />
+			</responses>
+		</node>
+		<node>
+			<question name="value" content="you (SG) are" type="text" />
+			<responses answer="all">
+				<response name="group" content="es" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata>
+		<set label="Groups" linkedto="group">
+			<option name="value" content="sum" type="text" />
+			<option name="value" content="es" type="text" />
+			<option name="value" content="est" type="text" />
+			<option name="value" content="sumus" type="text" />
+			<option name="value" content="estis" type="text" />
+			<option name="value" content="sunt" type="text" />
+		</set>
+	</templatedata>
+	
+	<language>Latin</language>
+
+</xml>

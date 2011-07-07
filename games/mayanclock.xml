@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<format gamename="Mayan Clock">
+		<attribute name="english" label="English word" type="editbox" interactive="true" />
+		<attribute name="lang" label="translation" type="editbox" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Find the correct time on the clock.</text>
+		<keyword>time </keyword>
+	</description>
+	
+	<gamedata>
+		<node mode="explore">
+			<question name="prompt" content="It is 11:30am" type="text" />
+			<responses answer="all">
+				<response name="response" content="11:30" type="text" />
+			</responses>
+		</node>
+		
+		<node mode="match">
+			<question name="prompt" content="8:15am" type="text" />
+			<responses answer="all">
+				<response name="response" content="It is quarter past eight" type="text" />
+			</responses>
+			<options>
+				<option name="option" content="It is half past eight" type="text" />
+				<option name="option" content="It is midnight" type="text" />
+				<option name="option" content="It is quarter past eight" type="text" />
+				<option name="option" content="It is eight o'clock" type="text" />
+			</options>
+		</node>
+		
+		<node mode="typein">
+			<question name="prompt" content="1:30pm" type="text" />
+			<responses answer="all">
+				<response name="response" content="It is half past one" type="text" />
+			</responses>
+		</node>
+	</gamedata>
+	
+	<templatedata></templatedata>
+	
+	<language>Italian</language>
+
+</xml>

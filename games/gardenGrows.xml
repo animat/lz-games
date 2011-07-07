@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+	<format gamename="Garden Grows">
+		<attribute name="english" interactive="true" />
+		<attribute name="lang" interactive="true" />
+	</format>
+	
+	<description>
+		<text>Match the French word to the English word!</text>
+		<keyword>keyword #1</keyword>
+		<keyword>keyword #2</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="q" type="text" content="" />
+			<response name="english" type="text" content="committo" />
+		</node>
+		<node>
+			<question name="q" type="text" content="" />
+			<response name="english" type="text" content="ponere" />
+		</node>
+		<node>
+			<question name="q" type="text" content="" />
+			<response name="english" type="text" content="amare" />
+		</node>
+		<node>
+			<question name="q" type="text" content="" />
+			<response name="english" type="text" content="poena" />
+		</node>
+	</gamedata>
+	
+	<gamedata>
+	</gamedata>
+	
+	<language>French</language>
+</xml>

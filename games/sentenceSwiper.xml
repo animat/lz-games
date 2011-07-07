@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Sentence Swiper" v="2.0" gametype="Sentence" />
+	
+	<description>
+		<text>Figure out what function each noun is performing in the sentence and what case would be used for those words in Latin.</text>
+		<keyword>cases</keyword>
+		<keyword>functions</keyword>
+	</description>
+	
+	<gamedata>	
+		<node>
+			<question name="question" content="Find the subject in the sentence" type="text" />
+			<response name="response" content="The winner" type="text" />
+			<sentence>
+				<phrase>The winner</phrase>
+				<phrase>of the game</phrase>
+				<phrase>will win.</phrase>
+			</sentence>
+		</node>
+		
+		<node>
+			<question name="question" content="Find the verb in the sentence" type="text" />
+			<response name="response" content="will win." type="text" />
+			<sentence>
+				<phrase>The winner</phrase>
+				<phrase>of the game</phrase>
+				<phrase>will win.</phrase>
+			</sentence>
+		</node>
+		
+		<node>
+			<question name="question" content="Find the verb" type="text" />
+			<response name="response" content="jump" type="text" />
+			<sentence>
+				<phrase>shoe</phrase>
+				<phrase>remote</phrase>
+				<phrase>jacket</phrase>
+				<phrase>column</phrase>
+				<phrase>jump</phrase>
+				<phrase>television</phrase>
+			</sentence>
+		</node>
+		
+		<node>
+			<question name="question" content="Find the sauce" type="text" />
+			<response name="response" content="tomato" type="text" />
+			<sentence>
+				<phrase>gingerbread</phrase>
+				<phrase>ice cream</phrase>
+				<phrase>football</phrase>
+				<phrase>electric outlet</phrase>
+				<phrase>face</phrase>
+				<phrase>tomato</phrase>
+			</sentence>
+		</node>
+		
+	</gamedata>
+	
+	<gamedata></gamedata>
+	
+	<language>Latin</language>
+
+</xml>

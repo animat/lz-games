@@ -1,0 +1,8 @@
+﻿<flash_project name="foreignCharacters" version="1">
+    <project_file path=".:foreignCharacters.fla" filetype="fla" profile="" def_file="true" />
+    <project_file path=".:characters.xml" filetype="xml" />
+    <project_file path=".:core/ForeignCharacters.as" filetype="as" />
+    <project_file path=".:classes/Scroller.as" filetype="as" />
+    <project_file path=".:classes/ForeignLetter.as" filetype="as" />
+    <project_file path=".:classes/CharacterSet.as" filetype="as" />
+</flash_project>

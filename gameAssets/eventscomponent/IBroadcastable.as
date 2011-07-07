@@ -1,0 +1,1 @@
+﻿interface com.fonetag.events.IBroadcastable { 	 	        public function addEventListener(eventType:String, scope:Object, handlerFunction:String):Void; 	 	        public function broadcastEvent(eventType:String, dataObject:Object):Void; 	 	        public function removeEventListener(eventType:String, scope:Object, handlerFunction:String):Void; 	 	}
