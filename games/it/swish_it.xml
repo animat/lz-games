@@ -6,22 +6,16 @@
     <header></header>
     <body>
       <trans-unit id="001" resname="IDS_INSTRUCTIONS">
-        <source>Scrivi la risposta corretta come da indicazioni , poi spara alla palla nel cerchio per unire le risposte.</source>
+        <source></source>
       </trans-unit>
-      <trans-unit id="002" resname="IDS_PLAY">
-        <source>Giochiamo!</source>
+      <trans-unit id="002" resname="IDS_WIN">
+        <source></source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY_AGAIN">
-        <source>Vuoi giocare ancora?</source>
+      <trans-unit id="003" resname="IDS_PLAY">
+        <source></source>
       </trans-unit>
-      <trans-unit id="004" resname="IDS_SORRY">
-        <source>Mi dispiace</source>
-      </trans-unit>
-      <trans-unit id="005" resname="IDS_TRY_AGAIN">
-        <source>Riprova</source>
-      </trans-unit>
-      <trans-unit id="006" resname="IDS_WIN">
-        <source>Bravissimo! Hai finito il gioco.</source>
+      <trans-unit id="004" resname="IDS_PLAY_AGAIN">
+        <source></source>
       </trans-unit>
     </body>
   </file>

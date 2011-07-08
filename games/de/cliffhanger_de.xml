@@ -5,23 +5,17 @@
   <file datatype="plaintext" original="cliffhanger.fla" source-language="EN">
     <header></header>
     <body>
-      <trans-unit id="001" resname="IDS_GREAT_JOB">
-        <source>Sehr gut!</source>
+      <trans-unit id="001" resname="IDS_INSTRUCTIONS">
+        <source></source>
       </trans-unit>
-      <trans-unit id="002" resname="IDS_INSTRUCTIONS">
-        <source>Um den Vogel zu helfen, die richtige Antwort zu finden, musst du auf eines der Bäume auf der linken Seite des Bildschirms klicken und dann erst auf eines der Bäume auf der rechten Seite.</source>
+      <trans-unit id="002" resname="IDS_GREAT_JOB">
+        <source></source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY">
-        <source>Los geht&apos;s!</source>
+      <trans-unit id="003" resname="IDS_TOTAL_POINTS">
+        <source></source>
       </trans-unit>
       <trans-unit id="004" resname="IDS_PLAY_AGAIN">
-        <source>Nochmal?</source>
-      </trans-unit>
-      <trans-unit id="005" resname="IDS_SCORE">
-        <source>Punktestand:</source>
-      </trans-unit>
-      <trans-unit id="006" resname="IDS_TOTAL_POINTS">
-        <source>Insgesamt Punktestand:</source>
+        <source></source>
       </trans-unit>
     </body>
   </file>

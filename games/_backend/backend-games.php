@@ -1,7 +1,4 @@
 <?php
-
-// test 1 from lzacademy
-
 include_once('../../includes/include.php');
 
 function getRealIpAddr()
