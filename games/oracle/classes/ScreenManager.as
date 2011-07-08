@@ -26,9 +26,10 @@ class ScreenManager {
 		}
 	}
 	
-	public function setOptions(options:Array):Void {
+	public function setOptions(options:Array):Screen {
 		optionDisplays = new Array();
 		incorrectScreens = new Array();
+		correctScreen = null;
 		var answer:Stimulus = LZGame.getInstance().questionList.getCurrentQ().getResponses()[0].getStimulus();
 		
 		for (var i:Number = 0; i < screens.length; i++) {
@@ -39,10 +40,14 @@ class ScreenManager {
 			
 			if (options[i].getStimulus().equals(answer)) {
 				correctScreen = screens[i];
+				screens[i].setCorrectTarget(true);
+				correctScreen = screens[i];
 			} else {
-				incorrectScreens.push(screens[i])
+				incorrectScreens.push(screens[i]);
+				screens[i].setCorrectTarget(false);
 			}
 		}
+		return correctScreen;
 	}
 	
 	public function showLoading():Void {

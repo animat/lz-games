@@ -6,22 +6,16 @@
     <header></header>
     <body>
       <trans-unit id="001" resname="IDS_INSTRUCTIONS">
-        <source>Schreibe die richtige Antwort und schieβe dann den Ball ins Tor, um die passende Antwort zu geben.</source>
+        <source></source>
       </trans-unit>
-      <trans-unit id="002" resname="IDS_PLAY">
-        <source>Los geht&apos;s!</source>
+      <trans-unit id="002" resname="IDS_WIN">
+        <source></source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY_AGAIN">
-        <source>Nochmal?</source>
+      <trans-unit id="003" resname="IDS_PLAY">
+        <source></source>
       </trans-unit>
-      <trans-unit id="004" resname="IDS_SORRY">
-        <source>Leider nein</source>
-      </trans-unit>
-      <trans-unit id="005" resname="IDS_TRY_AGAIN">
-        <source>Versuch&apos;s nochmal</source>
-      </trans-unit>
-      <trans-unit id="006" resname="IDS_WIN">
-        <source>Super! Du hast das Spiel beendet.</source>
+      <trans-unit id="004" resname="IDS_PLAY_AGAIN">
+        <source></source>
       </trans-unit>
     </body>
   </file>

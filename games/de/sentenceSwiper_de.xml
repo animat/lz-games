@@ -5,20 +5,20 @@
   <file datatype="plaintext" original="sentenceSwiper.fla" source-language="EN">
     <header></header>
     <body>
-      <trans-unit id="001" resname="IDS_CONGRATS">
-        <source>Herzlichen Glückwunsch!</source>
+      <trans-unit id="001" resname="IDS_PLAY">
+        <source></source>
       </trans-unit>
-      <trans-unit id="002" resname="IDS_INSTRUCTIONS">
-        <source>Drück die Leertaste, um das Blatt zu stoppen, sobald die richtige Antwort markiert ist. Arbeite schnell, um eine gue Zeit zu bekommen, aber sei vorsichtig - für jede falsche Antwort erhälst du 5 weitere Sekunden zu deinem Punktestand.</source>
+      <trans-unit id="002" resname="IDS_PLAY_AGAIN">
+        <source></source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY">
-        <source>Los geht&apos;s!</source>
+      <trans-unit id="003" resname="IDS_INSTRUCTIONS">
+        <source></source>
       </trans-unit>
-      <trans-unit id="004" resname="IDS_PLAY_AGAIN">
-        <source>Nochmal?</source>
+      <trans-unit id="004" resname="IDS_CONGRATS">
+        <source></source>
       </trans-unit>
       <trans-unit id="005" resname="IDS_YOU_WON">
-        <source>Super! Du hast das Spiel beendet.</source>
+        <source></source>
       </trans-unit>
     </body>
   </file>
