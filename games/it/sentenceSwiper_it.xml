@@ -5,20 +5,20 @@
   <file datatype="plaintext" original="sentenceSwiper.fla" source-language="EN">
     <header></header>
     <body>
-      <trans-unit id="001" resname="IDS_CONGRATS">
-        <source>Congratulazioni</source>
+      <trans-unit id="001" resname="IDS_PLAY">
+        <source></source>
       </trans-unit>
-      <trans-unit id="002" resname="IDS_INSTRUCTIONS">
-        <source>Clicca sullo spazio per fermare la foglia quando la risposta corretta e` evidenziata. Fai velocemente per ottenere un buon tempo, ma fai attenzione  - per ogni errore hai 5 secondi in piu` sul punteggio</source>
+      <trans-unit id="002" resname="IDS_PLAY_AGAIN">
+        <source></source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY">
-        <source>Giochiamo!</source>
+      <trans-unit id="003" resname="IDS_INSTRUCTIONS">
+        <source></source>
       </trans-unit>
-      <trans-unit id="004" resname="IDS_PLAY_AGAIN">
-        <source>Vuoi giocare ancora?</source>
+      <trans-unit id="004" resname="IDS_CONGRATS">
+        <source></source>
       </trans-unit>
       <trans-unit id="005" resname="IDS_YOU_WON">
-        <source>Bravissimo! Hai finito il gioco.</source>
+        <source></source>
       </trans-unit>
     </body>
   </file>

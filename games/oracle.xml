@@ -22,25 +22,23 @@
 				<option name="option" content="media/image/body/face.swf" type="image" />
 			</options>
 		</node>
-		
 		<node>
-			<question name="question" content="Here is question #2" type="text" />
-			<response name="response" content="Second option is CORRECT" type="text" />
-			<options>
-				<option name="option" content="This option is incorrect" type="text" />
-				<option name="option" content="Second option is CORRECT" type="text" />
-				<option name="option" content="The third option is incorrect" type="text" />
-				<option name="option" content="The last option is wrong" type="text" />
-			</options>
-		</node>
-		
-		<node>
-			<question name="question" content="Find the face" type="text" />
+			<question name="question" content="find the face" type="text" />
 			<response name="response" content="media/image/body/face.swf" type="image" />
 			<options>
 				<option name="option" content="media/image/body/ears.swf" type="image" />
 				<option name="option" content="media/image/body/mouth.swf" type="image" />
 				<option name="option" content="media/image/body/head.swf" type="image" />
+				<option name="option" content="media/image/body/face.swf" type="image" />
+			</options>
+		</node>
+		<node>
+			<question name="question" content="find the mouth" type="text" />
+			<response name="response" content="media/image/body/mouth.swf" type="image" />
+			<options>
+				<option name="option" content="media/image/body/mouth.swf" type="image" />
+				<option name="option" content="media/image/body/head.swf" type="image" />
+				<option name="option" content="media/image/body/ears.swf" type="image" />
 				<option name="option" content="media/image/body/face.swf" type="image" />
 			</options>
 		</node>
