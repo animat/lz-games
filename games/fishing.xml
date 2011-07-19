@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-	<format gamename="Alphabet Tree">
+	<format gamename="Fishing">
 		<attribute name="english" interactive="true" />
 		<attribute name="lang" interactive="true" />
 	</format>
