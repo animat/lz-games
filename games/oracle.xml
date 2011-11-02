@@ -16,8 +16,8 @@
 			<question name="question" content="find the head" type="text" />
 			<response name="response" content="media/image/body/head.swf" type="image" />
 			<options>
-				<option name="option" content="media/image/body/ears.swf" type="image" />
-				<option name="option" content="media/image/body/mouth.swf" type="image" />
+				<option name="option" content="head" type="text" />
+				<option name="option" content="this is a very long string that will fit in one place!" type="text" />
 				<option name="option" content="media/image/body/head.swf" type="image" />
 				<option name="option" content="media/image/body/face.swf" type="image" />
 			</options>

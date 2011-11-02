@@ -33,8 +33,9 @@ class ScreenManager {
 		var answer:Stimulus = LZGame.getInstance().questionList.getCurrentQ().getResponses()[0].getStimulus();
 		
 		for (var i:Number = 0; i < screens.length; i++) {
-			var tmp:OOptionDisplay = new OOptionDisplay(screens[i], String(i), options[i].getStimulus(), LZGame.getInstance());
-			tmp.setDim(100, 100);
+			var tmp:OOptionDisplay = new OOptionDisplay(screens[i], String(i), options[i].getStimulus());
+			tmp.setDim(80, 90);
+			tmp.initPadding();
 			optionDisplays.push(tmp);
 			screens[i].setStimulus(options[i].getStimulus());
 			
