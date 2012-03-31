@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+
+	<format gamename="Catch" />
+	
+	<description>
+		<text>Practice spelling some idiomatic expressions with AVERE</text>
+		<keyword>avere</keyword>
+	</description>
+	
+	<gamedata>
+		<node>
+			<question name="english" type="text" content="this is a very very very very long string" />
+			<response name="lang" type="text" content="long strings" />
+		</node>
+		<node>
+			<question name="english" type="text" content="I&apos;m afraid" />
+			<response name="response" type="text" content="ho paura" />
+		</node>
+		<node>
+			<question name="english" type="text" content="I&apos;m wrong" />
+			<response name="lang" type="text" content="ho torto" />
+		</node>
+		<node>
+			<question name="english" type="text" content="rana" />
+			<response name="lang" type="text" content="frog" />
+		</node>
+		<node>
+			<question name="english" type="text" content="equus" />
+			<response name="lang" type="text" content="horse is pretty big" />
+		</node>
+		<node>
+			<question name="english" type="text" content="bonus" />
+			<response name="lang" type="text" content="good" />
+		</node>
+		<node>
+			<question name="english" type="text" content="malus" />
+			<response name="lang" type="text" content="bad string is longer than expected" />
+		</node>
+		<node>
+			<question name="english" type="text" content="puella" />
+			<response name="lang" type="text" content="girl" />
+		</node>
+		<node>
+			<question name="english" type="text" content="puer" />
+			<response name="lang" type="text" content="boy" />
+		</node>
+		<node>
+			<question name="english" type="text" content="taurus" />
+			<response name="lang" type="text" content="bull" />
+		</node>
+	</gamedata>
+	
+	<templatedata></templatedata>
+	
+	<language>Italian</language>
+
+</xml>
