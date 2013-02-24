@@ -58,7 +58,7 @@ class Preloader {
 		if (_root.game_id == null) {
 			_gameLoader.loadClip("preloader.swf", _preloaderMc);
 		} else {
-			_gameLoader.loadClip("/../../LZContainer/preloader.swf", _preloaderMc);
+			_gameLoader.loadClip(_root.path + "LZContainer/preloader.swf", _preloaderMc);
 		}
 	}
 	

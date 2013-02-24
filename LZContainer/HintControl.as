@@ -41,7 +41,7 @@ Instantiate and prepare the hints object. Call getHints(hintsHolder) on RunGame 
 		var hintsListener:Object = new Object ();
 		hintsListener.onLoadInit = Delegate.create (this, initHintLoaded);
 		hintsLoader.addListener (hintsListener);
-		hintsLoader.loadClip ("../LZContainer/hints.swf",_hintsHolder);
+		hintsLoader.loadClip (_root.path + "LZContainer/hints.swf",_hintsHolder);
 
 	}
 /**
