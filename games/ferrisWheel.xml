@@ -13,11 +13,11 @@
 	<gamedata>
 		<node>
 			<question name="english" type="text" content="pepper" />
-			<response name="lang" type="text" content="pe" />
+			<response name="lang" type="text" content="pepe" />
 		</node>
 		<node>
 			<question name="english" type="text" content="oil" />
-			<response name="lang" type="text" content="ol" />
+			<response name="lang" type="text" content="olio" />
 		</node>
 	</gamedata>
 	
