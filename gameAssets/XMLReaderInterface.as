@@ -1,1 +1,0 @@
-﻿interface XMLReaderInterface {	public function getXML():Void;	public function generateQuestions(nodes:Array, attributeNames:Array):Array;	public function generateUniversalOptions(inputArray:Array):Array;}

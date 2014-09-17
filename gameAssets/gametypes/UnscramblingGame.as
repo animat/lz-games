@@ -1,1 +1,0 @@
-﻿interface gametypes.UnscramblingGame {	public function nextQuestion(proceed:Boolean):Void;	public function refreshQDisplay():Void;	public function evaluate():Void;	public function correctAnswer():Void;	public function incorrectAnswer():Void;	public function winGame():Void;	public function getScore():String;}

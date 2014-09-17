@@ -1,1 +1,0 @@
-﻿package{	import flash.display.*		public class Avatar extends MovieClip	{					public function Avatar()		{			trace("Wow! You made a new avatar!");		}			}}
