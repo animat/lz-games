@@ -88,17 +88,14 @@ LgzLib.Hud = function (mgr) {
 		$lgzVP.attr('content', '');
 	};
 	thisObj.viewPortFsCustom = function () {
-		return;
+	//note: this function for future use.
 	//todo: this string should be determined only once at startup.
 		if (game.device.iPhone) {
-			//$lgzVP.attr('content', 'user-scalable=no, width=640, height=480, minimal-ui');
-			
-			$lgzVP.attr('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui');
+			$lgzVP.attr('content', 'user-scalable=no, width=device-width, height=device-height, target-densitydpi=device-dpi, initial-scale=1.0, maximum-scale=1.0, minimal-ui');
 			return;
 		}
 		if (game.device.iPhone4) {
-			//$lgzVP.attr('content', 'user-scalable=no, width=640, height=480, minimal-ui');
-			$lgzVP.attr('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui');
+			$lgzVP.attr('content', 'user-scalable=no, width=device-width, height=device-height, target-densitydpi=device-dpi, initial-scale=1.0, maximum-scale=1.0, minimal-ui');
 			return;
 		}
 	};
@@ -109,18 +106,22 @@ LgzLib.Hud = function (mgr) {
 	thisObj.fullScreenStart = function () {
 		thisObj.requestedFS = true;
 
+		$lgzHide.css('display', 'none');
+		$lgzMin.addClass('lgzMin');
+
 		thisObj.viewPortFsDefault();
+		
+		
+/*
+ *      note: per device viewport setting for future use
+ *
 		window.setTimeout(
 			function () { thisObj.viewPortFsCustom();
 				},
 			500
 		);
-
-		$lgzHide.css('display', 'none');
-		//$lgzMin.css('width', '100%');
-		//$lgzMin.css('min-width', '100%');
-		$lgzMin.addClass('lgzMin');
-
+		
+*/
 		game.scale.fullScreenTarget =  document.getElementById('lgzContainer');
                 
 		//note: use SHOW_ALL to keep aspect
@@ -154,8 +155,6 @@ LgzLib.Hud = function (mgr) {
 		eBody.style.width = '';
 		eBody.style.height = '';
 		$lgzHide.css('display', '');
-		//$lgzMin.css('width', '');
-		//$lgzMin.css('min-width', '');
 		$lgzMin.removeClass('lgzMin');
 
 		// mgr.resume();
@@ -225,7 +224,6 @@ LgzLib.Hud = function (mgr) {
 		var fs, desktop;
 		fs = thisObj.isFullScreen();
 		desktop = game.device.desktop;
-console.debug('toggleFsButtons');
 		if (!fs) {
 console.debug('toggleFsButtons: 1');
 			if (desktop) {
