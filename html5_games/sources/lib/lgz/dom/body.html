@@ -1,0 +1,30 @@
+<div id="lgzContainer" >
+    <div id="gamecanvas"></div>
+
+    <div id="lgzHud">
+        <div class="menu" >
+        <div class="bar">
+            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.mgr.fullScreenToggle();"   ></button>
+            <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
+            <p id="lgzHudLogo" class="">LingaZone.com</p>
+
+            <button id="lgzHudHelp" class="btn square" onclick="Lgz.mgr.help();">Help</button>
+        </div>
+        </div>
+@@include('rsc/dom/win.html')
+
+    </div>
+
+    <!-- needed by phaser for custom font access
+         font must be referenced in @font-face css above
+    -->
+    <!-- Not used for now. Arial take long time to download.
+
+    <p id="tp1" style="font-family: Arial; font-size: 0px">.</p>
+    -->
+
+
+    <div id="lgzOrientWrap">
+        <p id="lgzOrient" style="font-family: sans-serif; font-size: 16pt">Please Rotate To Landscape</p>
+    </div>
+    </div>
