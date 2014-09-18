@@ -15,3 +15,5 @@ npm install --save-dev gulp-strip-debug
 npm install --save-dev gulp-uglify
 npm install --save-dev gulp-file-include
 npm install --save-dev gulp-watch
+npm install --save-dev gulp-jsbeautifier
+npm install --save-dev gulp-jsdoc
