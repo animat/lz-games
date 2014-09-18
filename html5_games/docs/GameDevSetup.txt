@@ -1,0 +1,82 @@
+﻿Development Setup On Mac OSX / Linux
+
+
+Prerequisites:
+a)  Git installed
+
+
+High Level Steps:
+
+
+1)  Extract  code archive from github repo
+ 
+a) cd (workspace)
+b) git clone clone https://github.com/(yourfork)P/lz-games.git
+c) cd lz-games/html5_games
+
+
+
+
+2) Install Node.js and npm:
+http://nodejs.org/#download or 
+https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+
+
+
+
+3) Install and set up Gulp
+http://travismaynard.com/writing/getting-started-with-gulp
+
+
+1)        npm init   (package.json already exists)
+2)        sudo npm install -g gulp
+3)        npm install --save-dev gulp
+4)        install gulp modules locally: 
+bash installmods.txt
+
+
+Gulp commands provide several useful functions in the building and maintaining of the source tree and compiled games.  The specific gulp commands will be covered in the topics that follow.
+
+
+HTML template system for lz-games
+
+
+The main html used for developing and testing the game is “game.html”
+This file is generated from other files found in lib/exodom, lib/lgz/dom and rsc/dom.
+A seed file called game.inc is used to start sourcing the other files.
+The gulp command to generate game.html and other html files is the following:
+
+gulp inc
+With this command, gulp looks for all seed files with extension of “.inc” in the game directory and generates a corresponding html file with “.html” extension.
+When processing a seed or source file, the gulp include function triggers on “@@include” to locate other files to include into the final output.
+In game.inc,   @@include('lib/exodom/exo.html') tells gulp to source exo.html.
+Currently, within exo.html there are 3 main include instructions:
+@@include('rsc/dom/head.html')
+@@include('rsc/dom/body.html')
+@@include('rsc/dom/tail.html')
+In turn,  each of these files have an include instruction to sources files from lib/lgz/dom:
+rsc/dom/head.html has @@include('lib/lgz/dom/head.html')
+rsc/dom/body.html has @@include('lib/lgz/dom/body.html')
+rsc/dom/tail.html has @@include(‘lib/lgz/dom/tail.html’)
+In this way, each game sources the library html yet can override if needed.
+
+
+
+
+Note that in addition to “game.inc”, there are three other seed follows in the PokerPair directory:  head.inc, body.inc, tail.inc.  These also generate their own html files: head.html, body.html, tail.html.
+These html files are the same content that has been merged into game.html. These files reserved for merging into the final html file by lz’s ruby on rails system at run time.
+
+
+head.html contains meta and css references.
+body.html has the game container and dom windows content.
+tail.html lists all the javascript file references.
+
+
+
+
+Regeneration of game.html during interactive development session.
+
+
+When modifying any of game.html’s source files,  the game.html will not update automatically. This is not convenient when using an interactive session such as that in netbeans which updates the browser when any source files are changed. Netbeans has no knowledge how to generate game.htm.   However the following gulp command can be used for this task:
+gulp watch
+With this command, gulp watches for any change in the known source files and will update game.html. In turn,  netbeans will sense that game.html has been changed and refresh the browser session.
