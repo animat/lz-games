@@ -1,0 +1,13 @@
+mx.lang.Locale.setFlaName("thumper");
+mx.lang.Locale.setDefaultLang("en");
+mx.lang.Locale.addXMLPath("en","../games/en/thumper_en.xml");
+mx.lang.Locale.addXMLPath("en","en/thumper_en.xml");
+mx.lang.Locale.addXMLPath("de","../games/de/thumper_de.xml");
+mx.lang.Locale.addXMLPath("de","de/thumper_de.xml");
+mx.lang.Locale.addXMLPath("es","../games/es/thumper_es.xml");
+mx.lang.Locale.addXMLPath("es","es/thumper_es.xml");
+mx.lang.Locale.addXMLPath("fr","../games/fr/thumper_fr.xml");
+mx.lang.Locale.addXMLPath("fr","fr/thumper_fr.xml");
+mx.lang.Locale.addXMLPath("it","../games/it/thumper_it.xml");
+mx.lang.Locale.addXMLPath("it","it/thumper_it.xml");
+mx.lang.Locale.initialize();

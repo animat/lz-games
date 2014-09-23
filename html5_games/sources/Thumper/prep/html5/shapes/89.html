@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="84" height="84" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape89(ctx,ctrans,frame,ratio,time){
+	drawPath(ctx,"M 1265 670 Q 1265 939 1074 1129 884 1320 615 1320 345 1320 155 1129 -35 939 -35 670 -35 401 155 210 345 20 615 20 884 20 1074 210 1265 401 1265 670 ");
+	ctx.fillStyle=tocolor(ctrans.apply([255,255,255,0.0]));
+	ctx.fill("evenodd");
+	ctx.save();
+	ctx.clip();
+	ctx.transform(0.04058837890625,0,0,0.04058837890625,615,670);
+	var grd=ctx.createRadialGradient(0.0,0,0,0,0,16384);
+	grd.addColorStop(0.0,tocolor(ctrans.apply([149,234,165,1])));
+	grd.addColorStop(0.8941176470588236,tocolor(ctrans.apply([255,255,255,0.0])));
+	ctx.fillStyle = grd;
+	ctx.fillRect(-16384,-16384,32768,32768);
+	ctx.restore();
+}
+
+var originalWidth=84;
+var originalHeight=84;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	drawPath(ctx,"M 74.5 42 Q 74.5 55.45 64.95 64.95 55.45 74.5 42 74.5 28.5 74.5 19 64.95 9.5 55.45 9.5 42 9.5 28.55 19 19 28.5 9.5 42 9.5 55.45 9.5 64.95 19 74.5 28.55 74.5 42 ");
+	ctx.fillStyle=tocolor(ctrans.apply([255,255,255,0.0]));
+	ctx.fill("evenodd");
+	ctx.save();
+	ctx.clip();
+	ctx.transform(0.0020294189453125,0,0,0.0020294189453125,42,42);
+	var grd=ctx.createRadialGradient(0.0,0,0,0,0,16384);
+	grd.addColorStop(0.0,tocolor(ctrans.apply([149,234,165,1])));
+	grd.addColorStop(0.8941176470588236,tocolor(ctrans.apply([255,255,255,0.0])));
+	ctx.fillStyle = grd;
+	ctx.fillRect(-16384,-16384,32768,32768);
+	ctx.restore();
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>
