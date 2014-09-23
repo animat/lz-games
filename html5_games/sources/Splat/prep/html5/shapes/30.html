@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="55" height="76" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape30(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([255,201,63,1]));
+	drawPath(ctx,"M 454 1182 Q 522 1250 492 1275 463 1298 425 1279 399 1256 424 1221 448 1185 454 1182 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([234,174,42,1]));
+	drawPath(ctx,"M 461 1189 Q 421 1226 424 1278 400 1255 424 1220 448 1185 454 1182 L 461 1189 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([183,131,26,1]));
+	drawPath(ctx,"M 429 1195 L 489 1190 473 1205 Q 457 1216 429 1195 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([234,174,42,1]));
+	drawPath(ctx,"M 420 1259 L 453 1253 Q 483 1249 483 1261 478 1275 463 1272 L 446 1268 446 1263 420 1259 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([255,201,63,1]));
+	drawPath(ctx,"M 871 598 Q 866 852 743 1020 621 1189 436 1196 251 1189 128 1020 6 852 1 598 6 344 128 175 251 6 436 0 621 6 743 175 866 344 871 598 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([234,174,42,1]));
+	drawPath(ctx,"M 0 598 Q 5 344 127 175 250 6 435 0 L 465 1 Q 350 19 261 94 172 168 131 269 27 548 131 842 237 1089 471 1193 L 435 1196 Q 250 1189 127 1020 5 852 0 598 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([247,214,148,1]));
+	drawPath(ctx,"M 456 78 Q 419 49 469 23 479 12 594 61 709 110 807 357 L 748 276 Q 694 203 651 172 620 157 557 132 493 107 456 78 ");
+	ctx.fill("evenodd");
+}
+
+var originalWidth=55;
+var originalHeight=76;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([255,201,63,1]));
+	drawPath(ctx,"M 28.8 67.55 Q 32.2 70.95 30.7 72.2 29.25 73.35 27.35 72.4 26.05 71.25 27.3 69.5 28.5 67.7 28.8 67.55 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([234,174,42,1]));
+	drawPath(ctx,"M 29.15 67.9 Q 27.15 69.75 27.3 72.35 26.1 71.2 27.3 69.45 28.5 67.7 28.8 67.55 L 29.15 67.9 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([183,131,26,1]));
+	drawPath(ctx,"M 27.55 68.2 L 30.55 67.95 29.75 68.7 Q 28.95 69.25 27.55 68.2 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([234,174,42,1]));
+	drawPath(ctx,"M 27.1 71.4 L 28.75 71.1 Q 30.25 70.9 30.25 71.5 30 72.2 29.25 72.05 L 28.4 71.85 28.4 71.6 27.1 71.4 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([255,201,63,1]));
+	drawPath(ctx,"M 49.65 38.35 Q 49.4 51.05 43.25 59.45 37.15 67.9 27.9 68.25 18.65 67.9 12.5 59.45 6.4 51.05 6.15 38.35 6.4 25.65 12.5 17.2 18.65 8.75 27.9 8.45 37.15 8.75 43.25 17.2 49.4 25.65 49.65 38.35 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([234,174,42,1]));
+	drawPath(ctx,"M 6.1 38.35 Q 6.35 25.65 12.45 17.2 18.6 8.75 27.85 8.45 L 29.35 8.5 Q 23.6 9.4 19.15 13.15 14.7 16.85 12.65 21.9 7.45 35.85 12.65 50.55 17.95 62.9 29.65 68.1 L 27.85 68.25 Q 18.6 67.9 12.45 59.45 6.35 51.05 6.1 38.35 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([247,214,148,1]));
+	drawPath(ctx,"M 28.9 12.35 Q 27.05 10.9 29.55 9.6 30.05 9.05 35.8 11.5 41.55 13.95 46.45 26.3 L 43.5 22.25 Q 40.8 18.6 38.65 17.05 37.1 16.3 33.95 15.05 30.75 13.8 28.9 12.35 ");
+	ctx.fill("evenodd");
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>

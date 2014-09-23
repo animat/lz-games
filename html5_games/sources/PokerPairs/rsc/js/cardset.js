@@ -8,7 +8,6 @@
  */
 /*jslint  nomen: true */
 
-var g = g || {};
 var Lgz = Lgz || {};
 Lgz.Card = function (cardSet, x, y, node) {
 	'use strict';
@@ -57,7 +56,7 @@ Lgz.Card = function (cardSet, x, y, node) {
                 
 };
 LgzLib.inherit(Lgz.Card, Phaser.Group);
-Lgz.Card.prototype.createMMA = function (dn) {
+Lgz.Card.prototype.createMMA = function () {
 	'use strict';
 	console.debug('createMMA:');
 
@@ -266,7 +265,7 @@ Lgz.CardSet = function (mgr) {
 		console.debug('dealStart: entered');
 
 		thisObj.ondone = ondone;
-		thisObj.game.load.onLoadComplete.add(thisObj.dealDone, thisObj);
+		thisObj.game.load.onLoadComplete.addOnce(thisObj.dealDone, thisObj);
 
 		arrRand = [];
 		nodeCount = thisObj.nm.nodeCount();

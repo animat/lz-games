@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="11" height="12" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape57(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([230,102,102,0.99215686]));
+	drawPath(ctx,"M 2041 73 L 2055 81 1970 170 1967 173 2025 236 Q 2025 247 2001 261 1964 238 1938 203 L 1875 261 1845 255 1920 175 1881 96 Q 1892 95 1942 147 1989 91 2030 70 L 2041 73 ");
+	ctx.fill("evenodd");
+}
+
+var originalWidth=11;
+var originalHeight=12;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([230,102,102,0.99215686]));
+	drawPath(ctx,"M 9.8 2.95 L 10.5 3.35 6.25 7.8 6.1 7.95 9 11.1 Q 9 11.65 7.8 12.35 5.95 11.2 4.65 9.45 L 1.5 12.35 0 12.05 3.75 8.05 1.8 4.1 Q 2.35 4.05 4.85 6.65 7.2 3.85 9.25 2.8 L 9.8 2.95 ");
+	ctx.fill("evenodd");
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>

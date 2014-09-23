@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="845" height="814" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape52(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([223,208,0,1]));
+	drawPath(ctx,"M 11114 11351 L 11114 11716 -2585 11716 -2585 11351 11114 11351 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 11114 11351 L -2585 11351 -2585 11716 11114 11716 11114 11351 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=120.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.fillStyle=tocolor(ctrans.apply([223,208,0,1]));
+	drawPath(ctx,"M 9713 8307 L 9713 8672 -1002 8672 -1002 8307 9713 8307 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 9713 8307 L -1002 8307 -1002 8672 9713 8672 9713 8307 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=120.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.fillStyle=tocolor(ctrans.apply([223,208,0,1]));
+	drawPath(ctx,"M -4152 13748 L 4613 -2127 12752 13634 12260 13634 4620 -1258 -3794 13748 -4152 13748 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M -4152 13748 L 4613 -2127 12752 13634 12260 13634 4620 -1258 -3794 13748 -4152 13748 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=119.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.fillStyle=tocolor(ctrans.apply([191,0,34,1]));
+	drawPath(ctx,"M 5037 -2225 Q 5189 -2073 5195 -1843 5189 -1614 5037 -1461 4884 -1309 4655 -1303 4425 -1309 4273 -1461 4120 -1614 4115 -1843 4121 -2073 4273 -2225 4425 -2378 4655 -2383 4884 -2377 5037 -2225 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 5037 -2225 Q 5189 -2073 5195 -1843 5189 -1614 5037 -1461 4884 -1309 4655 -1303 4425 -1309 4273 -1461 4120 -1614 4115 -1843 4121 -2073 4273 -2225 4425 -2378 4655 -2383 4884 -2377 5037 -2225 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=120.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+}
+
+var originalWidth=845;
+var originalHeight=814;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([223,208,0,1]));
+	drawPath(ctx,"M 763.3 694.35 L 763.3 712.6 78.35 712.6 78.35 694.35 763.3 694.35 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 763.3 694.35 L 78.35 694.35 78.35 712.6 763.3 712.6 763.3 694.35 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=6.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.fillStyle=tocolor(ctrans.apply([223,208,0,1]));
+	drawPath(ctx,"M 693.25 542.15 L 693.25 560.4 157.5 560.4 157.5 542.15 693.25 542.15 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 693.25 542.15 L 157.5 542.15 157.5 560.4 693.25 560.4 693.25 542.15 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=6.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.fillStyle=tocolor(ctrans.apply([223,208,0,1]));
+	drawPath(ctx,"M 0 814.2 L 438.25 20.45 845.2 808.5 820.6 808.5 438.6 63.9 17.9 814.2 0 814.2 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 0 814.2 L 438.25 20.45 845.2 808.5 820.6 808.5 438.6 63.9 17.9 814.2 0 814.2 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=5.95;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.fillStyle=tocolor(ctrans.apply([191,0,34,1]));
+	drawPath(ctx,"M 459.45 15.55 Q 467.05 23.15 467.35 34.65 467.05 46.1 459.45 53.75 451.8 61.35 440.35 61.65 428.85 61.35 421.25 53.75 413.6 46.1 413.35 34.65 413.65 23.15 421.25 15.55 428.85 7.9 440.35 7.65 451.8 7.95 459.45 15.55 ");
+	ctx.fill("evenodd");
+	drawPath(ctx,"M 459.45 15.55 Q 467.05 23.15 467.35 34.65 467.05 46.1 459.45 53.75 451.8 61.35 440.35 61.65 428.85 61.35 421.25 53.75 413.6 46.1 413.35 34.65 413.65 23.15 421.25 15.55 428.85 7.9 440.35 7.65 451.8 7.95 459.45 15.55 ");
+	ctx.strokeStyle=tocolor(ctrans.apply([0,0,0,1]));
+	ctx.lineWidth=6.0;
+	ctx.lineCap="round";
+	ctx.lineJoin="round";
+	ctx.stroke();
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>

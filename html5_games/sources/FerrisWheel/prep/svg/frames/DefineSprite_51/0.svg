@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="628.9px" width="612.0px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1, 0, 0, 1, 301.95, 319.0)">
+    <use height="599.7" transform="matrix(1.0, 0.0, 0.0, 1.0, -295.75, -304.85)" width="600.0" xlink:href="#shape0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -30.971, -318.9897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 45.529, -305.4897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 128.629, -270.4897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 185.129, -229.5897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 231.729, -169.5897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 257.129, -95.3897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 245.429, 102.8103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 218.629, 158.9103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 162.129, 204.3103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -30.971, 284.7103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 105.629, 246.1103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 41.529, 273.3103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 275.129, -30.8897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, 262.829, 40.4103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -113.421, 277.3603)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -173.471, 246.1103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -233.071, 204.0103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -276.471, 159.2103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -311.171, 102.8103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -333.021, 40.4103)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -336.871, -23.9397)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -327.271, -99.2397)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -299.621, -169.5897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -254.621, -224.0897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -198.071, -270.4897)" width="68.6" xlink:href="#sprite0"/>
+    <use height="49.25" transform="matrix(1.0137, 0.0, 0.0, 1.0137, -120.771, -309.4397)" width="68.6" xlink:href="#sprite0"/>
+  </g>
+  <defs>
+    <g id="shape0" transform="matrix(1, 0, 0, 1, 295.75, 304.85)">
+      <path d="M4.6 -300.2 L4.6 -259.2" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M251.35 9.5 L297.8 9.5" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M-248.95 4.35 L-290.7 4.35" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M0.95 241.25 L0.95 289.1" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M196.25 222.4 L158.55 184.7" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M-169.4 -192.1 L-197.45 -220.15" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M168.25 -195.6 L200.65 -228.0" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M-193.9 152.45 L-224.55 183.1" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M119.1 -276.65 Q172.4 -253.9 212.85 -213.45 253.3 -173.1 276.05 -119.75 298.85 -66.45 299.25 -5.0 298.85 56.45 276.05 109.8 253.3 163.1 212.85 203.5 172.4 243.9 119.1 266.65 65.75 289.45 4.25 289.85 -57.25 289.45 -110.6 266.65 -163.95 243.9 -204.35 203.5 -244.8 163.1 -267.55 109.8 -290.35 56.45 -290.75 -5.0 -290.35 -66.45 -267.55 -119.75 -244.8 -173.1 -204.35 -213.45 -163.95 -253.9 -110.6 -276.65 -57.25 -299.4 4.25 -299.85 65.75 -299.4 119.1 -276.65" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="10.0"/>
+      <path d="M2.0 -257.9 L2.0 242.2 -4.2 242.2 -4.2 -257.9 2.0 -257.9" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M251.35 9.5 L-249.0 4.4 -248.95 -1.8 251.4 3.3 251.35 9.5" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M184.35 -177.8 L-168.55 174.9 -172.9 170.55 180.0 -182.15 184.35 -177.8" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M-184.45 -177.05 L168.1 175.3 163.75 179.65 -188.8 -172.7 -184.45 -177.05" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M64.9 -250.95 L-51.5 237.75 -57.5 236.3 58.9 -252.4 64.9 -250.95" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M239.5 65.65 L-248.25 -50.4 -246.8 -56.4 240.95 59.65 239.5 65.65" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M220.45 -128.15 L-204.55 133.25 -207.8 128.0 217.2 -133.4 220.45 -128.15" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M-139.4 -214.55 L121.9 209.8 116.65 213.05 -144.65 -211.3 -139.4 -214.55" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M110.2 -235.85 L-96.5 223.35 -102.15 220.8 104.55 -238.4 110.2 -235.85" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M223.6 111.35 L-234.5 -94.65 -231.95 -100.3 226.15 105.7 223.6 111.35" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M238.95 -84.15 L-227.6 92.8 -229.8 87.0 236.8 -89.9 238.95 -84.15" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M-96.4 -238.5 L80.45 227.4 74.7 229.6 -102.15 -236.3 -96.4 -238.5" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M154.45 -208.85 L-136.3 201.2 -141.35 197.65 149.4 -212.4 154.45 -208.85" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M194.65 153.15 L-213.6 -136.0 -210.05 -141.05 198.25 148.1 194.65 153.15" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M250.3 -35.4 L-242.2 45.15 -243.2 39.05 249.3 -41.5 250.3 -35.4" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M-44.95 -255.7 L39.45 239.2 33.35 240.25 -51.05 -254.65 -44.95 -255.7" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M2.8 9.85 Q2.6 11.8 0.65 12.0 -1.35 11.8 -1.5 9.85 -1.35 7.85 0.65 7.7 2.6 7.85 2.8 9.85" fill="#0054bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M232.0 -106.45 Q251.4 -61.2 251.7 -9.05 251.4 43.15 232.0 88.35 212.65 133.6 178.25 167.9 143.9 202.2 98.55 221.55 53.2 240.85 0.95 241.2 -51.35 240.85 -96.7 221.55 -142.0 202.2 -176.4 167.9 -210.75 133.6 -230.15 88.35 -249.5 43.15 -249.85 -9.05 -249.5 -61.2 -230.15 -106.45 -210.75 -151.65 -176.4 -185.95 -142.0 -220.25 -96.7 -239.6 -51.35 -258.95 0.95 -259.25 53.2 -258.9 98.55 -239.6 143.9 -220.25 178.25 -185.95 212.65 -151.65 232.0 -106.45" fill="none" stroke="#dfd000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+      <path d="M21.2 22.05 Q12.65 30.6 -0.25 30.95 -13.1 30.6 -21.65 22.05 -30.2 13.55 -30.5 0.65 -30.2 -12.2 -21.65 -20.75 -13.1 -29.3 -0.25 -29.6 12.65 -29.3 21.2 -20.75 29.75 -12.2 30.05 0.65 29.75 13.55 21.2 22.05" fill="#df0038" fill-rule="evenodd" stroke="none"/>
+      <path d="M21.2 22.05 Q12.65 30.6 -0.25 30.95 -13.1 30.6 -21.65 22.05 -30.2 13.55 -30.5 0.65 -30.2 -12.2 -21.65 -20.75 -13.1 -29.3 -0.25 -29.6 12.65 -29.3 21.2 -20.75 29.75 -12.2 30.05 0.65 29.75 13.55 21.2 22.05" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+    </g>
+    <g id="sprite0" transform="matrix(1, 0, 0, 1, 34.45, 24.85)">
+      <use height="49.25" transform="matrix(1.0, 0.0, 0.0, 1.0, -34.45, -24.85)" width="68.6" xlink:href="#shape1"/>
+    </g>
+    <g id="shape1" transform="matrix(1, 0, 0, 1, 34.45, 24.85)">
+      <path d="M-12.85 14.75 L11.3 14.75 11.0 18.1 -1.05 20.9 -12.35 17.75 -12.85 14.75" fill="#002adf" fill-rule="evenodd" stroke="none"/>
+      <path d="M-12.85 14.75 L-12.35 17.75 -1.05 20.9 11.0 18.1 11.3 14.75 -12.85 14.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+      <path d="M16.85 -4.75 Q17.3 -4.5 17.1 -3.75 16.8 -3.05 16.25 -3.15 L-3.0 -10.25 Q-3.45 -10.5 -3.25 -11.2 -2.95 -11.95 -2.4 -11.85 L16.85 -4.75" fill="#c4c4bf" fill-rule="evenodd" stroke="none"/>
+      <path d="M16.85 -4.75 Q17.3 -4.5 17.1 -3.75 16.8 -3.05 16.25 -3.15 L-3.0 -10.25 Q-3.45 -10.5 -3.25 -11.2 -2.95 -11.95 -2.4 -11.85 L16.85 -4.75" fill="none" stroke="#adadaa" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+      <path d="M-16.75 -21.65 Q-13.75 -22.3 -12.1 -20.3 -11.55 -18.45 -12.5 -13.15 -13.4 -7.85 -11.05 -3.5 -8.65 0.85 1.75 -0.1 2.1 0.0 2.35 2.15 2.7 4.35 -1.25 7.4 -1.8 7.55 -7.8 5.45 -13.75 3.35 -18.5 -2.75 -23.3 -8.9 -20.1 -20.8 L-16.75 -21.65" fill="#ffa81f" fill-rule="evenodd" stroke="none"/>
+      <path d="M-16.75 -21.65 Q-13.75 -22.3 -12.1 -20.3 -11.55 -18.45 -12.5 -13.15 -13.4 -7.85 -11.05 -3.5 -8.65 0.85 1.75 -0.1 2.1 0.0 2.35 2.15 2.7 4.35 -1.25 7.4 -1.8 7.55 -7.8 5.45 -13.75 3.35 -18.5 -2.75 -23.3 -8.9 -20.1 -20.8 L-16.75 -21.65" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+      <path d="M33.2 -19.9 L33.45 -15.75 Q33.1 -1.5 23.6 8.05 14.1 17.5 -0.15 17.85 -14.45 17.5 -23.9 8.05 -33.4 -1.5 -33.75 -15.75 -33.75 -20.15 -32.7 -24.15 L-19.9 -24.15 Q-21.15 -16.15 -17.0 -10.6 -12.8 -5.05 -5.85 -2.55 -5.35 0.3 -4.05 2.65 -2.7 4.95 -0.75 5.7 4.1 7.15 7.0 4.8 9.85 2.45 11.3 -1.85 16.65 -3.9 20.0 -8.7 23.4 -13.55 24.55 -19.9 L33.2 -19.9" fill="#df0028" fill-rule="evenodd" stroke="none"/>
+      <path d="M33.2 -19.9 L24.55 -19.9 Q23.4 -13.55 20.0 -8.7 16.65 -3.9 11.3 -1.85 9.85 2.45 7.0 4.8 4.1 7.15 -0.75 5.7 -2.7 4.95 -4.05 2.65 -5.35 0.3 -5.85 -2.55 -12.8 -5.05 -17.0 -10.6 -21.15 -16.15 -19.9 -24.15 L-32.7 -24.15 Q-33.75 -20.15 -33.75 -15.75 -33.4 -1.5 -23.9 8.05 -14.45 17.5 -0.15 17.85 14.1 17.5 23.6 8.05 33.1 -1.5 33.45 -15.75 L33.2 -19.9" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+      <path d="M1.75 20.85 Q1.5 23.5 -1.1 23.7 -3.7 23.45 -3.9 20.85 -3.7 18.25 -1.1 18.05 1.55 18.25 1.75 20.85" fill="#df0028" fill-rule="evenodd" stroke="none"/>
+      <path d="M1.75 20.85 Q1.5 23.5 -1.1 23.7 -3.7 23.45 -3.9 20.85 -3.7 18.25 -1.1 18.05 1.55 18.25 1.75 20.85" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+      <path d="M-21.5 -23.3 L-30.05 -21.35 Q-31.25 -9.6 -26.2 -1.3 -21.1 6.95 -15.45 11.3 L-9.65 15.55 Q-24.15 9.25 -28.75 0.25 -33.35 -8.9 -32.9 -16.0 -32.45 -23.15 -32.0 -23.55 L-21.5 -23.3" fill="#f495a9" fill-rule="evenodd" stroke="none"/>
+      <path d="M32.65 -18.9 L26.8 -17.4 Q26.05 -12.4 22.75 -8.45 19.45 -4.45 16.3 -2.2 13.15 0.1 12.9 0.15 10.8 4.15 8.4 5.25 L5.9 6.3 Q8.95 5.0 10.5 2.15 L12.0 -1.05 Q20.05 -5.25 22.8 -11.7 25.6 -18.2 25.4 -18.9 L32.65 -18.9" fill="#f495a9" fill-rule="evenodd" stroke="none"/>
+      <path d="M-13.45 -7.85 Q-17.65 -11.95 -18.6 -15.85 -19.6 -19.8 -19.4 -20.1 -14.45 -21.75 -13.4 -20.45 -12.4 -19.15 -12.6 -18.8 -14.55 -20.75 -16.0 -20.35 L-17.55 -19.7 Q-19.2 -17.55 -16.6 -12.95 L-13.45 -7.85" fill="#fcdb54" fill-rule="evenodd" stroke="none"/>
+      <path d="M1.4 0.7 Q0.9 1.3 -0.75 1.5 L-2.6 1.65 Q-2.45 2.9 -1.25 4.0 L0.1 5.15 Q-1.45 4.75 -2.75 2.85 L-4.1 0.7 -1.0 0.8 1.4 0.7" fill="#fcdb54" fill-rule="evenodd" stroke="none"/>
+    </g>
+  </defs>
+</svg>
