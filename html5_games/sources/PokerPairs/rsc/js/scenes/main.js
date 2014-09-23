@@ -6,6 +6,7 @@
 
  */
 /*jslint  nomen: true */
+
 var Lgz = Lgz || {};
 
 Lgz.SceneMain = function (game) {
@@ -39,16 +40,11 @@ Lgz.SceneMain = function (game) {
 		sy = (K.canvasHeight / K.bgHeight);
 		bg.scale.setTo(sx, sy);
 
-
-/*
-		thisObj.cardSet.create(5, 'violet');
-*/
-            
         thisObj.timer = new Lgz.Timer(thisObj);
         thisObj.timer.create();
         objMgr.pause = function () {
-                thisObj.timer.pause();
-                thisObj.game.paused = true;
+			thisObj.timer.pause();
+			thisObj.game.paused = true;
                 
         };
         objMgr.resume = function () {
@@ -74,12 +70,6 @@ Lgz.SceneMain = function (game) {
 	};
 	thisObj.update = function () {
 		var i;
-		//console.debug('SceneMain.update:');
-                /*
-		for (i = 0; i < thisObj.selArr.length; i += 1) {
-			thisObj.selArr[i].update();
-		}
-                */
                 
 		thisObj.cardSet.update();
 		thisObj.timer.update();
