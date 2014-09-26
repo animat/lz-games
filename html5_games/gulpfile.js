@@ -105,7 +105,7 @@ gulp.task('watch', function () {
 	'use strict';
 	watch(['lib/exodom/exo.html', 'lib/lgz/dom/*.html', 'rsc/dom/*.html', './*.inc'], function () {
 		gulp.start('inc');
-		open('http://localhost/Projects/Clients/LinguaZone/lz-games/html5_games/sources/Splat/game.html');
+		// open('http://localhost/Projects/Clients/LinguaZone/lz-games/html5_games/sources/Splat/game.html');
 	});
 	
 });
