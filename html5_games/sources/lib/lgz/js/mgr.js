@@ -8,21 +8,27 @@
  */
 /*jslint  nomen: true */
 
+var g  = g || {};
 var LgzLib = LgzLib || {};
-LgzLib.Mgr = function (gamePrefix) {
+LgzLib.Mgr = function (globLgz, gamePrefix) {
 	'use strict';
 	var thisObj, game, lang;
 	thisObj = this;
 
 	thisObj.init = function () {
-		game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'gamecanvas');
+		game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas');
 		lang = new LgzLib.Lang();
 		lang.load(gamePrefix,  K.lang);
 		thisObj.lang = lang;
 		thisObj.game = game;
 		thisObj.hud = new LgzLib.Hud(thisObj);
 		thisObj.nm = new LgzLib.NodeManager(thisObj);
-               
+
+		globLgz.lang = thisObj.lang;
+		globLgz.game = thisObj.game;
+		globLgz.hud = thisObj.hud;
+		globLgz.nm = thisObj.nm;
+		globLgz.mgr = thisObj;
 	};
 	thisObj.pause = function () {
 		//override
@@ -33,7 +39,23 @@ LgzLib.Mgr = function (gamePrefix) {
 	thisObj.addScene = function (str, obj) {
 		thisObj.game.state.add(str, obj);
 	};
-	thisObj.startScene = function (str, obj) {
+	thisObj.nmLoadOK = function (str) {
+		console.debug('LgzLib.Mgr.nmLoadOK: str ' + str);
+		//todo: localize ui based on language tag found in xml data.
+		thisObj.startScene(str);
+	};
+	thisObj.nmLoadFail = function () {
+		console.error('Could not load xml data from server');
+	};
+	thisObj.initScene = function (str) {
+		console.debug('LgzLib.Mgr.initScene: str ' + str);
+		thisObj.nm.load(
+			function () { thisObj.nmLoadOK(str); },
+			function () { thisObj.nmLoadFail(); }
+		);
+	};
+	thisObj.startScene = function (str) {
+		console.debug('LgzLib.Mgr.startScene: str ' + str);
 		thisObj.game.state.start(str,  true, false, thisObj);
 	};
 	thisObj.fullScreenToggle = function () {
@@ -41,7 +63,7 @@ LgzLib.Mgr = function (gamePrefix) {
 		thisObj.hud.fullScreenToggle();
 	};
     thisObj.help = function () {
-        thisObj.hud.winOpen('winhelp');
+        thisObj.hud.winOpen('winHelp');
     };
     thisObj._welcome = function () {
         thisObj.hud.toggleFsButtons();
@@ -85,12 +107,6 @@ LgzLib.Mgr = function (gamePrefix) {
 		tail = document.URL.match(/.*\/(.*)$/)[1];
 		id = tail.split('.')[0];
 		return id;
-                
-		//return $('#lgzContainer').attr('gameid');
-	};
-	//todo: remove dataUrl. moved to QA
-	thisObj.dataUrl = function () {
-		return K.urlSvrXML + thisObj.parseDataId() + '.xml?';
 	};
 	thisObj.rscImage = function (name) {
 		thisObj.game.load.image(name, K.urlRscMedia + name + '.png');
