@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Ferris Wheel"></format>
+  <description>
+    <text>¡La vuelta al mundo!  Your task is to spell out the word in the top right corner of the screen by using the Ferris Wheel filled with letters.  Press the space-bar when the letter you want is in the spotlight at the top of the wheel.  You can use the </text>
+  </description>
+<gamedata><node><question content='folder' name='english' type='text'/><response content='carpeta' name='lang' type='text'/></node> <node><question content='erasers' name='english' type='text'/><response content='borradores' name='lang' type='text'/></node> <node><question content='pencil' name='english' type='text'/><response content='lápiz' name='lang' type='text'/></node> <node><question content='notebooks' name='english' type='text'/><response content='cuadernos' name='lang' type='text'/></node> <node><question content='whiteboard' name='english' type='text'/><response content='pizarra' name='lang' type='text'/></node> <node><question content='chalk' name='english' type='text'/><response content='tiza' name='lang' type='text'/></node> <node><question content='pluma' name='english' type='text'/><response content='pen' name='lang' type='text'/></node> <node><question content='class' name='english' type='text'/><response content='clase' name='lang' type='text'/></node> <node><question content='desk' name='english' type='text'/><response content='escritorio' name='lang' type='text'/></node> <node><question content='table' name='english' type='text'/><response content='mesa' name='lang' type='text'/></node></gamedata><templatedata/>  <language>Spanish</language>
+</xml>

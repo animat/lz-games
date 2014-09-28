@@ -55,13 +55,11 @@ LgzLib.Mgr = function (gamePrefix) {
         }, 900);
     };
     thisObj.exit = function () {
-		/*
         thisObj.hud.fullScreenStop();
         thisObj.hud.fullScreenStopPost();
         thisObj.hud.onResize();
         thisObj.welcome();
-		*/
-		window.location.reload();
+		//window.location.reload();
     };
     thisObj.play = function () {
         thisObj.hud.winCloseAll(true);

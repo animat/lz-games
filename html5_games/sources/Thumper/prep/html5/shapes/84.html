@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="6" height="2" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape84(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([119,193,190,1]));
+	drawPath(ctx,"M 684 192 Q 699 204 760 170 L 763 166 766 180 Q 766 195 760 200 747 211 700 211 L 663 207 Q 653 202 646 180 L 650 165 Q 673 170 684 192 ");
+	ctx.fill("evenodd");
+}
+
+var originalWidth=6;
+var originalHeight=2;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([119,193,190,1]));
+	drawPath(ctx,"M 2.4 1.35 Q 3.15 1.95 6.2 0.25 L 6.35 0.05 6.5 0.75 Q 6.5 1.5 6.2 1.75 5.55 2.3 3.2 2.3 L 1.35 2.1 Q 0.85 1.85 0.5 0.75 L 0.7 0 Q 1.85 0.25 2.4 1.35 ");
+	ctx.fill("evenodd");
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>
