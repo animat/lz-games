@@ -1,2 +1,6 @@
 /html5_games/sources/*/nbproject/private/
-/html5_games/node_modules/**
+/node_modules
+__MACOSX
+.DS_STORE
+*/.DS_STORE
+Thumbs.db
