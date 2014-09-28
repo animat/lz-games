@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="81" height="31" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+
+function shape127(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([62,41,40,0.9882353]));
+	drawPath(ctx,"M 1433 203 L 1350 185 1350 180 1295 175 1205 176 1163 173 1200 168 1245 165 1305 168 Q 1391 170 1431 186 L 1493 208 1490 211 1433 203 M 1435 301 L 1315 256 Q 1228 221 1178 208 1233 219 1317 249 1392 276 1438 298 L 1435 301 M 1504 137 Q 1598 161 1631 185 L 1498 152 Q 1355 117 1153 118 L 1160 110 1198 106 1215 103 Q 1372 103 1504 137 M 1371 30 Q 1205 51 1160 85 1150 81 1148 78 1173 53 1257 33 1380 5 1598 0 L 1371 30 M 1050 395 Q 1177 441 1248 493 1301 532 1375 620 L 1370 625 Q 1275 526 1245 502 1164 438 1042 400 1042 396 1050 395 M 543 49 L 460 31 410 26 215 26 193 23 267 17 335 13 422 16 467 21 547 35 Q 572 41 585 50 L 543 49 M 565 100 L 559 101 555 100 415 101 Q 244 128 149 160 105 174 0 225 29 184 145 142 290 90 458 90 L 558 91 565 100 M 553 171 L 555 175 Q 493 204 425 245 L 325 305 Q 355 267 420 222 497 170 543 170 L 553 171 M 560 140 Q 405 152 337 178 277 201 258 201 L 329 174 490 135 545 135 552 136 Q 559 137 560 140 M 730 391 L 735 395 Q 691 464 525 525 L 506 520 505 515 Q 468 515 424 556 L 425 553 Q 425 513 515 513 524 513 612 462 L 730 391 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([209,172,166,0.9882353]));
+	drawPath(ctx,"M 1095 113 Q 1103 121 1103 130 1103 171 1064 178 1025 184 1025 133 1025 100 1050 100 1082 100 1095 113 M 948 133 L 954 133 960 151 965 164 955 222 Q 947 248 936 259 923 299 868 298 800 297 797 238 L 786 211 770 148 Q 770 140 773 134 L 774 129 860 141 948 133 M 700 98 L 702 114 Q 702 157 664 159 627 160 627 120 627 103 632 95 639 83 660 83 693 83 700 98 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([114,32,11,1]));
+	drawPath(ctx,"M 761 124 Q 744 120 745 97 745 53 870 53 926 53 952 76 968 91 968 107 968 131 954 133 L 948 133 Q 965 126 965 113 L 963 101 898 95 900 88 Q 900 70 880 70 L 820 75 Q 811 79 810 91 L 768 95 Q 755 99 755 115 L 761 124 ");
+	ctx.fill("evenodd");
+	ctx.fillStyle=tocolor(ctrans.apply([173,68,47,0.9882353]));
+	drawPath(ctx,"M 761 124 L 755 115 Q 755 99 768 95 L 810 91 Q 811 79 820 75 L 880 70 Q 900 70 900 88 L 898 95 963 101 965 113 Q 965 126 948 133 L 860 141 774 129 761 124 ");
+	ctx.fill("evenodd");
+}
+
+function sprite128(ctx,ctrans,frame,ratio,time){
+	ctx.save();
+	ctx.transform(1,0,0,1,0.0,0.0);
+	var clips = [];
+	var frame_cnt = 1;
+	frame = frame % frame_cnt;
+	switch(frame){
+		case 0:
+			place("shape127",canvas,ctx,[0.05,0.0,0.0,0.05,0.0,0.0],ctrans,1,0,0,time);
+			break;
+	}
+	ctx.restore();
+}
+
+var frame = -1;
+var time = 0;
+var frames = [];
+frames.push(0);
+
+var backgroundColor = "#e5c9b5";
+var originalWidth = 81;
+var originalHeight= 31;
+function nextFrame(ctx,ctrans){
+	var oldframe = frame;
+	frame = (frame+1)%frames.length;
+	if(frame==oldframe){time++;}else{time=0;};
+	drawFrame();
+}
+
+function drawFrame(){
+	ctx.fillStyle = backgroundColor;
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	sprite128(ctx,ctrans,frames[frame],0,time);
+	ctx.restore();
+}
+
+window.setInterval(function(){nextFrame(ctx,ctrans);},40);
+;</script>
+</body>
+</html>

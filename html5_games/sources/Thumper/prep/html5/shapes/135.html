@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="43" height="2" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape135(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([51,34,27,0.9882353]));
+	drawPath(ctx,"M -747 38 L -747 42 -748 44 -753 45 -765 39 -792 27 Q -824 27 -839 37 L -853 46 -856 46 -858 48 Q -864 48 -864 40 L -863 35 -864 31 Q -864 22 -849 13 -828 0 -795 3 L -794 4 -789 3 Q -745 17 -745 32 L -747 38 ");
+	ctx.fill("evenodd");
+}
+
+var originalWidth=43;
+var originalHeight=2;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([51,34,27,0.9882353]));
+	drawPath(ctx,"M 6.2 2.4 L 6.2 2.6 6.15 2.7 5.9 2.75 5.3 2.45 3.95 1.85 Q 2.35 1.85 1.6 2.35 L 0.9 2.8 0.75 2.8 0.65 2.9 Q 0.35 2.9 0.35 2.5 L 0.4 2.25 0.35 2.05 Q 0.35 1.6 1.1 1.15 2.15 0.5 3.8 0.65 L 3.85 0.7 4.1 0.65 Q 6.3 1.35 6.3 2.1 L 6.2 2.4 ");
+	ctx.fill("evenodd");
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>

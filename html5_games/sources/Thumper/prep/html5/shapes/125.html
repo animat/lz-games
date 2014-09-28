@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="29" height="14" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape125(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([51,34,27,1]));
+	drawPath(ctx,"M 448 77 Q 448 157 373 154 311 152 300 96 278 110 222 107 L 161 99 Q 152 160 81 148 0 134 0 69 0 50 13 28 32 0 63 0 134 0 155 35 L 162 62 168 67 193 90 Q 261 91 284 77 L 298 69 Q 299 10 363 10 425 10 443 43 452 60 448 77 ");
+	ctx.fill("evenodd");
+}
+
+var originalWidth=29;
+var originalHeight=14;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([51,34,27,1]));
+	drawPath(ctx,"M 26.45 6.3 Q 26.45 10.3 22.7 10.15 19.6 10.05 19.05 7.25 17.95 7.95 15.15 7.8 L 12.1 7.4 Q 11.65 10.45 8.1 9.85 4.05 9.15 4.05 5.9 4.05 4.95 4.7 3.85 5.65 2.45 7.2 2.45 10.75 2.45 11.8 4.2 L 12.15 5.55 12.45 5.8 13.7 6.95 Q 17.1 7 18.25 6.3 L 18.95 5.9 Q 19 2.95 22.2 2.95 25.3 2.95 26.2 4.6 26.65 5.45 26.45 6.3 ");
+	ctx.fill("evenodd");
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>
