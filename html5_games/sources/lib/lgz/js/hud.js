@@ -52,13 +52,10 @@ LgzLib.Hud = function (mgr) {
 	};
 	thisObj.onResizePost = function () {
 		resizeDirty = false;
-		console.debug('onResizePost:');
 		if (!thisObj.isFullScreen()) {
-			console.debug('onResizePost: !isFS');
 			thisObj.fullScreenStopPost();
 
 		}
-		console.debug('onResizePost: isFS');
 //ivanix: debug
 		if (thisObj.orientChanged()) {
 			if (thisObj.isLandscape()) {
@@ -74,7 +71,6 @@ LgzLib.Hud = function (mgr) {
 		thisObj.onResizePost2();
 	};
 	thisObj.onResize = function () {
-		console.debug('onResize');
 		if (resizeDirty) {
 			return;
 		}
@@ -147,7 +143,6 @@ LgzLib.Hud = function (mgr) {
 	};
 	thisObj.fullScreenStopPost = function () {
 
-		console.debug('Lgz.hud.fullScreenStopPost:');
 		game.scale.width = K.canvasWidth;
 		game.scale.height = K.canvasHeight;
 		game.scale.setSize();
@@ -162,7 +157,6 @@ LgzLib.Hud = function (mgr) {
 
 	};
 	thisObj.fullScreenStop = function () {
-		console.debug('Lgz.hud.fullScreenStop:');
 
 		thisObj.requestedFS = false;
 		if (!game.device.iOS) {
@@ -225,7 +219,6 @@ LgzLib.Hud = function (mgr) {
 		fs = thisObj.isFullScreen();
 		desktop = game.device.desktop;
 		if (!fs) {
-console.debug('toggleFsButtons: 1');
 			if (desktop) {
 				$lgzBtnFS.css('display', 'block');
 				$winPlay.removeClass('modal');
@@ -234,7 +227,6 @@ console.debug('toggleFsButtons: 1');
 			}
 			$lgzBtnExit.css('display', 'none');
 		} else {
-console.debug('toggleFsButtons: 2');
 			if (desktop) {
 				$lgzBtnFS.css('display', 'block');
 				$lgzBtnExit.css('display', 'none');
@@ -247,34 +239,27 @@ console.debug('toggleFsButtons: 2');
 		}
 	};
 	thisObj.fullScreenToggle = function () {
-console.debug('fullScreenToggle');
 		if (thisObj.isFullScreen()) {
-console.debug('fullScreenToggle:1');
 			thisObj.fullScreenStop();
 		} else {
-console.debug('fullScreenToggle:2');
 			thisObj.fullScreenStart();
 		}
 	};
 	thisObj.leftLandscape = function () {
-		console.debug('Lgz.hud.leftLandscape');
 		document.getElementById('lgzOrientWrap').style.display = 'block';
         mgr.pause();
 		
 	};
 	thisObj.enteredLandscape = function () {
-		console.debug('Lgz.hud.enteredLandscape');
 		document.getElementById('lgzOrientWrap').style.display = 'none';
         mgr.resume();
 
 	};
 	thisObj.leftPortrait = function () {
-		console.debug('Lgz.hud.leftPortrait');
         mgr.pause();
 		document.getElementById('lgzOrientWrap').style.display = 'block';
 	};
 	thisObj.enteredPortrait = function () {
-		console.debug('Lgz.hud.enteredPortrait');
 		document.getElementById('lgzOrientWrap').style.display = 'none';
         mgr.resume();
 

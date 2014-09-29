@@ -1,84 +1,54 @@
-
 /*
- * css for external html and lgz window
+ * css for external html 
  */
-
-        /*
-	@font-face {
-            font-family: FreeSans;
-            src: url('lib/font/FreeSans.ttf');
-            
-        }
-        */
-	#lgzOrientWrap {
-		position: absolute;
-		width: 100%;
-		top: 30%;
-		background: #00aa00;
-                color: #ffffff;
-		display: none;
-	}
-	#lgzOrient {
-		text-align: center;
-	}
-        
-	canvas {
-            text-rendering: optimizeLegibility;
-			margin: 0 auto !important;
-        
-	}
-	// ctr canvas horizontally
-	// allow borders to keep aspect ratio
-	canvas[style]  {
-			margin: 0 auto !important;
-	}
-
-    #gamecanvas {
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-
-    }
-	#lgzContainer {
-		width: 640px;
-		height: 480px;
-		margin: auto;
-		position: relative;
-	}
-    body {
-        margin: 0;
-        background: #770000;
-    }
-/* 
- * 	merged from hud.css
- */
-
- 
-p {
-
-    font-weight: bold;
-    font-size: larger;
-    color: #ffffff;
-    text-align: center;
+.lgzMin {
+	width: 100% !important;
+	min-width: 100% !important;
+	padding: 0 !important;
 }
-*:focus {
+.lgzHide {
+    display: none !important;
+}
+/*
+ * css for embedded lgz game
+ */
+#lgzContainer {
+    width: 640px;
+    height: 480px;
+    margin: auto;
+    position: relative;
+}
+#lgzOrientWrap {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    background: #00aa00;
+    color: #ffffff;
+    display: none;
+}
+#lgzOrient {
+    text-align: center;
+}      
+#lgzContainer canvas {
+    text-rendering: optimizeLegibility;
+    margin: 0 auto !important;
+        
+}
+#lgzContainer canvas[style]  {
+    margin: 0 auto !important;
+}
+
+#lgzGameCanvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#lgzContainer *:focus {
     outline: none;      
 }
-.hudicon {
-    background: url(lib/lgz/mma/hud.png);
-    float: left;
-    width: 50px;
-    height: 50px;
-    margin: 0 0 0 0;
 
-    font-weight: bold;
-    color: #00ff00;    
-}
-#lgzHud {
-  //  position: fixed;
-}
 #lgzHud .posTop {
     position: absolute;
     top: 0px;  
@@ -151,15 +121,11 @@ p {
     margin: 0 auto;
     background: rgba(52, 63, 80, 0.8);
 }
-#lgzHud .bgclear {
-    background: none;
-}
-
 #lgzHud .winshape {
     position: relative;
     bottom: 0px;
     width: 80%;
-    height:85%;
+    //height:85%;
     margin: 0 auto;
     padding: 10px;
     
@@ -187,7 +153,7 @@ p {
     min-width: 5em;
     
     background: 0;
-    color: #ffffff;
+
     padding: 0.5em;
     text-align: center;
     text-decoration: none;
@@ -239,14 +205,20 @@ p {
     height: 10em;
     width: 90%;
 }
-#lgzHud .bg {
-
-    border-top: 1px solid #00ffc8;
-    border-left: 1px solid #00ffc8; 
-    border-right: 1px solid #00aa00;
+#lgzHud .xxbg {
+    /*
+    border-top: 1px solid #E4ECEA;
+    border-left: 1px solid #EDFDF9;
+    border-right: 1px solid #515E51;
     border-bottom: 1px solid #005500;
-    background: rgba(100,200,100,0.8);      
-
+    */
+    background: rgba(148, 195, 148, 0.3);
+}
+#lgzHud .bgclear {
+    background: none;
+}
+#lgzHud .bgsolid {
+    background: rgba(148, 195, 148, 0.9);
 }
 #lgzHud .round {
     border-radius: 2em !important;
@@ -281,9 +253,3 @@ p {
     background: #ff0000 !important;
     font-size: small !important;
 }
-.lgzMin {
-	width: 100% !important;
-	min-width: 100% !important;
-	padding: 0 !important;
-}
-
