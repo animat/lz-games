@@ -204,7 +204,7 @@ div::-moz-focus-inner {
   float: left;
   width: 560px;
   height: 100px;
-  background: url('/images/header_home_link.gif') no-repeat;
+  background: url('header_home_link.gif') no-repeat;
   margin-top: 5px;
   margin-left: 10px;
 }
@@ -212,7 +212,7 @@ div::-moz-focus-inner {
   float: right;
   width: 222px;
   height: 113px;
-  background: url('../images/header_frog.gif') no-repeat;
+  background: url('header_frog.gif') no-repeat;
 }
 #nav {
   margin: 2px 5px 10px 0px;
