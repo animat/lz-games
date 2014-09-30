@@ -119,14 +119,22 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             K.urlRscMedia + name + '.json?'
         );
     };
-    thisObj.rscAudio = function (name) {
-        g.jsonAudio = thisObj.game.load.json(name, K.urlRscMedia + name + '.json');
-        thisObj.game.load.audio(
+    thisObj.rscAudio = function (name, loadjson) {
+        var loader;
+        loader = {};
+        if (loadjson) {
+            loader.json = thisObj.game.load.json(name, K.urlRscMedia + name + '.json');
+        } else {
+            loader.json = null;
+        }
+        g.json = loader.json;
+        loader.audio = thisObj.game.load.audio(
             name,
             K.urlRscMedia + name + '.m4a',
             K.urlRscMedia + name + '.ogg',
             K.urlRscMedia + name + '.mp3'
         );
+        return loader;
     };
     thisObj.rscAudioTracks = function (name) {
         var sfx,  aj, tracksArr, i, str, sprite;
