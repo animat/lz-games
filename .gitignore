@@ -1,5 +1,7 @@
-/html5_games/sources/*/nbproject/private/
 /node_modules
+/html5_games/node_modules/**
+/html5_games/sources/*/nbproject/private/
+/html5_games/sources/*/*.html
 __MACOSX
 .DS_STORE
 */.DS_STORE

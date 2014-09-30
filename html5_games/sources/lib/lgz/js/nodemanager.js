@@ -13,12 +13,12 @@ LgzLib.NodeManager = function (mgr) {
 	thisObj = this;
 	thisObj.url = null;
 	thisObj.nodes = [];
-	thisObj.qNum = 0;
+	thisObj.idx = 0;
 	thisObj.url = K.urlSvrXML + mgr.gameId() + '.xml?';
-
+        //todo: deprecated: begin
 	thisObj.loadURL = function (url, onloaded, onerror) {
 		thisObj.url = url;
-		thisObj.qNum = 0;
+		thisObj.idx = 0;
 		$.get(url, function (data) {
 			thisObj.nodes = $(data).find("gamedata").children();
 			onloaded();
@@ -26,9 +26,10 @@ LgzLib.NodeManager = function (mgr) {
 			onerror();
 		});
 	};
+        //todo: deprecated: end
 	thisObj.load = function (onloaded, onerror) {
 
-		thisObj.qNum = 0;
+		thisObj.idx = 0;
 		$.get(thisObj.url, function (data) {
 			thisObj.nodes = $(data).find("gamedata").children();
 			onloaded();
@@ -36,13 +37,14 @@ LgzLib.NodeManager = function (mgr) {
 			onerror();
 		});
 	};
-	
+        //todo: deprecated: begin	
 	thisObj.nodeCurrent = function () {
-		return thisObj.nodes[this.qNum];
+		return thisObj.nodes[this.idx];
 	};
 	thisObj.nodeCount = function () {
 		return thisObj.nodes.length;
 	};
+
 	thisObj.nodeAt = function (num) {
 		var n, subnode;
 		if (num < 0 || num > (thisObj.nodes.length - 1)) {
@@ -65,18 +67,45 @@ LgzLib.NodeManager = function (mgr) {
 		
 	};
 	thisObj.nodeChildAt = function (num, childname) {
-		var n, subnode;
-		if (num < 0 || num > (thisObj.nodes.length - 1)) {
-			return null;
-		}
-		return thisObj.nodes[num].querySelector(childname);
+ 
+            if (num < 0 || num > (thisObj.nodes.length - 1)) {
+                return null;
+            }
+            return thisObj.nodes[num].querySelector(childname);
+		
+	};
+        //todo: deprecate end
+
+
+	thisObj.node = function (childname, idx) {
+            var num;
+            if (!idx) {
+                num = thisObj.idx;
+            }
+                
+            if (num < 0 || num > (thisObj.nodes.length - 1)) {
+                return null;
+            }
+            return thisObj.nodes[num].querySelector(childname);
 		
 	};
 	thisObj.getQuestion = function (num) {
-		return thisObj.nodeChildAt(num, 'question');
+		return thisObj.node('question', num);
 	};
 	thisObj.getResponse = function (num) {
-		return thisObj.nodeChildAt(num, 'response');
+		return thisObj.node('response', num);
 	};
-
-}
+        thisObj.next = function () {
+            thisObj.idx += 1;
+            if (thisObj.idx > thisObj.nodes.length - 1) {
+                return false;
+            }
+            return true;
+        };
+	thisObj.reset = function () {
+		return thisObj.idx = 0;
+	};
+	thisObj.count = function () {
+		return thisObj.nodes.length;
+	};
+};

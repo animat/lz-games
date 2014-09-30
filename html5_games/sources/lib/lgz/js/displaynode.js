@@ -9,12 +9,12 @@
 /*jslint  nomen: true */
 
 var LgzLib = LgzLib || {};
-LgzLib.DisplayNode = function (xparent, node) {
+LgzLib.DisplayNode = function (parent, node) {
 	'use strict';
 	var game;
-	game = xparent.game;
+	game = parent.game;
 	
-	this.xparent = xparent;
+	this.parent = parent;
 	this.game = game;
 	this.node = node;
 
@@ -216,20 +216,6 @@ LgzLib.DisplayNode.prototype.show = function () {
 			500
 		);
 	}
-/*
-	switch (type) {
-	case 'text':
-		this.conformText();
-		break;
-	case 'image':
-		this.conformImage();
-		break;
-	case 'audio':
-		//todo: conform image of audio icon?
-		// this.loadAudio(content);
-		break;
-	}
-*/
 };
 LgzLib.DisplayNode.prototype.hide = function () {
 	'use strict';
@@ -240,18 +226,4 @@ LgzLib.DisplayNode.prototype.hide = function () {
 	content  = this.node.getAttribute('content');
 	this.sprite.visible = false;
 
-/*
-	switch (type) {
-	case 'text':
-		this.conformText();
-		break;
-	case 'image':
-		this.conformImage();
-		break;
-	case 'audio':
-		//todo: conform image of audio icon?
-		// this.loadAudio(content);
-		break;
-	}
-*/
 };
