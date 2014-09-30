@@ -10,15 +10,7 @@
  g: true
 */
 
-K.welcomeCardX = -50;
-K.welcomeCardY = 120;
-K.welcomeDiceX = 320;
-K.welcomeDiceY = 70;
-K.welcomePlayX = 520;
-K.welcomePlayY = 50;
 
-
-var g = g || {};
 var Lgz = Lgz || {};
 Lgz.SceneWelcome = function (game) {
 	"use strict";
@@ -30,7 +22,6 @@ Lgz.SceneWelcome = function (game) {
 		switch (btn.textkey) {
 		case 'IDS_PLAY':
 			game.state.start('Main');
-			//ui.fullScreenStart();
 			break;
 		}
 	};
@@ -39,34 +30,20 @@ Lgz.SceneWelcome = function (game) {
 		objHud = mgr.hud;
 	};
 	thisObj.preload = function () {
-    
 		thisObj.saveCpu = thisObj.game.plugins.add(Phaser.Plugin.SaveCPU);
 		thisObj.saveCpu.renderOnFPS = K.renderFPS;
 		thisObj.game.stage.backgroundColor = K.canvasBg;
-	g.w = thisObj;
-              
 		
 	};
 	thisObj.create = function () {
- 
+            var bg;
 		objHud.forceLandscape();
-		game.add.sprite(K.welcomeCardX, K.welcomeCardY, 'welcome');
-		game.add.sprite(K.welcomeDiceX, K.welcomeDiceY, 'dice');
-/*
-		ui.btn('IDS_PLAY', K.welcomePlayX, K.welcomePlayY);
-		ui.selectBtn = function (btn) {
-			thisObj.selectBtn(btn);
-		};
-*/
+		bg = game.add.sprite(K.welcomeBgOffX, K.welcomeBgOffY, 'welcome');
 		triggerFS = true;
 		objHud.winOpen('winPlay');
 	};
 	thisObj.update = function () {
-		if (triggerFS) {
-			triggerFS = false;
-			//ivanix: leave embedded
-			//objHud.fullScreenStart();
-		}
+
 	};
 
 

@@ -10,14 +10,6 @@
  g: true
 */
 
-K.splashCardX = -50;
-K.splashCardY = 120;
-K.splashDiceX = 320;
-K.splashDiceY = 70;
-K.splashPlayX = 520;
-K.splashPlayY = 50;
-
-var g = g || {};
 var Lgz = Lgz || {};
 Lgz.SceneSplash = function (game) {
 	"use strict";
@@ -31,9 +23,8 @@ Lgz.SceneSplash = function (game) {
 	};
 	thisObj.preload = function () {
 		thisObj.mgr.rscImage('welcome');
-		thisObj.mgr.rscImage('dice');
-		thisObj.mgr.rscImage('bg');
-		thisObj.mgr.rscAtlas('card');
+		thisObj.mgr.rscImage('main');
+                thisObj.mgr.rscAtlas('balloons');
 		thisObj.mgr.rscAudio('sfx');
  
 		thisObj.saveCpu = thisObj.game.plugins.add(Phaser.Plugin.SaveCPU);

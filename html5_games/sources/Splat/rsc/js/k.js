@@ -7,7 +7,7 @@
 
 var K = K ||  {};
  
-K.urlGamePrefix = 'pokerPairs';
+K.urlGamePrefix = 'splat';
 K.urlMedia = 'rsc/mma';
 
 K.font = 'Arial';
@@ -16,62 +16,37 @@ K.filefx = 'png';
 K.renderType = Phaser.CANVAS;
 //K.renderType = Phaser.WEBGL;
 // K.renderForce = true;
-K.renderForce = false;
+K.renderForce = true;
 K.renderFPS = 25;
-    
-K.bgWidth = 640;
-K.bgHeight = 480;
-K.bgOffX = -30;
-K.bgOffY = -25;
 
-K.cardCols = 5;
-K.cardWidthOrig = 90;
-K.cardHeightOrig = 70;
-//K.cardScale = 1.5;
-//K.cardWidth = 135;
-K.cardScale = 1;
-K.cardWidth = K.cardWidthOrig * K.cardScale;
-K.cardHeight = K.cardHeightOrig * K.cardScale;
-K.cardOffX = 45;
-K.cardOffY = 40;
-K.cardMarginX = 5;
-K.cardMarginY = 5;
-K.cardCount = 20;
-      
-K.cardTextScale = 1;
+K.welcomeBgOffX = 0;
+K.welcomeBgOffY = 0;
+ 
+K.welcomePlayX = 520;
+K.welcomePlayY = 50;
 
-K.cardTextStyle = {
-	font: '14pt '+K.font,
-	fill: '#333333',
-	align: 'center',
-	wordWrap: true,
-	wordWrapWidth: 80
-};
-	
-K.StyleMenu = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'white' };
-K.StyleButton = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'none', 'strokeThickness': 0, 'align': 'right' };
 
+
+K.mainBgWidth = 640;
+K.mainBgHeight = 480;
+K.mainBgOffX = 0;
+K.mainBgOffY = 0;
 
 K.textTO = 200;
-K.hideFirstTO = 1000;
-K.hideSecondTO = 1500;
 
-K.pairScale = 0.4;
-K.pairWidth = (K.cardScale * K.cardWidth * K.pairScale);
-K.pairHeight = (K.cardScale * K.cardHeight * K.pairScale);
-K.pairMarginX = 0;
-K.pairMarginY = 10;
-//K.pairOffsetX = K.canvasWidth - 2 * (K.pairWidth) - K.pairMarginX;
-K.pairOffsetX = 567;
-K.pairOffsetY = 10;
-K.pairSfxTO = 1200;
-   
-K.clockTextStyle = { 
+K.balloonScale = 1;
+ 
+K.balloonTextStyle = {
 	font: '14pt ' + K.font,
 	fill: '#ffffff',
 	align: 'center'
 };
-K.clockX = (K.canvasWidth / 2) - 5;
-K.clockY = K.canvasHeight - 100;
+K.clockTextStyle = {
+	font: '14pt ' + K.font,
+	fill: '#ffffff',
+	align: 'center'
+};
+K.clockX = K.canvasWidth  - 30;
+K.clockY = K.canvasHeight - 40;
 
 K.lastMatchTO = 5000;

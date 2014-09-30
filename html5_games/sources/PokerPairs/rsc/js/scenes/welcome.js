@@ -22,7 +22,7 @@ var g = g || {};
 var Lgz = Lgz || {};
 Lgz.SceneWelcome = function (game) {
 	"use strict";
-	var thisObj, rsc, triggerFS, ui, objHud;
+	var thisObj, rsc, ui, objHud;
 
 	thisObj = this;
 
@@ -58,15 +58,9 @@ Lgz.SceneWelcome = function (game) {
 			thisObj.selectBtn(btn);
 		};
 */
-		triggerFS = true;
 		objHud.winOpen('winPlay');
 	};
 	thisObj.update = function () {
-		if (triggerFS) {
-			triggerFS = false;
-			//ivanix: leave embedded
-			//objHud.fullScreenStart();
-		}
 	};
 
 
