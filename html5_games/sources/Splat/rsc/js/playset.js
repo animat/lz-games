@@ -12,15 +12,18 @@ var Lgz = Lgz || {};
 Lgz.PlaySet = function (mgr) {
     'use strict';
 
-    var thisObj = this;
+    var thisObj, balArr, charArr;
+            
+    thisObj = this;
 
     thisObj.mgr = mgr;
     thisObj.game = mgr.game;
     thisObj.nm = mgr.nm;
-    thisObj.balloonArr = [];
-    thisObj.selArr = [];
-    thisObj.lock = false;
+    thisObj.balArr = [];
+    thisObj.charArr = [];
+ 
     thisObj.nodeIdx = 0;
+    thisObj.charRemaining = 0;
     mgr.set = thisObj; //note: for debugging only
         
     // Note: audio 'sfx' loaded in splash scene
@@ -40,43 +43,54 @@ Lgz.PlaySet = function (mgr) {
         );
         
     };
+    thisObj.shuffle  = function (text) {
+        var a, n, i, j, tmp;
+        a = text.split(""),
+        n = a.length;
+
+        for(i = n - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+        }
+        return a.join("");        
+    };
     thisObj.createBalloons = function (text) {
-        var i, group, sprite, x, y, game, balloonGroup,
-                balloonCollisionGroup;
+        var i, balloon, randX, randY, game,
+                randText, hspacer, charline, clX, clY, spacer;
         
         game = thisObj.game;
-/*
+
         game.physics.startSystem(Phaser.Physics.P2JS);
-        //thisObj.game.physics.arcade.gravity.y = 0;
+        game.physics.p2.defaultRestitution = 0.8;
         game.physics.p2.setImpactEvents(true);
-        game.physics.p2.restitution = 0.1; 
-      
-        balloonCollisionGroup = game.physics.p2.createCollisionGroup();
-        balloonGroup = game.add.group();
-        balloonGroup.enableBody = true;
-        balloonGroup.physicsBodyType = Phaser.Physics.P2JS;
-g.grp = balloonGroup;        
+        game.physics.p2.setBounds(0, 0, 640,440, true, true, true, true, false);
+        game.physics.p2.gravity.y = 50;
+        randText = thisObj.shuffle(text);
+        g.rt = randText;
+        hspacer = K.canvasWidth / randText.length;
+        
+        clY = 275;
+        
+        spacer = 0;
+        
+        for (i = 0; i < randText.length; i += 1) {
+            randX = thisObj.game.rnd.integerInRange(100, 600);
+            randY = thisObj.game.rnd.integerInRange(100, 400);
+            balloon  = new Lgz.Balloon(thisObj, randX, randY, randText.charAt(i));
+            clX = 70 + i * spacer;
+            charline = new Lgz.CharLine(thisObj, clX, clY, text.charAt(i));
+            this.balArr.push(balloon);
+            this.charArr.push(charline);
+            if (!spacer) {
+                spacer = Math.round(balloon.spriteText.width * 2);
+                console.debug('spacer: ' + spacer);
+            }
 
-*/
-        for (i = 0; i < text.length; i += 1) {
-            x = thisObj.game.rnd.integerInRange(10, 620);
-            y = thisObj.game.rnd.integerInRange(150, 200);
-            sprite  = new Lgz.Balloon(thisObj, text.charAt(i));
-/*            
-            sprite.enableBody = true;
-            sprite.body = null;
-            sprite.physicsBodyType = Phaser.Physics.P2JS;
-            game.physics.p2.enable(sprite, true, false);
-
-            balloonGroup.add(sprite);
-            //sprite.body.setRectangle(10,10);
-            sprite.body.setCollisionGroup(balloonGroup);
-            //sprite.body.collides([balloonGroup]);
-            sprite.body.collideWorldBounds = true;
-            sprite.body.fixedRotation = true;
-            sprite.body.setZeroVelocity();
-*/
         }
+        
+        this.charRemaining = text.length;
     };
 
     thisObj.onLoadOK = function () {
@@ -87,7 +101,7 @@ g.grp = balloonGroup;
         
     };
     thisObj.load = function () {
-        var question, answer, i;
+        var question, answer, i, substext;
 
         thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
 
@@ -103,7 +117,8 @@ g.grp = balloonGroup;
         thisObj.question = question;
         thisObj.answer = answer;
 
-        thisObj.createBalloons(answer.text);
+        substext = answer.text.replace(/ /g,'_');
+        thisObj.createBalloons(substext);
 
         thisObj.game.load.start();
         
@@ -114,17 +129,48 @@ g.grp = balloonGroup;
         thisObj.load();
     };
     thisObj.next = function () {
-        thisObj.nm.incr();
-        thisObj.load();
-    };
-
-    thisObj.onAllCompleted = function () {
-        Lgz.hud.winOpen('winWon');
+        var rtn;
+  
+        
+        rtn = thisObj.nm.next();
+        if (rtn) {
+            thisObj.load();
+        } else {
+          Lgz.hud.winOpen('winWon');  
+        }
         
     };
+    thisObj._charFound = function () {
+        var y, i;
+        y = (thisObj.nm.idx * 20 ) + 120;
+        console.debug('_charFound: y = ' + y);
+        thisObj.question.display.sprite.position.setTo(10, y);
+        //todo: recycle balloon and charline sprites
+        for (i = 0; i < this.balArr.length; i += 1) {
+            this.balArr[i].kill();
+            this.charArr[i].kill();
+        }          
+        thisObj.next();
+    }
+    thisObj.charFound = function () {
 
+        console.debug('charFound:');
+        this.charRemaining -= 1;
+        console.debug('charFound:' + this.charRemaining);
+        if (thisObj.charRemaining) {
+            return;
+        }
+        //note: pause before next word
+        window.setTimeout(
+            function () {
+                thisObj._charFound();
+            },
+            2000
+        );
+        
+    };
     thisObj.update = function () {
-        //thisObj.game.physics.arcade.collide(thisObj.group);
+
  
     };
 

@@ -25,6 +25,7 @@ K.font = 'Arial';
 
 K.StyleButton = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'none', 'strokeThickness': 0, 'align': 'right' };
 K.StyleTitle = { 'font': '60px ' + K.font, 'fill': 'white', 'stroke': 'black', 'strokeThickness': 6, 'align': 'right' };
+K.nodeTextStyle = { font: '14pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
 
 K.canvasWidth = 640;
 K.canvasHeight = 480;

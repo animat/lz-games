@@ -23,12 +23,14 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.game = game;
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.nm = new LgzLib.NodeManager(thisObj);
+        thisObj.scenes = {};
 
         globLgz.lang = thisObj.lang;
         globLgz.game = thisObj.game;
         globLgz.hud = thisObj.hud;
         globLgz.nm = thisObj.nm;
         globLgz.mgr = thisObj;
+        globLgz.scenes = thisObj.scenes;
     };
     thisObj.pause = function () {
         //override
@@ -37,7 +39,8 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         //override
     };
     thisObj.addScene = function (str, obj) {
-        thisObj.game.state.add(str, obj);
+
+        thisObj.scenes[str] = thisObj.game.state.add(str, obj);
     };
     thisObj.nmLoadOK = function (str) {
         console.debug('LgzLib.Mgr.nmLoadOK: str ' + str);

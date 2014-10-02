@@ -22,6 +22,7 @@ Lgz.SceneSplash = function (game) {
         thisObj.mgr = mgr;
     };
     thisObj.preload = function () {
+        thisObj.mgr.rscImage('dot');
         thisObj.mgr.rscImage('welcome');
         thisObj.mgr.rscImage('main');
         thisObj.mgr.rscAtlas('balloons');
