@@ -131,7 +131,7 @@ Lgz.PlaySet = function (mgr) {
     thisObj.next = function () {
         var rtn;
   
-        
+        thisObj.playSound('next');
         rtn = thisObj.nm.next();
         if (rtn) {
             thisObj.load();
@@ -155,6 +155,7 @@ Lgz.PlaySet = function (mgr) {
     thisObj.charFound = function () {
 
         console.debug('charFound:');
+        thisObj.playSound('correct');
         this.charRemaining -= 1;
         console.debug('charFound:' + this.charRemaining);
         if (thisObj.charRemaining) {
