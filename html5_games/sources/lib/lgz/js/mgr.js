@@ -23,12 +23,14 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.game = game;
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.nm = new LgzLib.NodeManager(thisObj);
+        thisObj.scenes = {};
 
         globLgz.lang = thisObj.lang;
         globLgz.game = thisObj.game;
         globLgz.hud = thisObj.hud;
         globLgz.nm = thisObj.nm;
         globLgz.mgr = thisObj;
+        globLgz.scenes = thisObj.scenes;
     };
     thisObj.pause = function () {
         //override
@@ -37,7 +39,8 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         //override
     };
     thisObj.addScene = function (str, obj) {
-        thisObj.game.state.add(str, obj);
+
+        thisObj.scenes[str] = thisObj.game.state.add(str, obj);
     };
     thisObj.nmLoadOK = function (str) {
         console.debug('LgzLib.Mgr.nmLoadOK: str ' + str);
@@ -119,14 +122,22 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             K.urlRscMedia + name + '.json?'
         );
     };
-    thisObj.rscAudio = function (name) {
-        g.jsonAudio = thisObj.game.load.json(name, K.urlRscMedia + name + '.json');
-        thisObj.game.load.audio(
+    thisObj.rscAudio = function (name, loadjson) {
+        var loader;
+        loader = {};
+        if (loadjson) {
+            loader.json = thisObj.game.load.json(name, K.urlRscMedia + name + '.json');
+        } else {
+            loader.json = null;
+        }
+        g.json = loader.json;
+        loader.audio = thisObj.game.load.audio(
             name,
             K.urlRscMedia + name + '.m4a',
             K.urlRscMedia + name + '.ogg',
             K.urlRscMedia + name + '.mp3'
         );
+        return loader;
     };
     thisObj.rscAudioTracks = function (name) {
         var sfx,  aj, tracksArr, i, str, sprite;

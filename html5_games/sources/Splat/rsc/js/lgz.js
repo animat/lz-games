@@ -19,8 +19,10 @@ Lgz.init = function () {
 	$('#lgzPlayBtn').attr('resname', 'IDS_PLAY_GAME');
 
 	mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
+        
 	mgr.addScene('Splash', Lgz.SceneSplash);
 	mgr.addScene('Welcome', Lgz.SceneWelcome);
 	mgr.addScene('Main', Lgz.SceneMain);
+        
 	mgr.initScene('Splash');
 };

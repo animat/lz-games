@@ -12,28 +12,29 @@
 
 var Lgz = Lgz || {};
 Lgz.SceneSplash = function (game) {
-	"use strict";
-	var thisObj, triggerFS, ui;
+    "use strict";
+    var thisObj, triggerFS, ui;
 
-	thisObj = this;
+    thisObj = this;
 
         
-	thisObj.init = function (mgr) {
-		thisObj.mgr = mgr;
-	};
-	thisObj.preload = function () {
-		thisObj.mgr.rscImage('welcome');
-		thisObj.mgr.rscImage('main');
-                thisObj.mgr.rscAtlas('balloons');
-		thisObj.mgr.rscAudio('sfx');
+    thisObj.init = function (mgr) {
+        thisObj.mgr = mgr;
+    };
+    thisObj.preload = function () {
+        thisObj.mgr.rscImage('dot');
+        thisObj.mgr.rscImage('welcome');
+        thisObj.mgr.rscImage('main');
+        thisObj.mgr.rscAtlas('balloons');
+        thisObj.mgr.rscAudio('sfx', true);
  
-		thisObj.saveCpu = thisObj.game.plugins.add(Phaser.Plugin.SaveCPU);
-		thisObj.saveCpu.renderOnFPS = K.renderFPS;
-		thisObj.game.stage.backgroundColor = K.canvasBg;
-		
-	};
-	thisObj.create = function () {
-		thisObj.mgr.welcome();
-	};
+        thisObj.saveCpu = thisObj.game.plugins.add(Phaser.Plugin.SaveCPU);
+        thisObj.saveCpu.renderOnFPS = K.renderFPS;
+        thisObj.game.stage.backgroundColor = K.canvasBg;
+        
+    };
+    thisObj.create = function () {
+        thisObj.mgr.welcome();
+    };
 
 };
