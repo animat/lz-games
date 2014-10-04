@@ -14,8 +14,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="bg.svg"
-   inkscape:export-filename="/Work/Projects/Clients/LinguaZone/html5games/sources/Splat/prep/balloons.png"
+   sodipodi:docname="main.svg"
+   inkscape:export-filename="/Work/Projects/Clients/LinguaZone/lz-games/html5_games/sources/Splat/rsc/mma/main.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="288.92525"
-     inkscape:cy="191.85625"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="407.96809"
+     inkscape:cy="247.89851"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -1519,11 +1519,6 @@
          d="m -86.85,-117.85 21.2,-3.1 33.8,0.45 -35.55,0.9 -9.25,2.05 -15.9,1.65 q -0.25,0.4 -14.05,3.45 l -10.8,-0.3 -5.9,-1.7 -6.4,0.35 -9.4,0.8 -4.8,0.45 q 2.05,-1.05 8,-1.65 l 6.65,-0.6 q 2.85,-1 5.65,-2.1 l 4.85,-2 q 4.45,-1.8 8.6,-2.4 4,-0.05 7.2,2.05 l 3.3,2.35 12.8,-0.65"
          inkscape:connector-curvature="0"
          style="fill:#ad8355;fill-rule:evenodd;stroke:none" />
-      <path
-         id="path25159"
-         d="m -112.65,-118.95 q -2.65,-0.2 -1.1,-1.45 l 3.9,-0.05 q 3.45,0.05 4.2,0.75 0,1.6 -2.8,1.15 l -4.2,-0.4"
-         inkscape:connector-curvature="0"
-         style="fill:#c9cac1;fill-rule:evenodd;stroke:none" />
       <path
          id="path25161"
          d="m 223.1,-120.25 5.1,-0.6 9.05,-0.6 10.3,0.15 6.6,0.15 36.75,0.6 -69.5,1.9 -7.55,0.8 -17.35,1 -16.4,-0.65 -6.75,-0.85 24.5,-0.3 25.25,-1.6"

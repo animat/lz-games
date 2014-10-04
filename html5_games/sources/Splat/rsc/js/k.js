@@ -16,8 +16,8 @@ K.filefx = 'png';
 K.renderType = Phaser.CANVAS;
 //K.renderType = Phaser.WEBGL;
 // K.renderForce = true;
-K.renderForce = true;
-K.renderFPS = 25;
+K.renderForce = false;
+K.renderFPS = 15;
 
 K.welcomeBgOffX = 0;
 K.welcomeBgOffY = 0;
@@ -35,10 +35,13 @@ K.mainBgOffY = 0;
 K.textTO = 200;
 
 K.balloonScale = 1;
- 
+
+K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
 K.balloonTextStyle = {
 	font: '14pt ' + K.font,
 	fill: '#ffffff',
+        stroke: '#ffffff',
+        strokeThickness: 2,
 	align: 'center'
 };
 K.clockTextStyle = {

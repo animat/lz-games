@@ -21,13 +21,7 @@ LgzLib.DisplayNode = function (parent, node) {
 	Phaser.Group.call(this, game);
 };
 LgzLib.inherit(LgzLib.DisplayNode, Phaser.Group);
-LgzLib.DisplayNode.prototype.spriteText = function (content) {
-	'use strict';
-	console.debug('LgzLib.DisplayNode.spriteText: entered');
-	this.loader = null;
-	//todo: change cardTextStyle to generic K
-	this.sprite = this.game.add.text(0, 0, content, K.cardTextStyle);
-};
+
 LgzLib.DisplayNode.prototype.loadImage = function (content) {
 	'use strict';
 	var splitUrl, url;
@@ -82,7 +76,7 @@ LgzLib.DisplayNode.prototype.load = function () {
 
 	switch (type) {
 	case 'text':
-		//this.spriteText(content);
+
 		break;
 	case 'image':
 		this.loadImage(content);
@@ -105,15 +99,13 @@ LgzLib.DisplayNode.prototype.createSprite = function () {
 
 	switch (type) {
 	case 'text':
-		//note: this case wont happen. already created at load
-		//this.spriteText(content);
-		this.sprite = this.game.add.text(0, 0, content, K.cardTextStyle);
+		this.sprite = this.game.add.text(0, 0, content, K.nodeTextStyle);
 		break;
 	case 'image':
 		this.sprite = this.game.add.sprite(0, 0, content);
 		break;
 	case 'audio':
-		//this.sprite = this.game.add.text(0, 0, '[audio]', K.cardTextStyle);
+ 
 		this.sprite = this.game.add.sprite(0, 0, 'audio');
 		this.spriteAudio = this.game.add.audio(content);
 

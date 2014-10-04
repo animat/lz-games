@@ -41,7 +41,7 @@ Lgz.SceneMain = function (game) {
              
                  
         thisObj.timer = new Lgz.Timer(thisObj);
-                 
+        thisObj.playSet.start();                 
         thisObj.timer.create();
         objMgr.pause = function () {
             //thisObj.playSet.pause();
@@ -54,7 +54,7 @@ Lgz.SceneMain = function (game) {
             thisObj.game.paused = false;
         };
         thisObj.timer.start();
-        thisObj.playSet.start();
+
   
     };
     thisObj.update = function () {
