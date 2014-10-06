@@ -113,8 +113,16 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         return id;
     };
     thisObj.rscImage = function (name) {
-        thisObj.game.load.image(name, K.urlRscMedia + name + '.png');
+        thisObj.game.load.image(name, K.urlRscMedia + name + '.png?');
     };
+    thisObj.rscSpriteSheet = function (name, width, height) {
+        thisObj.game.load.spritesheet(
+            name,
+            K.urlRscMedia + name + '.png?',
+            width,
+            height
+        );
+    };    
     thisObj.rscAtlas = function (name) {
         thisObj.game.load.atlas(
             name,
