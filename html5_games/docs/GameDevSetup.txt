@@ -34,6 +34,9 @@ http://travismaynard.com/writing/getting-started-with-gulp
 4)        install gulp modules locally: 
 bash installmods.txt
 
+5) cd into the game directory (e.g. html5_games/sources/Splat) and run the command:
+http-server .
+to start up the node server. Browse to the address specified on the command line and navigate to the game.html file (e.g. localhost:8080/game.html)
 
 Gulp commands provide several useful functions in the building and maintaining of the source tree and compiled games.  The specific gulp commands will be covered in the topics that follow.
 

@@ -9,25 +9,19 @@
 /*jslint  nomen: true */
 
 var LgzLib = LgzLib || {};
-LgzLib.DisplayNode = function (xparent, node) {
+LgzLib.DisplayNode = function (parent, node) {
 	'use strict';
 	var game;
-	game = xparent.game;
+	game = parent.game;
 	
-	this.xparent = xparent;
+	this.parent = parent;
 	this.game = game;
 	this.node = node;
 
 	Phaser.Group.call(this, game);
 };
 LgzLib.inherit(LgzLib.DisplayNode, Phaser.Group);
-LgzLib.DisplayNode.prototype.spriteText = function (content) {
-	'use strict';
-	console.debug('LgzLib.DisplayNode.spriteText: entered');
-	this.loader = null;
-	//todo: change cardTextStyle to generic K
-	this.sprite = this.game.add.text(0, 0, content, K.cardTextStyle);
-};
+
 LgzLib.DisplayNode.prototype.loadImage = function (content) {
 	'use strict';
 	var splitUrl, url;
@@ -82,7 +76,7 @@ LgzLib.DisplayNode.prototype.load = function () {
 
 	switch (type) {
 	case 'text':
-		//this.spriteText(content);
+
 		break;
 	case 'image':
 		this.loadImage(content);
@@ -105,15 +99,13 @@ LgzLib.DisplayNode.prototype.createSprite = function () {
 
 	switch (type) {
 	case 'text':
-		//note: this case wont happen. already created at load
-		//this.spriteText(content);
-		this.sprite = this.game.add.text(0, 0, content, K.cardTextStyle);
+		this.sprite = this.game.add.text(0, 0, content, K.nodeTextStyle);
 		break;
 	case 'image':
 		this.sprite = this.game.add.sprite(0, 0, content);
 		break;
 	case 'audio':
-		//this.sprite = this.game.add.text(0, 0, '[audio]', K.cardTextStyle);
+ 
 		this.sprite = this.game.add.sprite(0, 0, 'audio');
 		this.spriteAudio = this.game.add.audio(content);
 
@@ -216,20 +208,6 @@ LgzLib.DisplayNode.prototype.show = function () {
 			500
 		);
 	}
-/*
-	switch (type) {
-	case 'text':
-		this.conformText();
-		break;
-	case 'image':
-		this.conformImage();
-		break;
-	case 'audio':
-		//todo: conform image of audio icon?
-		// this.loadAudio(content);
-		break;
-	}
-*/
 };
 LgzLib.DisplayNode.prototype.hide = function () {
 	'use strict';
@@ -240,18 +218,4 @@ LgzLib.DisplayNode.prototype.hide = function () {
 	content  = this.node.getAttribute('content');
 	this.sprite.visible = false;
 
-/*
-	switch (type) {
-	case 'text':
-		this.conformText();
-		break;
-	case 'image':
-		this.conformImage();
-		break;
-	case 'audio':
-		//todo: conform image of audio icon?
-		// this.loadAudio(content);
-		break;
-	}
-*/
 };
