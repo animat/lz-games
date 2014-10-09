@@ -1,4 +1,17 @@
 /*
 moved to lib/lgz/win.css
 */
- 
+ #winPlay p {
+	position: absolute;
+	top: 60%;
+	left: 5%;
+	width: 80%;
+        padding: 20px;
+        
+}
+#winPlay button {
+	position: absolute;
+	bottom: 10%;
+	left: 40%;
+        background: rgba(0, 0, 255, 0.75);
+}
