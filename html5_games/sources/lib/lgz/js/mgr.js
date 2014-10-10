@@ -60,6 +60,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     };
     thisObj.startScene = function (str) {
         console.debug('LgzLib.Mgr.startScene: str ' + str);
+        thisObj.game.paused = false;
         thisObj.game.state.start(str,  true, false, thisObj);
     };
     thisObj.fullScreenToggle = function () {
@@ -75,7 +76,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.startScene('Welcome');
     };
     thisObj.welcome = function () {
-        thisObj.hud.winCloseAll(true);
+        thisObj.hud.winCloseAll(false);
         window.setTimeout(function () {
             thisObj._welcome();
         }, 900);

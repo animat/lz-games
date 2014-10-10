@@ -29,11 +29,12 @@ Lgz.SceneSplash = function (game) {
         thisObj.mgr.rscImage('blue');
         thisObj.mgr.rscImage('mainfg');        
         thisObj.mgr.rscImage('basketfg');
+        thisObj.mgr.rscAtlas('clouds');        
         
-        //thisObj.mgr.rscAtlas('penguin_fishing');
         thisObj.mgr.rscSpriteSheet('penguin_crying', 265, 370);
         thisObj.mgr.rscSpriteSheet('penguin_catching', 480, 410);        
-
+        thisObj.mgr.rscSpriteSheet('happy_penguin', 80, 155);
+        
         thisObj.mgr.rscAudio('sfx', true);
  
         thisObj.saveCpu = thisObj.game.plugins.add(Phaser.Plugin.SaveCPU);
