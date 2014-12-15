@@ -11,12 +11,10 @@
 var Lgz = Lgz || {};
 
 Lgz.init = function () {
-	'use strict';
-	var mgr;
-        
-	mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
-	mgr.addScene('Splash', Lgz.SceneSplash);
-	mgr.addScene('Welcome', Lgz.SceneWelcome);
-	mgr.addScene('Main', Lgz.SceneMain);
-	mgr.initScene('Splash');
+    'use strict';
+    var mgr;
+   
+    mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
+    mgr.sceneInit();
+    mgr.scenes.splash.start();        
 };
