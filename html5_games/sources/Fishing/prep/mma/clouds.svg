@@ -9,7 +9,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    height="177.35001"
-   width="1046.5"
+   width="516.13293"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -38,23 +38,23 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1098"
-     inkscape:window-height="662"
+     inkscape:window-width="1412"
+     inkscape:window-height="802"
      id="namedview123"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.33597656"
-     inkscape:cx="651.10194"
-     inkscape:cy="88.674997"
-     inkscape:window-x="2150"
-     inkscape:window-y="44"
+     inkscape:zoom="0.95028521"
+     inkscape:cx="-51.254197"
+     inkscape:cy="-41.005307"
+     inkscape:window-x="315"
+     inkscape:window-y="66"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="g4" />
   <g
-     transform="translate(786.25,88.65)"
+     transform="translate(255.88293,88.65)"
      id="g4">
     <use
        height="177.35001"
@@ -63,7 +63,8 @@
        xlink:href="#shape0"
        id="use6"
        x="0"
-       y="0" />
+       y="0"
+       clip-path="url(#clipPath3042)" />
   </g>
   <defs
      id="defs8">
@@ -351,5 +352,16 @@
          inkscape:connector-curvature="0"
          style="fill:#c5f1fc;fill-rule:evenodd;stroke:none" />
     </g>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3042">
+      <rect
+         style="fill:#0029e2;fill-opacity:1;stroke:none"
+         id="rect3044"
+         width="548.25647"
+         height="250.45113"
+         x="530.36707"
+         y="-32.060806" />
+    </clipPath>
   </defs>
 </svg>
