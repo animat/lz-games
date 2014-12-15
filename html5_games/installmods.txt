@@ -1,0 +1,19 @@
+
+# install node_modules
+
+npm install --save-dev gulp
+npm install --save-dev gulp-changed
+npm install --save-dev gulp-concat
+npm install --save-dev gulp-ignore
+npm install --save-dev gulp-imagemin
+npm install --save-dev gulp-jshint
+npm install --save-dev gulp-minify-html
+npm install --save-dev gulp-notify
+npm install --save-dev gulp-rename
+npm install --save-dev gulp-shell
+npm install --save-dev gulp-strip-debug
+npm install --save-dev gulp-uglify
+npm install --save-dev gulp-file-include
+npm install --save-dev gulp-watch
+npm install --save-dev gulp-jsbeautifier
+npm install --save-dev gulp-jsdoc

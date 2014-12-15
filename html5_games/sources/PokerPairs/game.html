@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://www.linguazone.com/play/63864 -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta content="authenticity_token" name="csrf-param">
+	<meta content="xwYgqH0fpHdR+JijEeEVYf3jbnjUhZdC7czz6xJUxfc=" name="csrf-token">
+
+<!-- html5 game required: begin-->
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- ivanix: left for refernce only
+	content attributes now set in LgzLib.hud.fullscreen methods
+	based on os/device and 'fullscreen' mode.
+
+	<meta name="viewport"
+	content="user-scalable=no,
+	initial-scale=1,
+	maximum-scale=1,
+	height=device-height,
+	width=device-width,
+	target-densitydpi=device-dpi,
+	minimal-ui" />
+-->
+	<meta id="lgzViewPort" name="viewport" content="" />
+
+    <link rel="stylesheet" href="lib/lgz/dom/lgz.css?" type="text/css"  charset="utf-8">
+    <link rel="stylesheet" href="lib/lgz/dom/win.css?" type="text/css"  charset="utf-8">
+    <link rel="stylesheet" href="rsc/dom/win.css?" type="text/css"  charset="utf-8">
+
+
+
+<!-- html5 game required: end -->
+  <title></title>
+
+	<link href="./lib/exodom/layout.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="./lib/exodom/jquery-ui-1.8.18.custom.css" media="screen" rel="stylesheet" type="text/css">
+	<script type="text/javascript" async="" src="./lib/exodom/ga.js"></script><script src="./lib/exodom/application.js" type="text/javascript"></script><style type="text/css"></style>
+  <link href="./lib/exodom/play.css" media="screen" rel="stylesheet" type="text/css">
+
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-90617-2']);
+	  _gaq.push(['_setDomainName', 'linguazone.com']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+<style type="text/css" media="screen">#game_div {visibility:hidden}</style>
+</head>
+<body ontouchstart="" onload="Lgz.init()" id="fstarget" style="font-family: sans-serif" lgzMin >
+  <div id="header" lgzHide >
+    <a href="http://www.linguazone.com/">
+      <div id="header_home_link"></div>
+</a>    <div id="header_frog"></div>
+    <br class="clearFloat">
+    <div id="nav">
+        <ul>
+	<li><a href="http://www.linguazone.com/">HOME</a></li>
+	<li><a href="http://www.linguazone.com/about/features">FEATURES</a></li>
+	<li><a href="http://www.linguazone.com/about/pricing">PRICING</a></li>
+	<li><a href="http://www.linguazone.com/about/languages">LANGUAGES</a></li>
+	<li><a href="http://www.linguazone.com/about/us">ABOUT US</a></li>
+</ul>
+<ul class="login">
+	<li><a href="http://www.linguazone.com/students">STUDENTS</a></li>
+	<li><a href="http://www.linguazone.com/teachers/login">TEACHERS</a></li>
+</ul>
+    </div>
+  </div>
+  <div id="body" lgzMin>
+    <div id="body_header" lgzHide ></div>
+    <div class="wrapper" lgzMin>
+
+
+ <h1 lgzHide >Play [LGZEXT_GAME_TITLE]</h1>
+<br lgzHide>
+<p lgzHide >
+	[LGZEXT_CUSTOM_TITLE]
+</p>
+
+<!-- html5 game required: begin-->
+
+<div id="lgzContainer" >
+    <div id="lgzGameCanvas"></div>
+
+    <div id="lgzHud">
+        <div class="menu" >
+        <div class="bar">
+            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.mgr.fullScreenToggle();"   ></button>
+            <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
+            <p id="lgzHudLogo" class="">LingaZone.com</p>
+
+            <button id="lgzHudHelp" class="btn square" onclick="Lgz.mgr.help();">Help</button>
+        </div>
+        </div>
+
+<!-- rsc/html/win.html: BEGIN -->
+
+<!-- lib/lgz/dom/win.html: BEGIN -->
+
+        <div id="winPlay" class="win modal bgclear" style="display: block;">
+            <p   resname="IDS_INSTRUCTIONS">
+                How To Play
+            </p>
+            <button id="lgzPlayBtn" resname="IDS_PLAY" onclick="Lgz.mgr.play()">PlaytheGame!</button>
+        </div>
+
+        <div id="winWon" class="win modal">
+            <div class="msgbox">
+            <p   resname="IDS_CONGRATS"></p>
+            <br>
+            <div class="btngroup">
+                <button class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
+                <button  class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
+            </div>
+            </div>
+
+        </div>
+ 
+        <div id="winExitConfirm" class="win modal">
+        <div class="posCtr" >
+
+            <div class="msgbox">
+            <p resname="ConfirmExitGame"></p>
+            <br><br>
+            <div class="btngroup">
+                <button class="btn bg" resname="Exit" onclick="Lgz.mgr.exit()" > </button>
+                <button class="btn bg" resname="Cancel" onclick="Lgz.hud.winClose('winExitConfirm',true)" > </button>
+            </div>
+            </div>
+
+        </div>
+        </div>
+
+        <div id="winHelp" class="win modal">
+        <div class="posBtmCtr" >
+            <div class="msgbox">
+            <div class="btngroup">
+                <button resname="GetAHint" onclick="Lgz.hud.winOpen('winHint')"> </button>
+                <button resname="ReportABug" onclick="Lgz.hud.winOpen('winBug')"> </button>
+                <button resname="Close" onclick="Lgz.hud.winClose('winHelp',true)" > </button>
+            </div>
+            </div>
+
+        </div>
+        </div>
+        <div id="winHint" class="win modal">
+        <div class="posBtmCtr" >
+            <div class="msgbox">
+                <p resname="NoHintAvail">Sorry No Hint Available</p>
+                <br>
+                <div class="btngroup">
+                    <button  class="btn" resname="OK" onclick="Lgz.hud.winClose('winHint',false)" ></button>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        <div id="winBug" class="win modal">
+            <div class="msgbox">
+                <form id="bugmsg">
+                    <textarea id="textbug" name="body" ></textarea>
+                </form>
+                <br>
+                <div class="btngroup">
+                    <button resname="Send"   onclick="Lgz.mgr.sendBug()" ></button>
+                    <button  resname="Close"  onclick="Lgz.hud.winClose('winBug',false)" ></button>
+                </div>
+            </div>
+            
+        </div>
+<!-- lib/lgz/dom/win.html: END -->
+
+<!-- rsc/html/win.html: END -->
+
+
+    </div>
+
+    <!-- needed by phaser for custom font access
+         font must be referenced in @font-face css above
+    -->
+    <!-- Not used for now. Arial take long time to download.
+
+    <p id="tp1" style="font-family: Arial; font-size: 0px">.</p>
+    -->
+
+
+    <div id="lgzOrientWrap">
+        <p id="lgzOrient" style="font-family: sans-serif; font-size: 16pt">Please Rotate To Landscape</p>
+    </div>
+    </div>
+
+
+
+<!-- html5 game required: end-->
+    </div>
+    <div id="body_footer" lgzHide ></div>
+  </div>
+  <div id="footer" lgzHide>
+    <div id="animat_links">
+      <div id="prima_lingua">
+        <a href="http://www.primalingua.net/"><img alt="Prima_lingua_frog" src="./lib/exodom/prima_lingua_frog.gif"></a>
+        <h4>PRIMA LINGUA</h4>
+        <p class="tag_line">The preparatory course<br> for the study of foreign languages</p>
+      </div>
+      <div id="lz_camps">
+        <a href="http://www.lzacademy.com/"><img alt="Camp_frog" src="./lib/exodom/camp_frog.gif"></a>
+        <h4>LZ LANGUAGE CAMPS</h4>
+        <p class="tag_line">Summer camps in 10 languages<br> for ages 4 - 17 in Suburban Philadelphia</p>
+      </div>
+      <br class="clearFloat">
+    </div>
+    <div id="get_to_know_us">
+      <h4>GET TO KNOW US</h4>
+      <p>We love languages, games, and technology. LinguaZone.com is the way we fuse all three together and offer fun and creative ways for teachers to interact with their 21st century students. We're all about activity-based programs and engaging language learning. <a href="http://www.linguazone.com/contact">Get in touch</a> if you're interested in learning more.</p>
+    </div>
+    <br class="clearFloat">
+    <p class="copyright">© Animat, LLC 2006 - 2014</p>
+  </div>
+<!-- html5 game required: begin-->
+
+<!-- rsc/html/js.html: BEGIN -->
+
+
+<!-- lib/html/lgzlibjs.html: BEGIN -->
+    <script type="text/javascript" src="lib/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/vendor/phaser/phaser-2.0.7.js?"></script>
+    <script type="text/javascript" src="lib/vendor/phaser/plugins/savecpu.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/k.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/lib.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/lang.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/hud.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/displaynode.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/nodemanager.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/scene.js?"></script>
+    <script type="text/javascript" src="lib/lgz/js/mgr.js?"></script>
+<!-- lib/html/lgzlibjs.html: END -->
+
+
+<!-- include custom js references here -->
+<script type="text/javascript" src="rsc/js/k.js?"></script>
+<script type="text/javascript" src="rsc/js/lgz.js?"></script>
+<script type="text/javascript" src="rsc/js/cardset.js?"></script>
+<script type="text/javascript" src="rsc/js/timer.js?"></script>
+<script type="text/javascript" src="rsc/js/scenes.js?"></script>
+<!--TODO: remove. replaced by scenes.js
+<script type="text/javascript" src="rsc/js/scenes/splash.js?"></script>
+<script type="text/javascript" src="rsc/js/scenes/welcome.js?"></script>
+<script type="text/javascript" src="rsc/js/scenes/main.js?"></script>
+-->
+<!-- rsc/html/js.html: END -->
+
+<!-- html5 game required: end-->
+
+</body>
+</html>
+

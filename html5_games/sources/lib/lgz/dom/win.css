@@ -1,0 +1,57 @@
+/*
+ * This settings can be changed per game under rsc/dom/win.css
+*/
+
+#lgzContainer  {
+    color: #ffffff;
+}
+#lgzContainer p {
+    font-weight: bold;
+    font-size: larger;
+    color: #ffffff;
+    text-align: center;
+}
+#lgzContainer button {
+    color: #ffffff;
+}
+#lgzHud .msgbox {
+ 
+    text-align: center;
+    /* width: 100%; */
+    margin-top: 10%;
+    margin-bottom: 10%;
+    border: 1px solid #ffffff;
+    /* width: auto; */
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: rgba(39, 82, 173, 0.9);
+}
+#winPlay  {
+	//position: absolute;
+	//top: 10%;
+	//right: 50%;
+}
+
+#winPlay p {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 40%;
+        padding: 20px;
+        
+}
+#winPlay button {
+	position: absolute;
+	bottom: 30%;
+	left: 75%;
+}
+#winMain button {
+	position: absolute;
+	bottom: 20%;
+	right: 10%;
+}
+#winExitConfirm {
+    position: absolute;
+}
