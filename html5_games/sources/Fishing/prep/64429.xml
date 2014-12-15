@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xml>
-  <format gamename="Fishing"></format>
-  <description>
-    <text>image port example</text>
-  </description>
-<gamedata><node><question content='media/image/food/egg.swf' name='english' type='image'/><response content='egg' name='lang' type='text'/></node> <node><question content='media/image/body/hands.swf' name='english' type='image'/><response content='hands' name='lang' type='text'/></node> <node><question content='media/image/classroom/desk.swf' name='english' type='image'/><response content='chair' name='lang' type='text'/></node></gamedata><templatedata/>  <language>Spanish</language>
-</xml>

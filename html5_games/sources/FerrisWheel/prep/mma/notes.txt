@@ -1,8 +1,0 @@
-
-sprites.txt and sprites.json created from sheet.png using http://www.leshylabs.com/apps/sstool/
-
-1) drag image to Leshy canvas
-2) Click on "Remap"
-3) for each sprite found,  click on and give usable name in "Sprite Settings" section.
-4) Export as txt for text and as "JSON-TP-Array" for json.
-

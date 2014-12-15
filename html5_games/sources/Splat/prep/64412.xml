@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xml>
-  <format gamename="Splat"></format>
-  <description>
-    <text>tesing splat with image</text>
-  </description>
-<gamedata><node><question content='media/image/food/apple.swf' name='english' type='image'/><response content='apple' name='lang' type='text'/></node> <node><question content='media/image/food/carrot.swf' name='english' type='image'/><response content='carrots' name='lang' type='text'/></node> <node><question content='media/image/food/banana.swf' name='english' type='image'/><response content='banana' name='lang' type='text'/></node></gamedata><templatedata/>  <language>Spanish</language>
-</xml>
