@@ -139,9 +139,10 @@ Lgz.PlaySet = function (scene) {
         thisObj.playSound('next');
         rtn = thisObj.nm.next();
         if (rtn) {
-            thisObj.load();
+          thisObj.load();
         } else {
-          Lgz.hud.winOpen('winWon');  
+          thisObj.lgzMgr.postScore();
+          thisObj.lgzMgr.hud.winOpen('winWon');  
         }
         
     };

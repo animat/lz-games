@@ -271,7 +271,8 @@ Lgz.PlaySet = function (scene) {
         thisObj.spritePenHappy.animations.play('happy', 10, true);
         window.setTimeout(
             function () {
-                Lgz.hud.winOpen('winWon'); 
+                thisObj.lgzMgr.scorePost();
+                thisObj.lgzMgr.hud.winOpen('winWon'); 
             },
             3000
         );         
@@ -286,7 +287,6 @@ Lgz.PlaySet = function (scene) {
             thisObj.load();
         } else {
           thisObj.happy();
-          //Lgz.hud.winOpen('winWon');  
         }
         
     };

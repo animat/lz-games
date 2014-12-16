@@ -305,7 +305,10 @@ Lgz.CardSet = function (scene) {
 
     };
     thisObj.allMatched = function () {
-            Lgz.hud.winOpen('winWon');
+            var time;
+            time = thisObj.scene.timer.value();
+            thisObj.lgzMgr.postScore(time);
+            thisObj.lgzMgr.hud.winOpen('winWon');
 
     };
 

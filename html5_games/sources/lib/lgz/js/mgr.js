@@ -119,6 +119,14 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             );
         thisObj.hud.winClose('winbug', false);
     };
+    thisObj.postScore = function (scoreval) {
+        var $lgzParms, userid, gameid, url;
+        url = "/high_scores/create";
+        $lgzParms = $("#lgzParms");
+        gameid = $lgzParms.attr("game_id");
+        userid = $lgzParms.attr("user_id");
+        $.post(url, {game_id: gameid, user_id: userid, score: scoreval});
+    };
     thisObj.gameId = function () {
         var id, tail;
         tail = document.URL.match(/.*\/(.*)$/)[1];
