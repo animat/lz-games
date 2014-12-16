@@ -40,14 +40,15 @@ K.cardCount = 20;
       
 K.cardTextScale = 1;
 
-K.cardTextStyle = {
+K.nodeTextStyle  = {
 	font: '14pt '+K.font,
 	fill: '#333333',
 	align: 'center',
 	wordWrap: true,
 	wordWrapWidth: 80
 };
-	
+
+
 K.StyleMenu = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'white' };
 K.StyleButton = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'none', 'strokeThickness': 0, 'align': 'right' };
 

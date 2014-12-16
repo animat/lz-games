@@ -15,7 +15,7 @@ K.urlSvrMediaAudio = 'svr/audio/';
 
 //note: urlRscMedia points to game's local multi media assets
 K.urlRscMedia = 'rsc/mma/';
-
+K.urlLibMedia = 'lib/lgz/mma/';
 
 K.lang = "en";
 K.region = "US";

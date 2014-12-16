@@ -39,27 +39,32 @@ Lgz.Cloud.prototype.update = function ()  {
     }
  
 };
-Lgz.PlaySet = function (mgr) {
+Lgz.PlaySet = function (scene) {
     'use strict';
-
     var thisObj, fishArr;
-            
+    
     thisObj = this;
+    thisObj.scene = scene;
+    thisObj.lgzMgr = scene.lgzMgr;
+    thisObj.game = thisObj.lgzMgr.game;
+    thisObj.nm = thisObj.lgzMgr.nm;
 
-    thisObj.mgr = mgr;
-    thisObj.game = mgr.game;
-    thisObj.nm = mgr.nm;
-    thisObj.fishArr = [];
-
- 
+    thisObj.fishArr = []; 
     thisObj.nodeIdx = 0;
 
-    mgr.set = thisObj; //note: for debugging only
-        
-    // Note: audio 'sfx' loaded in splash scene
 
-    thisObj.sfx = thisObj.mgr.rscAudioTracks('sfx');
+    thisObj.rscload = function () {
+        thisObj.lgzMgr.rscAtlas('fishes');
+        thisObj.lgzMgr.rscImage('blue');
+        thisObj.lgzMgr.rscImage('mainfg');        
+        thisObj.lgzMgr.rscImage('basketfg');
+        thisObj.lgzMgr.rscAtlas('clouds');        
 
+        thisObj.lgzMgr.rscSpriteSheet('penguin_crying', 265, 370);
+        thisObj.lgzMgr.rscSpriteSheet('penguin_catching', 480, 410);        
+        thisObj.lgzMgr.rscSpriteSheet('happy_penguin', 80, 155);        
+        thisObj.lgzMgr.rscAudio('sfx', true); 
+    }
     thisObj.playSound = function (key, delayTO) {
         thisObj.sfx.play(key);
         window.setTimeout(
@@ -193,8 +198,10 @@ Lgz.PlaySet = function (mgr) {
         thisObj.game.load.start();
         
     };
-    thisObj.start = function () {
+    thisObj.create = function () {
 
+        thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
+        
         thisObj.game.physics.startSystem(Phaser.Physics.ARCADE);
         //note: extend world bounds 200px past either side to allow fish to pass from view
         thisObj.game.physics.arcade.setBounds(-200, 270, 1040, 200);

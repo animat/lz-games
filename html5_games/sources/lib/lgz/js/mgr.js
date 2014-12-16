@@ -38,9 +38,16 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj.resume = function () {
         //override
     };
+    thisObj.sceneInit = function () {
+        thisObj.scenes.splash = new LgzLib.Scenes.Splash(thisObj);      
+        thisObj.scenes.welcome = new LgzLib.Scenes.Welcome(thisObj);      
+        thisObj.scenes.main = new LgzLib.Scenes.Main(thisObj);           
+        thisObj.scenes.end = new LgzLib.Scenes.End(thisObj);        
+    };    
+    //todo: DEPRECATE: begin scene functions
     thisObj.addScene = function (str, obj) {
 
-        thisObj.scenes[str] = thisObj.game.state.add(str, obj);
+        //thisObj.scenes[str] = thisObj.game.state.add(str, obj);
     };
     thisObj.nmLoadOK = function (str) {
         console.debug('LgzLib.Mgr.nmLoadOK: str ' + str);
@@ -67,13 +74,17 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         console.debug('Mgr.fullScreenToggle');
         thisObj.hud.fullScreenToggle();
     };
+    //todo: DEPRECATE: end
+
     thisObj.help = function () {
         thisObj.hud.winOpen('winHelp');
     };
     thisObj._welcome = function () {
         thisObj.hud.toggleFsButtons();
         thisObj.hud.localize();
-        thisObj.startScene('Welcome');
+        //thisObj.startScene('Welcome
+        thisObj.game.paused = false;
+        thisObj.scenes.welcome.start();
     };
     thisObj.welcome = function () {
         thisObj.hud.winCloseAll(false);
@@ -86,7 +97,8 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         if (!game.device.desktop) {
             thisObj.hud.fullScreenStart();
         }
-        thisObj.startScene('Main');
+        //thisObj.startScene('Main');
+        thisObj.scenes.main.start();
     };
     thisObj.exit = function () {
         thisObj.hud.fullScreenStop();
@@ -113,8 +125,12 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         id = tail.split('.')[0];
         return id;
     };
-    thisObj.rscImage = function (name) {
-        thisObj.game.load.image(name, K.urlRscMedia + name + '.png?');
+    thisObj.rscImage = function (name, lib) {
+        if (lib) {
+            thisObj.game.load.image(name, K.urlLibMedia + name + '.png?');
+        } else {
+            thisObj.game.load.image(name, K.urlRscMedia + name + '.png?');
+        }
     };
     thisObj.rscSpriteSheet = function (name, width, height) {
         thisObj.game.load.spritesheet(
@@ -142,9 +158,9 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         g.json = loader.json;
         loader.audio = thisObj.game.load.audio(
             name,
-            K.urlRscMedia + name + '.m4a',
             K.urlRscMedia + name + '.ogg',
-            K.urlRscMedia + name + '.mp3'
+            K.urlRscMedia + name + '.mp3',
+            K.urlRscMedia + name + '.m4a'            
         );
         return loader;
     };
