@@ -11,12 +11,25 @@
 /*
  * Generic library functions, not specific to any class or constructor
  */
+window.console = window.console || {};
+window.console.debug = window.console.debug || function () { "use strict"; };
 var LgzLib = LgzLib || {};
+
+Function.prototype.extends = function(parent) {
+  var child;
+  child = this;
+  child.prototype = Object.create(parent.prototype);
+  child.prototype.constructor = child;
+  child.prototype._super = parent;
+};
+
 LgzLib.inherit = function (sub, xsuper) {
 	"use strict";
 	var newSubPrototype = Object.create(xsuper.prototype);
 	newSubPrototype.constructor = sub;
 	sub.prototype = newSubPrototype;
+        sub.super = xsuper;
+
 };
 LgzLib.splitUrl = function (url) {
 	"use strict";

@@ -156,7 +156,8 @@ Lgz.PlaySet = function (scene) {
         if (rtn) {
             thisObj.load();
         } else {
-          //Lgz.hud.winOpen('winWon');  
+          //thisObj.lgzMgr.postScore();
+          //thisObj.lgzMgr.hud.winOpen('winWon');  
         }
         
     };

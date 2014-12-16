@@ -12,17 +12,13 @@
 var Lgz = Lgz || {};
 
 Lgz.init = function () {
-	'use strict';
-	var mgr;
-        
-	//note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
-	$('#lgzPlayBtn').attr('resname', 'IDS_PLAY_GAME');
+    'use strict';
+    var mgr;
 
-	mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
-        
-	mgr.addScene('Splash', Lgz.SceneSplash);
-	mgr.addScene('Welcome', Lgz.SceneWelcome);
-	mgr.addScene('Main', Lgz.SceneMain);
-        
-	mgr.initScene('Splash');
+    //note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
+    $('#lgzPlayBtn').attr('resname', 'IDS_PLAY_GAME');
+  
+    mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
+    mgr.sceneInit();
+    mgr.scenes.splash.start();          
 };

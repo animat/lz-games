@@ -26,15 +26,6 @@ Lgz.SceneWelcome = function (game) {
 
 	thisObj = this;
 
-	thisObj.selectBtn = function (btn) {
-		switch (btn.textkey) {
-		case 'IDS_PLAY':
-			game.state.start('Main');
-			//ui.fullScreenStart();
-			break;
-		}
-	};
-
 	thisObj.init = function (mgr) {
 		objHud = mgr.hud;
 	};
@@ -43,7 +34,6 @@ Lgz.SceneWelcome = function (game) {
 		thisObj.saveCpu = thisObj.game.plugins.add(Phaser.Plugin.SaveCPU);
 		thisObj.saveCpu.renderOnFPS = K.renderFPS;
 		thisObj.game.stage.backgroundColor = K.canvasBg;
-	g.w = thisObj;
               
 		
 	};
@@ -52,12 +42,6 @@ Lgz.SceneWelcome = function (game) {
 		objHud.forceLandscape();
 		game.add.sprite(K.welcomeCardX, K.welcomeCardY, 'welcome');
 		game.add.sprite(K.welcomeDiceX, K.welcomeDiceY, 'dice');
-/*
-		ui.btn('IDS_PLAY', K.welcomePlayX, K.welcomePlayY);
-		ui.selectBtn = function (btn) {
-			thisObj.selectBtn(btn);
-		};
-*/
 		objHud.winOpen('winPlay');
 	};
 	thisObj.update = function () {

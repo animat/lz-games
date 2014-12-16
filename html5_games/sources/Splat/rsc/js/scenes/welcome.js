@@ -18,14 +18,6 @@ Lgz.SceneWelcome = function (game) {
 
 	thisObj = this;
 
-	thisObj.selectBtn = function (btn) {
-		switch (btn.textkey) {
-		case 'IDS_PLAY':
-			game.state.start('Main');
-			break;
-		}
-	};
-
 	thisObj.init = function (mgr) {
 		objHud = mgr.hud;
 	};
