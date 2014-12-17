@@ -95,26 +95,28 @@ LgzLib.Scenes.Splash.prototype.preload = function () {
     }
 };
 LgzLib.Scenes.Splash.prototype.rscload = function () {
-    console.debug('Scenes.Splash.rscload: key ' + this.key); 
-
+    'use strict';
+    console.debug('Scenes.Splash.rscload: key ' + this.key);
 };
 LgzLib.Scenes.Splash.prototype.create = function () {
-    console.debug('Scenes.Splash.create: key ' + this.key); 
+    'use strict';
+    console.debug('Scenes.Splash.create: key ' + this.key);
     this.lgzMgr.welcome();
-};        
+};
 LgzLib.Scenes.Splash.prototype.nmLoadOK = function () {
- 
-    //todo: localize ui based on language tag found in xml data.
-    console.debug('Scenes.Splash: nmLoadOK: Starting');    
+    'use strict';
+    console.debug('Scenes.Splash: nmLoadOK:');
     this.game.state.start(this.key,  true, false);
 };
 LgzLib.Scenes.Splash.prototype.nmLoadFail = function () {
+    'use strict';
     //todo: display error to user
     console.error('Scene: Splash: Could not load xml data from server');
 };
 LgzLib.Scenes.Splash.prototype.start = function () {
+    'use strict';
     var thisObj;
-    console.debug('Scenes.Splash.start: key ' + this.key);    
+    console.debug('Scenes.Splash.start: key ' + this.key);
     thisObj = this;
  
     this.lgzMgr.nm.load(
@@ -125,15 +127,18 @@ LgzLib.Scenes.Splash.prototype.start = function () {
 
 //Scene: Welcome
 LgzLib.Scenes.Welcome  = function (lgzMgr) {
+    'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
 LgzLib.Scenes.Welcome.extends(LgzLib.Scene);
 LgzLib.Scenes.Welcome.prototype.rscload = function () {
-    console.debug('Scenes.Welecome.rscload: key ' + this.key);     
+    'use strict';
+    console.debug('Scenes.Welcome.rscload: key ' + this.key);
     this.lgzMgr.rscImage('welcome');
 };
 LgzLib.Scenes.Welcome.prototype.create = function () {
-    console.debug('Scenes.Welcome.create: key ' + this.key);     
+    'use strict';
+    console.debug('Scenes.Welcome.create: key ' + this.key);
     this.lgzHud.forceLandscape();
     this.game.add.sprite(0, 0, 'welcome');
     this.lgzHud.winOpen('winPlay');
@@ -141,28 +146,34 @@ LgzLib.Scenes.Welcome.prototype.create = function () {
 
 //Scene: Main
 LgzLib.Scenes.Main  = function (lgzMgr) {
+    'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
 LgzLib.Scenes.Main.extends(LgzLib.Scene);
 LgzLib.Scenes.Main.prototype.rscload = function () {
-    console.debug('Scenes.Main.rscload: key ' + this.key);      
+    'use strict';
+    console.debug('Scenes.Main.rscload: key ' + this.key);
     this.lgzMgr.rscImage('main');
 };
 LgzLib.Scenes.Main.prototype.create = function () {
-    console.debug('Scenes.Main.create: key ' + this.key);      
+    'use strict';
+    console.debug('Scenes.Main.create: key ' + this.key);
     this.game.add.sprite(0, 0, 'main');
 };
 
 //Scene: End
 LgzLib.Scenes.End  = function (lgzMgr) {
+    'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
 LgzLib.Scenes.End.extends(LgzLib.Scene);
 LgzLib.Scenes.End.prototype.rscload = function () {
-    console.debug('Scenes.End.rscload: key ' + this.key);     
+    'use strict';
+    console.debug('Scenes.End.rscload: key ' + this.key);
     this.lgzMgr.rscImage('end');
 };
 LgzLib.Scenes.End.prototype.create = function () {
-    console.debug('Scenes.Emd.create: key ' + this.key); 
+    'use strict';
+    console.debug('Scenes.Emd.create: key ' + this.key);
     this.game.add.sprite(0, 0, 'end');
 };

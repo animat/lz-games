@@ -39,57 +39,36 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         //override
     };
     thisObj.sceneInit = function () {
-        thisObj.scenes.splash = new LgzLib.Scenes.Splash(thisObj);      
-        thisObj.scenes.welcome = new LgzLib.Scenes.Welcome(thisObj);      
-        thisObj.scenes.main = new LgzLib.Scenes.Main(thisObj);           
-        thisObj.scenes.end = new LgzLib.Scenes.End(thisObj);        
-    };    
-    //todo: DEPRECATE: begin scene functions
-    thisObj.addScene = function (str, obj) {
-
-        //thisObj.scenes[str] = thisObj.game.state.add(str, obj);
+        thisObj.scenes.splash = new LgzLib.Scenes.Splash(thisObj);
+        thisObj.scenes.welcome = new LgzLib.Scenes.Welcome(thisObj);
+        thisObj.scenes.main = new LgzLib.Scenes.Main(thisObj);
+        thisObj.scenes.end = new LgzLib.Scenes.End(thisObj);
     };
-    thisObj.nmLoadOK = function (str) {
-        console.debug('LgzLib.Mgr.nmLoadOK: str ' + str);
-        //todo: localize ui based on language tag found in xml data.
-        thisObj.startScene(str);
-    };
-    thisObj.nmLoadFail = function () {
-        //todo: display error to user
-        console.error('Could not load xml data from server');
-    };
-    thisObj.initScene = function (str) {
-        console.debug('LgzLib.Mgr.initScene: str ' + str);
-        thisObj.nm.load(
-            function () { thisObj.nmLoadOK(str); },
-            function () { thisObj.nmLoadFail(); }
-        );
-    };
-    thisObj.startScene = function (str) {
-        console.debug('LgzLib.Mgr.startScene: str ' + str);
-        thisObj.game.paused = false;
-        thisObj.game.state.start(str,  true, false, thisObj);
-    };
-    thisObj.fullScreenToggle = function () {
-        console.debug('Mgr.fullScreenToggle');
-        thisObj.hud.fullScreenToggle();
-    };
-    //todo: DEPRECATE: end
 
     thisObj.help = function () {
         thisObj.hud.winOpen('winHelp');
     };
-    thisObj._welcome = function () {
-        thisObj.hud.toggleFsButtons();
+    thisObj._welcome2 = function () {
+        console.debug('LgzLib.Mgr.welcome2:');
         thisObj.hud.localize();
-        //thisObj.startScene('Welcome
+        thisObj.hud.toggleFsButtons();
         thisObj.game.paused = false;
         thisObj.scenes.welcome.start();
     };
+    thisObj._welcome1 = function () {
+        var langStr;
+        console.debug('LgzLib.Mgr.welcome1:');
+        thisObj.lang.onLoad = function () {
+            thisObj._welcome2();
+        };
+        langStr = thisObj.nm.dataFind("language").text();
+        thisObj.lang.load(gamePrefix,  langStr);
+    };
     thisObj.welcome = function () {
+        console.debug('LgzLib.Mgr.welcome:');
         thisObj.hud.winCloseAll(false);
         window.setTimeout(function () {
-            thisObj._welcome();
+            thisObj._welcome1();
         }, 900);
     };
     thisObj.play = function () {
@@ -106,6 +85,10 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.hud.onResize();
         thisObj.welcome();
         //window.location.reload();
+    };
+    thisObj.langSwap = function () {
+        thisObj.lang.pageSwap();
+        thisObj.hud.localize();
     };
     thisObj.sendBug = function () {
         var $form, sdata;

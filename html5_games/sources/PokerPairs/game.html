@@ -85,6 +85,7 @@
 <!-- html5 game required: begin-->
 
 <div id="lgzContainer" >
+    <div id="lgzParms"  game_id="1000" user_id="999"></div>
     <div id="lgzGameCanvas"></div>
 
     <div id="lgzHud">
@@ -142,6 +143,7 @@
             <div class="btngroup">
                 <button resname="GetAHint" onclick="Lgz.hud.winOpen('winHint')"> </button>
                 <button resname="ReportABug" onclick="Lgz.hud.winOpen('winBug')"> </button>
+                <button resname="LangSwap" onclick="Lgz.mgr.langSwap()"> </button>
                 <button resname="Close" onclick="Lgz.hud.winClose('winHelp',true)" > </button>
             </div>
             </div>
@@ -244,9 +246,9 @@
 <!-- include custom js references here -->
 <script type="text/javascript" src="rsc/js/k.js?"></script>
 <script type="text/javascript" src="rsc/js/lgz.js?"></script>
+<script type="text/javascript" src="rsc/js/scenes.js?"></script>
 <script type="text/javascript" src="rsc/js/cardset.js?"></script>
 <script type="text/javascript" src="rsc/js/timer.js?"></script>
-<script type="text/javascript" src="rsc/js/scenes.js?"></script>
 <!--TODO: remove. replaced by scenes.js
 <script type="text/javascript" src="rsc/js/scenes/splash.js?"></script>
 <script type="text/javascript" src="rsc/js/scenes/welcome.js?"></script>
