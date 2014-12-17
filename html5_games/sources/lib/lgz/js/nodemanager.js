@@ -31,6 +31,7 @@ LgzLib.NodeManager = function (mgr) {
 
         thisObj.idx = 0;
         $.get(thisObj.url, function (data) {
+            thisObj.data = data;
             thisObj.nodes = $(data).find("gamedata").children();
             onloaded();
         }).error(function () {
@@ -108,5 +109,8 @@ LgzLib.NodeManager = function (mgr) {
     };
     thisObj.count = function () {
         return thisObj.nodes.length;
+    };
+    thisObj.dataFind = function (str) {
+         return $(thisObj.data).find(str);
     };
 };

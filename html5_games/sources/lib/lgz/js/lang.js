@@ -15,47 +15,108 @@
 var LgzLib = LgzLib || {};
 LgzLib.Lang = function () {
     "use strict";
-    var thisObj;
+    var thisObj, pageCode, idxArr;
     
     thisObj = this;
-    thisObj.lang = {};
+    thisObj.page = {};
+    pageCode = 'en';
+    idxArr = [];
 
-    thisObj.initJSON = function (jtext) {
-		"use strict";
-		thisObj.lang = JSON.parse(jtext);
-    };
-    thisObj.str = function(textkey) {
-
-        if (thisObj.lang[textkey]) {
-            return thisObj.lang[textkey];
+    thisObj.str = function (textkey, langCode) {
+        if (langCode) {
+            if (thisObj.page[langCode]) {
+                if (thisObj.page[langCode][textkey]) {
+                    return thisObj.page[langCode][textkey];
+                }
+            }
+        } else {
+            if (thisObj.page[pageCode]) {
+                if (thisObj.page[pageCode][textkey]) {
+                    return thisObj.page[pageCode][textkey];
+                }
+            }
         }
         return textkey;
     };
     thisObj._OnLoad = function (xml) {
+        console.debug('LgzLib.Lang._OnLoad: ');
         var $xml, resname, text;
         thisObj.xml = xml;
 
         $xml = $(xml);
         $xml.find('[resname]').each(
-            function() {
+            function () {
                 resname = $(this).attr('resname');
 
                 text = $(this).text();
-                thisObj.lang[resname] = text.trim();
+                thisObj.page[pageCode][resname] = text.trim();
             }
                 
         );
+        if (thisObj.onLoad) {
+            thisObj.onLoad();
+        }
     };
-    thisObj.load = function (name, lang) {
-        var fullurl;
-		fullurl = K.urlSvrXML + name +  '_' + lang + '.xml';
-        console.debug('LgzLibLang: fullurl: ' + fullurl);
+    thisObj.load = function (name, langStr) {
+        var fullurl, langCode;
+        langCode = thisObj.pageCode(langStr);
+        thisObj.page[pageCode] = {};
+        idxArr.push(pageCode);
+
+		fullurl = K.urlSvrXML + name +  '_' + langCode + '.xml';
+        console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);
         $.ajax({
-           type: 'GET',
-           url: fullurl,
-           dataType: 'xml',
-           success: thisObj._OnLoad
+            type: 'GET',
+            url: fullurl,
+            dataType: 'xml',
+            success: thisObj._OnLoad
         });
+    };
+    thisObj.pageSwap = function () {
+        var i, swap;
+        swap  = 0;
+        for (i = 0; i < idxArr.length; i += 1) {
+            if (idxArr[i] === pageCode) {
+                swap = i + 1;
+            }
+        }
+        if (swap === idxArr.length) {
+            swap = 0;
+        }
+        pageCode = idxArr[swap];
+    };
+    thisObj.pageCode = function (langStr) {
+        if (langStr) {
+            pageCode = thisObj.long2code(langStr);
+        }
+        return pageCode;
+    };
+    thisObj.long2code = function (str) {
+        var code;
+	    switch (str.toUpperCase()) {
+	    case "SPANISH":
+            code = "es";
+		    break;
+	    case "FRENCH":
+            code = "fr";
+		    break;
+        case "GERMAN":
+            code = "de";
+            break;
+        case "ITALIAN":
+            code = "it";
+            break;
+        case "ENGLISH":
+            code = "en";
+            break;
+        case "LATIN":
+            code = "lat";
+            break;
+	    default:
+            code = str;
+		    break;
+	    }
+        return code;
     };
 };
 
