@@ -90,23 +90,6 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.lang.pageSwap();
         thisObj.hud.localize();
     };
-    thisObj.sendBug0 = function () {
-        var $lgzParms, $form, sdata, gameid, userid;
-
-        $lgzParms = $("#lgzParms");
-        gameid = $lgzParms.attr("game_id");
-        userid = $lgzParms.attr("user_id");
-
-        $form = $('#bugmsg');
-        sdata = $form.serialize();
-        $.post('/play/report_bug',
-            sdata,
-            function (reply) {
-                console.debug('post reply: ' + reply);
-            }
-            );
-        thisObj.hud.winClose('winbug', false);
-    };
     thisObj.sendBugClose = function () {
         thisObj.hud.winClose('winBugReply');
         thisObj.hud.winClose('winBug');
