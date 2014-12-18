@@ -1,5 +1,5 @@
 <div id="lgzContainer" >
-    <div id="lgzParms"  game_id="1000" user_id="999"></div>
+    <div id="lgzParms"  game_id="1000" user_id="10054"></div>
     <div id="lgzGameCanvas"></div>
 
     <div id="lgzHud">
@@ -84,10 +84,18 @@
                 <br>
                 <div class="btngroup">
                     <button resname="Send"   onclick="Lgz.mgr.sendBug()" ></button>
-                    <button  resname="Close"  onclick="Lgz.hud.winClose('winBug',false)" ></button>
+                    <button  resname="Cancel"  onclick="Lgz.mgr.sendBugClose()" ></button>
                 </div>
             </div>
-            
+        </div>
+        <div id="winBugReply" class="win modal">
+            <div class="msgbox">
+                <div id="lzBugReply" ></div>
+                <br> <br> <br>
+                <div class="btngroup">
+                    <button  resname="Close"  onclick="Lgz.mgr.sendBugClose()" ></button>
+                </div>
+            </div>
         </div>
 <!-- lib/lgz/dom/win.html: END -->
 
