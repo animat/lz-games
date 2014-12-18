@@ -18,11 +18,7 @@ Lgz.init = function () {
 	//note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
 	$('#lgzPlayBtn').attr('resname', 'IDS_PLAY_GAME');
 
-	mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
-        
-	mgr.addScene('Splash', Lgz.SceneSplash);
-	mgr.addScene('Welcome', Lgz.SceneWelcome);
-	mgr.addScene('Main', Lgz.SceneMain);
-        
-	mgr.initScene('Splash');
+    mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
+    mgr.sceneInit();
+    mgr.scenes.splash.start();   
 };

@@ -9,30 +9,39 @@
 /*jslint  nomen: true */
 
 var Lgz = Lgz || {};
-Lgz.PlaySet = function (mgr) {
+Lgz.PlaySet = function (scene) {
     'use strict';
-
     var thisObj, balArr, charArr;
-            
+    
     thisObj = this;
+    thisObj.scene = scene;
+    thisObj.lgzMgr = scene.lgzMgr;
+    thisObj.game = thisObj.lgzMgr.game;
+    thisObj.nm = thisObj.lgzMgr.nm;
 
-    thisObj.mgr = mgr;
-    thisObj.game = mgr.game;
-    thisObj.nm = mgr.nm;
     thisObj.balArr = [];
     thisObj.charArr = [];
  
     thisObj.nodeIdx = 0;
     thisObj.charRemaining = 0;
-    mgr.set = thisObj; //note: for debugging only
-        
+
     // Note: audio 'sfx' loaded in splash scene
     // this next call should add tracks 'correct', 'next', 'pop'
     // as defined in sfx.json file
-    thisObj.sfx = thisObj.mgr.rscAudioTracks('sfx');
  
     //thisObj.sfx.addMarker('swish', 0, 0.136);
     //thisObj.sfx.addMarker('swoosh', 0.138, 0.65);
+    
+    thisObj.rscload = function () {
+        thisObj.lgzMgr.rscAtlas('balloons');
+        thisObj.lgzMgr.rscAudio('sfx', true);        
+    }    
+    thisObj.create = function () {
+        thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
+
+        thisObj.nm.reset();
+        thisObj.load();
+    };
     thisObj.playSound = function (key, delayTO) {
         thisObj.sfx.play(key);
         window.setTimeout(
@@ -123,20 +132,17 @@ Lgz.PlaySet = function (mgr) {
         thisObj.game.load.start();
         
     };
-    thisObj.start = function () {
-
-        thisObj.nm.reset();
-        thisObj.load();
-    };
+    
     thisObj.next = function () {
         var rtn;
   
         thisObj.playSound('next');
         rtn = thisObj.nm.next();
         if (rtn) {
-            thisObj.load();
+          thisObj.load();
         } else {
-          Lgz.hud.winOpen('winWon');  
+          thisObj.lgzMgr.postScore();
+          thisObj.lgzMgr.hud.winOpen('winWon');  
         }
         
     };
@@ -174,5 +180,10 @@ Lgz.PlaySet = function (mgr) {
 
  
     };
-
+    thisObj.pause = function () {
+        
+    };
+    thisObj.resume = function () {
+        
+    };
 };

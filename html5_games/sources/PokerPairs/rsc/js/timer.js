@@ -43,6 +43,9 @@ Lgz.Timer = function (parent) {
         
         thisObj.paused = false;
     };
+    thisObj.value = function () {
+        return thisObj.label.text;
+    };
     thisObj.update = function () {
         var now, dur, min, sec, s;
         

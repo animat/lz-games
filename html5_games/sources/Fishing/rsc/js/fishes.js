@@ -29,7 +29,7 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
     colorIdx = Math.floor(Math.random() * 3);
     color = ['red', 'green', 'yellow'][colorIdx];
 
-    f0 = color  + '0';    
+    f0 = color  + '0';
     f1 = color  + '1';
     f2 = color  + '2';
     f3 = color  + '3';
