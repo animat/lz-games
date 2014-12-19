@@ -55,6 +55,7 @@ Lgz.PlaySet = function (scene) {
 
     thisObj.rscload = function () {
         thisObj.lgzMgr.rscAtlas('fishes');
+        thisObj.lgzMgr.rscAtlas('fishes_active');
         thisObj.lgzMgr.rscImage('blue');
         thisObj.lgzMgr.rscImage('mainfg');        
         thisObj.lgzMgr.rscImage('basketfg');

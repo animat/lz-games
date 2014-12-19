@@ -49,6 +49,8 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
     spriteBody = this.game.add.sprite(0, 0, 'fishes', f0);
     spriteBody.inputEnabled = true;
     spriteBody.anchor.setTo(0.5, 1);
+
+    spriteBody.input.useHandCursor = true;
  
     thisObj.anim.swim = spriteBody.animations.add('swim', frameArr, false, false);
     thisObj.anim.swim = spriteBody.animations.add('turn', [f0, f4], false, false);
@@ -138,10 +140,12 @@ Lgz.Fish.prototype.shuffle = function (array) {
   return array;
 };
 Lgz.Fish.prototype.release = function () {
-    var thisObj;
+    var thisObj, frame;
     console.debug('wrong fish! idx: ' + this.nodeIdx);
     thisObj = this;
     //this.initVelocity();
+    frame = this.spriteBody.frame;
+    this.spriteBody.loadTexture("fishes", frame, false);
  
 console.debug (
         'release: vx: ' + this.vx 
@@ -150,6 +154,7 @@ console.debug (
         + ' scale.x: ' + this.spriteBody.scale.x
         + ' nodeIdx: ' + this.nodeIdx
         )
+//    this.spriteBody.loadTexture("fishes");
     this.update = this.actionFaceForward;
     this.playSet.missed();
     window.setTimeout(
@@ -164,6 +169,7 @@ Lgz.Fish.prototype.onFishInBasket = function () {
     //todo: get next word, resume play, allow new fish to be selected;
     this.update = function() {};
     this.body.velocity.setTo(0, 0);    
+    this.spriteBody.animations.stop('swim',0 );
     this.playSet.found();
 };
 Lgz.Fish.prototype.actionFlipToBasket = function () {
@@ -214,6 +220,7 @@ Lgz.Fish.prototype.actionFlipToMidPoint = function () {
     this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteMidPoint, function() {thisObj.onMidPoint();});    
 };
 Lgz.Fish.prototype.caught = function() {     
+    var frame;
     //todo: animate fish caught and in basket
     console.debug('fish caught!');  
     this.testflip = false;
@@ -225,6 +232,9 @@ Lgz.Fish.prototype.caught = function() {
     this.body.collideWorldBounds = false;
 
     this.playSet.caught();
+
+    frame = this.spriteBody.frame;
+    this.spriteBody.loadTexture("fishes", frame, false);
 
     //send fish to basket, free willy style 
     this.update = this.actionFlipToMidPoint;
@@ -272,6 +282,9 @@ Lgz.Fish.prototype.update = function () {
     //note: this function set based on action phase
 };
 Lgz.Fish.prototype.touched = function () {
+    var frame;
+    frame = this.spriteBody.frame;
+    this.spriteBody.loadTexture("fishes_active", frame, false);
     this.body.bounce.setTo(0);    
     this.update = this.actionLure;
 };
