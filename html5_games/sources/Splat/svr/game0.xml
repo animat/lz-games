@@ -6,18 +6,6 @@
   </description>
 <gamedata>
 <node>
-	<question content='a few long words for testing word wrap' name='english' type='text'/>
-	<response content='A FEW LONG WORDS FOR TESTING WORD WRAP' name='lang' type='text'/>
-</node> 
-<node>
-	<question content='a few numbers 123' name='english' type='text'/>
-	<response content='ONE TWO THREE' name='lang' type='text'/>
-</node> 
-<node>
-	<question content='the color red' name='english' type='text'/>
-	<response content='THE COLOUR RED' name='lang' type='text'/>
-</node> 
-<node>
 	<question content='apple' name='english' type='text'/>
 	<response content='APPLE' name='lang' type='text'/>
 </node> 
@@ -26,8 +14,20 @@
 	<response content='BANNANA' name='lang' type='text'/>
 </node> 
 <node>
+	<question content='a few words' name='english' type='text'/>
+	<response content='A FEW WORDS' name='lang' type='text'/>
+</node> 
+<node>
 	<question content='orange' name='english' type='text'/>
 	<response content='ORANGE' name='lang' type='text'/>
+</node> 
+<node>
+	<question content='the color red' name='english' type='text'/>
+	<response content='THE COLOUR RED' name='lang' type='text'/>
+</node> 
+<node>
+	<question content='a few numbers 123' name='english' type='text'/>
+	<response content='ONE TWO THREE' name='lang' type='text'/>
 </node> 
 <node>
 	<question content='8 x 8' name='english' type='text'/>

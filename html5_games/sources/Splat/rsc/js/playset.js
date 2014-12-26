@@ -52,6 +52,8 @@ Lgz.PlaySet = function (scene) {
         );
         
     };
+    /*
+     * note: deprecated
     thisObj.shuffle  = function (text) {
         var a, n, i, j, tmp;
         a = text.split(""),
@@ -65,9 +67,11 @@ Lgz.PlaySet = function (scene) {
         }
         return a.join("");        
     };
+    */
     thisObj.createBalloons = function (text) {
         var i, balloon, randX, randY, game,
-                randText, hspacer, charline, clX, clY, spacer;
+                hspacer, charline, clX, clY, wordStart, wordStop, j,
+                spacer, spacecount, cg;
         
         game = thisObj.game;
 
@@ -75,31 +79,67 @@ Lgz.PlaySet = function (scene) {
         game.physics.p2.defaultRestitution = 0.8;
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.setBounds(0, 0, 640,440, true, true, true, true, false);
-        game.physics.p2.gravity.y = 50;
+        game.physics.p2.gravity.y = K.gravity;
+        
+        cg = {};
+        cg.balloons = game.physics.p2.createCollisionGroup();
+        cg.letters = game.physics.p2.createCollisionGroup();
+        cg.underlines = game.physics.p2.createCollisionGroup();
+        
+        game.physics.p2.updateBoundsCollisionGroup();
+        
+        /*ivanixcu: deprecated
         randText = thisObj.shuffle(text);
         g.rt = randText;
-        hspacer = K.canvasWidth / randText.length;
+        */
+        hspacer = K.canvasWidth / text.length;
         
-        clY = 275;
+        clY = K.textTopMargin;
+        clX = K.textLeftMargin;
         
         spacer = 0;
+        spacecount = 0;
+        wordStart = 0;
+        wordStop = 0;
         
-        for (i = 0; i < randText.length; i += 1) {
-            randX = thisObj.game.rnd.integerInRange(100, 600);
-            randY = thisObj.game.rnd.integerInRange(100, 400);
-            balloon  = new Lgz.Balloon(thisObj, randX, randY, randText.charAt(i));
-            clX = 70 + i * spacer;
-            charline = new Lgz.CharLine(thisObj, clX, clY, text.charAt(i));
-            this.balArr.push(balloon);
-            this.charArr.push(charline);
-            if (!spacer) {
-                spacer = Math.round(balloon.spriteText.width * 2);
-                console.debug('spacer: ' + spacer);
+        for (i = 0; i < text.length; i += 1) {
+            console.debug("i: " + i  + " char: " + text.charAt(i));
+  
+            if(text.charAt(i) !== '_') {
+                charline = new Lgz.CharLine(thisObj, clX, clY, text.charAt(i), cg);
+                this.charArr.push(charline);
+                // spacer = Math.round(charline.spriteText.width * 1.5);
+            } else {
+                spacecount += 1;
+                wordStart = this.charArr.length;
             }
-
+            clX = clX  +  Math.round(charline.spriteText.width * 1.5);
+            if (clX > K.textRightMargin) {
+                clX = K.textLeftMargin;
+                clY = clY + Math.round(charline.spriteText.height * 2);
+                wordStop = this.charArr.length;
+                g.charArr = this.charArr;
+                g.wordStart = wordStart;
+                g.wordStop = wordStop;
+                for (j = wordStart; j < wordStop; j += 1) {
+                    g.j = j;
+                    this.charArr[j].body.x = clX;
+                    this.charArr[j].body.y = clY;
+                    clX = clX  +  Math.round(charline.spriteText.width * 1.5);
+                }
+            }
         }
-        
-        this.charRemaining = text.length;
+        for (i = 0; i < text.length; i += 1) {
+            console.debug("i: " + i  + " char: " + text.charAt(i));
+            if(text.charAt(i) !== '_') { 
+
+                balloon  = new Lgz.Balloon(thisObj,text.charAt(i), cg);
+                
+                this.balArr.push(balloon);
+            }
+  
+        }        
+        this.charRemaining = text.length - spacecount;
     };
 
     thisObj.onLoadOK = function () {
@@ -147,10 +187,16 @@ Lgz.PlaySet = function (scene) {
         
     };
     thisObj._charFound = function () {
-        var y, i;
+        var y, i, content, textSprite;
         y = (thisObj.nm.idx * 20 ) + 120;
         console.debug('_charFound: y = ' + y);
-        thisObj.question.display.sprite.position.setTo(10, y);
+        thisObj.question.display.sprite.destroy();
+ 
+        textSprite = this.game.add.text(0, 0, thisObj.answer.text, K.bgTextStyle);
+        textSprite.position.setTo(10, y);
+        g.textSprite = textSprite;
+        
+        
         //todo: recycle balloon and charline sprites
         for (i = 0; i < this.balArr.length; i += 1) {
             this.balArr[i].kill();

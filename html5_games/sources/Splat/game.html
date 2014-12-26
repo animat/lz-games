@@ -85,12 +85,13 @@
 <!-- html5 game required: begin-->
 
 <div id="lgzContainer" >
+    <div id="lgzParms"  game_id="1000" user_id="10054"></div>
     <div id="lgzGameCanvas"></div>
 
     <div id="lgzHud">
         <div class="menu" >
         <div class="bar">
-            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.mgr.fullScreenToggle();"   ></button>
+            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.hud.fullScreenToggle();"   ></button>
             <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
             <p id="lgzHudLogo" class="">LingaZone.com</p>
 
@@ -142,6 +143,7 @@
             <div class="btngroup">
                 <button resname="GetAHint" onclick="Lgz.hud.winOpen('winHint')"> </button>
                 <button resname="ReportABug" onclick="Lgz.hud.winOpen('winBug')"> </button>
+                <button resname="LangSwap" onclick="Lgz.mgr.langSwap()"> </button>
                 <button resname="Close" onclick="Lgz.hud.winClose('winHelp',true)" > </button>
             </div>
             </div>
@@ -168,10 +170,18 @@
                 <br>
                 <div class="btngroup">
                     <button resname="Send"   onclick="Lgz.mgr.sendBug()" ></button>
-                    <button  resname="Close"  onclick="Lgz.hud.winClose('winBug',false)" ></button>
+                    <button  resname="Cancel"  onclick="Lgz.mgr.sendBugClose()" ></button>
                 </div>
             </div>
-            
+        </div>
+        <div id="winBugReply" class="win modal">
+            <div class="msgbox">
+                <div id="lzBugReply" ></div>
+                <br> <br> <br>
+                <div class="btngroup">
+                    <button  resname="Close"  onclick="Lgz.mgr.sendBugClose()" ></button>
+                </div>
+            </div>
         </div>
 <!-- lib/lgz/dom/win.html: END -->
 
