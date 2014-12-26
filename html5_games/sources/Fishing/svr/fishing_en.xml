@@ -11,10 +11,10 @@
       <trans-unit id="002" resname="IDS_INSTRUCTIONS">
         <source>Pop each of the balloons on the screen to free the pieces inside, then drag the pieces onto the spaces to unscramble the correct answer.</source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY_AGAIN">
+      <trans-unit id="003" resname="IDS_PLAY_AGAIN_BTN">
         <source>Play again?</source>
       </trans-unit>
-      <trans-unit id="004" resname="IDS_PLAY_GAME">
+      <trans-unit id="004" resname="IDS_PLAY_BTN">
         <source>Play the Game!</source>
       </trans-unit>
       <trans-unit id="005" resname="IDS_WIN">

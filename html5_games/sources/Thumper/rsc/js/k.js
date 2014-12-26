@@ -7,7 +7,7 @@
 
 var K = K ||  {};
  
-K.urlGamePrefix = 'splat';
+K.urlGamePrefix = 'thumper';
 K.urlMedia = 'rsc/mma';
 
 K.font = 'Arial';

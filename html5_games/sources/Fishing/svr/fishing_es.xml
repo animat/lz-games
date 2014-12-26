@@ -11,10 +11,10 @@
       <trans-unit id="002" resname="IDS_INSTRUCTIONS">
         <source>Explota cada globo para soltar los pedazos dentro de ellos y luego arrastra los pedazos hacia los espacios para descifrar la respuesta correcta.</source>
       </trans-unit>
-      <trans-unit id="003" resname="IDS_PLAY_AGAIN">
+      <trans-unit id="003" resname="IDS_PLAY_AGAIN_BTN">
         <source>¿Jugar otra vez?</source>
       </trans-unit>
-      <trans-unit id="004" resname="IDS_PLAY_GAME">
+      <trans-unit id="004" resname="IDS_PLAY_BTN">
         <source>¡Juguemos!</source>
       </trans-unit>
       <trans-unit id="005" resname="IDS_WIN">
