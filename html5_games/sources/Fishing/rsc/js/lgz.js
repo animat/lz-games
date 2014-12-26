@@ -16,7 +16,7 @@ Lgz.init = function () {
     var mgr;
 
     //note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_BTN' for this game
-    $('#lgzPlayBtn').attr('resname', 'IDS_PLAY_BTN');
+    $('#lgzBtnPlay').attr('resname', 'IDS_PLAY_BTN');
     $('#lgzBtnPlayAgain').attr('resname', 'IDS_PLAY_AGAIN_BTN');
   
     mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);

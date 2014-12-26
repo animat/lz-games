@@ -16,7 +16,7 @@ Lgz.init = function () {
 	var mgr;
         
 	//note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
-	$('#lgzPlayBtn').attr('resname', 'IDS_PLAY_GAME');
+	$('#lgzBtnPlay').attr('resname', 'IDS_PLAY_GAME');
 
     mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
     mgr.sceneInit();
