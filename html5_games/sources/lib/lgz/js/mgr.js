@@ -90,16 +90,29 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.lang.pageSwap();
         thisObj.hud.localize();
     };
+    thisObj.sendBugClose = function () {
+        thisObj.hud.winClose('winBugReply');
+        thisObj.hud.winClose('winBug');
+        thisObj.hud.winClose('winHelp', true);
+    };
+    thisObj.sendBugReply = function (data) {
+        console.debug('sendBugReply: ' + data);
+        $('#lzBugReply').text(data);
+        thisObj.hud.winOpen('winBugReply');
+    };
     thisObj.sendBug = function () {
-        var $form, sdata;
-        $form = $('#bugmsg');
-        sdata = $form.serialize();
-        $.post('/play/report_bug',
-            sdata,
-            function (reply) {
-                console.debug('post reply: ' + reply);
-            }
+        var url, $lgzParms, $form, sdata, gameid, userid, body;
+     
+        url = '/play/report_bug';
+        $lgzParms = $("#lgzParms");
+        gameid = $lgzParms.attr("game_id");
+        userid = $lgzParms.attr("user_id");
+        body = $("#textbug").val();
+
+        $.post(url, {body: body, game_id: gameid, user_id: userid},
+               function (data) { thisObj.sendBugReply(data); }
             );
+
         thisObj.hud.winClose('winbug', false);
     };
     thisObj.postScore = function (scoreval) {
