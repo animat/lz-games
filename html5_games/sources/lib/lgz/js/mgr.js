@@ -106,14 +106,19 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         url = '/play/report_bug';
         $lgzParms = $("#lgzParms");
         gameid = $lgzParms.attr("game_id");
+		// TODO @Cesar: Users do not need to sign in for some games. Will this param default to 0?
         userid = $lgzParms.attr("user_id");
         body = $("#textbug").val();
-
-        $.post(url, {body: body, game_id: gameid, user_id: userid},
-               function (data) { thisObj.sendBugReply(data); }
-            );
-
-        thisObj.hud.winClose('winbug', false);
+		if (body != "") {
+	        $.post(url, {body: body, game_id: gameid, user_id: userid}).success(
+					function (data) { thisObj.sendBugReply(data); }
+				).error(function() {
+					console.log("Error submitting this bug...");
+				});
+		}
+		
+		// TODO @Cesar: It would be great to have clearer feedback to the user that the bug has been submitted
+        thisObj.hud.winClose('winBug', false);
     };
     thisObj.postScore = function (scoreval) {
         var $lgzParms, userid, gameid, url;
