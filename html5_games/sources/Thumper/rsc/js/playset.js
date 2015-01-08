@@ -8,6 +8,51 @@
  */
 /*jslint  nomen: true */
 var Lgz = Lgz || {};
+Lgz.Matrix = function (playSet) {
+    
+    var thisObj;
+    thisObj = this;
+    thisObj.cell = {};
+    thisObj.playSet = playSet;
+ 
+    thisObj.idx = function (x, y) {
+        var vx, vy;
+        //vx = (x / K.xdiv) | 0;
+        vy = (y / (10 + y/K.ydiv)) | 0;
+        //return (vx + ',' + vy);
+        return (vy);
+    };
+    thisObj.avl = function (x, y) {
+        var idx;
+        if (thisObj.idx(x,y) % 2) {
+            console.debug('Lgz.Matrix.avl: disallow odd idx')
+            return false;
+        }
+        if (thisObj.cell[thisObj.idx(x,y)]) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+    thisObj.reserve = function (x, y, popup) {
+        thisObj.cell[thisObj.idx(x,y)] = popup;    
+    };
+    thisObj.release = function (x, y) {
+        thisObj.cell[thisObj.idx(x,y)] = null;            
+    };
+    thisObj.zsort = function(start) {
+      var i, max;
+      max = thisObj.idx(0,640) + 1;
+      for (i=start; i < max; i += 1) {
+          if (thisObj.cell[i]) {
+              thisObj.cell[i].bringToTop();
+          }
+      }
+      thisObj.playSet.lgzMallet.bringToTop();
+      
+    };
+    
+};
 Lgz.PlaySet = function (scene) {
     'use strict';
     var thisObj;       
@@ -16,14 +61,46 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
+    thisObj.popupArr = [];
+    thisObj.matrix = new Lgz.Matrix(thisObj);
+    thisObj.cont = true;
+    
 
     thisObj.rscload = function () {
-        this.lgzMgr.rscAtlas('molecharacter');
-        this.lgzMgr.rscAtlas('mallet');        
+        thisObj.lgzMgr.rscAtlas('molecharacter');
+        thisObj.lgzMgr.rscAtlas('mallet');
+        thisObj.lgzMgr.rscAudio('sfx', true); 
     };
+    thisObj.createPopups = function () {
+
+        var i, nodeCount, text, popup, randX, randY, game;
+        
+        game = thisObj.game;
+        
+        nodeCount = thisObj.nm.nodeCount();
+        for (i = 0; i < nodeCount; i += 1) {
+
+            text = thisObj.nm.node('response', i).getAttribute('content');
+            //todo: verify type is 'text'
+            popup  = new Lgz.Popup(thisObj,  text, i);
+            this.popupArr.push(popup);
+
+        }
+        g.ps = this;
+    };    
     thisObj.create = function () {
-        var sprite;
-        this.sprites = {};   
+       var sprite;
+
+       thisObj.score = {};
+       thisObj.score.correct = 0;
+       thisObj.score.total = 0;
+        
+       thisObj.sprites = {};
+       thisObj.popupArr = [];
+       thisObj.cont = true;
+       thisObj.nm.reset();
+       
+       thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx'); 
        //sprite: mole 
        sprite = this.game.add.sprite(80, -90, 'molecharacter', 0);
        sprite.animations.add(
@@ -34,6 +111,7 @@ Lgz.PlaySet = function (scene) {
        );
        sprite.animations.play('popdown', 15, false);
 
+       thisObj.scoreCreate();
        thisObj.createPopups();
 
        //sprite: mallet pointer
@@ -66,7 +144,9 @@ Lgz.PlaySet = function (scene) {
             thisObj.inputDown = thisObj.inputTouchDown;
             thisObj.malletHome();           
        }
+       
        this.game.canvas.style.cursor = "none";        
+
 
        thisObj.load();
     };
@@ -80,32 +160,19 @@ Lgz.PlaySet = function (scene) {
         
     };    
     thisObj.start = function () {
-        return;
+        console.debug('Lgz.PlaySet.start:');
         thisObj.nm.reset();
+        return;
     };    
     // -----------
     //
     //
     
-    thisObj.createPopups = function () {
 
-        var i, nodeCount, text, popup, randX, randY, game;
-        
-        game = thisObj.game;
-        
-        nodeCount = thisObj.nm.nodeCount();
-        for (i = 0; i < nodeCount; i += 1) {
-
-            text = thisObj.nm.node('response', i).getAttribute('content');
-            //todo: verify type is 'text'
-            popup  = new Lgz.Popup(thisObj,  text, i);
-            //this.popupArr.push(popup);
-
-        }
-        
-    };
     thisObj.playSound = function (key, delayTO) {
-        thisObj.sfx.play(key);
+        if (!delayTO) {
+            delayTO = 0;
+        }
         window.setTimeout(
             function () {
                 thisObj.sfx.play(key);
@@ -113,15 +180,67 @@ Lgz.PlaySet = function (scene) {
             delayTO
         ); 
     };
+    thisObj._playLoop = function () {
+        var idx, len, vcount, wordArr, ts;
+        vcount = 0;
+        wordArr = thisObj.popupArr;
+        ts = Date.now();
+        len = wordArr.length;
+        for (idx = 0; idx < len; idx += 1) {
+            if (wordArr[idx].visible) {
+                vcount += 1;
+                if (wordArr[idx].ts && wordArr[idx].ts < ts) {
+                    wordArr[idx].hide();
+                }
+                if (wordArr[idx].hit) {
+                    wordArr[idx].hide();
+                }     
+                /*
+                if (wordArr[idx].visible) {
+                    vcount += 1;
+                }
+                */
+                
+            }
+        }
+        for (idx = 0; idx < len; idx += 1) {
+            if (vcount < 5) {
+                idx = thisObj.game.rnd.integerInRange(0,len-1);
+                if (!thisObj.game.rnd.integerInRange(0,5)) {
+                    if (!wordArr[idx].visible) {
+                        vcount += 1;
+                        wordArr[idx].show();
+                    }
+                }
+
+            }
+        }  
+    };
+    thisObj.playLoop = function () {
+        
+        if (!thisObj.game.paused && thisObj.cont) {
+            thisObj._playLoop();
+        }
+        if (thisObj.cont) {
+            window.setTimeout(
+                function () {
+                    thisObj.playLoop();
+                },
+                200
+            );
+        }
+    };
     thisObj.onLoadOK = function () {
-        var i;
+        
         console.debug('PlaySet.onLoadOK: entered');
         thisObj.question.display.createSprite();
         thisObj.question.display.sprite.position.setTo(320, 20);
+        thisObj.cont = true;
+        thisObj.playLoop();
     };
     thisObj.load = function () {
         var question, answer, i, substext;
-        console.debug('playSet.load:');
+        console.debug('Lgz.PlaySet.load:');
         thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
 
         question  = {};
@@ -137,27 +256,39 @@ Lgz.PlaySet = function (scene) {
         thisObj.answer = answer;
         thisObj.game.load.start();    
     };
-    thisObj.missed = function() {
-        thisObj.playSound('miss');        
-         window.setTimeout(
-            function () {
-                thisObj.crying();
-            },
-            3000
-        );         
+    thisObj.endWait = function () {
+        var i, wait;
+        thisObj.cont = false;
+        wait = false;
+        for(i=0; i < thisObj.popupArr.length; i += 1) {
+            if(thisObj.popupArr[i].visible && thisObj.popupArr[i].ts) {
+                thisObj.popupArr[i].hide();
+                wait = true;
+                //break;
+            }
+        }
+        if (wait) {
+            window.setTimeout(
+                function () {
+                    thisObj.endWait();
+                },
+                500
+            );
+            return;
+        }
+        thisObj.lgzMgr.scenes.end.start();
     };
-
     thisObj.next = function () {
         var rtn;
-        console.debug('playSet.next: ');
+        console.debug('Lgz.PlaySet.next: ');
         thisObj.question.display.sprite.visible = false;
  
         rtn = thisObj.nm.next();
         if (rtn) {
             thisObj.load();
         } else {
-          //thisObj.lgzMgr.postScore();
-          //thisObj.lgzMgr.hud.winOpen('winWon');  
+            thisObj.endWait();
+  
         }
         
     };
@@ -174,7 +305,7 @@ Lgz.PlaySet = function (scene) {
     };      
     thisObj.malletFollowPtr = function () {
         this.lgzMallet.x = thisObj.lgzPtr.x;
-        this.lgzMallet.y = thisObj.lgzPtr.y;
+        this.lgzMallet.y = thisObj.lgzPtr.y - 10;
     };
     thisObj.malletHome = function () {
         window.setTimeout(
@@ -186,11 +317,24 @@ Lgz.PlaySet = function (scene) {
         );
     };
     thisObj.malletDown = function () {
-        this.lgzMallet.animations.play('whack', 30, false);
+ 
+        thisObj.lgzMallet.animations.play('whack', 30, false);
+        if (thisObj.cont) {
+            thisObj.lgzMgr.soundPlay('a-hit1', 100);
+        }
+
     };
     thisObj.hitCorrect = function () {
-        console.debug('hitCorrect: ');
-         //note: pause before next word
+        console.debug('Lgz.PlaySet.hitCorrect: ');        
+        if (!thisObj.cont) {
+            return;
+        }
+        thisObj.cont = false;
+        thisObj.score.correct += 1;
+        thisObj.score.total += 1;
+        thisObj.scoreUpdateDisplay();
+        thisObj.lgzMgr.soundPlay('b-hit2', 100, 1000);
+        //note: pause before next word
         window.setTimeout(
             function () {
                 thisObj.next();
@@ -200,7 +344,15 @@ Lgz.PlaySet = function (scene) {
         
     };
     thisObj.hitWrong = function () {
-        console.debug('hitWrong: ');
-        
+        console.debug('Lgz.PlaySet.hitWrong: ');
+        thisObj.score.total += 1;
+        thisObj.scoreUpdateDisplay();
+    };
+    thisObj.scoreCreate = function() {
+        thisObj.spriteScore = this.game.add.text(570, 50, "0 / 0", K.scoreTextStyle);
+    
+    };
+    thisObj.scoreUpdateDisplay = function () {
+        thisObj.spriteScore.text = thisObj.score.correct + " / " + thisObj.score.total;
     };
 };

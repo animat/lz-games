@@ -6,19 +6,19 @@
     "sfx.ac3"
   ],
   "spritemap": {
-    "endgame": {
+    "a-hit1": {
       "start": 0,
-      "end": 6.478367346938776,
+      "end": 1.0971428571428572,
       "loop": false
     },
-    "mallethit1": {
-      "start": 8,
-      "end": 9.097142857142858,
+    "b-hit2": {
+      "start": 3,
+      "end": 3.9926530612244897,
       "loop": false
     },
-    "mallethit2": {
-      "start": 11,
-      "end": 11.99265306122449,
+    "c-end": {
+      "start": 5,
+      "end": 11.478367346938775,
       "loop": false
     }
   }

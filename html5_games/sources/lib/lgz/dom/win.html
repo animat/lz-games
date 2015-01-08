@@ -8,13 +8,13 @@
             <button id="lgzBtnPlay" resname="IDS_PLAY" onclick="Lgz.mgr.play()">PlaytheGame!</button>
         </div>
 
-        <div id="winWon" class="win modal">
+        <div id="winWon" class="win ">
             <div class="msgbox">
-            <p   resname="IDS_CONGRATS"></p>
+            <p   id="IDS_CONGRATS" resname="IDS_CONGRATS"></p>
             <br>
             <div class="btngroup">
                 <button id="lgzBtnPlayAgain" class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
-                <button  class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
+                <button  id="lgzBtnPlayCancel" class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
             </div>
             </div>
 

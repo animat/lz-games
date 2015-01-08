@@ -14,10 +14,25 @@ K.font = 'Arial';
 K.filefx = 'png';
 // K.filefx = 'svg';
 K.renderType = Phaser.CANVAS;
-//K.renderType = Phaser.WEBGL;
+// K.renderType = Phaser.WEBGL;
 // K.renderForce = true;
 K.renderForce = false;
 K.renderFPS = 15;
+/*
+K.xdiv = 250; 
+K.ydiv = 150;
+*/
+K.xdiv = 200; 
+K.ydiv = 60;
+
+K.xmin =  10;
+K.xmax = 630;
+K.ymin =  70;
+K.ymax = 420;
+
+K.y1 = 100;
+K.xmin1 = (640 * 2/5)|0;
+K.xmax1 = (640 * 3/5)|0;
 
 K.welcomeBgOffX = 0;
 K.welcomeBgOffY = 0;
@@ -32,22 +47,37 @@ K.mainBgHeight = 480;
 K.mainBgOffX = 0;
 K.mainBgOffY = 0;
 
-K.textTO = 200;
+ 
+K.frameRate = 50;
+K.showTO = 5000;
 
-K.balloonScale = 1;
-
-K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
+K.nodeTextStyle = { 
+    font: '18pt ' + K.font,
+    fill: '#ffffff',
+    align: 'center'
+};
 K.popupTextStyle = {
 	font: '18pt ' + K.font,
+        fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center'
 };
-K.clockTextStyle = {
-	font: '14pt ' + K.font,
+K.scoreTextStyle = {
+	font: '18pt ' + K.font,
+        fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center'
 };
-K.clockX = K.canvasWidth  - 30;
-K.clockY = K.canvasHeight - 40;
-
+K.signTextStyle = {
+	font: '16pt ' + K.font,
+        fontWeight: 'bold',
+	fill: '#ffffff',
+	align: 'center'
+};
+K.signSmallTextStyle = {
+	font: '9pt ' + K.font,
+        fontWeight: 'bold',
+	fill: '#ffffff',
+	align: 'center'
+};
 K.lastMatchTO = 5000;
