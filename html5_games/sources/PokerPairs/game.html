@@ -91,7 +91,7 @@
     <div id="lgzHud">
         <div class="menu" >
         <div class="bar">
-            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.mgr.fullScreenToggle();"   ></button>
+            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.hud.fullScreenToggle();"   ></button>
             <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
             <p id="lgzHudLogo" class="">LingaZone.com</p>
 
@@ -107,7 +107,7 @@
             <p   resname="IDS_INSTRUCTIONS">
                 How To Play
             </p>
-            <button id="lgzPlayBtn" resname="IDS_PLAY" onclick="Lgz.mgr.play()">PlaytheGame!</button>
+            <button id="lgzBtnPlay" resname="IDS_PLAY" onclick="Lgz.mgr.play()">PlaytheGame!</button>
         </div>
 
         <div id="winWon" class="win modal">
@@ -115,7 +115,7 @@
             <p   resname="IDS_CONGRATS"></p>
             <br>
             <div class="btngroup">
-                <button class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
+                <button id="lgzBtnPlayAgain" class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
                 <button  class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
             </div>
             </div>

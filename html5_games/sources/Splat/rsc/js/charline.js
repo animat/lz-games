@@ -1,7 +1,7 @@
 /* 
  * Underscore sprite where letter from balloon should be placed.
  */
-Lgz.CharLine = function (playSet, x, y, char) {
+Lgz.CharLine = function (playSet, x, y, char, cg) {
     'use strict';
     var spriteText, thisObj;
     
@@ -20,19 +20,22 @@ Lgz.CharLine = function (playSet, x, y, char) {
     this.addChild(spriteText);
     this.spriteText = spriteText;
 
-   
     this.anchor.setTo(0.5, 0.5);
     this.game.add.existing(this);
     
     this.body = null;
     this.enableBody = true;
+
     this.physicsBodyType = Phaser.Physics.P2JS;
-    this.game.physics.p2.enable(this, false, false); 
+    this.game.physics.p2.enable(this, false, false);
+
     this.body.static = true;
     
     this.body.setRectangleFromSprite(this.spriteText);    
     this.body.onBeginContact.add(this.onContact, this);
-    
+
+    this.body.setCollisionGroup(cg.underlines);
+    this.body.collides([cg.letters]); 
 }
 LgzLib.inherit(Lgz.CharLine, Phaser.Sprite);
 Lgz.CharLine.prototype.bounceOff = function (balloon, dir) {
@@ -46,6 +49,9 @@ Lgz.CharLine.prototype.bounceOff = function (balloon, dir) {
 Lgz.CharLine.prototype.onContact = function (target) {
     var balloon;
     balloon = target.sprite;
+    if (balloon.spriteHead.visible) {
+        return;
+    }    
     if (!balloon.body) {
         //note: letter being dragged. wait until dragging is done.
         return;
@@ -53,7 +59,8 @@ Lgz.CharLine.prototype.onContact = function (target) {
     console.debug('onContact: balloon.y: ' + balloon.body.y  + ' _y: ' + this.y);
     if (this.filled || balloon.spriteText.text !== this.char ) {
         //if we are filled or not match our char, reject incomming letter
-        this.bounceOff(balloon, 1);
+        // this.bounceOff(balloon, 1);
+        balloon.body.y = this.body.y + 20;
         return;
         //todo: bounce sound
     } else {
@@ -71,10 +78,14 @@ Lgz.CharLine.prototype.onContact = function (target) {
         if (balloon.input) {
             balloon.input.disableDrag();
             balloon.inputEnabled = false;
-        }    
+        } 
+        /* 
+         * autopop
+         * 
         if (balloon.spriteHead.visible) {
             balloon.pop();
         }
+        */
 
         this.filled = true;
         this.playSet.charFound();

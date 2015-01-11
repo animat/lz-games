@@ -8,7 +8,7 @@
  */
 /*jslint  nomen: true */
 var Lgz = Lgz || {};
-Lgz.Balloon = function (playSet, x, y, label) {
+Lgz.Balloon = function (playSet, label, cg) {
     'use strict';
     
     var thisObj, world, randX, randY,
@@ -20,6 +20,7 @@ Lgz.Balloon = function (playSet, x, y, label) {
     this.playSet = playSet;
     this.game = playSet.game;
     this.anim = {};
+    this.cg = cg;
 
     
     world = this.game.world;
@@ -32,10 +33,10 @@ Lgz.Balloon = function (playSet, x, y, label) {
 
 g.bal = thisObj;
 
-    //randX = world.randomX;
-    //randY = Math.floor(world.height / 2) + 100 - Math.floor(Math.random() * 100);
  
-    Phaser.Sprite.call(this, this.game, x, y, 'dot');
+    randX = thisObj.game.rnd.integerInRange(100, 600);
+    randY = thisObj.game.rnd.integerInRange(100, 400); 
+    Phaser.Sprite.call(this, this.game, randX, randY, 'dot');
  
  
     
@@ -75,15 +76,7 @@ g.bal = thisObj;
     spriteTail.anchor.setTo(0.5, 0);
     spriteTail.inputEnabled = true;
     this.addChild(spriteTail);
-/*
-    spriteTail.events.onInputDown.add(
-        function () {
-            console.debug('spriteTail: pop();')
-            thisObj.pop(); 
-        },
-        thisObj
-    );
-*/
+ 
     //note: for debugging only
     thisObj.spriteHead = spriteHead;
     thisObj.spriteText = spriteText;
@@ -101,7 +94,16 @@ g.bal = thisObj;
     this.body.setRectangleFromSprite(this.spriteHead);
     this.body.collideWorldBounds = true;
     this.body.fixedRotation = true;
+    this.body.data.gravityScale=0;
     this.body.setZeroDamping();
+    
+    this.body.setCollisionGroup(cg.balloons);
+    this.body.collides([cg.balloons, cg.letters]);
+ 
+    randX = this.game.rnd.integerInRange(-5,5);
+    randY = this.game.rnd.integerInRange(-3,3);
+    this.body.moveUp(randY);
+    this.body.moveRight(randX);
     
 };
 LgzLib.inherit(Lgz.Balloon, Phaser.Sprite);
@@ -109,19 +111,12 @@ LgzLib.inherit(Lgz.Balloon, Phaser.Sprite);
 Lgz.Balloon.prototype.update = function (sprite) {
     'use strict';
     if (!this.spriteHead.visible) {
+
         return;
     }
-
-    if (this.y > 300 && this.x < 600) {
-        this.body.moveRight(50);
-    }   
-    if (this.y > 20 && this.x > 550) {
-        this.body.moveUp(50);
-    }
-    if (this.y < 80 && this.x > 200) {
-        this.body.moveUp(20);
-        this.body.moveLeft( 50);
-    }
+ 
+ 
+   
 };
 Lgz.Balloon.prototype.touched = function () {
     var dx, dy, absx, absy;
@@ -145,14 +140,15 @@ Lgz.Balloon.prototype.pop = function () {
     'use strict';
     var thisObj;
     thisObj = this;
-    thisObj.popped
+    // thisObj.popped
 
     thisObj.playSet.playSound('pop', 10);
-    thisObj.body.moveUp(0);
-    thisObj.body.moveRight(0);
-    //thisObj.body = null;
+    //thisObj.body.moveUp(0);
+    //thisObj.body.moveRight(0);
+    thisObj.body.data.gravityScale = 10;
     thisObj.spriteHead.events.onInputDown.removeAll();
     thisObj.spriteHead.animations.play('pop', 20, false);
+    
 
         
 };
@@ -162,6 +158,9 @@ Lgz.Balloon.prototype.popped = function() {
     this.spriteHead.visible = false;
     this.spriteTail.visible = false;
     this.body.setRectangleFromSprite(this.spriteText);
+    this.body.setCollisionGroup(this.cg.letters);
+    this.body.collides([this.cg.underlines]);    
+    
     if (!this.body.static) {
         this.inputEnabled = true;
         this.input.enableDrag();
@@ -170,7 +169,7 @@ Lgz.Balloon.prototype.popped = function() {
     }
 };
 Lgz.Balloon.prototype.onDragStart = function ()  {
-    console.debug('onDragStart:');
+    console.debug('onDragStart');
     this.body.moves = false;
     this.bodyhold = this.body;
     this.body = null;
@@ -180,8 +179,8 @@ Lgz.Balloon.prototype.onDragStop = function () {
     this.bodyhold.x = this.x;
     this.bodyhold.y = this.y;
     this.body = this.bodyhold;
-    this.body.velocity.x = 0;
-    this.body.velocity.y = 0;
+   // this.body.velocity.x = 0;
+    //this.body.velocity.y = 0;
     this.body.moves = true;
     
 };

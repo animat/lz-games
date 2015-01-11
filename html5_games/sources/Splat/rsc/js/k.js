@@ -33,10 +33,18 @@ K.mainBgOffX = 0;
 K.mainBgOffY = 0;
 
 K.textTO = 200;
+K.textTopMargin = 160;
+K.textLeftMargin =  180;
+K.textRightMargin = K.mainBgWidth - 30;
 
 K.balloonScale = 1;
+K.gravity = 100;
+K.bal=0;
+
 
 K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
+K.bgTextStyle = { font: '8pt ' + K.font, fill: '#deb887', align: 'center', align: 'center'};
+
 K.balloonTextStyle = {
 	font: '14pt ' + K.font,
 	fill: '#ffffff',
