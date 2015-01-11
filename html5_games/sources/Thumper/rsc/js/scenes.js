@@ -21,12 +21,12 @@
  * 
  */
 LgzLib.Scenes.Main.prototype.preinit = function () {
-    this.lgzPlaySet = new Lgz.PlaySet(this);
+    this.playSet = new Lgz.PlaySet(this);
 };
 LgzLib.Scenes.Main.prototype.rscload = function () {
     console.debug('Scene.rscload: key ' + this.key);    
     this.lgzMgr.rscImage('main');
-    this.lgzPlaySet.rscload();
+    this.playSet.rscload();
 
 };
 LgzLib.Scenes.Main.prototype.create = function () {
@@ -35,19 +35,48 @@ LgzLib.Scenes.Main.prototype.create = function () {
 
     //sprite: main background
     this.game.add.sprite(0, 0, 'main');
-    this.lgzPlaySet.create();
+    this.playSet.create();
 
 };
 LgzLib.Scenes.Main.prototype.update = function () {
-    this.lgzPlaySet.update();
+    this.playSet.update();
 };
 LgzLib.Scenes.End.prototype.rscload = function () {
     console.debug('Scene.rscload: key ' + this.key);    
     
     this.lgzMgr.rscImage('end');
+    this.lgzMgr.rscImage('sign2');
 };
-LgzLib.Scenes.End.prototype.create = function () { 
-    console.debug('Scene.create: key ' + this.key);   
-    this.game.add.sprite(0, 0, 'end');
+LgzLib.Scenes.End.prototype.create = function () {
+    var ps, score, spriteSign, sprite;
+    
+    console.debug('Scene.create: key ' + this.key); 
+    
+    ps = this.lgzMgr.scenes.main.playSet;
+    score = ps.score.correct / ps.score.total;
+    this.lgzMgr.postScore(score.toFixed(2));
+    //todo: show correct vs total in spriteSign sprites
 
+    this.game.canvas.style.cursor="";
+    this.game.add.sprite(0, 0, 'end');
+    
+    spriteSign = this.game.add.sprite(340, 70, 'sign2');
+    spriteSign.scale.setTo(1.2);
+    this.spriteSign = spriteSign;
+    
+    sprite = this.game.add.text(50, 220, 'Correct', K.signSmallTextStyle);
+    spriteSign.addChild(sprite);
+    
+    sprite = this.game.add.text(140, 220, 'Total', K.signSmallTextStyle);
+    spriteSign.addChild(sprite);
+    
+    sprite = this.game.add.text(70, 192, ps.score.correct, K.signTextStyle);
+    spriteSign.addChild(sprite);
+ 
+    sprite = this.game.add.text(150, 192, ps.score.total, K.signTextStyle);
+    spriteSign.addChild(sprite);
+
+    this.lgzMgr.soundPlay('c-end');
+    Lgz.hud.winOpen('winWon');
+   
 };

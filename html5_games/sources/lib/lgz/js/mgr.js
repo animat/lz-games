@@ -186,7 +186,30 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             //sfx.addMarker(str, sprite.start, sprite.end, 1,  sprite.loop);                    
             sfx.addMarker(str, sprite.start, sprite.end, 1, false);
         }
+        this.sfx = sfx;
         return sfx;
+    };
+    thisObj._soundPlay = function (key, cutoff) {
+        thisObj.sfx.play(key);
+        if (cutoff) {
+            window.setTimeout(
+                function () {
+                    thisObj.sfx.stop(key);
+                },
+                cutoff
+            );
+        }
+    };
+    thisObj.soundPlay = function (key, delayTO, cutoff) {
+        if (!delayTO) {
+            delayTO = 0;
+        }
+        window.setTimeout(
+            function () {
+                thisObj._soundPlay(key, cutoff);
+            },
+            delayTO
+        ); 
     };
     thisObj.init();
 };

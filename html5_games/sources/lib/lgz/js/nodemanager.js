@@ -79,7 +79,7 @@ LgzLib.NodeManager = function (mgr) {
 
     thisObj.node = function (childname, idx) {
         var num;
-        if (!idx) {
+        if (idx === undefined) {
             num = thisObj.idx;
         } else {
             num = idx;
