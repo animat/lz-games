@@ -43,7 +43,9 @@ Lgz.PlaySet = function (scene) {
         thisObj.load();
     };
     thisObj.playSound = function (key, delayTO) {
-        thisObj.sfx.play(key);
+        if (!delayTO) {
+            delayTO = 0;
+        }
         window.setTimeout(
             function () {
                 thisObj.sfx.play(key);

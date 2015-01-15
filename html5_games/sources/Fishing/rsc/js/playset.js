@@ -67,7 +67,9 @@ Lgz.PlaySet = function (scene) {
         thisObj.lgzMgr.rscAudio('sfx', true); 
     }
     thisObj.playSound = function (key, delayTO) {
-        thisObj.sfx.play(key);
+        if (!delayTO) {
+            delayTO = 0;
+        }
         window.setTimeout(
             function () {
                 thisObj.sfx.play(key);
