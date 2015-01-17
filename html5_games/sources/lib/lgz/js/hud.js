@@ -18,7 +18,7 @@ LgzLib.Hud = function (mgr) {
 	var thisObj, btnList, game, lang, eBody,
 		resizeDirty,
 		$lgzVP, $lgzHide, eWin, $lgzMin,
-		$lgzBtnFS, $lgzBtnExit, $winPlay;
+		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay;
 	
 	thisObj = this;
 	resizeDirty = false;
@@ -29,6 +29,8 @@ LgzLib.Hud = function (mgr) {
 	$lgzVP = $('#lgzViewPort');
 	$lgzHide = $('[lgzHide]');
 	$lgzMin = $('[lgzMin]');
+        
+        $lgzHudMenuBar = $('#lgzHudMenuBar');
         
 	$lgzBtnFS = $('#lgzHudFullScreen');
 	$lgzBtnExit = $('#lgzHudExit');
@@ -105,6 +107,7 @@ LgzLib.Hud = function (mgr) {
 		$lgzHide.css('display', 'none');
 		$lgzMin.addClass('lgzMin');
 
+                $lgzHudMenuBar.addClass('fsbar');
 		thisObj.viewPortFsDefault();
 		
 		
@@ -152,6 +155,7 @@ LgzLib.Hud = function (mgr) {
 		$lgzHide.css('display', '');
 		$lgzMin.removeClass('lgzMin');
 
+                $lgzHudMenuBar.removeClass('fsbar');
 		// mgr.resume();
 		// thisObj.onResize();
 
@@ -218,6 +222,7 @@ LgzLib.Hud = function (mgr) {
 		var fs, desktop;
 		fs = thisObj.isFullScreen();
 		desktop = game.device.desktop;
+ 
 		if (!fs) {
 			if (desktop) {
 				$lgzBtnFS.css('display', 'block');

@@ -3,14 +3,15 @@
     <div id="lgzGameCanvas"></div>
 
     <div id="lgzHud">
-        <div class="menu" >
-        <div class="bar">
-            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.hud.fullScreenToggle();"   ></button>
-            <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
-            <p id="lgzHudLogo" class="">LingaZone.com</p>
+        <div id="lgzHudMenuBar" >
 
-            <button id="lgzHudHelp" class="btn square" onclick="Lgz.mgr.help();">Help</button>
-        </div>
+ 
+                <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.hud.fullScreenToggle();"   ></button>
+                <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
+                <p id="lgzHudLogo" >LingaZone.com</p>
+
+                <button id="lgzHudHelp" class="btn square" onclick="Lgz.mgr.help();">Help</button>
+
         </div>
 @@include('rsc/dom/win.html')
 

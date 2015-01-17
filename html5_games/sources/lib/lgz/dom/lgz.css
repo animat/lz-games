@@ -13,10 +13,22 @@
  * css for embedded lgz game
  */
 #lgzContainer {
-    width: 640px;
-    height: 480px;
+    width: 600px;
+    height: 425px;
     margin: auto;
     position: relative;
+}
+#lgzContainer  {
+    color: #ffffff;
+}
+#lgzContainer p {
+    font-weight: bold;
+    font-size: larger;
+    color: #ffffff;
+    text-align: center;
+}
+#lgzContainer button {
+    color: #ffffff;
 }
 #lgzOrientWrap {
     position: absolute;
@@ -90,16 +102,7 @@
     width: 100%;
 }
 
-#lgzHud .bar {
-    width: 100%;
-    display: table-row;
-    white-space: nowrap;
-}
-#lgzHud .bar * {
-   //width: 70%;
-   display: table-cell;
- 
-}
+
 //todo: define col style
 #lgzHud .col {
 
@@ -206,15 +209,7 @@
     height: 10em;
     width: 90%;
 }
-#lgzHud .xxbg {
-    /*
-    border-top: 1px solid #E4ECEA;
-    border-left: 1px solid #EDFDF9;
-    border-right: 1px solid #515E51;
-    border-bottom: 1px solid #005500;
-    */
-    background: rgba(148, 195, 148, 0.3);
-}
+
 #lgzHud .bgclear {
     background: none;
 }
@@ -227,30 +222,69 @@
 #lgzHud .square {
     border-radius: 0em !important;
 }
-#lgzHud .menu {
-    display: table;
+
+#lgzHudMenuBar {
+    display: flex;
     border: 0;
     background: #aaaaaa;
-    font-size: small !important;
+ 
     width: 100%;
 
-	position: absolute;
-	left: 0;
-	bottom: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    height: 25px;
+    overflow: hidden;
+    margin: 0px;
 }
+.fsbar#lgzHudMenuBar {
+ 
+    height: 5.8vh;
+}
+#lgzHudMenuBar button {
+    width: 25%;
+    height: 22px;
+    font-size: 15px;
+    padding: 0;
+}
+.fsbar#lgzHudMenuBar button {
+    height: 5.3vh;
+    font-size: 3vh;
+}
+/*
+ * todo: add fs styles for moz, ie, test iOS
+ */
+
 #lgzHudFullScreen {
     background: #aaaaff !important;
-    font-size: small !important;
+   
 }
 #lgzHudExit {
     background: #aaaaff !important;
-    font-size: small !important;
-
+    display: none;
 }
+/*
+ *todo: bug:  font-size in rule (#lgzContainer p) overrides below,
+ * should be better way
+  
 #lgzHudLogo {
-   width: 100%;
+   width: 80%;
+   font-size: 15px;
+}
+*/
+#lgzHudMenuBar p {
+    height: 5.3vh;
+    width: 80%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.fsbar#lgzHudMenuBar p {
+    height: 5.3vh;
+    font-size: 3vh;
+    padding-top: 1vh;
 }
 #lgzHudHelp {
     background: #ff0000 !important;
-    font-size: small !important;
+    
 }
