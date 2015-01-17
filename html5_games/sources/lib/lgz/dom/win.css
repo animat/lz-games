@@ -2,18 +2,7 @@
  * This settings can be changed per game under rsc/dom/win.css
 */
 
-#lgzContainer  {
-    color: #ffffff;
-}
-#lgzContainer p {
-    font-weight: bold;
-    font-size: larger;
-    color: #ffffff;
-    text-align: center;
-}
-#lgzContainer button {
-    color: #ffffff;
-}
+
 #lgzHud .msgbox {
  
     text-align: center;
