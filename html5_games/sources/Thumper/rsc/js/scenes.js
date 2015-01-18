@@ -60,20 +60,20 @@ LgzLib.Scenes.End.prototype.create = function () {
     this.game.canvas.style.cursor="";
     this.game.add.sprite(0, 0, 'end');
     
-    spriteSign = this.game.add.sprite(340, 70, 'sign2');
+    spriteSign = this.game.add.sprite(300, 40, 'sign2');
     spriteSign.scale.setTo(1.2);
     this.spriteSign = spriteSign;
     
-    sprite = this.game.add.text(50, 220, 'Correct', K.signSmallTextStyle);
+    sprite = this.game.add.text(50, 210, 'Correct', K.signSmallTextStyle);
     spriteSign.addChild(sprite);
     
-    sprite = this.game.add.text(140, 220, 'Total', K.signSmallTextStyle);
+    sprite = this.game.add.text(140, 210, 'Total', K.signSmallTextStyle);
     spriteSign.addChild(sprite);
     
-    sprite = this.game.add.text(70, 192, ps.score.correct, K.signTextStyle);
+    sprite = this.game.add.text(70, 182, ps.score.correct, K.signTextStyle);
     spriteSign.addChild(sprite);
  
-    sprite = this.game.add.text(150, 192, ps.score.total, K.signTextStyle);
+    sprite = this.game.add.text(150, 182, ps.score.total, K.signTextStyle);
     spriteSign.addChild(sprite);
 
     this.lgzMgr.soundPlay('c-end');

@@ -9,7 +9,6 @@
  */
 /*jslint  nomen: true */
 var g = {};
-g.cont = true;
 
 var Lgz = Lgz || {};
 Lgz.init = function () {

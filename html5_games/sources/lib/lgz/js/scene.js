@@ -9,6 +9,7 @@
 /*jslint  nomen: true */
 var LgzLib = LgzLib || {};
 
+
 LgzLib.Scene = function (lgzMgr)  {
     'use strict';
     var num, key;
