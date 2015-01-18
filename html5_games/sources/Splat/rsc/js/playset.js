@@ -80,7 +80,7 @@ Lgz.PlaySet = function (scene) {
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.defaultRestitution = 0.8;
         game.physics.p2.setImpactEvents(true);
-        game.physics.p2.setBounds(0, 0, 640,440, true, true, true, true, false);
+        game.physics.p2.setBounds(0, 0, 600,400, true, true, true, true, false);
         game.physics.p2.gravity.y = K.gravity;
         
         cg = {};

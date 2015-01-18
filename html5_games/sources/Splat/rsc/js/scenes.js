@@ -43,19 +43,19 @@ LgzLib.Scenes.Main.prototype.create = function () {
 
     thisObj = this;
    
+    thisObj.game.world.bounds.setTo(0,0,600,400);
+    
     //sprite: main background
     thisObj.game.add.sprite(0, 0, 'main');
 
-    //thisObj.timer = new Lgz.Timer(thisObj);
-    //thisObj.timer.create();
     thisObj.lgzMgr.pause = function () {
         thisObj.playSet.pause();
-        //thisObj.timer.pause();
+
         thisObj.game.paused = true;
 
     };
     thisObj.lgzMgr.resume = function () {
-        //thisObj.timer.resume();
+
         thisObj.playSet.resume();        
         thisObj.game.paused = false;
     };
@@ -66,7 +66,7 @@ LgzLib.Scenes.Main.prototype.create = function () {
 LgzLib.Scenes.Main.prototype.update = function () {
     // console.debug('Scenes2.Main.update: key ' + this.key); 
     this.playSet.update();
-    //this.timer.update();
+
 };
 LgzLib.Scenes.End.prototype.rscload = function () {
     console.debug('Scenes2.End.rscload: key ' + this.key);    
