@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="640"
-   height="480"
+   width="600"
+   height="400"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -28,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="288.92525"
-     inkscape:cy="191.85625"
+     inkscape:cx="287.46096"
+     inkscape:cy="112.53839"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -37,9 +37,9 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1680"
-     inkscape:window-height="1026"
-     inkscape:window-x="1920"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1">
     <inkscape:grid
@@ -51,8 +51,8 @@
        snapvisiblegridlinesonly="false"
        spacingx="70px"
        spacingy="80px"
-       originx="72.809123px"
-       originy="-188.71745px" />
+       originx="71.344834px"
+       originy="-268.03531px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -62,7 +62,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -70,7 +70,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(39.826983,-241.54886)">
+     transform="translate(38.362694,-242.23101)">
     <g
        id="g9074-7"
        transform="matrix(1.4013851,0,0,1.436351,435.05563,215.81876)"
@@ -78,7 +78,7 @@
        inkscape:transform-center-y="-8.7716182" />
     <g
        id="g12347"
-       transform="matrix(-1.1459266,0,0,1.2446519,295.10195,490.29012)">
+       transform="matrix(-1.0743062,0,0,1.0372099,274.26041,448.94694)">
       <path
          id="path12349"
          d="m 291,186.35 -558.5,0 0,-385.65 558.5,0 0,385.65"
@@ -1597,7 +1597,7 @@
     </g>
     <g
        id="g14061"
-       transform="translate(9.2857143,51.428571)">
+       transform="matrix(1,0,0,0.91490777,-7.1428571,31.495485)">
       <g
          transform="translate(162.25516,437.28755)"
          id="g13938">
