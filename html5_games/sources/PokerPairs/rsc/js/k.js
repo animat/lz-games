@@ -18,22 +18,17 @@ K.renderType = Phaser.CANVAS;
 // K.renderForce = true;
 K.renderForce = false;
 K.renderFPS = 25;
-    
-K.bgWidth = 640;
-K.bgHeight = 480;
-K.bgOffX = -30;
-K.bgOffY = -25;
 
 K.cardCols = 5;
-K.cardWidthOrig = 90;
+K.cardWidthOrig = 100;
 K.cardHeightOrig = 70;
 //K.cardScale = 1.5;
 //K.cardWidth = 135;
 K.cardScale = 1;
 K.cardWidth = K.cardWidthOrig * K.cardScale;
 K.cardHeight = K.cardHeightOrig * K.cardScale;
-K.cardOffX = 45;
-K.cardOffY = 40;
+K.cardOffX = 5;
+K.cardOffY = 5;
 K.cardMarginX = 5;
 K.cardMarginY = 5;
 K.cardCount = 20;
@@ -57,14 +52,15 @@ K.textTO = 200;
 K.hideFirstTO = 1000;
 K.hideSecondTO = 1500;
 
-K.pairScale = 0.4;
+K.pairScale = 0.35;
 K.pairWidth = (K.cardScale * K.cardWidth * K.pairScale);
 K.pairHeight = (K.cardScale * K.cardHeight * K.pairScale);
 K.pairMarginX = 0;
-K.pairMarginY = 10;
+K.pairMarginY = 5;
 //K.pairOffsetX = K.canvasWidth - 2 * (K.pairWidth) - K.pairMarginX;
-K.pairOffsetX = 567;
-K.pairOffsetY = 10;
+// 567;
+K.pairOffsetX = 530;
+K.pairOffsetY = 0;
 K.pairSfxTO = 1200;
    
 K.clockTextStyle = { 
@@ -72,7 +68,7 @@ K.clockTextStyle = {
 	fill: '#ffffff',
 	align: 'center'
 };
-K.clockX = (K.canvasWidth / 2) - 5;
-K.clockY = K.canvasHeight - 100;
+K.clockX = 278;
+K.clockY = 350;
 
 K.lastMatchTO = 5000;

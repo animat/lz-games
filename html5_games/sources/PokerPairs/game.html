@@ -89,14 +89,15 @@
     <div id="lgzGameCanvas"></div>
 
     <div id="lgzHud">
-        <div class="menu" >
-        <div class="bar">
-            <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.hud.fullScreenToggle();"   ></button>
-            <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
-            <p id="lgzHudLogo" class="">LingaZone.com</p>
+        <div id="lgzHudMenuBar" >
 
-            <button id="lgzHudHelp" class="btn square" onclick="Lgz.mgr.help();">Help</button>
-        </div>
+ 
+                <button id="lgzHudFullScreen" resname="FullScreen" class="btn square" onclick="Lgz.hud.fullScreenToggle();"   ></button>
+                <button id="lgzHudExit" resname="Exit" class="btn square" onclick="Lgz.hud.winOpen('winExitConfirm');"   ></button>
+                <p id="lgzHudLogo" >LingaZone.com</p>
+
+                <button id="lgzHudHelp" class="btn square" onclick="Lgz.mgr.help();">Help</button>
+
         </div>
 
 <!-- rsc/html/win.html: BEGIN -->
@@ -110,13 +111,13 @@
             <button id="lgzBtnPlay" resname="IDS_PLAY" onclick="Lgz.mgr.play()">PlaytheGame!</button>
         </div>
 
-        <div id="winWon" class="win modal">
+        <div id="winWon" class="win ">
             <div class="msgbox">
-            <p   resname="IDS_CONGRATS"></p>
+            <p   id="IDS_CONGRATS" resname="IDS_CONGRATS"></p>
             <br>
             <div class="btngroup">
                 <button id="lgzBtnPlayAgain" class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
-                <button  class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
+                <button  id="lgzBtnPlayCancel" class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
             </div>
             </div>
 
@@ -238,6 +239,7 @@
 
 <!-- lib/html/lgzlibjs.html: BEGIN -->
     <script type="text/javascript" src="lib/vendor/jquery.min.js"></script>
+ 
     <script type="text/javascript" src="lib/vendor/phaser/phaser-2.0.7.js?"></script>
     <script type="text/javascript" src="lib/vendor/phaser/plugins/savecpu.js?"></script>
     <script type="text/javascript" src="lib/lgz/js/k.js?"></script>
