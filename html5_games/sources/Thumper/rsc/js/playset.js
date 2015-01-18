@@ -234,7 +234,8 @@ Lgz.PlaySet = function (scene) {
         
         console.debug('PlaySet.onLoadOK: entered');
         thisObj.question.display.createSprite();
-        thisObj.question.display.sprite.position.setTo(320, 20);
+        thisObj.question.display.sprite.position.setTo(K.canvasWidth / 2, 20);
+        thisObj.question.display.sprite.anchor.setTo(0.5, 0);
         thisObj.cont = true;
         thisObj.playLoop();
     };
@@ -349,7 +350,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.scoreUpdateDisplay();
     };
     thisObj.scoreCreate = function() {
-        thisObj.spriteScore = this.game.add.text(570, 50, "0 / 0", K.scoreTextStyle);
+        thisObj.spriteScore = this.game.add.text(540, 40, "0 / 0", K.scoreTextStyle);
     
     };
     thisObj.scoreUpdateDisplay = function () {

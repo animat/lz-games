@@ -29,4 +29,7 @@ K.nodeTextStyle = { font: '14pt ' + K.font, fill: '#ffffff', align: 'center', al
 
 K.canvasWidth = 600;
 K.canvasHeight = 425;
+K.canvasVWidth = 600;
+K.canvasVHeight = 400;
+
 K.canvasBg = '#000000';

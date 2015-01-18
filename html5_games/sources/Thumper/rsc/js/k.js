@@ -26,27 +26,13 @@ K.xdiv = 200;
 K.ydiv = 60;
 
 K.xmin =  10;
-K.xmax = 630;
+K.xmax = 590;
 K.ymin =  70;
-K.ymax = 420;
+K.ymax = 390;
 
 K.y1 = 100;
-K.xmin1 = (640 * 2/5)|0;
-K.xmax1 = (640 * 3/5)|0;
-
-K.welcomeBgOffX = 0;
-K.welcomeBgOffY = 0;
- 
-K.welcomePlayX = 520;
-K.welcomePlayY = 50;
-
-
-
-K.mainBgWidth = 640;
-K.mainBgHeight = 480;
-K.mainBgOffX = 0;
-K.mainBgOffY = 0;
-
+K.xmin1 = (600 * 2/5)|0;
+K.xmax1 = (600 * 3/5)|0;
  
 K.frameRate = 50;
 K.showTO = 5000;
