@@ -50,14 +50,31 @@
         </div>
         <div id="winHint" class="win modal">
         <div class="posBtmCtr" >
-            <div class="msgbox">
+            <div subref="none" class="msgbox">
                 <p resname="NoHintAvail">Sorry No Hint Available</p>
                 <br>
                 <div class="btngroup">
                     <button  class="btn" resname="OK" onclick="Lgz.hud.winClose('winHint',false)" ></button>
                 </div>
             </div>
-
+            <div subref="avail" class="msgbox">
+                <p resname="lgzGameDesc"></p>
+                <br>
+                <div class="btngroup">
+                    <button subref="movetoend" onclick="">
+                        <p>Come back to this question later</p>
+                        <p></p>
+                    </button>
+                    <button subref="nextletter" onclick="">
+                        <p>Provide the next letter</p>
+                        <p></p>
+                    </button>
+                    <button subref="giveup" onclick="" >
+                        <p>I give up!</p>
+                        <p></p>
+                    </button>
+                </div>
+            </div>
         </div>
         </div>
         <div id="winBug" class="win modal">

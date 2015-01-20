@@ -1,0 +1,49 @@
+ 
+XML test files filename prefix (gameid) naming rules:
+
+GGGMHLLC.xml
+
+Where GGG is generic game or custom game:
+
+100xxxxx Generic Game 
+101xxxxx PokerPairs
+102xxxxx Fishing
+103xxxxx Splat
+104xxxxx Thumper
+
+
+Where M is Media Type Subset: 
+XXX0xxxx Text/Text questions and answers
+XXX1xxxx Image/Text questions and/or answers
+XXX2xxxx Animation/Text questions and/or answers
+XXX3xxxx Sound/Text questions and/or answers
+XXX4xxxx MMA/Text questions and/or answers
+
+Where H is Hints Type Subset:
+XXXX0xxx  No Hints
+XXXX1xxx  MoveToEnd
+XXXX2xxx  PenaltyNextLetter
+XXXX3xxx  PenaltyGiveUp
+XXXX4xxx  MoveToEnd, PenaltyGiveUp
+XXXX5xxx  MoveToEnd, PenaltyNextLetter, PenaltyGiveUp
+.. 
+
+Where LL is Language code:
+00 - English (simple game testing using lowercase words vs upper case)
+01 - Spanish
+02 - French
+03 - German
+.. 
+ 
+And C is final custom option like sample size:
+0 - small data sample (2 or 3 words)
+1 - medium set  (10)
+2 - full set    (20)
+
+Examples:
+GGGMHLLC.xml
+10000000.xml - XML data file with text question and answers for any game, no hints.
+10010000.xml - XML data file with image in a question or answer any game, no hints.
+10100000.xml - XML data file with text question and answers custom for PokerPairs game, no hints.
+10110000.xml - XML data file with image in a question or answer custom for PokerPairs game, no hints.
+

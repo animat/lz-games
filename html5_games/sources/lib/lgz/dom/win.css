@@ -44,3 +44,6 @@
 #winExitConfirm {
     position: absolute;
 }
+#winHint [subref] {
+    display: none;
+}

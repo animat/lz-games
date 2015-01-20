@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Poker Pairs"></format>
+  <description>
+    <text>Test English UI</text>
+  </description>
+    <gamedata>
+        <node>
+                <question content='apple' name='english' type='text'/>
+                <response content='APPLE' name='lang' type='text'/>
+        </node> 
+        <node>
+                <question content='bannana' name='english' type='text'/>
+                <response content='BANNANA' name='lang' type='text'/>
+        </node>
+        <node>
+                <question content='orange' name='english' type='text'/>
+                <response content='ORANGE' name='lang' type='text'/>
+        </node>         
+    </gamedata>
+    <templatedata/>  
+    <language>English</language>
+    <hints>
+        <hint type='movetoend' />
+    </hints>
+    <charset/>
+</xml>
