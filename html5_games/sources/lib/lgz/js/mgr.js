@@ -51,6 +51,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj._welcome2 = function () {
         console.debug('LgzLib.Mgr.welcome2:');
         thisObj.hud.localize();
+        thisObj.hud.hintsInit();
         thisObj.hud.toggleFsButtons();
         thisObj.game.paused = false;
         thisObj.scenes.welcome.start();
@@ -61,6 +62,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.lang.onLoad = function () {
             thisObj._welcome2();
         };
+
         langStr = thisObj.nm.dataFind("language").text();
         thisObj.lang.load(gamePrefix,  langStr);
     };
@@ -129,9 +131,28 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         $.post(url, {game_id: gameid, user_id: userid, score: scoreval});
     };
     thisObj.gameId = function () {
-        var id, tail;
+        var id, tail, $lgzParms, urlparm, gameid;
+        $lgzParms = $("#lgzParms");
+        
+        urlparm = document.URL.match(/.*\?xmlid=(.*)/);
+        if (urlparm) {
+            $lgzParms.attr('game_id', urlparm[1]);
+        }        
+        
+        
+        gameid = $lgzParms.attr("game_id");
+        if (gameid !== "") {
+            return gameid;
+        }
+        
         tail = document.URL.match(/.*\/(.*)$/)[1];
+        if (!tail) {
+            alert('Error no gameid found!');
+            return null;
+        }
         id = tail.split('.')[0];
+        $lgzParms.attr('game_id', id);
+        
         return id;
     };
     thisObj.rscImage = function (name, lib) {
