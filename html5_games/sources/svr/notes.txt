@@ -13,19 +13,22 @@ Where GGG is generic game or custom game:
 
 
 Where M is Media Type Subset: 
-XXX0xxxx Text/Text questions and answers
-XXX1xxxx Image/Text questions and/or answers
-XXX2xxxx Animation/Text questions and/or answers
-XXX3xxxx Sound/Text questions and/or answers
-XXX4xxxx MMA/Text questions and/or answers
+XXX0xxxx Text Questions and Text Answers
+XXX1xxxx Text Questions and Image Answers
+XXX2xxxx Text Questions and Animated Answers
+XXX3xxxx Text Questions and Sound Answers
+
+XXX1xxx1 Image Questions    and Text Answers
+XXX2xxx1 Animated Questions and Text Answers
+XXX3xxx1 Sound Questions    and Text Answers 
 
 Where H is Hints Type Subset:
 XXXX0xxx  No Hints
 XXXX1xxx  MoveToEnd
-XXXX2xxx  PenaltyNextLetter
-XXXX3xxx  PenaltyGiveUp
-XXXX4xxx  MoveToEnd, PenaltyGiveUp
-XXXX5xxx  MoveToEnd, PenaltyNextLetter, PenaltyGiveUp
+XXXX2xxx  NextLetterWithPenalty
+XXXX3xxx  GiveUpWithPenalty
+XXXX4xxx  MoveToEnd, GiveUpWithPenalty
+XXXX5xxx  MoveToEnd, NextLetterWithPenalty, GiveUpWithPenalty
 .. 
 
 Where LL is Language code:
