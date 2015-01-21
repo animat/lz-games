@@ -10,8 +10,7 @@
 <script src="http://code.createjs.com/preloadjs-0.4.1.min.js"></script>
 <script src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
 <script src="pokerPairsCJS.js"></script>
-<script src="resize.js"></script>
-
+<script src="resize.js?"></script>
 <script>
 var canvas, stage, exportRoot;
 
@@ -25,6 +24,7 @@ function init() {
 }
 
 function handleComplete() {
+    console.debug('handleComplete');
 	exportRoot = new lib.pokerPairsCJS();
 
 	stage = new createjs.Stage(canvas);
@@ -34,8 +34,10 @@ function handleComplete() {
 	stage.update();
 	stage.enableMouseOver();
 
-	createjs.Ticker.setFPS(lib.properties.fps);
+	//createjs.Ticker.setFPS(lib.properties.fps);
+	createjs.Ticker.setFPS(5);
 	createjs.Ticker.addEventListener("tick", stage);
+    window.onresize = function() { onResize(); };
 }
 
 function playSound(id, loop) {
@@ -45,6 +47,7 @@ function playSound(id, loop) {
 </head>
 
 <body onload="init();" style="background-color:#D4D4D4">
+    
 	<canvas id="canvas" width="640" height="480" style="background-color:#FFFFFF"></canvas>
 </body>
 </html>
