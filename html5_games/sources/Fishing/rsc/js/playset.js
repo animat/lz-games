@@ -252,7 +252,7 @@ Lgz.PlaySet = function (scene) {
         
         window.setTimeout(
             function () {
-                thisObj.lgzMgr.scorePost();
+                thisObj.lgzMgr.postScore();
                 thisObj.lgzMgr.hud.winOpen('winWon'); 
             },
             3000
