@@ -19,30 +19,31 @@ K.renderType = Phaser.CANVAS;
 K.renderForce = false;
 K.renderFPS = 15;
 
-K.welcomeBgOffX = 0;
-K.welcomeBgOffY = 0;
- 
-K.welcomePlayX = 520;
-K.welcomePlayY = 50;
-
-
-
-K.mainBgWidth = 640;
-K.mainBgHeight = 480;
-K.mainBgOffX = 0;
-K.mainBgOffY = 0;
 
 K.textTO = 200;
 
 K.balloonScale = 1;
 
-K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
+K.penguinX = 0;
+K.penguinY = 0;
+
+K.nodeTextStyle = { 
+    font: '16pt ' + K.font, 
+    fill: '#ffffff', 
+    align: 'center', 
+    shadowColor: 'rgba(0,0,0,1)',
+    shadowOffsetX: 1,
+    shadowOffsetY: 1
+};
 K.fishTextStyle = {
-	font: '10pt ' + K.font,
-	fill: '#000000',
-        stroke: '#000000',
-        strokeThickness: 0,
-	align: 'center'
+    font: '10pt ' + K.font,
+    fill: '#000000', 
+    align: 'center', 
+    stroke: "black",
+    strokeThickness: 1,
+    shadowColor: 'rgba(0,255,255,1)',
+    shadowOffsetX: 1,
+    shadowOffsetY: 1
 };
 K.clockTextStyle = {
 	font: '14pt ' + K.font,

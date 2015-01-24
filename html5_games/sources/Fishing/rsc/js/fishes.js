@@ -13,7 +13,7 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
     
     var thisObj, world, randX, randY,
         colorIdx, color, f0, f1, f2, f3, f4, frameArr, frameRate, vel, dir,
-        spriteBody,  spriteText;
+        spriteBody,  spriteText, emitter, dir;
 
     thisObj = this;
     this.playSet = playSet;
@@ -41,12 +41,12 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
     Phaser.Sprite.call(this, this.game, randX, randY, 'dot');
     this.game.add.existing(this); 
     
-    spriteText = this.game.add.text(0, 0, label, K.fishTextStyle);
+    spriteText = this.game.add.text(0, 0, ' '+ label +' ', K.fishTextStyle);
     spriteText.anchor.setTo(0.5, 0);
     spriteText.inputEnabled = false;
     this.addChild(spriteText);
 
-    spriteBody = this.game.add.sprite(0, 0, 'fishes', f0);
+    spriteBody = this.game.add.sprite(0, 0, 'fish', f0);
     spriteBody.inputEnabled = true;
     spriteBody.anchor.setTo(0.5, 1);
 
@@ -84,6 +84,28 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
 
     thisObj.update = thisObj.actionFaceForward;
     
+/*    
+    emitter = thisObj.game.add.emitter(0, -20, 5);
+    emitter.makeParticles('bubble');
+    emitter.emitX = -50;
+    
+    emitter.maxParticleScale = 1;
+    emitter.minParticleScale = 0.2;
+    emitter.setYSpeed(-30, -40);
+    emitter.setXSpeed(0, 0);
+    emitter.gravity = 0;
+    emitter.width = 5;
+    emitter.minRotation = 0;
+    emitter.maxRotation = 0;
+    emitter.flow(1000, 200);
+ 
+    //emitter.start(false, 1500, 10);
+    //thisObj.game.add.tween(emitter).to( { emitX: 800 }, 2000, Phaser.Easing.Linear.None, true, 0, Number.MAX_VALUE, true);   
+    thisObj.addChild(emitter);
+    thisObj.emitter=emitter;
+    
+*/
+    
 };
 LgzLib.inherit(Lgz.Fish, Phaser.Sprite);
 
@@ -100,7 +122,9 @@ Lgz.Fish.prototype.initVelocity = function () {
 
     vel = thisObj.game.rnd.integerInRange( -10, 10);
     thisObj.body.velocity.y=  vel;  
-    thisObj.body.bounce.set(1);    
+    thisObj.body.bounce.set(1);
+    console.log ('fish: dir: ' + dir + ' vel: ' + vel);
+    
 
 };
     
@@ -120,7 +144,8 @@ Lgz.Fish.prototype.actionFaceForward = function () {
                 )
 */        
         if (this.spriteBody.scale.x * this.body.velocity.x > 0) {
-            this.spriteBody.scale.x *= -1;            
+            this.spriteBody.scale.x *= -1;
+            //this.emitter.emitX *= -1;
         }
         this.vx  = vx;
     }
@@ -145,7 +170,7 @@ Lgz.Fish.prototype.release = function () {
     thisObj = this;
     //this.initVelocity();
     frame = this.spriteBody.frame;
-    this.spriteBody.loadTexture("fishes", frame, false);
+    this.spriteBody.loadTexture("fish", frame, false);
  
 console.debug (
         'release: vx: ' + this.vx 
@@ -154,7 +179,7 @@ console.debug (
         + ' scale.x: ' + this.spriteBody.scale.x
         + ' nodeIdx: ' + this.nodeIdx
         )
-//    this.spriteBody.loadTexture("fishes");
+//    this.spriteBody.loadTexture("fish");
     this.update = this.actionFaceForward;
     this.playSet.missed();
     window.setTimeout(
@@ -171,6 +196,7 @@ Lgz.Fish.prototype.onFishInBasket = function () {
     this.body.velocity.setTo(0, 0);    
     this.spriteBody.animations.stop('swim',0 );
     this.playSet.found();
+    this.playSet.fishBasketArr.push(this);
 };
 Lgz.Fish.prototype.actionFlipToBasket = function () {
     var thisObj, flag, rc;
@@ -193,7 +219,7 @@ Lgz.Fish.prototype.onMidPoint = function () {
     target = this.playSet.spriteInBasket;
     
     this.bringToTop();
-    this.playSet.spriteBasket.bringToTop();
+    this.playSet.spriteBasketFg.bringToTop();
     if (target.x > 80) {
         target.x = 5;
         target.y += 5;
@@ -231,10 +257,10 @@ Lgz.Fish.prototype.caught = function() {
     this.body.angularVelocity = -700;
     this.body.collideWorldBounds = false;
 
-    this.playSet.caught();
+    //this.playSet.caught();
 
     frame = this.spriteBody.frame;
-    this.spriteBody.loadTexture("fishes", frame, false);
+    this.spriteBody.loadTexture("fish", frame, false);
 
     //send fish to basket, free willy style 
     this.update = this.actionFlipToMidPoint;
@@ -246,36 +272,35 @@ Lgz.Fish.prototype.onLure = function () {
     
     if (this.nodeIdx === this.playSet.nm.idx) {
         //note: match
-        this.caught();
+        this.playSet.caught(thisObj);
     } else {
         //note: let the fish go
         this.release();
     }
-
+    thisObj.playSet.spritePenguin.luring(false);
 
 };
 Lgz.Fish.prototype.actionLure = function ()  {
     var thisObj, rc;
     thisObj = this;
-        //todo: testflip ugly hack. should be a better way.
-        if (!this.testflip) {
-            this.testflip = true;
-            if(this.x < 240 && this.body.velocity.x < 0 || this.x > 240 && this.body.velocity.x > 0) {
-                this.spriteBody.scale.x *= -1;
-            }
+    
+    thisObj.playSet.spritePenguin.luring(true);
+    //todo: testflip ugly hack. should be a better way.
+    if (!this.testflip) {
+        this.testflip = true;
+        if(this.x < 240 && this.body.velocity.x < 0 || this.x > 240 && this.body.velocity.x > 0) {
+            this.spriteBody.scale.x *= -1;
         }
+    }
 
-        this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteHook, function() {thisObj.onLure();});
-        
-        rc = this.game.physics.arcade.moveToObject(this, this.playSet.spriteHook, 150);
-        if (rc < 0 ) {
-            console.debug('actionLure: rc < 0');
-            //thisObj.onLure();
-        }
-            
+    this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteHook, function() {thisObj.onLure();});
 
-   
-        //console.debug('update/lure: velx: ' + this.body.velocity.x);    
+    rc = this.game.physics.arcade.moveToObject(this, this.playSet.spriteHook, 150);
+    if (rc < 0 ) {
+        console.debug('actionLure: rc < 0');
+        //thisObj.onLure();
+    }
+    //console.debug('update/lure: velx: ' + this.body.velocity.x);    
 };
 Lgz.Fish.prototype.update = function () {
     'use strict';
@@ -284,9 +309,12 @@ Lgz.Fish.prototype.update = function () {
 Lgz.Fish.prototype.touched = function () {
     var frame;
     frame = this.spriteBody.frame;
-    this.spriteBody.loadTexture("fishes_active", frame, false);
+    this.spriteBody.loadTexture("fish_glow", frame, false);
     this.body.bounce.setTo(0);    
     this.update = this.actionLure;
+    this.bringToTop();
+    this.playSet.zsort();
+
 };
 Lgz.Fish.prototype.swim = function () {
     'use strict';

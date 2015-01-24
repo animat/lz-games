@@ -8,8 +8,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="328.63446"
-   width="364.77515"
+   height="298.76834"
+   width="248.06752"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -43,8 +43,8 @@
      id="namedview573"
      showgrid="false"
      inkscape:zoom="0.834386"
-     inkscape:cx="570.50469"
-     inkscape:cy="289.35924"
+     inkscape:cx="208.87844"
+     inkscape:cy="289.38798"
      inkscape:window-x="2105"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -57,61 +57,70 @@
      fit-margin-bottom="0">
     <sodipodi:guide
        orientation="1,0"
-       position="-149.26422,625.23617"
+       position="-241.2311,625.26491"
        id="guide3606" />
   </sodipodi:namedview>
-  <use
-     clip-path="none"
-     y="0"
-     x="0"
-     id="use12"
-     xlink:href="#sprite1"
-     width="7"
-     transform="matrix(1.0908518,0,0,1.184841,94.576856,56.08337)"
-     height="182" />
-  <use
-     clip-path="none"
-     y="0"
-     x="0"
-     id="use16"
-     xlink:href="#shape4"
-     width="229.05"
-     transform="matrix(1.0908518,0,0,1.184841,0,-0.01884974)"
-     height="248.2" />
-  <use
-     clip-path="none"
-     y="0"
-     x="0"
-     id="use18"
-     xlink:href="#sprite2"
-     width="232.2"
-     transform="matrix(1.2459709,0,0,1.184841,94.691395,77.70672)"
-     height="79.050003" />
-  <use
-     clip-path="none"
-     y="0"
-     x="0"
-     id="use22"
-     xlink:href="#shape6"
-     width="229.05"
-     transform="matrix(1.0908518,0,0,1.184841,0,-0.01884974)"
-     height="277.39999" />
-  <use
-     clip-path="none"
-     y="0"
-     x="0"
-     id="use24"
-     xlink:href="#sprite4"
-     width="116.2"
-     transform="matrix(1.0908518,0,0,1.184841,94.413228,146.78295)"
-     height="76.849998" />
+  <g
+     id="g3272"
+     transform="matrix(0.93215022,0,0,0.91286836,-91.966883,-1.2653219)"
+     clip-path="url(#clipPath4062)"
+     inkscape:export-filename="/Work/Projects/Clients/LinguaZone/lz-games.dev/html5_games/sources/Fishing/rsc/mma/basketbg.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     mask="none">
+    <use
+       height="182"
+       transform="matrix(1.0908518,0,0,1.184841,94.576856,56.08337)"
+       width="7"
+       xlink:href="#sprite1"
+       id="use12"
+       x="0"
+       y="0"
+       clip-path="none" />
+    <use
+       height="248.2"
+       transform="matrix(1.0908518,0,0,1.184841,0,-0.01884974)"
+       width="229.05"
+       xlink:href="#shape4"
+       id="use16"
+       x="0"
+       y="0"
+       clip-path="none" />
+    <use
+       height="79.050003"
+       transform="matrix(1.2459709,0,0,1.184841,94.691395,77.70672)"
+       width="232.2"
+       xlink:href="#sprite2"
+       id="use18"
+       x="0"
+       y="0"
+       clip-path="none" />
+    <use
+       height="277.39999"
+       transform="matrix(1.0908518,0,0,1.184841,0,-0.01884974)"
+       width="229.05"
+       xlink:href="#shape6"
+       id="use22"
+       x="0"
+       y="0"
+       clip-path="none" />
+    <use
+       height="76.849998"
+       transform="matrix(1.0908518,0,0,1.184841,94.413228,146.78295)"
+       width="116.2"
+       xlink:href="#sprite4"
+       id="use24"
+       x="0"
+       y="0"
+       clip-path="none" />
+  </g>
   <use
      y="0"
      x="0"
      id="use34"
      xlink:href="#text1"
      width="332.89999"
-     transform="translate(263.65121,126.31252)"
+     transform="translate(171.68433,96.417644)"
      height="59" />
   <use
      y="0"
@@ -119,7 +128,7 @@
      id="use36"
      xlink:href="#text2"
      width="205"
-     transform="translate(391.55121,183.26252)"
+     transform="translate(299.58433,153.36765)"
      height="48" />
   <defs
      id="defs38">
@@ -1565,5 +1574,32 @@
          x="0"
          y="0" />
     </g>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4048">
+      <rect
+         ry="0.074164085"
+         rx="2.8428032"
+         y="1.3860946"
+         x="98.661011"
+         height="328.91336"
+         width="266.82364"
+         id="rect4050"
+         style="fill:none;stroke:#000000;stroke-width:1.79599631;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4062">
+      <rect
+         ry="0.16966379"
+         rx="5.2358313"
+         y="-332.25082"
+         x="99.762047"
+         height="255.29321"
+         width="267.58661"
+         id="rect4064"
+         style="fill:none;stroke:#000000;stroke-width:2.22520566;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         transform="scale(1,-1)" />
+    </clipPath>
   </defs>
 </svg>
