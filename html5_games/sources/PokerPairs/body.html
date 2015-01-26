@@ -1,5 +1,5 @@
 <div id="lgzContainer" >
-    <div id="lgzParms"  game_id="1000" user_id="10054"></div>
+    <div id="lgzParms"  game_id="" user_id="10054"></div>
     <div id="lgzGameCanvas"></div>
 
     <div id="lgzHud">
@@ -18,23 +18,23 @@
 
 <!-- lib/lgz/dom/win.html: BEGIN -->
 
-        <div id="winPlay" class="win modal bgclear" style="display: block;">
+        <div id="winPlay" class="win modal bgclear" >
+            <div class="msgballoon">
             <p   resname="IDS_INSTRUCTIONS">
                 How To Play
             </p>
+            </div>
+   
             <button id="lgzBtnPlay" resname="IDS_PLAY" onclick="Lgz.mgr.play()">PlaytheGame!</button>
-        </div>
+ 
+            </div>
 
         <div id="winWon" class="win ">
-            <div class="msgbox">
+            <div class="msgballoon">
             <p   id="IDS_CONGRATS" resname="IDS_CONGRATS"></p>
             <br>
-            <div class="btngroup">
-                <button id="lgzBtnPlayAgain" class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
-                <button  id="lgzBtnPlayCancel" class="btn bg" resname="Cancel" onclick="Lgz.mgr.welcome()" > </button>
-            </div>
-            </div>
-
+            </div> 
+            <button id="lgzBtnPlayAgain" class="btn bg" resname="IDS_PLAY_AGAIN" onclick="Lgz.mgr.play()" > </button>
         </div>
  
         <div id="winExitConfirm" class="win modal">
@@ -67,14 +67,31 @@
         </div>
         <div id="winHint" class="win modal">
         <div class="posBtmCtr" >
-            <div class="msgbox">
+            <div subref="none" class="msgbox">
                 <p resname="NoHintAvail">Sorry No Hint Available</p>
                 <br>
                 <div class="btngroup">
                     <button  class="btn" resname="OK" onclick="Lgz.hud.winClose('winHint',false)" ></button>
                 </div>
             </div>
-
+            <div subref="avail" class="msgbox">
+                <p resname="lgzGameDesc"></p>
+                <br>
+                <div class="btngroup">
+                    <button subref="movetoend" onclick="">
+                        <p>Come back to this question later</p>
+                        <p></p>
+                    </button>
+                    <button subref="nextletter" onclick="">
+                        <p>Provide the next letter</p>
+                        <p></p>
+                    </button>
+                    <button subref="giveup" onclick="" >
+                        <p>I give up!</p>
+                        <p></p>
+                    </button>
+                </div>
+            </div>
         </div>
         </div>
         <div id="winBug" class="win modal">

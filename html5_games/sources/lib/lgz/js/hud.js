@@ -17,7 +17,7 @@ LgzLib.Hud = function (mgr) {
 	'use strict';
 	var thisObj, btnList, game, lang, eBody,
 		resizeDirty,
-		$lgzVP, $lgzHide, eWin, $lgzMin,
+		$lgzVP, $lgzHide, eWin, $lgzMin, $lgzHud,
 		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay;
 	
 	thisObj = this;
@@ -29,7 +29,7 @@ LgzLib.Hud = function (mgr) {
 	$lgzVP = $('#lgzViewPort');
 	$lgzHide = $('[lgzHide]');
 	$lgzMin = $('[lgzMin]');
-        
+        $lgzHud  = $('#lgzHud');
         $lgzHudMenuBar = $('#lgzHudMenuBar');
         
 	$lgzBtnFS = $('#lgzHudFullScreen');
@@ -106,7 +106,8 @@ LgzLib.Hud = function (mgr) {
 
 		$lgzHide.css('display', 'none');
 		$lgzMin.addClass('lgzMin');
-
+                
+                $lgzHud.addClass('fs');
                 $lgzHudMenuBar.addClass('fsbar');
 		thisObj.viewPortFsDefault();
 		
@@ -155,6 +156,7 @@ LgzLib.Hud = function (mgr) {
 		$lgzHide.css('display', '');
 		$lgzMin.removeClass('lgzMin');
 
+                $lgzHud.removeClass('fs');
                 $lgzHudMenuBar.removeClass('fsbar');
 		// mgr.resume();
 		// thisObj.onResize();
