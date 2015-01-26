@@ -8,8 +8,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="480"
-   width="640.0014"
+   height="399.99985"
+   width="600.0376"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,10 +43,10 @@
      id="namedview573"
      showgrid="false"
      inkscape:zoom="0.834386"
-     inkscape:cx="283.07961"
-     inkscape:cy="179.65781"
-     inkscape:window-x="2267"
-     inkscape:window-y="144"
+     inkscape:cx="203.90377"
+     inkscape:cy="212.75161"
+     inkscape:window-x="1920"
+     inkscape:window-y="83"
      inkscape:window-maximized="0"
      inkscape:current-layer="g3302"
      fit-margin-top="0"
@@ -55,43 +55,38 @@
      fit-margin-bottom="0" />
   <g
      id="g3302"
-     transform="matrix(0.97977206,0,0,0.99869872,15.123518,-0.40296342)">
-    <use
-       height="228.5"
-       transform="matrix(1.0908518,0,0,1.184841,-13.826179,0.40348847)"
-       width="600.34998"
-       xlink:href="#shape0"
-       id="use6"
-       x="0"
-       y="0"
-       clip-path="none" />
-    <use
-       height="219.85001"
-       transform="matrix(1.0908518,0,0,1.184841,-14.26252,219.41532)"
-       width="601.09998"
-       xlink:href="#shape2"
-       id="use10"
-       x="0"
-       y="0"
-       clip-path="none" />
-    <use
-       height="182"
-       transform="matrix(1.0908518,0,0,1.184841,-19.825864,234.64053)"
-       width="7"
-       xlink:href="#sprite1"
-       id="use12"
-       x="0"
-       y="0"
-       clip-path="none" />
-    <use
-       height="79.050003"
-       transform="matrix(1.2459709,0,0,1.184841,-19.711325,256.26388)"
-       width="232.2"
-       xlink:href="#sprite2"
-       id="use18"
-       x="0"
-       y="0"
-       clip-path="none" />
+     transform="matrix(0.97977206,0,0,0.99869872,15.161092,-80.402974)">
+    <g
+       id="g3271"
+       transform="matrix(0.93393251,0,0,0.83528567,-2.1563717,80.170556)">
+      <use
+         clip-path="none"
+         y="0"
+         x="0"
+         id="use6"
+         xlink:href="#shape0"
+         width="600.34998"
+         transform="matrix(1.0908518,0,0,1.184841,-13.826179,0.40348847)"
+         height="228.5" />
+      <use
+         clip-path="none"
+         y="0"
+         x="0"
+         id="use10"
+         xlink:href="#shape2"
+         width="601.09998"
+         transform="matrix(1.0908518,0,0,1.184841,-14.26252,219.41532)"
+         height="219.85001" />
+      <use
+         clip-path="none"
+         y="0"
+         x="0"
+         id="use18"
+         xlink:href="#sprite2"
+         width="232.2"
+         transform="matrix(1.2459709,0,0,1.184841,-13.093898,256.26388)"
+         height="79.050003" />
+    </g>
   </g>
   <use
      y="0"
@@ -99,7 +94,7 @@
      id="use34"
      xlink:href="#text1"
      width="332.89999"
-     transform="translate(149.24849,304.86968)"
+     transform="translate(149.28606,224.86967)"
      height="59" />
   <use
      y="0"
@@ -107,7 +102,7 @@
      id="use36"
      xlink:href="#text2"
      width="205"
-     transform="translate(277.14849,361.81968)"
+     transform="translate(277.18606,281.81967)"
      height="48" />
   <defs
      id="defs38">

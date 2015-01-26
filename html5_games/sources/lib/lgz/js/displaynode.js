@@ -99,7 +99,7 @@ LgzLib.DisplayNode.prototype.createSprite = function () {
 
 	switch (type) {
 	case 'text':
-		this.sprite = this.game.add.text(0, 0, content, K.nodeTextStyle);
+		this.sprite = this.game.add.text(0, 0, ' '+ content + ' ', K.nodeTextStyle);
 		break;
 	case 'image':
 		this.sprite = this.game.add.sprite(0, 0, content);

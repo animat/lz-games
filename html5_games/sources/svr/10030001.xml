@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Any"></format>
+  <description>
+    <text>Test Text Questions and Sound Answers</text>
+  </description>
+    <gamedata>
+        <node>
+                <response content='bee' name='english' type='text'/>
+                <question content='bee' name='lang' type='audio'/>
+        </node> 
+        <node>
+                <response content='egg' name='english' type='text'/>
+                <question content='egg' name='lang' type='audio'/>
+        </node> 
+        <node>
+                <response content='eyes' name='english' type='text'/>
+                <question content='eyes' name='lang' type='audio'/>
+        </node> 
+        <node>
+                <response content='feet' name='english' type='text'/>
+                <question content='feet' name='lang' type='audio'/>
+        </node> 
+        <node>
+                <response content='house' name='english' type='text'/>
+                <question content='house' name='lang' type='audio'/>
+        </node> 
+        <node>
+                <response content='wing' name='english' type='text'/>
+                <question content='wing' name='lang' type='audio'/>
+        </node>       
+    </gamedata>
+    <templatedata/>  
+    <language>English</language>
+    <hints/>
+    <charset/>
+</xml>

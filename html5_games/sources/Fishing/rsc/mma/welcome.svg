@@ -8,8 +8,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="480"
-   width="640"
+   height="400"
+   width="600"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -51,94 +51,7 @@
      inkscape:current-layer="g4" />
   <g
      id="g4"
-     transform="matrix(1.0772984,0,0,1.0772984,-1.7283131,2.0338981)">
-    <use
-       height="228.5"
-       width="600.34998"
-       xlink:href="#shape0"
-       id="use6"
-       x="0"
-       y="0" />
-    <use
-       height="177.35001"
-       transform="translate(-255.6,13.95)"
-       width="1330.45"
-       xlink:href="#sprite0"
-       id="use8"
-       x="0"
-       y="0" />
-    <use
-       height="219.85001"
-       transform="translate(-0.4,183.15)"
-       width="601.09998"
-       xlink:href="#shape2"
-       id="use10"
-       x="0"
-       y="0" />
-    <use
-       height="182"
-       transform="translate(-5.5,196)"
-       width="7"
-       xlink:href="#sprite1"
-       id="use12"
-       x="0"
-       y="0" />
-    <use
-       height="182"
-       transform="translate(838.3,196)"
-       width="7"
-       xlink:href="#sprite1"
-       id="use14"
-       x="0"
-       y="0" />
-    <use
-       height="267.29999"
-       transform="matrix(1.1937,0,0,1,-196.91,204.05)"
-       width="829.09998"
-       xlink:href="#shape4"
-       id="use16"
-       x="0"
-       y="0" />
-    <use
-       height="63.299999"
-       transform="matrix(1.6935,0,0,0.273,378.4513,217.6607)"
-       width="63.299999"
-       xlink:href="#shape5"
-       id="use18"
-       x="0"
-       y="0" />
-    <use
-       height="63.299999"
-       transform="matrix(1.5046,0,0,0.3269,184.5787,226.4049)"
-       width="63.299999"
-       xlink:href="#shape5"
-       id="use20"
-       x="0"
-       y="0" />
-    <use
-       height="178.35001"
-       transform="translate(179.35,62.35)"
-       width="314.25"
-       xlink:href="#shape6"
-       id="use22"
-       x="0"
-       y="0" />
-    <use
-       height="22.25"
-       transform="matrix(-1,0,0,1,241.55,135.15)"
-       width="31.700001"
-       xlink:href="#sprite2"
-       id="use24"
-       x="0"
-       y="0" />
-    <use
-       height="30.200001"
-       transform="translate(231.55,355.7)"
-       width="197.10001"
-       xlink:href="#sprite3"
-       id="use26"
-       x="0"
-       y="0" />
+     transform="matrix(1.0772984,0,0,1.0772984,-1.7283131,-77.966102)">
     <use
        height="42"
        transform="translate(110,291)"
@@ -155,22 +68,113 @@
        id="use32"
        x="0"
        y="0" />
-    <use
-       height="58"
-       transform="translate(61.15,26.45)"
-       width="155.35001"
-       xlink:href="#text3"
-       id="use34"
-       x="0"
-       y="0" />
-    <use
-       height="58"
-       transform="translate(59.15,24.45)"
-       width="155.35001"
-       xlink:href="#text4"
-       id="use36"
-       x="0"
-       y="0" />
+    <g
+       id="g3314"
+       transform="matrix(0.93658621,0,0,0.93658621,-1.4736973,75.518475)">
+      <use
+         y="0"
+         x="0"
+         id="use6"
+         xlink:href="#shape0"
+         width="600.34998"
+         height="228.5" />
+      <use
+         y="0"
+         x="0"
+         id="use8"
+         xlink:href="#sprite0"
+         width="1330.45"
+         transform="translate(-255.6,13.95)"
+         height="177.35001" />
+      <use
+         y="0"
+         x="0"
+         id="use10"
+         xlink:href="#shape2"
+         width="601.09998"
+         transform="translate(-0.4,183.15)"
+         height="219.85001" />
+      <use
+         y="0"
+         x="0"
+         id="use12"
+         xlink:href="#sprite1"
+         width="7"
+         transform="translate(-5.5,196)"
+         height="182" />
+      <use
+         y="0"
+         x="0"
+         id="use14"
+         xlink:href="#sprite1"
+         width="7"
+         transform="translate(838.3,196)"
+         height="182" />
+      <use
+         y="0"
+         x="0"
+         id="use16"
+         xlink:href="#shape4"
+         width="829.09998"
+         transform="matrix(1.1937,0,0,1,-196.91,204.05)"
+         height="267.29999" />
+      <use
+         y="0"
+         x="0"
+         id="use18"
+         xlink:href="#shape5"
+         width="63.299999"
+         transform="matrix(1.6935,0,0,0.273,378.4513,217.6607)"
+         height="63.299999" />
+      <use
+         y="0"
+         x="0"
+         id="use20"
+         xlink:href="#shape5"
+         width="63.299999"
+         transform="matrix(1.5046,0,0,0.3269,184.5787,226.4049)"
+         height="63.299999" />
+      <use
+         y="0"
+         x="0"
+         id="use22"
+         xlink:href="#shape6"
+         width="314.25"
+         transform="translate(179.35,62.35)"
+         height="178.35001" />
+      <use
+         y="0"
+         x="0"
+         id="use24"
+         xlink:href="#sprite2"
+         width="31.700001"
+         transform="matrix(-1,0,0,1,241.55,135.15)"
+         height="22.25" />
+      <use
+         y="0"
+         x="0"
+         id="use26"
+         xlink:href="#sprite3"
+         width="197.10001"
+         transform="translate(231.55,355.7)"
+         height="30.200001" />
+      <use
+         y="0"
+         x="0"
+         id="use34"
+         xlink:href="#text3"
+         width="155.35001"
+         transform="translate(61.15,26.45)"
+         height="58" />
+      <use
+         y="0"
+         x="0"
+         id="use36"
+         xlink:href="#text4"
+         width="155.35001"
+         transform="translate(59.15,24.45)"
+         height="58" />
+    </g>
   </g>
   <defs
      id="defs38">

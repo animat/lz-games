@@ -17,7 +17,7 @@ LgzLib.Hud = function (mgr) {
 	'use strict';
 	var thisObj, btnList, game, lang, eBody,
 		resizeDirty,
-		$lgzVP, $lgzHide, eWin, $lgzMin,
+		$lgzVP, $lgzHide, eWin, $lgzMin, $lgzHud,
 		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay;
 	
 	thisObj = this;
@@ -29,7 +29,7 @@ LgzLib.Hud = function (mgr) {
 	$lgzVP = $('#lgzViewPort');
 	$lgzHide = $('[lgzHide]');
 	$lgzMin = $('[lgzMin]');
-        
+        $lgzHud  = $('#lgzHud');
         $lgzHudMenuBar = $('#lgzHudMenuBar');
         
 	$lgzBtnFS = $('#lgzHudFullScreen');
@@ -106,7 +106,8 @@ LgzLib.Hud = function (mgr) {
 
 		$lgzHide.css('display', 'none');
 		$lgzMin.addClass('lgzMin');
-
+                
+                $lgzHud.addClass('fs');
                 $lgzHudMenuBar.addClass('fsbar');
 		thisObj.viewPortFsDefault();
 		
@@ -155,6 +156,7 @@ LgzLib.Hud = function (mgr) {
 		$lgzHide.css('display', '');
 		$lgzMin.removeClass('lgzMin');
 
+                $lgzHud.removeClass('fs');
                 $lgzHudMenuBar.removeClass('fsbar');
 		// mgr.resume();
 		// thisObj.onResize();
@@ -314,4 +316,52 @@ LgzLib.Hud = function (mgr) {
         );
          
     };
+    thisObj.hintAdd = function ($winHintAvl, hintnode) {
+        var i,  type,   $btn, $penalty, $para, punit, pval;
+        type = hintnode.getAttribute('type');
+   
+        switch (type) {
+        case 'giveup':
+            $btn = $winHintAvl.find('[subref=giveup]');
+            break;
+        case 'movetoend':
+            $btn = $winHintAvl.find('[subref=movetoend]');
+            break;
+        case 'nextletter':
+            $btn = $winHintAvl.find('[subref=nextletter]');
+            break;
+        }
+        if (!$btn.length) {
+            //todo: log error
+            return;
+        }
+        $btn.css('display', 'inline');
+        $penalty = $(hintnode).find('penalty');
+        if (!$penalty.length) {
+            return;
+        }
+        $para = $btn.find('p')[1];
+        if (!$para) {
+            return;
+        }
+        punit = $penalty.attr('unit');
+        pval =  $penalty.attr('value');
+        $para.textContent = '+' + pval + ' ' + punit + ' penalty';
+    };
+    thisObj.hintsInit = function () {
+        //note: must be called AFTER nodemgr has loaded xml file
+        var hlist, $winHintAvl, i;
+        
+        hlist = mgr.nm.dataFind('hint');
+        if (!hlist.length) {
+            $('#winHint [subref=none]').css('display','block');
+            return;
+        }
+        $winHintAvl = $('#winHint [subref=avail]');
+        $winHintAvl.css('display','block');
+        for(i =0; i < hlist.length; i += 1) {
+            thisObj.hintAdd($winHintAvl, hlist[i]);
+        }
+            
+    };    
 };

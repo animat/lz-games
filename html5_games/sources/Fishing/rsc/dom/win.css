@@ -1,17 +1,23 @@
-/*
-moved to lib/lgz/win.css
-*/
- #winPlay p {
-	position: absolute;
-	top: 60%;
-	left: 5%;
-	width: 80%;
-        padding: 20px;
-        
+ 
+#winPlay .msgballoon {
+    position: absolute;
+    top: 270px;
+    margin: 0;
+    padding: 0;
+    padding: 10px;
+    background: 0;
+}
+.fs#lgzHud #winPlay .msgballoon { 
+    top: 70vh;
 }
 #winPlay button {
-	position: absolute;
-	bottom: 10%;
-	left: 40%;
-        background: rgba(0, 0, 255, 0.75);
+    background: rgba(0,255,0,0.5);
+    position: absolute;
+    /* bottom: 0px; */
+    margin: 0;
+    right: 50px;
+    top: 40px;
+}
+.fs#lgzHud #winPlay button {
+    top: 10vh;
 }
