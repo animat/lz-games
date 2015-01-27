@@ -1,5 +1,10 @@
 
 /*
+ * original code from
+ *
+ * http://www.unfocus.com/2014/03/03/hidpiretina-for-createjs-flash-pro-html5-canvas/
+ *
+ 
 function fixretina () {
     console.debug('fixretina');
 
@@ -17,7 +22,13 @@ function fixretina () {
 	    //stage.scaleX = stage.scaleY = window.devicePixelRatio;
 	}
 }
+*
 */
+/*
+ * scale code modified with fix for retina display
+ * IE HiDPI tbd when hardware available for testing
+ *
+ */
 function onResize()
 {
     var dpr = 1;
