@@ -30,7 +30,6 @@ K.gravity = 100;
 K.bal=0;
 K.velMaxX = 5;
 K.velMaxY  = 5;
-K.velHangY = 5;
 K.grabMargin = 20;
 K.floorY = 380;
 

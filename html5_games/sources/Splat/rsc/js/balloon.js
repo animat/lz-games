@@ -155,15 +155,7 @@ Lgz.Balloon.prototype.update = function (sprite) {
         this.damp(false);
         return;
     }
-    if (this.hang && this.body) {
-        this.body.data.velocity[1] = K.velHangY-2;
-    } else {
-         
-        this.damp(true);
-    }
-
- 
-   
+    this.damp(true);   
 };
 Lgz.Balloon.prototype.touched = function () {
     var dx, dy, absx, absy;
@@ -188,20 +180,19 @@ Lgz.Balloon.prototype.pop = function () {
     var thisObj;
     thisObj = this;
     // thisObj.popped
-
+    
     thisObj.playSet.playSound('pop', 10);
     //thisObj.body.moveUp(0);
     //thisObj.body.moveRight(0);
     
     thisObj.spriteHead.events.onInputDown.removeAll();
     thisObj.spriteHead.animations.play('pop', 20, false);
-
-    thisObj.body.data.velocity[1] = K.velHangY;
-    this.body.data.gravityScale = 20;
-    this.hang = true;
+    
+    thisObj.body.applyForce([0, 800], this.x, this.y);
+    this.body.data.gravityScale = 3;
     window.setTimeout(
         function () {
-            thisObj.hang = false;
+            this.body.data.gravityScale = 20;
         },
         1000
     );
