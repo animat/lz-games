@@ -45,6 +45,8 @@ g.bal = thisObj;
     spriteText.anchor.setTo(0.5, 0.5);
     spriteText.inputEnabled = false;
     this.addChild(spriteText);
+    
+    spriteText.hitArea = new Phaser.Rectangle(-K.grabMargin, -K.grabMargin, spriteText.width + K.grabMargin, spriteText.height + K.grabMargin);
 /*
     spriteText.events.onInputDown.add(
         function () {
@@ -107,16 +109,53 @@ g.bal = thisObj;
     
 };
 LgzLib.inherit(Lgz.Balloon, Phaser.Sprite);
+Lgz.Balloon.prototype.damp = function(gravity) {
+    var vel, vx, vy;
 
-Lgz.Balloon.prototype.update = function (sprite) {
-    'use strict';
-    if (!this.spriteHead.visible) {
-
+    if(!this.body) {
         return;
     }
- 
- 
-   
+    vel = this.body.data.velocity;    
+    if(gravity) {
+        if(vel[0] < -K.velMaxX || vel[0] >  K.velMaxX ) {
+
+            vx =  vel[0] - (Math.abs(vel[0])/vel[0]);
+            //console.debug('damping vx:' + vel[0] + ' to ' + vx);
+            vel[0] = vx;
+        }  
+        if( vel[1] > K.velMaxY) {
+            vy =   vel[1] - (Math.abs(vel[1])/vel[1]);
+             //console.debug('damping vy:' + vel[1] + ' to ' + vy);
+             vel[1] = vy;
+        }
+        if (this.body.y > K.floorY && vel[1]!=0 && Math.abs(vel[1]) < 2) {
+            vel[0] = 0;
+            vel[1] = 0;
+        }
+    } else {        
+        
+        if(vel[0] < -K.velMaxX || vel[0] >  K.velMaxX ) {
+
+            vx =  vel[0] - (Math.abs(vel[0])/vel[0]);
+            //console.debug('damping vx:' + vel[0] + ' to ' + vx);
+            vel[0] = vx;
+        }  
+        if(vel[1] < -K.velMaxY || vel[1] > K.velMaxY) {
+            vy =   vel[1] - (Math.abs(vel[1])/vel[1]);
+             //console.debug('damping vy:' + vel[1] + ' to ' + vy);
+             vel[1] = vy;
+        }  
+    } 
+
+};
+Lgz.Balloon.prototype.update = function (sprite) {
+    'use strict';
+    
+    if (this.spriteHead.visible) { 
+        this.damp(false);
+        return;
+    }
+    this.damp(true);   
 };
 Lgz.Balloon.prototype.touched = function () {
     var dx, dy, absx, absy;
@@ -141,15 +180,22 @@ Lgz.Balloon.prototype.pop = function () {
     var thisObj;
     thisObj = this;
     // thisObj.popped
-
+    
     thisObj.playSet.playSound('pop', 10);
     //thisObj.body.moveUp(0);
     //thisObj.body.moveRight(0);
-    thisObj.body.data.gravityScale = 10;
+    
     thisObj.spriteHead.events.onInputDown.removeAll();
     thisObj.spriteHead.animations.play('pop', 20, false);
     
-
+    thisObj.body.applyForce([0, 800], this.x, this.y);
+    this.body.data.gravityScale = 3;
+    window.setTimeout(
+        function () {
+            this.body.data.gravityScale = 20;
+        },
+        1000
+    );
         
 };
 Lgz.Balloon.prototype.popped = function() {

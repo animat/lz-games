@@ -28,7 +28,10 @@ K.textRightMargin = K.mainBgWidth - 30;
 K.balloonScale = 1;
 K.gravity = 100;
 K.bal=0;
-
+K.velMaxX = 5;
+K.velMaxY  = 5;
+K.grabMargin = 20;
+K.floorY = 380;
 
 K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
 K.bgTextStyle = { font: '8pt ' + K.font, fill: '#deb887', align: 'center', align: 'center'};

@@ -41,8 +41,8 @@ LgzLib.inherit(Lgz.CharLine, Phaser.Sprite);
 Lgz.CharLine.prototype.bounceOff = function (balloon, dir) {
     var randX, randY;
     
-    randX = this.game.rnd.integerInRange(-100,100);
-    randY = this.game.rnd.integerInRange(50, 200) * dir;    
+    randX = this.game.rnd.integerInRange(-20, 50);
+    randY = this.game.rnd.integerInRange(10, 50) * dir;    
     balloon.body.moveUp(randY);
     balloon.body.moveRight(randX);    
 } 
