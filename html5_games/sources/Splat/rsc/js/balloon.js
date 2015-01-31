@@ -112,12 +112,17 @@ g.bal = thisObj;
     
     this.body.data.gravityScale=0;
     //this.body.setZeroDamping();
+    this.body.data.maxVelocity = new Phaser.Point(20, 20);
+    this.body.data.maxAngular = 20;
     
     this.body.setCollisionGroup(cg.balloons);
     this.body.collides([cg.balloons, cg.letters]);
  
-    randX = this.game.rnd.integerInRange(-5,5);
-    randY = this.game.rnd.integerInRange(-3,3);
+    randX = this.game.rnd.integerInRange(50,100);
+    if (Math.random() > .5) {
+      randX *= -1;
+    }
+    randY = this.game.rnd.integerInRange(-30,50);
     this.body.moveUp(randY);
     this.body.moveRight(randX);
     
@@ -224,8 +229,6 @@ Lgz.Balloon.prototype.pop = function () {
 
     
     thisObj.playSet.playSound('pop', 10);
-    //thisObj.body.moveUp(0);
-    //thisObj.body.moveRight(0);
     
     if (thisObj.strArr) {
         thisObj.killTail();
@@ -239,7 +242,7 @@ Lgz.Balloon.prototype.pop = function () {
     window.setTimeout(
         function () {
             if (thisObj.body && thisObj.body.data) {
-                thisObj.body.data.gravityScale = 20;
+                thisObj.body.data.gravityScale = 10;
             }
             
         },
@@ -268,6 +271,12 @@ Lgz.Balloon.prototype.onDragStart = function ()  {
     console.debug('onDragStart');
     this.body.moves = false;
     this.bodyhold = this.body;
+    
+    // TODO: Is it possible to change the cursor to "grabbing" when moving a letter?
+    thisObj.game.canvas.style.cursor = "grabbing";
+    // TODO: Can we immediately reset the angle so that students can tell letters "N" apart from "Z"?
+    this.body.angle = 0;
+    
     this.body = null;
 };
 Lgz.Balloon.prototype.onDragStop = function () {
@@ -279,6 +288,9 @@ Lgz.Balloon.prototype.onDragStop = function () {
     //this.body.velocity.y = 0;
     this.body.moves = true;
     
+    // TODO: Can we then reset the cursor to default or pointer?
+    //        I would like to change the pointer *only* when hovering over a letter.
+    thisObj.game.canvas.style.cursor = "pointer";
 };
 /*
  * method to make rope/chain physics type string
@@ -347,7 +359,7 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
     }
     this.body.data.gravityScale=-1;
     newRect.body.data.gravityScale= 1;
- g.last = newRect;
+    g.last = newRect;
  
 
 }

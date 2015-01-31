@@ -19,6 +19,7 @@ K.renderType = Phaser.CANVAS;
 K.renderForce = false;
 K.renderFPS = 15;
 
+// TODO: Can tailPhysics dynamically update depending on the framerate of the game?
 K.tailPhysics = true;
 
 K.textTO = 200;
