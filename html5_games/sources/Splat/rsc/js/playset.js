@@ -34,6 +34,7 @@ Lgz.PlaySet = function (scene) {
     
     thisObj.rscload = function () {
         thisObj.lgzMgr.rscAtlas('balloons');
+        thisObj.lgzMgr.rscImage('str');
         thisObj.lgzMgr.rscAudio('sfx', true);        
     }    
     thisObj.create = function () {
@@ -87,6 +88,7 @@ Lgz.PlaySet = function (scene) {
         cg.balloons = game.physics.p2.createCollisionGroup();
         cg.letters = game.physics.p2.createCollisionGroup();
         cg.underlines = game.physics.p2.createCollisionGroup();
+        cg.string = game.physics.p2.createCollisionGroup();
         
         game.physics.p2.updateBoundsCollisionGroup();
         

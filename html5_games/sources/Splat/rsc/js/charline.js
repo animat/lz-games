@@ -50,6 +50,7 @@ Lgz.CharLine.prototype.onContact = function (target) {
     var balloon;
     balloon = target.sprite;
     if (balloon.spriteHead.visible) {
+        console.debug('CharLine.onConctact: balloon.spriteHead.visible');
         return;
     }    
     if (!balloon.body) {
@@ -58,6 +59,7 @@ Lgz.CharLine.prototype.onContact = function (target) {
     }
     console.debug('onContact: balloon.y: ' + balloon.body.y  + ' _y: ' + this.y);
     if (this.filled || balloon.spriteText.text !== this.char ) {
+        console.debug('CharLine.filled');
         //if we are filled or not match our char, reject incomming letter
         // this.bounceOff(balloon, 1);
         balloon.body.y = this.body.y + 20;
@@ -68,12 +70,15 @@ Lgz.CharLine.prototype.onContact = function (target) {
             console.debug('onContact: from below');
             //note: contact from below not allowed. 
             // letter must be dropped from above.
-            this.bounceOff(balloon, -1);
+           //this.bounceOff(balloon, -1);
             return;
         }
+        balloon.body.rotation = 0;
         balloon.body.static = true;
         balloon.body.x = this.x;
         balloon.body.y = this.y - 20;
+        
+        Lgz.game.physics.p2.removeBody(balloon.body);
 
         if (balloon.input) {
             balloon.input.disableDrag();

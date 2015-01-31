@@ -18,7 +18,8 @@ K.renderType = Phaser.CANVAS;
 // K.renderForce = true;
 K.renderForce = false;
 K.renderFPS = 15;
- 
+
+K.tailPhysics = true;
 
 K.textTO = 200;
 K.textTopMargin = 160;
