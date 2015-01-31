@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="5"
+   height="30"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="str.svg"
+   inkscape:export-filename="/Work/Projects/Clients/LinguaZone/lz-games/html5_games/sources/Splat/rsc/mma/str.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <pattern
+       inkscape:stockid="Wavy white"
+       id="Wavywhite"
+       height="5.1805778"
+       width="30.066020"
+       patternUnits="userSpaceOnUse"
+       inkscape:collect="always">
+      <path
+         id="path5108"
+         d="M 7.597,0.061 C 5.079,-0.187 2.656,0.302 -0.01,1.788 L -0.01,3.061 C 2.773,1.431 5.173,1.052 7.472,1.280 C 9.770,1.508 11.969,2.361 14.253,3.218 C 18.820,4.931 23.804,6.676 30.066,3.061 L 30.062,1.788 C 23.622,5.497 19.246,3.770 14.691,2.061 C 12.413,1.207 10.115,0.311 7.597,0.061 z "
+         style="fill:white;stroke:none;" />
+    </pattern>
+    <filter
+       inkscape:collect="always"
+       id="filter3830"
+       x="-0.3172113"
+       width="1.6344226"
+       y="-0.28549021"
+       height="1.5709804">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.3796723"
+         id="feGaussianBlur3832" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3858"
+       x="-0.31622774"
+       width="1.6324555"
+       y="-0.28460501"
+       height="1.56921">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.3722938"
+         id="feGaussianBlur3860" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3916"
+       x="-0.2529822"
+       width="1.5059644"
+       y="-0.22768401"
+       height="1.455368">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.897835"
+         id="feGaussianBlur3918" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3920"
+       x="-0.2529822"
+       width="1.5059644"
+       y="-0.22768401"
+       height="1.455368">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.897835"
+         id="feGaussianBlur3922" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3924"
+       x="-0.25300954"
+       width="1.5060191"
+       y="-0.22770861"
+       height="1.4554172">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.8980401"
+         id="feGaussianBlur3926" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8"
+     inkscape:cx="20.373873"
+     inkscape:cy="-1.5704823"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="1026"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid16269"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="false"
+       spacingx="2px"
+       spacingy="5px"
+       originx="-49.000007px"
+       originy="-476.00004px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-81.982147,-404.26627)">
+    <g
+       id="g9074-7"
+       transform="matrix(1.4013851,0,0,1.436351,435.05563,215.81876)"
+       inkscape:transform-center-x="-14.935975"
+       inkscape:transform-center-y="-8.7716182" />
+    <rect
+       style="fill:#0e1b0e;fill-opacity:1;stroke:none"
+       id="rect3794"
+       width="2"
+       height="30"
+       x="83.48214"
+       y="404.2663" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0e9f;fill-opacity:1;stroke:none;filter:url(#filter3924)"
+       id="path2991"
+       sodipodi:cx="-34.000008"
+       sodipodi:cy="1.0000401"
+       sodipodi:rx="9"
+       sodipodi:ry="10"
+       d="m -25.792714,-3.1036065 a 9,10 0 1 1 -8.89e-4,-0.00219 l -8.206405,4.1058416 z"
+       transform="matrix(0.25486908,0,0,0.22273583,93.25195,409.81432)"
+       sodipodi:start="5.8603314"
+       sodipodi:end="12.143276" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#0e90e9;fill-opacity:1;stroke:none;filter:url(#filter3916)"
+       id="path2991-0"
+       sodipodi:cx="-34.000008"
+       sodipodi:cy="1.0000401"
+       sodipodi:rx="9"
+       sodipodi:ry="10"
+       d="m -25.792714,-3.1036065 a 9,10 0 1 1 -8.89e-4,-0.00219 l -8.206405,4.1058416 z"
+       transform="matrix(0.2777092,0,0,0.24993831,93.92203,419.01883)"
+       sodipodi:start="5.8603314"
+       sodipodi:end="12.143276" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#0ef00e;fill-opacity:1;stroke:none;filter:url(#filter3920)"
+       id="path2991-0-7"
+       sodipodi:cx="-34.000008"
+       sodipodi:cy="1.0000401"
+       sodipodi:rx="9"
+       sodipodi:ry="10"
+       d="m -25.792714,-3.1036065 a 9,10 0 1 1 -8.89e-4,-0.00219 l -8.206405,4.1058416 z"
+       transform="matrix(0.2777092,0,0,0.24993831,93.92203,428.01883)"
+       sodipodi:start="5.8603314"
+       sodipodi:end="12.143276" />
+  </g>
+</svg>
