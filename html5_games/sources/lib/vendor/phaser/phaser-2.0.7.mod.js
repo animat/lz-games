@@ -20908,6 +20908,10 @@ Phaser.ScaleManager = function (game, width, height) {
             return _this.fullScreenChange(event);
         }, false);
 
+        document.addEventListener('MSFullscreenChange', function (event) {
+            return _this.fullScreenChange(event);
+        }, false);
+
         document.addEventListener('fullscreenchange', function (event) {
             return _this.fullScreenChange(event);
         }, false);
@@ -21007,6 +21011,7 @@ Phaser.ScaleManager.prototype = {
             }
             else if (this.fullScreenScaleMode === Phaser.ScaleManager.SHOW_ALL)
             {
+                // this.fullScreenTarget.style['width'] = '100%';
                 this.setShowAll();
                 this.refresh();
             }
@@ -21434,7 +21439,7 @@ Object.defineProperty(Phaser.ScaleManager.prototype, "isFullScreen", {
 
     get: function () {
 
-        return (document['fullscreenElement'] || document['mozFullScreenElement'] || document['webkitFullscreenElement']);
+        return (document['fullscreenElement'] || document['mozFullScreenElement'] || document['webkitFullscreenElement'] || document['msFullscreenElement']);
 
     }
 
@@ -45094,12 +45099,14 @@ Phaser.AnimationParser = {
     */
     spriteSheet: function (game, key, frameWidth, frameHeight, frameMax, margin, spacing) {
 
-//ivanix: debug
+/*
+ * ivanix: debug
 console.debug('spriteSheet: key: ' 
 		+ key + ' frameWidth: ' + frameWidth
 		+ ' frameHeight: ' + frameHeight
 		+ ' frameMax: ' + frameMax
 		);
+*/
         //  How big is our image?
         var img = game.cache.getImage(key);
 
@@ -47893,8 +47900,6 @@ Phaser.Loader.prototype = {
     * @private
     */
     loadFile: function () {
-//ivanix: debug
-console.debug('loadfile: ');
 
         if (!this._fileList[this._fileIndex])
         {
@@ -47908,8 +47913,6 @@ console.debug('loadfile: ');
         this.onFileStart.dispatch(this.progress, file.key);
 
         //  Image or Data?
-//ivanix: debug
-console.debug('loadfile: ft:  ' + file.type);
         switch (file.type)
         {
             case 'image':
@@ -51980,8 +51983,7 @@ Phaser.Physics.prototype = {
             throw new Error('The Chipmunk physics system has not been implemented yet.');
         }
 
-        // ivanix: debug
-        // this.setBoundsToWorld();
+        this.setBoundsToWorld();
 
     },
 
