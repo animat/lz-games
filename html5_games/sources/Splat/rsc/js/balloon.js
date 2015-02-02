@@ -273,7 +273,6 @@ Lgz.Balloon.prototype.onDragStart = function ()  {
     this.bodyhold = this.body;
     
     // TODO: Is it possible to change the cursor to "grabbing" when moving a letter?
-    thisObj.game.canvas.style.cursor = "grabbing";
     // TODO: Can we immediately reset the angle so that students can tell letters "N" apart from "Z"?
     this.body.angle = 0;
     
