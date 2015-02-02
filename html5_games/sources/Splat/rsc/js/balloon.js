@@ -31,7 +31,6 @@ Lgz.Balloon = function (playSet, label, cg) {
     f2 = color  + '1';
     f3 = color  + '2';
 
-g.bal = thisObj;
 
  
     randX = thisObj.game.rnd.integerInRange(100, 600);
@@ -133,7 +132,9 @@ g.bal = thisObj;
 
     
 };
-LgzLib.inherit(Lgz.Balloon, Phaser.Sprite);
+Lgz.Balloon.extends(Phaser.Sprite);
+
+
 Lgz.Balloon.prototype.damp = function(gravity) {
     var vel, vx, vy;
 
@@ -184,8 +185,8 @@ Lgz.Balloon.prototype.update = function (sprite) {
 };
 Lgz.Balloon.prototype.touched = function () {
     var dx, dy, absx, absy;
-    dx  = Math.round(this.x   - Lgz.game.input.x);
-    dy  = Math.round(this.y   - Lgz.game.input.y);
+    dx  = Math.round(this.x   - this.game.input.x);
+    dy  = Math.round(this.y   - this.game.input.y);
     
     console.debug('touch: (' + dx + ',' + dy + ')');
     absx = Math.abs(dx);
@@ -208,20 +209,32 @@ Lgz.Balloon.prototype._killTail = function () {
         for(i=0; i < thisObj.strArr.length; i += 1) {
             thisObj.strArr[i].kill();
         }
+        // thisObj.strArr = null;
     }    
 };
-Lgz.Balloon.prototype.killTail = function () {
-    var thisObj, i;
+Lgz.Balloon.prototype.killTail = function (nodelay) {
+    var thisObj, i, delayTO;
     thisObj = this;
+    delayTO = 5000;
     thisObj.game.physics.p2.removeConstraint(thisObj.k1);
     thisObj.strArr[0].body.data.gravityScale=5;
+    if (nodelay) {
+          delayTO = 0;
+    }
+
     window.setTimeout(
         function () {
             thisObj._killTail();
         },
-        5000
+        delayTO
     );    
 };
+Lgz.Balloon.prototype.kill = function () {
+    if (this.strArr) {
+        this.killTail(true);
+    }
+    this._super.prototype.kill.call(this);
+}
 Lgz.Balloon.prototype.pop = function () {
     'use strict';
     var thisObj, i;
@@ -273,7 +286,7 @@ Lgz.Balloon.prototype.onDragStart = function ()  {
     this.bodyhold = this.body;
     
     // TODO: Is it possible to change the cursor to "grabbing" when moving a letter?
-    thisObj.game.canvas.style.cursor = "grabbing";
+    this.game.canvas.style.cursor = "grabbing";
     // TODO: Can we immediately reset the angle so that students can tell letters "N" apart from "Z"?
     this.body.angle = 0;
     
@@ -290,7 +303,7 @@ Lgz.Balloon.prototype.onDragStop = function () {
     
     // TODO: Can we then reset the cursor to default or pointer?
     //        I would like to change the pointer *only* when hovering over a letter.
-    thisObj.game.canvas.style.cursor = "pointer";
+    this.game.canvas.style.cursor = "pointer";
 };
 /*
  * method to make rope/chain physics type string
@@ -303,7 +316,6 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
     var height = 30;        //  Height for the physics body - your image height is 8px
     var width = 7;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
     var maxForce = 500;   //  The force that holds the rectangles together.
-    var game = Lgz.game;
     var xAnchor, yAnchor, length;
     
     xAnchor = this.body.x;
@@ -319,13 +331,13 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
         cg = this.cg;
         
  
-        newRect = game.add.sprite(x, y, 'str', 0);
+        newRect = this.game.add.sprite(x, y, 'str', 0);
         //this.addChild(newRect);
         
         this.strArr.push(newRect);
  
         //  Enable physicsbody
-        game.physics.p2.enable(newRect, false);
+        this.game.physics.p2.enable(newRect, false);
 
         //  Set custom rectangle
         newRect.body.setRectangle(width, height);
@@ -335,7 +347,7 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
         
         if (i === 0)
         {
-            this.k1=game.physics.p2.createRevoluteConstraint(newRect, [0,-15], this, [0, (this.spriteHead.height /2)], maxForce );
+            this.k1=this.game.physics.p2.createRevoluteConstraint(newRect, [0,-15], this, [0, (this.spriteHead.height /2)], maxForce );
             //newRect.body.static = true;
             //this.addChild(newRect);
              
@@ -351,7 +363,7 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
         if (lastRect)
         {
             //game.physics.p2.createRevoluteConstraint(newRect, [0, -10], lastRect, [0,10], maxForce);
-            game.physics.p2.createRevoluteConstraint(newRect, [0, -15], lastRect, [0,20], maxForce);        
+            this.game.physics.p2.createRevoluteConstraint(newRect, [0, -15], lastRect, [0,20], maxForce);        
            
         }
         

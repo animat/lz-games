@@ -18,10 +18,17 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
+    thisObj.nm.onBeforeNext = function() {
+        thisObj.beforeNextNode();
+    };
+    thisObj.nm.onAfterNext = function () {
+        thisObj.afterNextNode();
+    };
+    thisObj.nm.onComplete = function () {
+        thisObj.nodesCompleted();
+    };
 
-    thisObj.balArr = [];
-    thisObj.charArr = [];
- 
+
     thisObj.nodeIdx = 0;
     thisObj.charRemaining = 0;
 
@@ -75,7 +82,9 @@ Lgz.PlaySet = function (scene) {
         var i, balloon, randX, randY, game,
                 hspacer, charline, clX, clY, wordStart, wordStop, j,
                 spacer, spacecount, cg;
-        
+        thisObj.balArr = [];
+        thisObj.charArr = [];
+         
         game = thisObj.game;
 
         game.physics.startSystem(Phaser.Physics.P2JS);
@@ -177,36 +186,34 @@ Lgz.PlaySet = function (scene) {
         
     };
     
-    thisObj.next = function () {
-        var rtn;
-  
+    thisObj.beforeNextNode = function () {
+        var i, rtn;
+        
+        thisObj.question.display.sprite.destroy();
+        //todo: recycle balloon and charline sprites
+        for (i = 0; i < thisObj.balArr.length; i += 1) {
+            thisObj.balArr[i].kill();
+            thisObj.charArr[i].kill();
+        }
+    };
+    thisObj.afterNextNode = function () {
         thisObj.playSound('next');
-        rtn = thisObj.nm.next();
-        if (rtn) {
-          thisObj.load();
-        } else {
+          thisObj.load();        
+    };
+    thisObj.nodesCompleted = function () {
           thisObj.lgzMgr.postScore();
           thisObj.lgzMgr.hud.winOpen('winWon');  
-        }
-        
+
     };
     thisObj._charFound = function () {
-        var y, i, content, textSprite;
+        var y, content, textSprite;
         y = (thisObj.nm.idx * 20 ) + 120;
         console.debug('_charFound: y = ' + y);
-        thisObj.question.display.sprite.destroy();
+        
  
         textSprite = this.game.add.text(0, 0, thisObj.answer.text, K.bgTextStyle);
         textSprite.position.setTo(10, y);
-        g.textSprite = textSprite;
-        
-        
-        //todo: recycle balloon and charline sprites
-        for (i = 0; i < this.balArr.length; i += 1) {
-            this.balArr[i].kill();
-            this.charArr[i].kill();
-        }          
-        thisObj.next();
+        thisObj.nm.nodeAnswered();
     }
     thisObj.charFound = function () {
 

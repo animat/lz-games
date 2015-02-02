@@ -22,6 +22,7 @@
  */
 LgzLib.Scenes.Splash.prototype._create = LgzLib.Scenes.Splash.prototype.create;
 LgzLib.Scenes.Splash.prototype.create = function () {
+ 
     this.game.stage.backgroundColor = K.canvasBg;    
     this._create();
 };
@@ -66,6 +67,11 @@ LgzLib.Scenes.Main.prototype.create = function () {
 LgzLib.Scenes.Main.prototype.update = function () {
     // console.debug('Scenes2.Main.update: key ' + this.key); 
     this.playSet.update();
+
+};
+LgzLib.Scenes.Main.prototype.hintNextLetter = function (type, punit, pval) {
+    'use strict';
+    console.debug('Scenes.Main.hintNextLetter: ' + type + ',' + punit + ',' + pval);
 
 };
 LgzLib.Scenes.End.prototype.rscload = function () {
