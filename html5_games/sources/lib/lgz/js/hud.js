@@ -316,6 +316,10 @@ LgzLib.Hud = function (mgr) {
         );
          
     };
+    thisObj.hintEvent = function (type, punit, pval) {
+        thisObj.winCloseAll('winHint', false);
+        mgr.scenes.main.hintEvent(type, punit, pval);
+    };
     thisObj.hintAdd = function ($winHintAvl, hintnode) {
         var i,  type,   $btn, $penalty, $para, punit, pval;
         type = hintnode.getAttribute('type');
@@ -338,15 +342,28 @@ LgzLib.Hud = function (mgr) {
         $btn.css('display', 'inline');
         $penalty = $(hintnode).find('penalty');
         if (!$penalty.length) {
-            return;
-        }
-        $para = $btn.find('p')[1];
-        if (!$para) {
+            $btn.click(
+                function() {
+                    thisObj.hintEvent(type);
+                }
+            );
             return;
         }
         punit = $penalty.attr('unit');
         pval =  $penalty.attr('value');
+        $btn.click(
+            function() {
+                thisObj.hintEvent(type, punit, pval);
+            }
+        );        
+        
+        $para = $btn.find('p')[1];
+        if (!$para) {
+            return;
+        }
+
         $para.textContent = '+' + pval + ' ' + punit + ' penalty';
+
     };
     thisObj.hintsInit = function () {
         //note: must be called AFTER nodemgr has loaded xml file

@@ -161,7 +161,10 @@ LgzLib.Scenes.Main.prototype.create = function () {
     console.debug('Scenes.Main.create: key ' + this.key);
     this.game.add.sprite(0, 0, 'main');
 };
-
+LgzLib.Scenes.Main.prototype.hintEvent = function (type, punit, pval) {
+    'use strict';
+    console.debug('Scenes.Main.hintEvent: ' + type + ',' + punit + ',' + pval);
+};
 //Scene: End
 LgzLib.Scenes.End  = function (lgzMgr) {
     'use strict';
