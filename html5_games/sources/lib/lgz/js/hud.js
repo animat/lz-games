@@ -318,45 +318,45 @@ LgzLib.Hud = function (mgr) {
     };
     thisObj.hintEvent = function (type, punit, pval) {
         thisObj.winCloseAll('winHint', false);
-        mgr.scenes.main.hintEvent(type, punit, pval);
+
+        switch (type) {
+        case 'giveup':
+            mgr.scenes.main.hintGiveUp(type, punit, pval);
+            break;
+        case 'movetoend':
+            mgr.scenes.main.hintMoveToEnd(type, punit, pval);
+            break;
+        case 'nextletter':
+            mgr.scenes.main.hintNextLetter(type, punit, pval);            
+            break;
+        }
+ 
     };
     thisObj.hintAdd = function ($winHintAvl, hintnode) {
         var i,  type,   $btn, $penalty, $para, punit, pval;
         type = hintnode.getAttribute('type');
-   
-        switch (type) {
-        case 'giveup':
-            $btn = $winHintAvl.find('[subref=giveup]');
-            break;
-        case 'movetoend':
-            $btn = $winHintAvl.find('[subref=movetoend]');
-            break;
-        case 'nextletter':
-            $btn = $winHintAvl.find('[subref=nextletter]');
-            break;
-        }
+        $btn = $winHintAvl.find('[subref=' + type + ']');
+        
         if (!$btn.length) {
             //todo: log error
             return;
-        }
+        }        
+
         $btn.css('display', 'inline');
         $penalty = $(hintnode).find('penalty');
-        if (!$penalty.length) {
-            $btn.click(
-                function() {
-                    thisObj.hintEvent(type);
-                }
-            );
-            return;
+        if ($penalty.length) {
+            punit = $penalty.attr('unit');
+            pval =  $penalty.attr('value');
         }
-        punit = $penalty.attr('unit');
-        pval =  $penalty.attr('value');
+
         $btn.click(
             function() {
                 thisObj.hintEvent(type, punit, pval);
             }
         );        
-        
+        if (!$penalty.length) {
+            return;
+        }        
         $para = $btn.find('p')[1];
         if (!$para) {
             return;

@@ -26,6 +26,10 @@
 #winHint [subref] {
     display: none;
 }
+#winHint button {
+    width: 120px;
+    font-size: 10px;        
+}
 #winWon  {
 	position: absolute;
 	top: 0;
@@ -33,4 +37,5 @@
 }
 #winWon button {
     background: rgba(0,255,0,0.5);
+
 }

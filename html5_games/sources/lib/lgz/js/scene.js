@@ -9,7 +9,6 @@
 /*jslint  nomen: true */
 var LgzLib = LgzLib || {};
 
-
 LgzLib.Scene = function (lgzMgr)  {
     'use strict';
     var num, key;
@@ -161,9 +160,19 @@ LgzLib.Scenes.Main.prototype.create = function () {
     console.debug('Scenes.Main.create: key ' + this.key);
     this.game.add.sprite(0, 0, 'main');
 };
-LgzLib.Scenes.Main.prototype.hintEvent = function (type, punit, pval) {
+LgzLib.Scenes.Main.prototype.hintGiveUp = function (type, punit, pval) {
     'use strict';
-    console.debug('Scenes.Main.hintEvent: ' + type + ',' + punit + ',' + pval);
+    console.debug('Scenes.Main.hintGiveUp: ' + type + ',' + punit + ',' + pval);
+    this.lgzMgr.nm.nodeGiveUp();
+};
+LgzLib.Scenes.Main.prototype.hintMoveToEnd = function (type, punit, pval) {
+    'use strict';
+    console.debug('Scenes.Main.hintMoveToEnd: ' + type + ',' + punit + ',' + pval);
+    this.lgzMgr.nm.nodeMoveToEnd();    
+};
+LgzLib.Scenes.Main.prototype.hintNextLetter = function (type, punit, pval) {
+    'use strict';
+    console.debug('Scenes.Main.hintNextLetter: ' + type + ',' + punit + ',' + pval);
 };
 //Scene: End
 LgzLib.Scenes.End  = function (lgzMgr) {

@@ -11,11 +11,17 @@ LgzLib.NodeManager = function (mgr) {
     var thisObj;
 
     thisObj = this;
+
     thisObj.url = null;
+    
+    thisObj.K_NOTYET = 0;
+    thisObj.K_ANSWERED = 1;
+    thisObj.K_GAVEUP = -1;
+    
+    
     thisObj.nodes = [];
     thisObj.idx = 0;
     thisObj.url = K.urlSvrXML + mgr.gameId() + '.xml?';
-        //todo: deprecated: begin
     thisObj.loadURL = function (url, onloaded, onerror) {
         thisObj.url = url;
         thisObj.idx = 0;
@@ -26,19 +32,49 @@ LgzLib.NodeManager = function (mgr) {
             onerror();
         });
     };
-        //todo: deprecated: end
+    thisObj.onBeforeNext = function() {
+        //note: override in game playSet
+    };
+    thisObj.onAfterNext = function() {
+        //note: override in game playSet        
+    };
+    thisObj.onComplete = function() {
+        //note: override in game playSet         
+    };
+
+    /*
+     * note: todo: reset() gets called twice in game at moment
+     * not most efficient method.
+     * 
+     */
+    thisObj.reset = function () {
+        var i;
+        thisObj.idx = 0;
+
+        thisObj.remaining = thisObj.nodes.length;
+        
+        for(i=0; i < thisObj.nodes.length; i += 1) {
+            thisObj.nodes[i].answered = thisObj.K_NOTYET;
+        }        
+        return;
+    };    
+    thisObj.onLoad = function (onloaded) {
+        thisObj.reset();
+        onloaded();
+    };
     thisObj.load = function (onloaded, onerror) {
 
         thisObj.idx = 0;
+        thisObj.completed = 0;
+        
         $.get(thisObj.url, function (data) {
             thisObj.data = data;
             thisObj.nodes = $(data).find("gamedata").children();
-            onloaded();
+            thisObj.onLoad(onloaded);
         }).error(function () {
             onerror();
         });
-    };
-        //todo: deprecated: begin    
+    }; 
     thisObj.nodeCurrent = function () {
         return thisObj.nodes[this.idx];
     };
@@ -75,8 +111,6 @@ LgzLib.NodeManager = function (mgr) {
             return thisObj.nodes[num].querySelector(childname);
         
     };
-        //todo: deprecate end
-
     thisObj.node = function (childname, idx) {
         var num;
         if (idx === undefined) {
@@ -95,22 +129,56 @@ LgzLib.NodeManager = function (mgr) {
     };
     thisObj.getResponse = function (num) {
         return thisObj.node('response', num);
+    }; 
+    thisObj.nodeAnswered = function () {
+        if (!thisObj.nodes[thisObj.idx].answered) {
+            thisObj.nodes[thisObj.idx].answered = thisObj.K_ANSWERED;
+            thisObj.remaining -= 1; 
+        }
+        thisObj._nodeNext();        
     };
-    thisObj.next = function () {
- 
-        if (thisObj.idx + 2 > thisObj.nodes.length) {
+    thisObj.nodeGiveUp = function () {
+        if (!thisObj.nodes[thisObj.idx].answered) {        
+            thisObj.nodes[thisObj.idx].answered = thisObj.K_GAVEUP;
+            thisObj.remaining -= 1; 
+        }            
+        thisObj._nodeNext();        
+    };
+    thisObj.nodeMoveToEnd = function () {
+        thisObj._nodeNext();
+    };
+    thisObj._nodeNext = function () {
+        thisObj.onBeforeNext();
+        if (thisObj._nodeAvl()) {        
+            thisObj.onAfterNext();
+        } else {
+            thisObj.onComplete();
+        }
+    };    
+    thisObj._nodeAvl = function () {
+        
+        if (!thisObj.remaining) {
             return false;
         }
-       thisObj.idx += 1;
-        return true;
+
+        if (thisObj.idx + 2 > thisObj.nodes.length) {
+            thisObj.idx =  0;
+        } else {
+            thisObj.idx += 1;
+        }
+        if (!thisObj.nodes[thisObj.idx].answered) {
+            return true;
+        } else {
+            //note: recursive call!
+            return thisObj._nodeAvl();
+        }
     };
-    thisObj.reset = function () {
-        return thisObj.idx = 0;
-    };
+
     thisObj.count = function () {
         return thisObj.nodes.length;
     };
     thisObj.dataFind = function (str) {
          return $(thisObj.data).find(str);
     };
+        
 };
