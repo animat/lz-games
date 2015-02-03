@@ -18,14 +18,15 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
-    thisObj.nm.onBeforeNext = function() {
-        thisObj.beforeNextNode();
+
+    thisObj.nm.eventNodeBeforeNext = function () {
+        thisObj.eventNodeBeforeNext();
     };
-    thisObj.nm.onAfterNext = function () {
-        thisObj.afterNextNode();
+    thisObj.nm.eventNodeAfterNext = function () {
+        thisObj.eventNodeAfterNext();
     };
-    thisObj.nm.onComplete = function () {
-        thisObj.nodesCompleted();
+    thisObj.nm.eventNodeFinish = function () {
+        thisObj.eventNodeFinish();
     };
 
 
@@ -42,8 +43,8 @@ Lgz.PlaySet = function (scene) {
     thisObj.rscload = function () {
         thisObj.lgzMgr.rscAtlas('balloons');
         thisObj.lgzMgr.rscImage('str');
-        thisObj.lgzMgr.rscAudio('sfx', true);        
-    }    
+        thisObj.lgzMgr.rscAudio('sfx', true);
+    };
     thisObj.create = function () {
         thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
 
@@ -62,26 +63,10 @@ Lgz.PlaySet = function (scene) {
         );
         
     };
-    /*
-     * note: deprecated
-    thisObj.shuffle  = function (text) {
-        var a, n, i, j, tmp;
-        a = text.split(""),
-        n = a.length;
-
-        for(i = n - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1));
-            tmp = a[i];
-            a[i] = a[j];
-            a[j] = tmp;
-        }
-        return a.join("");        
-    };
-    */
     thisObj.createBalloons = function (text) {
         var i, balloon, randX, randY, game,
-                hspacer, charline, clX, clY, wordStart, wordStop, j,
-                spacer, spacecount, cg;
+            hspacer, charline, clX, clY, wordStart, wordStop, j,
+            spacer, spacecount, cg;
         thisObj.balArr = [];
         thisObj.charArr = [];
          
@@ -90,7 +75,7 @@ Lgz.PlaySet = function (scene) {
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.defaultRestitution = 0.8;
         game.physics.p2.setImpactEvents(true);
-        game.physics.p2.setBounds(0, 0, 600,400, true, true, true, true, false);
+        game.physics.p2.setBounds(0, 0, 600, 400, true, true, true, true, false);
         game.physics.p2.gravity.y = K.gravity;
         
         cg = {};
@@ -103,7 +88,6 @@ Lgz.PlaySet = function (scene) {
         
         /*ivanixcu: deprecated
         randText = thisObj.shuffle(text);
-        g.rt = randText;
         */
         hspacer = K.canvasWidth / text.length;
         
@@ -118,7 +102,7 @@ Lgz.PlaySet = function (scene) {
         for (i = 0; i < text.length; i += 1) {
             console.debug("i: " + i  + " char: " + text.charAt(i));
   
-            if(text.charAt(i) !== '_') {
+            if (text.charAt(i) !== '_') {
                 charline = new Lgz.CharLine(thisObj, clX, clY, text.charAt(i), cg);
                 this.charArr.push(charline);
                 // spacer = Math.round(charline.spriteText.width * 1.5);
@@ -131,11 +115,7 @@ Lgz.PlaySet = function (scene) {
                 clX = K.textLeftMargin;
                 clY = clY + Math.round(charline.spriteText.height * 2);
                 wordStop = this.charArr.length;
-                g.charArr = this.charArr;
-                g.wordStart = wordStart;
-                g.wordStop = wordStop;
                 for (j = wordStart; j < wordStop; j += 1) {
-                    g.j = j;
                     this.charArr[j].body.x = clX;
                     this.charArr[j].body.y = clY;
                     clX = clX  +  Math.round(charline.spriteText.width * 1.5);
@@ -144,14 +124,14 @@ Lgz.PlaySet = function (scene) {
         }
         for (i = 0; i < text.length; i += 1) {
             console.debug("i: " + i  + " char: " + text.charAt(i));
-            if(text.charAt(i) !== '_') { 
+            if (text.charAt(i) !== '_') {
 
-                balloon  = new Lgz.Balloon(thisObj,text.charAt(i), cg);
+                balloon  = new Lgz.Balloon(thisObj, text.charAt(i), cg);
                 
                 this.balArr.push(balloon);
             }
   
-        }        
+        }
         this.charRemaining = text.length - spacecount;
     };
 
@@ -179,14 +159,14 @@ Lgz.PlaySet = function (scene) {
         thisObj.question = question;
         thisObj.answer = answer;
 
-        substext = answer.text.replace(/ /g,'_');
+        substext = answer.text.replace(/ /g, '_');
         thisObj.createBalloons(substext);
 
         thisObj.game.load.start();
         
     };
     
-    thisObj.beforeNextNode = function () {
+    thisObj.eventNodeBeforeNext = function () {
         var i, rtn;
         
         thisObj.question.display.sprite.destroy();
@@ -196,25 +176,25 @@ Lgz.PlaySet = function (scene) {
             thisObj.charArr[i].kill();
         }
     };
-    thisObj.afterNextNode = function () {
+    thisObj.eventNodeAfterNext = function () {
         thisObj.playSound('next');
-          thisObj.load();        
+        thisObj.load();
     };
-    thisObj.nodesCompleted = function () {
-          thisObj.lgzMgr.postScore();
-          thisObj.lgzMgr.hud.winOpen('winWon');  
+    thisObj.eventNodeFinish = function () {
+        thisObj.lgzMgr.postScore();
+        thisObj.lgzMgr.hud.winOpen('winWon');
 
     };
     thisObj._charFound = function () {
         var y, content, textSprite;
-        y = (thisObj.nm.idx * 20 ) + 120;
+        y = (thisObj.nm.idx * 20) + 120;
         console.debug('_charFound: y = ' + y);
         
  
         textSprite = this.game.add.text(0, 0, thisObj.answer.text, K.bgTextStyle);
         textSprite.position.setTo(10, y);
         thisObj.nm.nodeAnswered();
-    }
+    };
     thisObj.charFound = function () {
 
         console.debug('charFound:');
@@ -238,9 +218,11 @@ Lgz.PlaySet = function (scene) {
  
     };
     thisObj.pause = function () {
+        console.debug('Lgz.PlaySet.pause:');
         
     };
     thisObj.resume = function () {
+        console.debug('Lgz.PlaySet.resume:');
         
     };
 };
