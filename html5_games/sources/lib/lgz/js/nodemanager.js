@@ -32,15 +32,7 @@ LgzLib.NodeManager = function (mgr) {
             onerror();
         });
     };
-    thisObj.onBeforeNext = function() {
-        //note: override in game playSet
-    };
-    thisObj.onAfterNext = function() {
-        //note: override in game playSet        
-    };
-    thisObj.onComplete = function() {
-        //note: override in game playSet         
-    };
+
 
     /*
      * note: todo: reset() gets called twice in game at moment
@@ -53,16 +45,16 @@ LgzLib.NodeManager = function (mgr) {
 
         thisObj.remaining = thisObj.nodes.length;
         
-        for(i=0; i < thisObj.nodes.length; i += 1) {
+        for (i = 0; i < thisObj.nodes.length; i += 1) {
             thisObj.nodes[i].answered = thisObj.K_NOTYET;
-        }        
+        }
         return;
-    };    
-    thisObj.onLoad = function (onloaded) {
-        thisObj.reset();
-        onloaded();
     };
-    thisObj.load = function (onloaded, onerror) {
+    thisObj.onLoad = function () {
+        thisObj.reset();
+        thisObj.eventLoadOK();
+    };
+    thisObj.load = function () {
 
         thisObj.idx = 0;
         thisObj.completed = 0;
@@ -70,11 +62,11 @@ LgzLib.NodeManager = function (mgr) {
         $.get(thisObj.url, function (data) {
             thisObj.data = data;
             thisObj.nodes = $(data).find("gamedata").children();
-            thisObj.onLoad(onloaded);
+            thisObj.onLoad();
         }).error(function () {
-            onerror();
+            thisObj.eventLoadFAIL();
         });
-    }; 
+    };
     thisObj.nodeCurrent = function () {
         return thisObj.nodes[this.idx];
     };
@@ -129,32 +121,32 @@ LgzLib.NodeManager = function (mgr) {
     };
     thisObj.getResponse = function (num) {
         return thisObj.node('response', num);
-    }; 
+    };
     thisObj.nodeAnswered = function () {
         if (!thisObj.nodes[thisObj.idx].answered) {
             thisObj.nodes[thisObj.idx].answered = thisObj.K_ANSWERED;
-            thisObj.remaining -= 1; 
+            thisObj.remaining -= 1;
         }
-        thisObj._nodeNext();        
+        thisObj._nodeNext();
     };
     thisObj.nodeGiveUp = function () {
-        if (!thisObj.nodes[thisObj.idx].answered) {        
+        if (!thisObj.nodes[thisObj.idx].answered) {
             thisObj.nodes[thisObj.idx].answered = thisObj.K_GAVEUP;
-            thisObj.remaining -= 1; 
-        }            
-        thisObj._nodeNext();        
+            thisObj.remaining -= 1;
+        }
+        thisObj._nodeNext();
     };
     thisObj.nodeMoveToEnd = function () {
         thisObj._nodeNext();
     };
     thisObj._nodeNext = function () {
-        thisObj.onBeforeNext();
-        if (thisObj._nodeAvl()) {        
-            thisObj.onAfterNext();
+        thisObj.eventNodeBeforeNext();
+        if (thisObj._nodeAvl()) {
+            thisObj.eventNodeAfterNext();
         } else {
-            thisObj.onComplete();
+            thisObj.eventNodeFinish();
         }
-    };    
+    };
     thisObj._nodeAvl = function () {
         
         if (!thisObj.remaining) {
@@ -178,7 +170,31 @@ LgzLib.NodeManager = function (mgr) {
         return thisObj.nodes.length;
     };
     thisObj.dataFind = function (str) {
-         return $(thisObj.data).find(str);
+        return $(thisObj.data).find(str);
     };
         
+};
+LgzLib.NodeManager.prototype.eventLoadOK = function () {
+    'use strict';
+    console.debug('LgzLib.NodeManager.eventLoadOK (override!)');
+
+    //note: override 
+};
+LgzLib.NodeManager.prototype.eventLoadFAIL = function () {
+    'use strict';
+    console.debug('LgzLib.NodeManager.eventLoadFAIL (override!)');
+    //note: override    
+};
+LgzLib.NodeManager.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    console.debug('LgzLib.NodeManager.eventNodeBeforeNext');
+    //note: override 
+};
+LgzLib.NodeManager.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    console.debug('LgzLib.NodeManager.eventNodeAfterNext');
+    //note: override    
+};
+LgzLib.NodeManager.prototype.eventNodeFinish = function () {
+    //note: override         
 };

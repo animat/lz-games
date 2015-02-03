@@ -28,7 +28,7 @@ LgzLib.inherit = function (sub, xsuper) {
 	var newSubPrototype = Object.create(xsuper.prototype);
 	newSubPrototype.constructor = sub;
 	sub.prototype = newSubPrototype;
-        sub.super = xsuper;
+    sub._super = xsuper;
 
 };
 LgzLib.splitUrl = function (url) {

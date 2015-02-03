@@ -316,21 +316,29 @@ LgzLib.Hud = function (mgr) {
         );
          
     };
+    
+    /*
+     * 
+     * refactored into separate hints obj
+     * 
+     */
     thisObj.hintEvent = function (type, punit, pval) {
+        console.debug('ERROR! DEPRECATED');
         thisObj.winCloseAll('winHint', false);
 
+        mgr.scenes.main.eventHintPenalty(punit, pval);
         switch (type) {
         case 'giveup':
-            mgr.scenes.main.hintGiveUp(type, punit, pval);
+            mgr.scenes.main.eventHintGiveUp();
             break;
         case 'movetoend':
-            mgr.scenes.main.hintMoveToEnd(type, punit, pval);
+            mgr.scenes.main.eventHintMoveToEnd();
             break;
         case 'nextletter':
-            mgr.scenes.main.hintNextLetter(type, punit, pval);            
+            mgr.scenes.main.eventHintNextLetter();            
             break;
         }
- 
+        
     };
     thisObj.hintAdd = function ($winHintAvl, hintnode) {
         var i,  type,   $btn, $penalty, $para, punit, pval;

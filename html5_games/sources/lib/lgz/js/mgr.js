@@ -1,8 +1,7 @@
 /*global
     $: true,
     Phaser: true,
-    K: true,
-    console: true,
+    K: true, console: true,
     window: true,
     LgzLib: true
  */
@@ -23,6 +22,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.game = game;
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.nm = new LgzLib.NodeManager(thisObj);
+        thisObj.hints = new LgzLib.Hints(thisObj);
         thisObj.scenes = {};
 
         globLgz.lang = thisObj.lang;
@@ -51,7 +51,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj._welcome2 = function () {
         console.debug('LgzLib.Mgr.welcome2:');
         thisObj.hud.localize();
-        thisObj.hud.hintsInit();
+        thisObj.hints.init();
         thisObj.hud.toggleFsButtons();
         thisObj.game.paused = false;
         thisObj.scenes.welcome.start();
@@ -137,7 +137,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         urlparm = document.URL.match(/.*\?xmlid=(.*)/);
         if (urlparm) {
             $lgzParms.attr('game_id', urlparm[1]);
-        }        
+        }
         
         
         gameid = $lgzParms.attr("game_id");
@@ -169,7 +169,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             width,
             height
         );
-    };    
+    };
     thisObj.rscAtlas = function (name) {
         thisObj.game.load.atlas(
             name,
@@ -190,7 +190,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             name,
             K.urlRscMedia + name + '.ogg',
             K.urlRscMedia + name + '.mp3',
-            K.urlRscMedia + name + '.m4a'            
+            K.urlRscMedia + name + '.m4a'
         );
         return loader;
     };
@@ -230,7 +230,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
                 thisObj._soundPlay(key, cutoff);
             },
             delayTO
-        ); 
+        );
     };
     thisObj.init();
 };
