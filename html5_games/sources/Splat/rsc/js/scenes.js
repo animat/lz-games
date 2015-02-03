@@ -86,6 +86,25 @@ LgzLib.Scenes.Main.prototype.eventHintNextLetter = function (type, punit, pval) 
     console.debug('Scenes2.Main.eventHintNextLetter: ' + type + ',' + punit + ',' + pval);
 
 };
+LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeBeforeNext:');
+    this.playSet.eventNodeBeforeNext();
+    
+};
+LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeAfterNext:');
+    this.playSet.eventNodeAfterNext();
+};
+/*
+ *  note: base method implements logic in lib/lgz/scene.js
+ * 
+LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeFinish:');
+};
+*/
 LgzLib.Scenes.Main.prototype.eventGamePaused = function () {
     'use strict';
     console.debug('Scenes2.Main.eventGamePaused:');

@@ -18,7 +18,7 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
-
+/*
     thisObj.nm.eventNodeBeforeNext = function () {
         thisObj.eventNodeBeforeNext();
     };
@@ -28,7 +28,7 @@ Lgz.PlaySet = function (scene) {
     thisObj.nm.eventNodeFinish = function () {
         thisObj.eventNodeFinish();
     };
-
+*/
 
     thisObj.nodeIdx = 0;
     thisObj.charRemaining = 0;
@@ -180,6 +180,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.playSound('next');
         thisObj.load();
     };
+    //todo: deprecate
     thisObj.eventNodeFinish = function () {
         thisObj.lgzMgr.postScore();
         thisObj.lgzMgr.hud.winOpen('winWon');
