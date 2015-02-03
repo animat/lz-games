@@ -279,20 +279,6 @@ Lgz.PlaySet = function (scene) {
         }
         thisObj.lgzMgr.scenes.end.start();
     };
-    thisObj.next = function () {
-        var rtn;
-        console.debug('Lgz.PlaySet.next: ');
-        thisObj.question.display.sprite.visible = false;
- 
-        rtn = thisObj.nm.next();
-        if (rtn) {
-            thisObj.load();
-        } else {
-            thisObj.endWait();
-  
-        }
-        
-    };
     thisObj.inputDown = function () {
         //point to inputMouseDown or inputTouchDown
     };
@@ -338,7 +324,8 @@ Lgz.PlaySet = function (scene) {
         //note: pause before next word
         window.setTimeout(
             function () {
-                thisObj.next();
+                //thisObj.next();
+                thisObj.nm.nodeAnswered();
             },
             2000
         );
@@ -356,4 +343,14 @@ Lgz.PlaySet = function (scene) {
     thisObj.scoreUpdateDisplay = function () {
         thisObj.spriteScore.text = thisObj.score.correct + " / " + thisObj.score.total;
     };
+    
+    thisObj.eventNodeBeforeNext = function () {
+        thisObj.question.display.sprite.visible = false;
+    };
+    thisObj.eventNodeAfterNext = function () {
+        thisObj.load();
+    };
+    thisObj.eventNodeFinish = function () {
+        thisObj.endWait();
+    };    
 };
