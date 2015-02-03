@@ -169,7 +169,7 @@ LgzLib.Scenes.Main.prototype.rscload = function () {
 };
 LgzLib.Scenes.Main.prototype.create = function () {
     'use strict';
-    var thisObj, hints;
+    var thisObj, hints, nm;
     thisObj = this;
     console.debug('Scenes.Main.create: key ' + this.key);
     thisObj.game.add.sprite(0, 0, 'main');
@@ -189,6 +189,17 @@ LgzLib.Scenes.Main.prototype.create = function () {
         thisObj.eventHintGiveUp();
     };
 
+    nm = thisObj.lgzMgr.nm;
+    nm.eventNodeBeforeNext = function () {
+        thisObj.eventNodeBeforeNext();
+    };
+    nm.eventNodeAfterNext = function () {
+        thisObj.eventNodeAfterNext();
+    };
+    nm.eventNodeFinish = function () {
+        thisObj.eventNodeFinish();
+    }; 
+
     thisObj.lgzMgr.pause = function () {
         thisObj.game.paused = true;
         thisObj.eventGamePaused();
@@ -198,7 +209,6 @@ LgzLib.Scenes.Main.prototype.create = function () {
         thisObj.game.paused = false;
         thisObj.eventGameResumed();
     };
- 
     
 };
 LgzLib.Scenes.Main.prototype.eventHintPenalty = function (unit, value) {
@@ -219,6 +229,21 @@ LgzLib.Scenes.Main.prototype.eventHintMoveToEnd = function () {
 LgzLib.Scenes.Main.prototype.eventHintNextLetter = function () {
     'use strict';
     console.debug('Scenes.Main.eventHintNextLetter:');
+};
+LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    console.debug('Scenes.Main.eventNodeBeforeNext:');
+};
+LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    console.debug('Scenes.Main.eventNodeAfterNext:');
+};
+LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
+    'use strict';
+    console.debug('Scenes.Main.eventNodeFinish:');
+    //todo: handle games with end scene
+    this.lgzMgr.postScore();
+    this.lgzMgr.hud.winOpen('winWon');    
 };
 LgzLib.Scenes.Main.prototype.eventGamePaused = function () {
     'use strict';
