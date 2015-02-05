@@ -6,6 +6,18 @@
   </description>
     <gamedata>
         <node>
+	        <question content='App' name='english' type='text'/>
+	        <response content='A' name='lang' type='text'/>
+        </node> 
+        <node>
+	        <question content='the color red and green' name='english' type='text'/>
+	        <response content='THE COLOUR RED and GREEN' name='lang' type='text'/>
+        </node> 
+        <node>
+                <question content='bee' name='english' type='text'/>
+                <response content='BEE' name='lang' type='text'/>
+        </node> 
+        <node>
                 <question content='apple' name='english' type='text'/>
                 <response content='APPLE' name='lang' type='text'/>
         </node> 

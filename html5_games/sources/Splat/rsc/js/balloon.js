@@ -17,6 +17,7 @@ Lgz.Balloon = function (playSet, label, cg) {
         spriteText, colorIdx;
 
     thisObj = this;
+    
     this.playSet = playSet;
     this.game = playSet.game;
     this.anim = {};
@@ -58,6 +59,7 @@ Lgz.Balloon = function (playSet, label, cg) {
     spriteHead = this.game.add.sprite(0, 0, 'balloons', f1);
     spriteHead.inputEnabled = true;
     spriteHead.anchor.setTo(0.5, 0.5);
+    
     thisObj.anim.pop = spriteHead.animations.add('pop', [f1, f2, f3], false, false);
     thisObj.anim.pop.onComplete.add (
         function() { thisObj.popped(); },
@@ -103,7 +105,7 @@ Lgz.Balloon = function (playSet, label, cg) {
     
     this.body.collideWorldBounds = true;
     //allow balloon to rotate
-    if (K.tailPhysics) {
+    if (this.playSet.useTailPhysics) {
         this.body.fixedRotation = false;
     } else {
         this.body.fixedRotation = true;
@@ -125,7 +127,7 @@ Lgz.Balloon = function (playSet, label, cg) {
     this.body.moveUp(randY);
     this.body.moveRight(randX);
     
-    if (K.tailPhysics) {
+    if (this.playSet.useTailPhysics) {
         this.spriteTail.visible = false;
         this.createTailPhysics();        
     }
@@ -280,17 +282,27 @@ Lgz.Balloon.prototype.popped = function() {
         this.events.onDragStop.add(thisObj.onDragStop, this);
     }
 };
-Lgz.Balloon.prototype.onDragStart = function ()  {
-    console.debug('onDragStart');
-    this.body.moves = false;
+Lgz.Balloon.prototype._onDragStart = function ()  {
+    console.debug('_onDragStart');
+    this.body.moves = false;    
     this.bodyhold = this.body;
-    
+    this.body = null;
+};
+Lgz.Balloon.prototype.onDragStart = function ()  {
+    var thisObj;
+    console.debug('onDragStart');
+    thisObj = this;
     // TODO: Is it possible to change the cursor to "grabbing" when moving a letter?
     this.game.canvas.style.cursor = "grabbing";
     // TODO: Can we immediately reset the angle so that students can tell letters "N" apart from "Z"?
     this.body.angle = 0;
-    
-    this.body = null;
+
+    window.setTimeout(
+        function () {
+            thisObj._onDragStart();
+        },
+        100
+    );   
 };
 Lgz.Balloon.prototype.onDragStop = function () {
     console.debug('onDragStop');
@@ -314,13 +326,13 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
     var newRect;
     var lastRect;
     var height = 30;        //  Height for the physics body - your image height is 8px
-    var width = 7;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
-    var maxForce = 500;   //  The force that holds the rectangles together.
+    var width = 5;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
+    var maxForce = 10000;   //  The force that holds the rectangles together.
     var xAnchor, yAnchor, length;
     
     xAnchor = this.body.x;
     yAnchor = this.body.y;
-    length = 3;
+    length = 5;
     this.strArr = [];
     
     for (var i = 0; i <  length; i++)
@@ -358,7 +370,10 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
             newRect.body.velocity.x = 0;      //  Give it a push :) just for fun
                 //  Reduce mass for evey rope element
         }
-        newRect.body.mass = length/ (i+1); 
+        //newRect.body.mass = length/ (i+1);
+        //newRect.body.mass = length/(length - i + 1);
+        newRect.body.mass =0.1;
+        newRect.body.data.gravityScale= 1;
         //  After the first rectangle is created we can add the constraint
         if (lastRect)
         {
@@ -369,9 +384,9 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
         
         lastRect = newRect;
     }
-    this.body.data.gravityScale=-1;
-    newRect.body.data.gravityScale= 1;
-    g.last = newRect;
- 
-
+    this.body.mass = 15 * length * length * newRect.body.mass; ;
+    //this.body.mass = 2 * length * length;
+    this.body.data.gravityScale=-0.010 * length;
+    //newRect.body.mass = length/3;
+    newRect.body.data.gravityScale= 2*length;
 }

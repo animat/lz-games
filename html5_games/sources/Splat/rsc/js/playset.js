@@ -18,27 +18,9 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
-/*
-    thisObj.nm.eventNodeBeforeNext = function () {
-        thisObj.eventNodeBeforeNext();
-    };
-    thisObj.nm.eventNodeAfterNext = function () {
-        thisObj.eventNodeAfterNext();
-    };
-    thisObj.nm.eventNodeFinish = function () {
-        thisObj.eventNodeFinish();
-    };
-*/
-
     thisObj.nodeIdx = 0;
     thisObj.charRemaining = 0;
-
-    // Note: audio 'sfx' loaded in splash scene
-    // this next call should add tracks 'correct', 'next', 'pop'
-    // as defined in sfx.json file
- 
-    //thisObj.sfx.addMarker('swish', 0, 0.136);
-    //thisObj.sfx.addMarker('swoosh', 0.138, 0.65);
+    thisObj.useTailPhysics = true;
     
     thisObj.rscload = function () {
         thisObj.lgzMgr.rscAtlas('balloons');
@@ -145,6 +127,19 @@ Lgz.PlaySet = function (scene) {
     thisObj.load = function () {
         var question, answer, i, substext;
 
+        if(thisObj.useTailPhysics) {
+            console.debug('use _updateCheckFPS');
+            thisObj.update = thisObj._updateCheckFPS;
+        } else {
+            console.debug('use _updateEmpty');
+            thisObj.update = thisObj._updateEmpty;
+        }
+        window.setTimeout(
+            function () {
+                thisObj.removeCheckFPS();
+            },
+            K.checkFPS_TO
+        );  
         thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
 
         question  = {};
@@ -177,7 +172,7 @@ Lgz.PlaySet = function (scene) {
         }
     };
     thisObj.eventNodeAfterNext = function () {
-        thisObj.playSound('next');
+        thisObj.playSound('next');     
         thisObj.load();
     };
     //todo: deprecate
@@ -214,10 +209,32 @@ Lgz.PlaySet = function (scene) {
         );
         
     };
+    thisObj.removeCheckFPS = function () {
+        console.debug('removeCheckFPS');
+        thisObj.update = thisObj._updateEmpty;        
+    };
+    thisObj.tailFallback = function() {
+
+        thisObj.eventNodeBeforeNext();
+        thisObj.useTailPhysics = false;        
+        thisObj.eventNodeAfterNext();
+        //note: try to use physics on next question node;
+        thisObj.useTailPhysics = true;
+      
+    };
+    thisObj._updateCheckFPS = function () {
+
+        if(thisObj.game.time.fps  && thisObj.game.time.fps < K.thresholdFPS) {
+            console.debug('_updateCheckFPS: fps fell below threshold: ' + thisObj.game.time.fps);
+            thisObj.tailFallback();
+        }
+    };
+    thisObj._updateEmpty = function () {
+        //note: should be empty
+    };    
     thisObj.update = function () {
 
- 
-    };
+    };    
     thisObj.pause = function () {
         console.debug('Lgz.PlaySet.pause:');
         

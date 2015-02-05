@@ -18,7 +18,7 @@ LgzLib.Hud = function (mgr) {
 	var thisObj, btnList, game, lang, eBody,
 		resizeDirty,
 		$lgzVP, $lgzHide, eWin, $lgzMin, $lgzHud,
-		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay;
+		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 	
 	thisObj = this;
 	resizeDirty = false;
@@ -31,6 +31,7 @@ LgzLib.Hud = function (mgr) {
 	$lgzMin = $('[lgzMin]');
         $lgzHud  = $('#lgzHud');
         $lgzHudMenuBar = $('#lgzHudMenuBar');
+        $lgzHudLogo = $('#lgzHudLogo');
         
 	$lgzBtnFS = $('#lgzHudFullScreen');
 	$lgzBtnExit = $('#lgzHudExit');
@@ -43,6 +44,9 @@ LgzLib.Hud = function (mgr) {
 
 	thisObj.requestedFS = false;
 
+        thisObj.print = function (str) {
+          $lgzHudLogo.text(str);  
+        };
 	thisObj.onResizePost2 = function () {
 		eWin.style.width = game.canvas.style.width;
 		eWin.style.height = game.canvas.style.height;

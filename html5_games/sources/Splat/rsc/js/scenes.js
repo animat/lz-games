@@ -20,6 +20,7 @@
  * We customize methods here
  * 
  */
+
 LgzLib.Scenes.Splash.prototype._create = LgzLib.Scenes.Splash.prototype.create;
 LgzLib.Scenes.Splash.prototype.create = function () {
     'use strict';
@@ -53,8 +54,11 @@ LgzLib.Scenes.Main.prototype.create = function () {
    
     thisObj.game.world.bounds.setTo(0, 0, 600, 400);
     
+    
     //sprite: main background
     thisObj.game.add.sprite(0, 0, 'main');
+    
+    thisObj.game.time.advancedTiming = true;
 
 /*
  * note: deprecated. moved to lib/lgz/js/scene.js
@@ -79,8 +83,11 @@ LgzLib.Scenes.Main.prototype.update = function () {
     'use strict';
     // console.debug('Scenes2.Main.update: key ' + this.key);
     this.playSet.update();
+    //this.lgzHud.print('FPS: ' + this.game.time.fps);
+    
 
 };
+
 LgzLib.Scenes.Main.prototype.eventHintNextLetter = function (type, punit, pval) {
     'use strict';
     console.debug('Scenes2.Main.eventHintNextLetter: ' + type + ',' + punit + ',' + pval);
