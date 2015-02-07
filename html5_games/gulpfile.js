@@ -24,9 +24,17 @@ var shell =  require('gulp-shell');
 // don't rely on __dirname 
 // either gulp or nodejs ignores symbolic links :(
 
+
+var gameDir = path.basename(process.env.INIT_CWD);
+console.info('gameDir: ' + gameDir);
+
+var buildDir = '../../build/'  + gameDir;
+console.info('buildDir: ' + buildDir);
+
+
 var tailDir = path.basename(process.env.INIT_CWD);
 // console.info('gulpfile.js: INIT_CWD: ' + process.env.INIT_CWD);
-// console.info('gulpfile.js: tailDir: ' + tailDir);
+console.info('gulpfile.js: tailDir: ' + tailDir);
 
 
 var gulpDir = process.cwd();
@@ -38,15 +46,29 @@ process.chdir(process.env.INIT_CWD);
 console.info('gulpfile.js: Working directory now: ' + process.cwd());
 
 
-// JS hint task
+gulp.task('nop', function () {
+	'use strict';
+});
+
+//JS hint task
 gulp.task('jshint', function () {
 	'use strict';
   
 	gulp.src('./rsc/js/*.js').pipe(jshint()).pipe(jshint.reporter('default'));
 });
+//Watch files changes during dev/debug
+gulp.task('watch', function () {
+	'use strict';
+	watch(['lib/exodom/exo.html', 'lib/lgz/dom/*.html', 'rsc/dom/*.html', './*.inc'], function () {
+		gulp.start('inc');
+		// open('http://localhost/Projects/Clients/LinguaZone/lz-games/html5_games/sources/Splat/game.html');
+	});
+	
+});
 
-// minify new images
-gulp.task('imagemin', function () {
+
+// not used:  minify new images
+gulp.task('xxx_imagemin', function () {
 	'use strict';
 	var src, dst;
 
@@ -56,24 +78,8 @@ gulp.task('imagemin', function () {
 	//gulp.src(src).pipe(changed(dst)).pipe(imagemin()).pipe(gulp.dest(dst));
 	gulp.src(src).pipe(imagemin()).pipe(gulp.dest(dst));
 });
-
-// copy  assets
-gulp.task('rsc', function () {
-	'use strict';
-	gulp.src('rsc/css/*').pipe(gulp.dest(buildDir + '/rsc/css'));
-	gulp.src('rsc/dat/*').pipe(gulp.dest(buildDir + '/rsc/dat'));
-	gulp.src('rsc/snd/*').pipe(gulp.dest(buildDir + '/rsc/snd'));
-});
-
-
-// minify new or changed HTML pages
-gulp.task('minihtml', function () {
-	'use strict';
-	var htmlSrc;
-	htmlSrc = './mini.html';
-	gulp.src(htmlSrc).pipe(changed(buildDir)).pipe(minifyHTML()).pipe(gulp.dest(buildDir));
-});
-gulp.task('lib', function () {
+// not used:  minify and copy lib assets
+gulp.task('xxx_build_minlib', function () {
 	'use strict';
 	var dst, srcArr;
 	srcArr = ['lib/js/*.js', '!lib/js/*.min.js', 'lib/lgz/*.js' ];
@@ -81,15 +87,64 @@ gulp.task('lib', function () {
 	gulp.src('lib/js/*.min.js').pipe(gulp.dest(buildDir + '/lib/js'));
 	gulp.src('lib/lgz/*.png').pipe(imagemin()).pipe(gulp.dest(buildDir + '/lib/lgz'));
 });
-gulp.task('rscjs', function () {
-	'use strict';
-	var dst, srcArr;
-	srcArr = ['rsc/js/*.js'];
-	gulp.src(srcArr).pipe(concat('rsc.js')).pipe(uglify()).pipe(gulp.dest(buildDir));
-});
 
-gulp.task('nop', function () {
+
+gulp.task('build_clean', function () {
+    'use strict';
+    var dst;
+	dst = [buildDir];
+	return gulp.src(dst, {read: false})
+        .pipe(shell(
+	        [
+                'echo cleaning:  <%= f(file.path) %>',
+                'rm -rf  "<%= f(file.path) %>"'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
+});
+gulp.task('build_files', ['build_clean'], function () {
 	'use strict';
+    var srcArr, dst;
+
+    //build:  html files
+	srcArr = ['*.html'];
+    console.log('mark1');
+	gulp.src(srcArr).pipe(gulp.dest(buildDir));
+
+    console.log('mark2');
+    //build:  rsc
+	gulp.src('rsc/dom/*.css').pipe(gulp.dest(buildDir + '/rsc/dom'));
+
+	gulp.src('rsc/js/*').pipe(gulp.dest(buildDir + '/rsc/js'));
+
+	srcArr = ['rsc/mma/*', '!rsc/mma/*.svg'  ];
+	return gulp.src(srcArr).pipe(gulp.dest(buildDir + '/rsc/mma'));
+
+});
+gulp.task('build_game', ['build_files'],  function () {
+	'use strict';
+    var dst;
+	dst = [buildDir];
+	return gulp.src(dst, {read: false})
+        .pipe(shell(
+	        [
+                'echo "linking lib, svr in pwd: `pwd` with path: <%= f(file.path) %>!" ',
+                'cd <%= f(file.path) %>; ln -s ../lib lib; ln -s ../svr svr;'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
 });
 gulp.task('inc', function () {
 	'use strict';
@@ -101,34 +156,104 @@ gulp.task('inc', function () {
 		.pipe(gulp.dest('./'));
 	
 });
-gulp.task('watch', function () {
+
+gulp.task('build_subsvr', function () {
 	'use strict';
-	watch(['lib/exodom/exo.html', 'lib/lgz/dom/*.html', 'rsc/dom/*.html', './*.inc'], function () {
-		gulp.start('inc');
-		// open('http://localhost/Projects/Clients/LinguaZone/lz-games/html5_games/sources/Splat/game.html');
-	});
-	
+	var dst, srcArr;
+	srcArr = ['*'];
+	gulp.src(srcArr).pipe(gulp.dest(buildDir));
+
 });
 
 
-gulp.task('build', function () {
-	src = ['./sources/*'];
-	return gulp.src(src, {read: false})
-    .pipe(shell(
-	[
-      'echo gulping:  <%= f(file.path) %>',
-      'cd <%= f(file.path) %>; gulp'
-	]
-    , {
-      templateData: {
-        f: function (s) {
-          return s
-        }
-      }
-    }))
+gulp.task('build_svr', function () {
+    'use strict';
+    var srcArr;
+
+	srcArr = ['./sources/svr'];
+	return gulp.src(srcArr, {read: false})
+        .pipe(shell(
+	        [
+                'echo cleaning build of:  <%= f(file.path) %>',
+                'cd <%= f(file.path) %>; gulp build_clean',
+                'echo creating build of:  <%= f(file.path) %>',
+                'cd <%= f(file.path) %>; gulp build_subsvr'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
 });
+gulp.task('build_sublib', function () {
+	'use strict';
+	var dst, srcArr;
+
+	gulp.src('exodom/**/*').pipe(gulp.dest(buildDir + '/exodom'));
+
+	gulp.src('vendor/**/*').pipe(gulp.dest(buildDir + '/vendor'));
+
+	//gulp.src('vendor/phaser/*').pipe(gulp.dest(buildDir + '/vendor/phaser'));
+	//gulp.src('vendor/phaser/plugins/*').pipe(gulp.dest(buildDir + '/vendor/phaser/plugins'));
+
+	srcArr = ['lgz/mma/*', '!lgz/mma/*.svg'  ];
+	gulp.src(srcArr).pipe(gulp.dest(buildDir + '/lgz/mma'));
+
+	srcArr = ['lgz/js/*'];
+	gulp.src(srcArr).pipe(gulp.dest(buildDir + '/lgz/js'));
+
+	srcArr = ['lgz/dom/*.css'];
+	gulp.src(srcArr).pipe(gulp.dest(buildDir + '/lgz/dom'));
+
+});
+gulp.task('build_lib', function () {
+    'use strict';
+    var srcArr;
+
+	srcArr = ['./sources/lib'];
+	return gulp.src(srcArr, {read: false})
+        .pipe(shell(
+	        [
+                'echo cleaning build of:  <%= f(file.path) %>',
+                'cd <%= f(file.path) %>; gulp build_clean',
+                'echo creating build of:  <%= f(file.path) %>',
+                'cd <%= f(file.path) %>; gulp build_sublib'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
+});
+gulp.task('build_games', function () {
+    'use strict';
+    var srcArr;
+
+	srcArr = ['./sources/*', '!./sources/lib', '!./sources/svr'];
+	return gulp.src(srcArr, {read: false})
+        .pipe(shell(
+	        [
+                'echo creating build of:  <%= f(file.path) %>',
+                'cd <%= f(file.path) %>; gulp build_game'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
+});
+
 
 
 
 gulp.task('default', ['nop'], function () { });
-
+gulp.task('build_all', ['build_games','build_lib','build_svr'], function () { });
