@@ -1,1 +1,1 @@
-@@include('lib/lgz/dom/tail.html')
+@@include('rsc/dom/tail.html')

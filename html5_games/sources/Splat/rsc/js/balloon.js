@@ -208,7 +208,7 @@ Lgz.Balloon.prototype._killTail = function () {
     thisObj = this;
     
     if (thisObj.strArr) {
-        for(i=0; i < thisObj.strArr.length; i += 1) {
+        for(i=0; i < thisObj.strArr.segments; i += 1) {
             thisObj.strArr[i].kill();
         }
         // thisObj.strArr = null;
@@ -316,6 +316,7 @@ Lgz.Balloon.prototype.onDragStop = function () {
     // TODO: Can we then reset the cursor to default or pointer?
     //        I would like to change the pointer *only* when hovering over a letter.
     this.game.canvas.style.cursor = "pointer";
+   // this.input.useHandCursor = false;
 };
 /*
  * method to make rope/chain physics type string
@@ -323,29 +324,32 @@ Lgz.Balloon.prototype.onDragStop = function () {
  */
 Lgz.Balloon.prototype.createTailPhysics = function () {
 
-    var newRect;
-    var lastRect;
-    var height = 30;        //  Height for the physics body - your image height is 8px
-    var width = 5;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
-    var maxForce = 10000;   //  The force that holds the rectangles together.
-    var xAnchor, yAnchor, length;
+    var newRect, width, height, lastRect, maxForce,
+        xAnchor, yAnchor, segments, rcHeight,
+        x, y, cg;
+
+    //var height = 30;        //  Height for the physics body - your image height is 8px
+    //var width = 5;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
+    maxForce = 10000000;   //  The force that holds the rectangles together.
+
     
     xAnchor = this.body.x;
     yAnchor = this.body.y;
-    length = 5;
+    segments = K.tailSegments;
     this.strArr = [];
+    x = xAnchor;     
+    y = 0;
     
-    for (var i = 0; i <  length; i++)
+    for (var i = 0; i <  segments; i++)
     {
-        var x = xAnchor;                    //  All rects are on the same x position
-        var y = yAnchor + (i * height);     //  Every new rect is positioned below the last
-        var cg;
-        cg = this.cg;
-        
- 
         newRect = this.game.add.sprite(x, y, 'str', 0);
-        //this.addChild(newRect);
-        
+        height = newRect.height-2;
+        width = newRect.width;
+        rcHeight = ((height)/2);                             
+        y = yAnchor + (i * height);     //  Every new rect is positioned below the last
+        newRect.y = y;
+        cg = this.cg;
+
         this.strArr.push(newRect);
  
         //  Enable physicsbody
@@ -353,16 +357,14 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
 
         //  Set custom rectangle
         newRect.body.setRectangle(width, height);
-        //newRect.body.setCollisionGroup(cg.string);
-        //newRect.body.collides([cg.balloons, cg.letters, cg.string]);
         newRect.body.data.gravityScale=0;
+        
+        //note: removes string tangles (collisions)
+        newRect.body.collideWorldBounds = false;
         
         if (i === 0)
         {
-            this.k1=this.game.physics.p2.createRevoluteConstraint(newRect, [0,-15], this, [0, (this.spriteHead.height /2)], maxForce );
-            //newRect.body.static = true;
-            //this.addChild(newRect);
-             
+            this.k1=this.game.physics.p2.createRevoluteConstraint(newRect, [0,-rcHeight], this, [0, (this.spriteHead.height /2)], maxForce );
         }
         else
         {  
@@ -370,23 +372,25 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
             newRect.body.velocity.x = 0;      //  Give it a push :) just for fun
                 //  Reduce mass for evey rope element
         }
-        //newRect.body.mass = length/ (i+1);
-        //newRect.body.mass = length/(length - i + 1);
+
         newRect.body.mass =0.1;
         newRect.body.data.gravityScale= 1;
         //  After the first rectangle is created we can add the constraint
         if (lastRect)
         {
-            //game.physics.p2.createRevoluteConstraint(newRect, [0, -10], lastRect, [0,10], maxForce);
-            this.game.physics.p2.createRevoluteConstraint(newRect, [0, -15], lastRect, [0,20], maxForce);        
+            this.game.physics.p2.createRevoluteConstraint(newRect, [0, -rcHeight], lastRect, [0,rcHeight], maxForce);        
            
         }
         
         lastRect = newRect;
     }
-    this.body.mass = 15 * length * length * newRect.body.mass; ;
-    //this.body.mass = 2 * length * length;
-    this.body.data.gravityScale=-0.010 * length;
-    //newRect.body.mass = length/3;
-    newRect.body.data.gravityScale= 2*length;
-}
+    this.body.mass = 7 * segments * segments * newRect.body.mass; ;
+    //this.body.mass = 2 * segments * segments;
+    this.body.data.gravityScale=-0.010 * segments;
+    //newRect.body.mass = segments/3;
+    newRect.body.data.gravityScale= 2*segments;
+    
+    //note: only for debugging balloon tail physics
+    //g.b = this;
+    
+};

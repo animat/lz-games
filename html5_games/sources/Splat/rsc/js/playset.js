@@ -120,12 +120,20 @@ Lgz.PlaySet = function (scene) {
     thisObj.onLoadOK = function () {
         var i;
         console.debug('PlaySet.onLoadOK: entered');
-        thisObj.question.display.createSprite();
-        thisObj.question.display.sprite.position.setTo(85, 25);
+        //thisObj.question.display.createSprite();
+        //thisObj.question.display.sprite.position.setTo(85, 25);
         
     };
     thisObj.load = function () {
-        var question, answer, i, substext;
+        var question, answer, i, substext, cfg;
+        
+        cfg = null;
+        /*
+         * border around question display node
+            cfg = {};
+            cfg.box = {};
+            cfg.box.strokeWidth = 2;
+        */
 
         if(thisObj.useTailPhysics) {
             console.debug('use _updateCheckFPS');
@@ -140,11 +148,12 @@ Lgz.PlaySet = function (scene) {
             },
             K.checkFPS_TO
         );  
-        thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
+        // thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
 
         question  = {};
         question.node = thisObj.nm.getQuestion();
-        question.display = new LgzLib.DisplayNode(thisObj, question.node);
+        //question.display = new LgzLib.DisplayNode(thisObj, question.node);
+        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 300, 40, 300, 50, cfg );
         
         answer  = {};
         answer.node = thisObj.nm.getResponse();
@@ -157,14 +166,15 @@ Lgz.PlaySet = function (scene) {
         substext = answer.text.replace(/ /g, '_');
         thisObj.createBalloons(substext);
 
-        thisObj.game.load.start();
-        
+        //thisObj.game.load.start();
+        thisObj.onLoadOK();
     };
     
     thisObj.eventNodeBeforeNext = function () {
         var i, rtn;
         
-        thisObj.question.display.sprite.destroy();
+        //thisObj.question.display.sprite.destroy();
+        thisObj.question.display.destroy();
         //todo: recycle balloon and charline sprites
         for (i = 0; i < thisObj.balArr.length; i += 1) {
             thisObj.balArr[i].kill();

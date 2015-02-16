@@ -24,7 +24,7 @@ K.checkFPS_TO = 5000;
 
 // TODO: Can tailPhysics dynamically update depending on the framerate of the game?
 K.tailPhysics = true;
-
+K.tailSegments = 8;
 
 K.textTO = 200;
 K.textTopMargin = 160;
@@ -39,8 +39,8 @@ K.velMaxY  = 5;
 K.grabMargin = 20;
 K.floorY = 380;
 
-K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
-K.bgTextStyle = { font: '8pt ' + K.font, fill: '#deb887', align: 'center', align: 'center'};
+K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center' };
+K.bgTextStyle = { font: '8pt ' + K.font, fill: '#deb887', align: 'center' };
 
 K.balloonTextStyle = {
     font: '14pt ' + K.font,
