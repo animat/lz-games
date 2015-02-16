@@ -34,23 +34,31 @@ K.y1 = 100;
 K.xmin1 = (600 * 2/5)|0;
 K.xmax1 = (600 * 3/5)|0;
  
-K.frameRate = 50;
+K.Hit = { 'NONE': 0, 'CORRECT': 1, 'WRONG': -1 };
+K.Frame = { Rate: 75, Hole: 5, Lift: 9, Jump: 13, Max: 16};
+
 K.showTO = 5000;
+
+K.popBaseWidth = 150;
 
 K.nodeTextStyle = { 
     font: '18pt ' + K.font,
     fill: '#ffffff',
-    align: 'center'
+    align: 'center',
+    wordWrap: true,
+    wordWrapWidth: K.popBaseWidth    
 };
 K.popupTextStyle = {
 	font: '18pt ' + K.font,
-        fontWeight: 'bold',
+    fontWeight: 'bold',
 	fill: '#ffffff',
-	align: 'center'
+	align: 'center',
+	wordWrap: true,
+	wordWrapWidth: 80
 };
 K.scoreTextStyle = {
 	font: '18pt ' + K.font,
-        fontWeight: 'bold',
+    fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center'
 };
