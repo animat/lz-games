@@ -86,8 +86,12 @@ LgzLib.Scenes.Splash.prototype.preload = function () {
     console.debug('Splash.preload: ');
     this._super.prototype.preload.call(this);
 
+    //todo: prefix lib images to prevent clobbering from custom game sprites or displaynodes
     this.lgzMgr.rscImage('dot', true);
-
+    this.lgzMgr.rscImage('audio', true);
+    this.lgzMgr.rscImage('question', true);
+    this.lgzMgr.rscImage('box', true);
+    
     _objs = this._super._objs;
     for (i in _objs) {
         if (_objs.hasOwnProperty(i)) {
@@ -99,6 +103,7 @@ LgzLib.Scenes.Splash.prototype.preload = function () {
 LgzLib.Scenes.Splash.prototype.rscload = function () {
     'use strict';
     console.debug('Scenes.Splash.rscload: key ' + this.key);
+
 };
 LgzLib.Scenes.Splash.prototype.create = function () {
     'use strict';
