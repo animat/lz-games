@@ -18,7 +18,7 @@ LgzLib.Hud = function (mgr) {
 	var thisObj, btnList, game, lang, eBody,
 		resizeDirty,
 		$lgzVP, $lgzHide, eWin, $lgzMin, $lgzHud,
-		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay;
+		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 	
 	thisObj = this;
 	resizeDirty = false;
@@ -31,6 +31,7 @@ LgzLib.Hud = function (mgr) {
 	$lgzMin = $('[lgzMin]');
         $lgzHud  = $('#lgzHud');
         $lgzHudMenuBar = $('#lgzHudMenuBar');
+        $lgzHudLogo = $('#lgzHudLogo');
         
 	$lgzBtnFS = $('#lgzHudFullScreen');
 	$lgzBtnExit = $('#lgzHudExit');
@@ -43,6 +44,9 @@ LgzLib.Hud = function (mgr) {
 
 	thisObj.requestedFS = false;
 
+        thisObj.print = function (str) {
+          $lgzHudLogo.text(str);  
+        };
 	thisObj.onResizePost2 = function () {
 		eWin.style.width = game.canvas.style.width;
 		eWin.style.height = game.canvas.style.height;
@@ -316,37 +320,62 @@ LgzLib.Hud = function (mgr) {
         );
          
     };
+    
+    /*
+     * 
+     * refactored into separate hints obj
+     * 
+     */
+    thisObj.hintEvent = function (type, punit, pval) {
+        console.debug('ERROR! DEPRECATED');
+        thisObj.winCloseAll('winHint', false);
+
+        mgr.scenes.main.eventHintPenalty(punit, pval);
+        switch (type) {
+        case 'giveup':
+            mgr.scenes.main.eventHintGiveUp();
+            break;
+        case 'movetoend':
+            mgr.scenes.main.eventHintMoveToEnd();
+            break;
+        case 'nextletter':
+            mgr.scenes.main.eventHintNextLetter();            
+            break;
+        }
+        
+    };
     thisObj.hintAdd = function ($winHintAvl, hintnode) {
         var i,  type,   $btn, $penalty, $para, punit, pval;
         type = hintnode.getAttribute('type');
-   
-        switch (type) {
-        case 'giveup':
-            $btn = $winHintAvl.find('[subref=giveup]');
-            break;
-        case 'movetoend':
-            $btn = $winHintAvl.find('[subref=movetoend]');
-            break;
-        case 'nextletter':
-            $btn = $winHintAvl.find('[subref=nextletter]');
-            break;
-        }
+        $btn = $winHintAvl.find('[subref=' + type + ']');
+        
         if (!$btn.length) {
             //todo: log error
             return;
-        }
+        }        
+
         $btn.css('display', 'inline');
         $penalty = $(hintnode).find('penalty');
+        if ($penalty.length) {
+            punit = $penalty.attr('unit');
+            pval =  $penalty.attr('value');
+        }
+
+        $btn.click(
+            function() {
+                thisObj.hintEvent(type, punit, pval);
+            }
+        );        
         if (!$penalty.length) {
             return;
-        }
+        }        
         $para = $btn.find('p')[1];
         if (!$para) {
             return;
         }
-        punit = $penalty.attr('unit');
-        pval =  $penalty.attr('value');
+
         $para.textContent = '+' + pval + ' ' + punit + ' penalty';
+
     };
     thisObj.hintsInit = function () {
         //note: must be called AFTER nodemgr has loaded xml file

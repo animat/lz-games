@@ -24,8 +24,9 @@
 LgzLib.Scenes.Splash.prototype._create = LgzLib.Scenes.Splash.prototype.create;
 LgzLib.Scenes.Splash.prototype.create = function () {
     'use strict';
+    this._create();    
     this.game.stage.backgroundColor = K.canvasBg;
-    this._create();
+
 };
 LgzLib.Scenes.Main.prototype.preinit = function () {
     'use strict';
@@ -39,6 +40,7 @@ LgzLib.Scenes.Main.prototype.rscload = function () {
     this.playSet.rscload();
 
 };
+LgzLib.Scenes.Main.prototype._create = LgzLib.Scenes.Main.prototype.create;
 
 LgzLib.Scenes.Main.prototype.create = function () {
     'use strict';
@@ -47,7 +49,8 @@ LgzLib.Scenes.Main.prototype.create = function () {
     console.debug('Scenes2.Main.create: key ' + this.key);
 
     thisObj = this;
-   
+    thisObj._create();
+    
     //sprite: main background
     thisObj.game.add.sprite(0, 0, 'main');
 
@@ -55,6 +58,10 @@ LgzLib.Scenes.Main.prototype.create = function () {
     thisObj.timer = new Lgz.Timer(thisObj);
     thisObj.timer.create();
     */
+
+    /*
+     * note: deprecated. moved to lib/lgz/js/scene.js
+     * 
 
     thisObj.lgzMgr.pause = function () {
         thisObj.playSet.pause();
@@ -67,7 +74,10 @@ LgzLib.Scenes.Main.prototype.create = function () {
         thisObj.playSet.resume();
         thisObj.game.paused = false;
     };
- 
+    *
+    */
+   
+   
     thisObj.playSet.create();
 
 };
@@ -77,6 +87,26 @@ LgzLib.Scenes.Main.prototype.update = function () {
     this.playSet.update();
     // this.timer.update();
 };
+LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeBeforeNext:');
+    this.playSet.eventNodeBeforeNext();
+    
+};
+LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeAfterNext:');
+    this.playSet.eventNodeAfterNext();
+};
+LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeFinish:');
+    this.playSet.eventNodeFinish();
+};
+
+
+
+
 LgzLib.Scenes.End.prototype.rscload = function () {
     'use strict';
     console.debug('Scenes2.End.rscload: key ' + this.key);

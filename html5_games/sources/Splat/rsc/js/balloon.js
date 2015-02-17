@@ -17,6 +17,7 @@ Lgz.Balloon = function (playSet, label, cg) {
         spriteText, colorIdx;
 
     thisObj = this;
+    
     this.playSet = playSet;
     this.game = playSet.game;
     this.anim = {};
@@ -31,7 +32,6 @@ Lgz.Balloon = function (playSet, label, cg) {
     f2 = color  + '1';
     f3 = color  + '2';
 
-g.bal = thisObj;
 
  
     randX = thisObj.game.rnd.integerInRange(100, 600);
@@ -59,6 +59,7 @@ g.bal = thisObj;
     spriteHead = this.game.add.sprite(0, 0, 'balloons', f1);
     spriteHead.inputEnabled = true;
     spriteHead.anchor.setTo(0.5, 0.5);
+    
     thisObj.anim.pop = spriteHead.animations.add('pop', [f1, f2, f3], false, false);
     thisObj.anim.pop.onComplete.add (
         function() { thisObj.popped(); },
@@ -104,7 +105,7 @@ g.bal = thisObj;
     
     this.body.collideWorldBounds = true;
     //allow balloon to rotate
-    if (K.tailPhysics) {
+    if (this.playSet.useTailPhysics) {
         this.body.fixedRotation = false;
     } else {
         this.body.fixedRotation = true;
@@ -126,14 +127,16 @@ g.bal = thisObj;
     this.body.moveUp(randY);
     this.body.moveRight(randX);
     
-    if (K.tailPhysics) {
+    if (this.playSet.useTailPhysics) {
         this.spriteTail.visible = false;
         this.createTailPhysics();        
     }
 
     
 };
-LgzLib.inherit(Lgz.Balloon, Phaser.Sprite);
+Lgz.Balloon.extends(Phaser.Sprite);
+
+
 Lgz.Balloon.prototype.damp = function(gravity) {
     var vel, vx, vy;
 
@@ -184,8 +187,8 @@ Lgz.Balloon.prototype.update = function (sprite) {
 };
 Lgz.Balloon.prototype.touched = function () {
     var dx, dy, absx, absy;
-    dx  = Math.round(this.x   - Lgz.game.input.x);
-    dy  = Math.round(this.y   - Lgz.game.input.y);
+    dx  = Math.round(this.x   - this.game.input.x);
+    dy  = Math.round(this.y   - this.game.input.y);
     
     console.debug('touch: (' + dx + ',' + dy + ')');
     absx = Math.abs(dx);
@@ -205,23 +208,35 @@ Lgz.Balloon.prototype._killTail = function () {
     thisObj = this;
     
     if (thisObj.strArr) {
-        for(i=0; i < thisObj.strArr.length; i += 1) {
+        for(i=0; i < thisObj.strArr.segments; i += 1) {
             thisObj.strArr[i].kill();
         }
+        // thisObj.strArr = null;
     }    
 };
-Lgz.Balloon.prototype.killTail = function () {
-    var thisObj, i;
+Lgz.Balloon.prototype.killTail = function (nodelay) {
+    var thisObj, i, delayTO;
     thisObj = this;
+    delayTO = 5000;
     thisObj.game.physics.p2.removeConstraint(thisObj.k1);
     thisObj.strArr[0].body.data.gravityScale=5;
+    if (nodelay) {
+          delayTO = 0;
+    }
+
     window.setTimeout(
         function () {
             thisObj._killTail();
         },
-        5000
+        delayTO
     );    
 };
+Lgz.Balloon.prototype.kill = function () {
+    if (this.strArr) {
+        this.killTail(true);
+    }
+    this._super.prototype.kill.call(this);
+}
 Lgz.Balloon.prototype.pop = function () {
     'use strict';
     var thisObj, i;
@@ -267,16 +282,27 @@ Lgz.Balloon.prototype.popped = function() {
         this.events.onDragStop.add(thisObj.onDragStop, this);
     }
 };
-Lgz.Balloon.prototype.onDragStart = function ()  {
-    console.debug('onDragStart');
-    this.body.moves = false;
+Lgz.Balloon.prototype._onDragStart = function ()  {
+    console.debug('_onDragStart');
+    this.body.moves = false;    
     this.bodyhold = this.body;
-    
+    this.body = null;
+};
+Lgz.Balloon.prototype.onDragStart = function ()  {
+    var thisObj;
+    console.debug('onDragStart');
+    thisObj = this;
     // TODO: Is it possible to change the cursor to "grabbing" when moving a letter?
+    this.game.canvas.style.cursor = "grabbing";
     // TODO: Can we immediately reset the angle so that students can tell letters "N" apart from "Z"?
     this.body.angle = 0;
-    
-    this.body = null;
+
+    window.setTimeout(
+        function () {
+            thisObj._onDragStart();
+        },
+        100
+    );   
 };
 Lgz.Balloon.prototype.onDragStop = function () {
     console.debug('onDragStop');
@@ -289,7 +315,8 @@ Lgz.Balloon.prototype.onDragStop = function () {
     
     // TODO: Can we then reset the cursor to default or pointer?
     //        I would like to change the pointer *only* when hovering over a letter.
-    thisObj.game.canvas.style.cursor = "pointer";
+    this.game.canvas.style.cursor = "pointer";
+   // this.input.useHandCursor = false;
 };
 /*
  * method to make rope/chain physics type string
@@ -297,47 +324,47 @@ Lgz.Balloon.prototype.onDragStop = function () {
  */
 Lgz.Balloon.prototype.createTailPhysics = function () {
 
-    var newRect;
-    var lastRect;
-    var height = 30;        //  Height for the physics body - your image height is 8px
-    var width = 7;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
-    var maxForce = 500;   //  The force that holds the rectangles together.
-    var game = Lgz.game;
-    var xAnchor, yAnchor, length;
+    var newRect, width, height, lastRect, maxForce,
+        xAnchor, yAnchor, segments, rcHeight,
+        x, y, cg;
+
+    //var height = 30;        //  Height for the physics body - your image height is 8px
+    //var width = 5;         //  This is the width for the physics body. If too small the rectangles will get scrambled together.
+    maxForce = 10000000;   //  The force that holds the rectangles together.
+
     
     xAnchor = this.body.x;
     yAnchor = this.body.y;
-    length = 3;
+    segments = K.tailSegments;
     this.strArr = [];
+    x = xAnchor;     
+    y = 0;
     
-    for (var i = 0; i <  length; i++)
+    for (var i = 0; i <  segments; i++)
     {
-        var x = xAnchor;                    //  All rects are on the same x position
-        var y = yAnchor + (i * height);     //  Every new rect is positioned below the last
-        var cg;
+        newRect = this.game.add.sprite(x, y, 'str', 0);
+        height = newRect.height-2;
+        width = newRect.width;
+        rcHeight = ((height)/2);                             
+        y = yAnchor + (i * height);     //  Every new rect is positioned below the last
+        newRect.y = y;
         cg = this.cg;
-        
- 
-        newRect = game.add.sprite(x, y, 'str', 0);
-        //this.addChild(newRect);
-        
+
         this.strArr.push(newRect);
  
         //  Enable physicsbody
-        game.physics.p2.enable(newRect, false);
+        this.game.physics.p2.enable(newRect, false);
 
         //  Set custom rectangle
         newRect.body.setRectangle(width, height);
-        //newRect.body.setCollisionGroup(cg.string);
-        //newRect.body.collides([cg.balloons, cg.letters, cg.string]);
         newRect.body.data.gravityScale=0;
+        
+        //note: removes string tangles (collisions)
+        newRect.body.collideWorldBounds = false;
         
         if (i === 0)
         {
-            this.k1=game.physics.p2.createRevoluteConstraint(newRect, [0,-15], this, [0, (this.spriteHead.height /2)], maxForce );
-            //newRect.body.static = true;
-            //this.addChild(newRect);
-             
+            this.k1=this.game.physics.p2.createRevoluteConstraint(newRect, [0,-rcHeight], this, [0, (this.spriteHead.height /2)], maxForce );
         }
         else
         {  
@@ -345,20 +372,25 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
             newRect.body.velocity.x = 0;      //  Give it a push :) just for fun
                 //  Reduce mass for evey rope element
         }
-        newRect.body.mass = length/ (i+1); 
+
+        newRect.body.mass =0.1;
+        newRect.body.data.gravityScale= 1;
         //  After the first rectangle is created we can add the constraint
         if (lastRect)
         {
-            //game.physics.p2.createRevoluteConstraint(newRect, [0, -10], lastRect, [0,10], maxForce);
-            game.physics.p2.createRevoluteConstraint(newRect, [0, -15], lastRect, [0,20], maxForce);        
+            this.game.physics.p2.createRevoluteConstraint(newRect, [0, -rcHeight], lastRect, [0,rcHeight], maxForce);        
            
         }
         
         lastRect = newRect;
     }
-    this.body.data.gravityScale=-1;
-    newRect.body.data.gravityScale= 1;
-    g.last = newRect;
- 
-
-}
+    this.body.mass = 7 * segments * segments * newRect.body.mass; ;
+    //this.body.mass = 2 * segments * segments;
+    this.body.data.gravityScale=-0.010 * segments;
+    //newRect.body.mass = segments/3;
+    newRect.body.data.gravityScale= 2*segments;
+    
+    //note: only for debugging balloon tail physics
+    //g.b = this;
+    
+};

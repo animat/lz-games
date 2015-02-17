@@ -22,10 +22,11 @@ K.region = "US";
 K.locale = "en";
 
 K.font = 'Arial';
-
+K.volumeLevel = 2;
+        
 K.StyleButton = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'none', 'strokeThickness': 0, 'align': 'right' };
 K.StyleTitle = { 'font': '60px ' + K.font, 'fill': 'white', 'stroke': 'black', 'strokeThickness': 6, 'align': 'right' };
-K.nodeTextStyle = { font: '14pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
+K.nodeTextStyle = { font: '14pt ' + K.font, fill: '#ffffff', align: 'center'};
 
 K.canvasWidth = 600;
 K.canvasHeight = 425;

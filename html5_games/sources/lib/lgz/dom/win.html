@@ -49,7 +49,7 @@
         </div>
         </div>
         <div id="winHint" class="win modal">
-        <div class="posBtmCtr" >
+        <div class="xxxposBtmCtr" >
             <div subref="none" class="msgbox">
                 <p resname="NoHintAvail">Sorry No Hint Available</p>
                 <br>
@@ -72,8 +72,13 @@
                     <button subref="giveup" onclick="" >
                         <p>I give up!</p>
                         <p></p>
-                    </button>
+                    </button>                 
                 </div>
+                <div class="btngroup">
+                    <button  class="btn" resname="Cancel" onclick="Lgz.hud.winClose('winHint',false)" ></button>
+                </div>                
+                
+                
             </div>
         </div>
         </div>
@@ -89,6 +94,7 @@
                 </div>
             </div>
         </div>
+
         <div id="winBugReply" class="win modal">
             <div class="msgbox">
                 <div id="lzBugReply" ></div>
@@ -97,5 +103,8 @@
                     <button  resname="Close"  onclick="Lgz.mgr.sendBugClose()" ></button>
                 </div>
             </div>
+        </div>
+        <div id="winProgress" class="win modal">
+
         </div>
 <!-- lib/lgz/dom/win.html: END -->

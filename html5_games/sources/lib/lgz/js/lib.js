@@ -14,7 +14,14 @@
 window.console = window.console || {};
 window.console.debug = window.console.debug || function () { "use strict"; };
 var LgzLib = LgzLib || {};
-
+Function.prototype.lgzExtends = function(parent) {
+  var child;
+  child = this;
+  child.prototype = Object.create(parent.prototype);
+  child.prototype.constructor = child;
+  child.prototype._super = parent;
+};
+//todo: deprecate extends and inherit functions below
 Function.prototype.extends = function(parent) {
   var child;
   child = this;
@@ -28,7 +35,7 @@ LgzLib.inherit = function (sub, xsuper) {
 	var newSubPrototype = Object.create(xsuper.prototype);
 	newSubPrototype.constructor = sub;
 	sub.prototype = newSubPrototype;
-        sub.super = xsuper;
+    sub._super = xsuper;
 
 };
 LgzLib.splitUrl = function (url) {
