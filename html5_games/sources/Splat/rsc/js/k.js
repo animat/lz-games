@@ -19,13 +19,17 @@ K.renderType = Phaser.CANVAS;
 K.renderForce = false;
 K.renderFPS = 15;
 
+K.thresholdFPS = 30;
+K.checkFPS_TO = 5000; 
+
 // TODO: Can tailPhysics dynamically update depending on the framerate of the game?
 K.tailPhysics = true;
+K.tailSegments = 8;
 
 K.textTO = 200;
 K.textTopMargin = 160;
 K.textLeftMargin =  180;
-K.textRightMargin = K.mainBgWidth - 30;
+K.textRightMargin = K.canvasWidth- 30;
 
 K.balloonScale = 1;
 K.gravity = 100;
@@ -35,15 +39,18 @@ K.velMaxY  = 5;
 K.grabMargin = 20;
 K.floorY = 380;
 
-K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center', align: 'center'};
-K.bgTextStyle = { font: '8pt ' + K.font, fill: '#deb887', align: 'center', align: 'center'};
+K.nodeTextStyle = { font: '16pt ' + K.font, fill: '#ffffff', align: 'center' };
+K.bgTextStyle = { font: '8pt ' + K.font, fill: '#deb887', align: 'center' };
 
 K.balloonTextStyle = {
-	font: '14pt ' + K.font,
-	fill: '#ffffff',
-        stroke: '#ffffff',
-        strokeThickness: 2,
-	align: 'center'
+    font: '14pt ' + K.font,
+    fill: '#ffffff',
+    stroke: '#ffffff',
+    strokeThickness: 0,
+    shadowColor: 'rgba(0,0,0,1)',
+    shadowOffsetX: 1,
+    shadowOffsetY: 1,
+    align: 'center'
 };
 
 K.lastMatchTO = 5000;

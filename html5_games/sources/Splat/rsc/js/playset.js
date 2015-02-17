@@ -18,25 +18,15 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
-
-    thisObj.balArr = [];
-    thisObj.charArr = [];
- 
     thisObj.nodeIdx = 0;
     thisObj.charRemaining = 0;
-
-    // Note: audio 'sfx' loaded in splash scene
-    // this next call should add tracks 'correct', 'next', 'pop'
-    // as defined in sfx.json file
- 
-    //thisObj.sfx.addMarker('swish', 0, 0.136);
-    //thisObj.sfx.addMarker('swoosh', 0.138, 0.65);
+    thisObj.useTailPhysics = true;
     
     thisObj.rscload = function () {
         thisObj.lgzMgr.rscAtlas('balloons');
         thisObj.lgzMgr.rscImage('str');
-        thisObj.lgzMgr.rscAudio('sfx', true);        
-    }    
+        thisObj.lgzMgr.rscAudio('sfx', true);
+    };
     thisObj.create = function () {
         thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
 
@@ -55,33 +45,19 @@ Lgz.PlaySet = function (scene) {
         );
         
     };
-    /*
-     * note: deprecated
-    thisObj.shuffle  = function (text) {
-        var a, n, i, j, tmp;
-        a = text.split(""),
-        n = a.length;
-
-        for(i = n - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1));
-            tmp = a[i];
-            a[i] = a[j];
-            a[j] = tmp;
-        }
-        return a.join("");        
-    };
-    */
     thisObj.createBalloons = function (text) {
         var i, balloon, randX, randY, game,
-                hspacer, charline, clX, clY, wordStart, wordStop, j,
-                spacer, spacecount, cg;
-        
+            hspacer, charline, clX, clY, wordStart, wordStop, j,
+            spacer, spacecount, cg;
+        thisObj.balArr = [];
+        thisObj.charArr = [];
+         
         game = thisObj.game;
 
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.defaultRestitution = 0.8;
         game.physics.p2.setImpactEvents(true);
-        game.physics.p2.setBounds(0, 0, 600,400, true, true, true, true, false);
+        game.physics.p2.setBounds(0, 0, 600, 400, true, true, true, true, false);
         game.physics.p2.gravity.y = K.gravity;
         
         cg = {};
@@ -94,7 +70,6 @@ Lgz.PlaySet = function (scene) {
         
         /*ivanixcu: deprecated
         randText = thisObj.shuffle(text);
-        g.rt = randText;
         */
         hspacer = K.canvasWidth / text.length;
         
@@ -109,7 +84,7 @@ Lgz.PlaySet = function (scene) {
         for (i = 0; i < text.length; i += 1) {
             console.debug("i: " + i  + " char: " + text.charAt(i));
   
-            if(text.charAt(i) !== '_') {
+            if (text.charAt(i) !== '_') {
                 charline = new Lgz.CharLine(thisObj, clX, clY, text.charAt(i), cg);
                 this.charArr.push(charline);
                 // spacer = Math.round(charline.spriteText.width * 1.5);
@@ -122,11 +97,7 @@ Lgz.PlaySet = function (scene) {
                 clX = K.textLeftMargin;
                 clY = clY + Math.round(charline.spriteText.height * 2);
                 wordStop = this.charArr.length;
-                g.charArr = this.charArr;
-                g.wordStart = wordStart;
-                g.wordStop = wordStop;
                 for (j = wordStart; j < wordStop; j += 1) {
-                    g.j = j;
                     this.charArr[j].body.x = clX;
                     this.charArr[j].body.y = clY;
                     clX = clX  +  Math.round(charline.spriteText.width * 1.5);
@@ -135,32 +106,54 @@ Lgz.PlaySet = function (scene) {
         }
         for (i = 0; i < text.length; i += 1) {
             console.debug("i: " + i  + " char: " + text.charAt(i));
-            if(text.charAt(i) !== '_') { 
+            if (text.charAt(i) !== '_') {
 
-                balloon  = new Lgz.Balloon(thisObj,text.charAt(i), cg);
+                balloon  = new Lgz.Balloon(thisObj, text.charAt(i), cg);
                 
                 this.balArr.push(balloon);
             }
   
-        }        
+        }
         this.charRemaining = text.length - spacecount;
     };
 
     thisObj.onLoadOK = function () {
         var i;
         console.debug('PlaySet.onLoadOK: entered');
-        thisObj.question.display.createSprite();
-        thisObj.question.display.sprite.position.setTo(85, 25);
+        //thisObj.question.display.createSprite();
+        //thisObj.question.display.sprite.position.setTo(85, 25);
         
     };
     thisObj.load = function () {
-        var question, answer, i, substext;
+        var question, answer, i, substext, cfg;
+        
+        cfg = null;
+        /*
+         * border around question display node
+            cfg = {};
+            cfg.box = {};
+            cfg.box.strokeWidth = 2;
+        */
 
-        thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
+        if(thisObj.useTailPhysics) {
+            console.debug('use _updateCheckFPS');
+            thisObj.update = thisObj._updateCheckFPS;
+        } else {
+            console.debug('use _updateEmpty');
+            thisObj.update = thisObj._updateEmpty;
+        }
+        window.setTimeout(
+            function () {
+                thisObj.removeCheckFPS();
+            },
+            K.checkFPS_TO
+        );  
+        // thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
 
         question  = {};
         question.node = thisObj.nm.getQuestion();
-        question.display = new LgzLib.DisplayNode(thisObj, question.node);
+        //question.display = new LgzLib.DisplayNode(thisObj, question.node);
+        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 300, 40, 300, 50, cfg );
         
         answer  = {};
         answer.node = thisObj.nm.getResponse();
@@ -170,44 +163,44 @@ Lgz.PlaySet = function (scene) {
         thisObj.question = question;
         thisObj.answer = answer;
 
-        substext = answer.text.replace(/ /g,'_');
+        substext = answer.text.replace(/ /g, '_');
         thisObj.createBalloons(substext);
 
-        thisObj.game.load.start();
-        
+        //thisObj.game.load.start();
+        thisObj.onLoadOK();
     };
     
-    thisObj.next = function () {
-        var rtn;
-  
-        thisObj.playSound('next');
-        rtn = thisObj.nm.next();
-        if (rtn) {
-          thisObj.load();
-        } else {
-          thisObj.lgzMgr.postScore();
-          thisObj.lgzMgr.hud.winOpen('winWon');  
-        }
+    thisObj.eventNodeBeforeNext = function () {
+        var i, rtn;
         
+        //thisObj.question.display.sprite.destroy();
+        thisObj.question.display.destroy();
+        //todo: recycle balloon and charline sprites
+        for (i = 0; i < thisObj.balArr.length; i += 1) {
+            thisObj.balArr[i].kill();
+            thisObj.charArr[i].kill();
+        }
+    };
+    thisObj.eventNodeAfterNext = function () {
+        thisObj.playSound('next');     
+        thisObj.load();
+    };
+    //todo: deprecate
+    thisObj.eventNodeFinish = function () {
+        thisObj.lgzMgr.postScore();
+        thisObj.lgzMgr.hud.winOpen('winWon');
+
     };
     thisObj._charFound = function () {
-        var y, i, content, textSprite;
-        y = (thisObj.nm.idx * 20 ) + 120;
+        var y, content, textSprite;
+        y = (thisObj.nm.idx * 20) + 120;
         console.debug('_charFound: y = ' + y);
-        thisObj.question.display.sprite.destroy();
+        
  
         textSprite = this.game.add.text(0, 0, thisObj.answer.text, K.bgTextStyle);
         textSprite.position.setTo(10, y);
-        g.textSprite = textSprite;
-        
-        
-        //todo: recycle balloon and charline sprites
-        for (i = 0; i < this.balArr.length; i += 1) {
-            this.balArr[i].kill();
-            this.charArr[i].kill();
-        }          
-        thisObj.next();
-    }
+        thisObj.nm.nodeAnswered();
+    };
     thisObj.charFound = function () {
 
         console.debug('charFound:');
@@ -226,14 +219,38 @@ Lgz.PlaySet = function (scene) {
         );
         
     };
+    thisObj.removeCheckFPS = function () {
+        console.debug('removeCheckFPS');
+        thisObj.update = thisObj._updateEmpty;        
+    };
+    thisObj.tailFallback = function() {
+
+        thisObj.eventNodeBeforeNext();
+        thisObj.useTailPhysics = false;        
+        thisObj.eventNodeAfterNext();
+        //note: try to use physics on next question node;
+        thisObj.useTailPhysics = true;
+      
+    };
+    thisObj._updateCheckFPS = function () {
+
+        if(thisObj.game.time.fps  && thisObj.game.time.fps < K.thresholdFPS) {
+            console.debug('_updateCheckFPS: fps fell below threshold: ' + thisObj.game.time.fps);
+            thisObj.tailFallback();
+        }
+    };
+    thisObj._updateEmpty = function () {
+        //note: should be empty
+    };    
     thisObj.update = function () {
 
- 
-    };
+    };    
     thisObj.pause = function () {
+        console.debug('Lgz.PlaySet.pause:');
         
     };
     thisObj.resume = function () {
+        console.debug('Lgz.PlaySet.resume:');
         
     };
 };

@@ -1,8 +1,7 @@
 /*global
     $: true,
     Phaser: true,
-    K: true,
-    console: true,
+    K: true, console: true,
     window: true,
     LgzLib: true
  */
@@ -23,6 +22,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.game = game;
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.nm = new LgzLib.NodeManager(thisObj);
+        thisObj.hints = new LgzLib.Hints(thisObj);
         thisObj.scenes = {};
 
         globLgz.lang = thisObj.lang;
@@ -31,7 +31,10 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         globLgz.nm = thisObj.nm;
         globLgz.mgr = thisObj;
         globLgz.scenes = thisObj.scenes;
+        
+        thisObj.spinnerInit();
     };
+ 
     thisObj.pause = function () {
         //override
     };
@@ -51,7 +54,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj._welcome2 = function () {
         console.debug('LgzLib.Mgr.welcome2:');
         thisObj.hud.localize();
-        thisObj.hud.hintsInit();
+        thisObj.hints.init();
         thisObj.hud.toggleFsButtons();
         thisObj.game.paused = false;
         thisObj.scenes.welcome.start();
@@ -97,10 +100,20 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         thisObj.hud.winClose('winBug');
         thisObj.hud.winClose('winHelp', true);
     };
-    thisObj.sendBugReply = function (data) {
-        console.debug('sendBugReply: ' + data);
+    thisObj._sendBugReply = function (data) {
+        console.debug('_sendBugReply: ' + data);
         $('#lzBugReply').text(data);
         thisObj.hud.winOpen('winBugReply');
+        thisObj.spinnerHide();
+    };
+    thisObj.sendBugReply = function (data) {
+        console.debug('sendBugReply: ' + data);
+        window.setTimeout(
+            function () {
+                thisObj._sendBugReply(data);
+            },
+            2000
+        ); 
     };
     thisObj.sendBug = function () {
         var url, $lgzParms, $form, sdata, gameid, userid, body;
@@ -116,11 +129,13 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
 					function (data) { thisObj.sendBugReply(data); }
 				).error(function() {
 					console.log("Error submitting this bug...");
+                                        thisObj.spinnerHide();
 				});
 		}
 		
 		// TODO @Cesar: It would be great to have clearer feedback to the user that the bug has been submitted
         thisObj.hud.winClose('winBug', false);
+        thisObj.spinnerShow();
     };
     thisObj.postScore = function (scoreval) {
         var $lgzParms, userid, gameid, url;
@@ -137,7 +152,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         urlparm = document.URL.match(/.*\?xmlid=(.*)/);
         if (urlparm) {
             $lgzParms.attr('game_id', urlparm[1]);
-        }        
+        }
         
         
         gameid = $lgzParms.attr("game_id");
@@ -169,7 +184,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             width,
             height
         );
-    };    
+    };
     thisObj.rscAtlas = function (name) {
         thisObj.game.load.atlas(
             name,
@@ -190,7 +205,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             name,
             K.urlRscMedia + name + '.ogg',
             K.urlRscMedia + name + '.mp3',
-            K.urlRscMedia + name + '.m4a'            
+            K.urlRscMedia + name + '.m4a'
         );
         return loader;
     };
@@ -230,7 +245,43 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
                 thisObj._soundPlay(key, cutoff);
             },
             delayTO
-        ); 
+        );
     };
+    thisObj.spinnerShow = function() {
+        var target;
+        
+        thisObj.hud.winOpen('winProgress');
+        target = document.getElementById('winProgress');
+        thisObj.spinner.spin(target);
+    };
+    thisObj.spinnerHide = function() {
+        thisObj.hud.winClose('winProgress');
+        thisObj.spinner.stop();
+    };    
+    thisObj.spinnerInit = function () {
+        var cfg;
+        cfg = {
+          lines: 13, // The number of lines to draw
+          length: 14, // The length of each line
+          width: 10, // The line thickness
+          radius: 29, // The radius of the inner circle
+          corners: 1, // Corner roundness (0..1)
+          rotate: 0, // The rotation offset
+          direction: 1, // 1: clockwise, -1: counterclockwise
+          color: '#0FF', // #rgb or #rrggbb or array of colors
+          speed: 1, // Rounds per second
+          trail: 30, // Afterglow percentage
+          shadow: false, // Whether to render a shadow
+          hwaccel: false, // Whether to use hardware acceleration
+          className: 'spinner', // The CSS class to assign to the spinner
+          zIndex: 2e9, // The z-index (defaults to 2000000000)
+          top: '50%', // Top position relative to parent
+          left: '50%' // Left position relative to parent
+        };
+
+        thisObj.spinner = new Spinner(cfg);
+        
+    };        
     thisObj.init();
+
 };

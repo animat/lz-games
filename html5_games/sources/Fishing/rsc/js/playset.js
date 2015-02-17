@@ -258,6 +258,9 @@ Lgz.PlaySet = function (scene) {
             3000
         );         
     };
+    /*
+     * note: obsolete
+     * 
     thisObj.next = function () {
         var rtn;
         console.debug('playSet.next: ');
@@ -271,6 +274,16 @@ Lgz.PlaySet = function (scene) {
         }
         
     };
+    */
+    thisObj.eventNodeBeforeNext = function () {
+        thisObj.question.display.sprite.visible = false;        
+    };
+    thisObj.eventNodeAfterNext = function () {
+        thisObj.load();
+    };
+    thisObj.eventNodeFinish = function () {
+        thisObj.happy();
+    };    
     thisObj.found = function () {
 
         console.debug('found:');
@@ -281,7 +294,8 @@ Lgz.PlaySet = function (scene) {
         //note: pause before next word
         window.setTimeout(
             function () {
-                thisObj.next();
+                // thisObj.next();
+                thisObj.nm.nodeAnswered();
             },
             2000
         );

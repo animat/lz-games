@@ -23,8 +23,8 @@
  */
 LgzLib.Scenes.Splash.prototype._create = LgzLib.Scenes.Splash.prototype.create;
 LgzLib.Scenes.Splash.prototype.create = function () {
+    this._create();    
     this.game.stage.backgroundColor = K.canvasBg;    
-    this._create();
 };
 LgzLib.Scenes.Main.prototype.preinit = function () {
     console.debug('Scenes2.Main.preinit:');
@@ -36,18 +36,16 @@ LgzLib.Scenes.Main.prototype.rscload = function () {
     this.cardSet.rscload();
 
 };
-LgzLib.Scenes.Main.prototype.update = function () {
-    // console.debug('Scenes2.Main.update: key ' + this.key); 
-    this.cardSet.update();
-    this.timer.update();
-};
+
+LgzLib.Scenes.Main.prototype._create = LgzLib.Scenes.Main.prototype.create;
 LgzLib.Scenes.Main.prototype.create = function () {
     var bg, i, sx, sy, thisObj;
     
     console.debug('Scenes2.Main.create: key ' + this.key);    
 
     thisObj = this;
-   
+    thisObj._create();
+    
     //sprite: main background
     thisObj.game.add.sprite(0, 0, 'main');
 
@@ -72,6 +70,52 @@ LgzLib.Scenes.Main.prototype.createFinish = function () {
     this.lgzMgr.resume();
 
 };
+LgzLib.Scenes.Main.prototype.update = function () {
+    // console.debug('Scenes2.Main.update: key ' + this.key); 
+    this.cardSet.update();
+    this.timer.update();
+};
+/*
+ * note: all hint and nodes events disabled for poker
+ * 
+ */
+LgzLib.Scenes.Main.prototype.eventHintPenalty = function (unit, value) {
+    'use strict';
+    console.debug('Scenes2.Main.eventHintPenalty: ' + unit + ',' + value);
+
+};
+LgzLib.Scenes.Main.prototype.eventHintGiveUp = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventHintGiveUp:');
+
+};
+LgzLib.Scenes.Main.prototype.eventHintMoveToEnd = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventHintMoveToEnd:');
+
+};
+LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeBeforeNext:');
+
+    
+};
+LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeAfterNext:');
+
+};
+/*
+ *  note: base method implements logic in lib/lgz/scene.js
+ * 
+LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeFinish:');
+};
+*/
+
+
+
 LgzLib.Scenes.End.prototype.rscload = function () {
     console.debug('Scenes2.End.rscload: key ' + this.key);    
     this.lgzMgr.rscImage('end');
