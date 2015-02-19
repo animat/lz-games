@@ -187,7 +187,7 @@ Lgz.PlaySet = function (scene) {
         ); 
     };
     thisObj._playLoop = function () {
-        var idx, len, vcount, wordArr, ts;
+        var idx, len, vcount, wordArr, ts, tryshow;
         vcount = 0;
         wordArr = thisObj.popupArr;
         ts = Date.now();
@@ -195,28 +195,18 @@ Lgz.PlaySet = function (scene) {
         for (idx = 0; idx < len; idx += 1) {
             if (wordArr[idx].visible) {
                 vcount += 1;
-                if (wordArr[idx].ts && wordArr[idx].ts < ts ) {
+                if (wordArr[idx].hideTS && wordArr[idx].hideTS < ts ) {
                     wordArr[idx].hide();
-                }
-                /*
-                if (wordArr[idx].hit) {
-                    wordArr[idx].hide();
-                }
-                */
-                
-            }
-        }
-        for (idx = 0; idx < len; idx += 1) {
-            if (vcount < 5) {
-                idx = thisObj.game.rnd.integerInRange(0,len-1);
-                if (!thisObj.game.rnd.integerInRange(0,5)) {
-                    if (!wordArr[idx].visible) {
-                        vcount += 1;
-                        wordArr[idx].show();
-                    }
                 }
 
+            } else {
+                //console.debug('_playLoop: checking tryTS for idx: ' + idx + ' tryTS: ' + wordArr[idx].tryTS);
+                if (vcount < K.showMax && wordArr[idx].tryTS  && wordArr[idx].tryTS < ts) {
+                     console.debug('_playLoop: trying idx: ' + idx);
+                    wordArr[idx].try();
+               }               
             }
+
         }  
     };
     thisObj.playLoop = function () {
@@ -270,7 +260,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.cont = false;
         wait = false;
         for(i=0; i < thisObj.popupArr.length; i += 1) {
-            if(thisObj.popupArr[i].visible && thisObj.popupArr[i].ts) {
+            if(thisObj.popupArr[i].visible && thisObj.popupArr[i].hideTS) {
                 thisObj.popupArr[i].hide();
                 wait = true;
                 //break;

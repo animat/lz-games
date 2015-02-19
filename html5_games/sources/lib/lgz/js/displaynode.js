@@ -48,8 +48,15 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
     
     Phaser.Sprite.call(thisObj, game, 0, 0, null);
     game.add.existing(thisObj);
-    thisObj.anchor.setTo(0.5, 0.5);
-
+ 
+    /*
+     * note: normally anchor set (0.5,0.5) for centering sprite
+     * But due to bug on spriteText that causes text distortion 
+     * in Mac OSX browsers, we use custom center() method
+     */
+    
+    thisObj.anchor.setTo(0,0);
+ 
     thisObj.inputEnabled = true;
     
  
@@ -131,6 +138,25 @@ LgzLib.DisplayNodeImage.prototype.load = function () {
     this._load();
     this.game.load.start();
 };
+LgzLib.DisplayNodeImage.prototype.vwidth = function () {
+    return this.width;
+};
+LgzLib.DisplayNodeImage.prototype.vheight = function () {
+    return this.height;
+};
+LgzLib.DisplayNodeImage.prototype.center = function () {
+	'use strict';
+	var dx, dy, spriteText;
+ 
+	console.debug('DisplayNodeImage.center:');
+        this.anchor.setTo(0,0);
+        spriteText = this.spriteText;        
+    	dx = Math.floor(-this.vwidth() / 2);
+	dy = Math.floor(-this.vheight() / 2);        
+        this.position.x = dx;
+	this.position.y = dy;
+        
+};
 LgzLib.DisplayNodeImage.prototype.conform = function (w, h) {
     'use strict';
     var  parent, scalex, scaley, basew, baseh;
@@ -153,6 +179,7 @@ LgzLib.DisplayNodeImage.prototype.conform = function (w, h) {
     } else {
         this.scale.setTo(scaley, scaley);
     }
+    this.center();
 
 };
 
@@ -169,10 +196,11 @@ LgzLib.DisplayNodeText.prototype.eventFileComplete = function () {
 };
 LgzLib.DisplayNodeText.prototype.load = function () {
    var sprite, thisObj, style;
-   g.s = this;
+
    style  = this._lgzCreateOpts.text.style || K.nodeTextStyle;
 
-   sprite = new Phaser.Text(this.game, 0, 0, ' '+ this.lgzContent + ' ', style);
+   //sprite = new Phaser.Text(this.game, 0, 0, ' '+ this.lgzContent + ' ', style);
+   sprite = new Phaser.Text(this.game, 0, 0, this.lgzContent, style);
    sprite.visible = false;
    this.game.add.existing(sprite);
    //this.textSprite = sprite;
@@ -188,18 +216,38 @@ LgzLib.DisplayNodeText.prototype.load = function () {
         50
    );   
 };
-LgzLib.DisplayNodeText.prototype.centerText = function (w, h) {
+LgzLib.DisplayNodeText.prototype.vwidth = function () {
+    var spriteText;
+    spriteText = this.spriteText;
+    return (spriteText.width - spriteText.fontSize * K.displayNode.fontSizePad);
+};
+LgzLib.DisplayNodeText.prototype.vheight = function () {
+    var spriteText;
+    spriteText = this.spriteText;    
+    return (spriteText.height - spriteText.fontSize * K.displayNode.fontSizePad);     
+};
+
+/*
+ * method: center
+ * 
+ * Work around for bug in OSX browsers (safari)
+ * Where normal text sprite centering with anchor.setTo(0.5,0.5) 
+ * causes distortion in text displayed
+ * 
+ */
+
+LgzLib.DisplayNodeText.prototype.center = function (w, h) {
 	'use strict';
 	var dx, dy, spriteText;
-
-	console.debug('centerText:');
-
+ 
+	console.debug('DisplayNodeText.center:');
+        this.anchor.setTo(0,0);
         spriteText = this.spriteText;        
-	dx = Math.floor((w - spriteText.width) / 2);
-	dy = Math.floor((h - spriteText.height) / 2);
-	this.position.x = dx + 4;
+    	dx = Math.floor(-this.vwidth() / 2);
+	dy = Math.floor(-this.vheight() / 2);        
+        this.position.x = dx;
 	this.position.y = dy;
-
+        
 };
 LgzLib.DisplayNodeText.prototype.maxTextFont = function (w, h) {
 	'use strict';
@@ -211,15 +259,9 @@ LgzLib.DisplayNodeText.prototype.maxTextFont = function (w, h) {
 	spriteText.font = K.font;
 	maxW = w -  0;
 	maxH = h -  0;
+        //todo: set max and min font size constants (K.maxTextFont.Min,Max) 
 	for (size = 40; size > 12; size -= 2) {
 		spriteText.fontSize = size;
-                console.log('maxTextFont: size: '
-                        + size
-                        + '  width: ' + spriteText.width
-                        + '  height: ' + spriteText.height
-                        + '  maxW: ' + maxW
-                        + '  maxH: ' + maxH
-                        )
 		if (spriteText.width < maxW && spriteText.height < maxH) {
 			break;
 		}
@@ -242,8 +284,9 @@ LgzLib.DisplayNodeText.prototype.conform = function (w, h) {
         height = h;
     }
     console.log('conform to width: ' + width + ' height: ' + height);
-    //this.centerText(w, h);
+
     this.maxTextFont(width, height);
+    this.center(width, height);    
     this.texture = this.spriteText.texture;
     
 };
@@ -303,7 +346,7 @@ LgzLib.DisplayBox = function (game, x, y, w, h, configOpts) {
     
     cfg = configOpts || {};
     cfg = cfg.box || {};
-  
+    
     this.anchor.setTo(0.5, 0.5);
     
     cfg.strokeWidth = cfg.strokeWidth || 0;

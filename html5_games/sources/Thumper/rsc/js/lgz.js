@@ -27,3 +27,10 @@ Lgz.init = function () {
  
     mgr.scenes.splash.start();
 };
+Lgz.debug  = function () {
+   ps = Lgz.scenes.main.playSet;
+   p = ps.popupArr[0];
+   m = p.spriteMMA;
+   Lgz.game.paused = false;    
+};
+ 
