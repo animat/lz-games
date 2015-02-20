@@ -35,9 +35,15 @@ K.xmin1 = (600 * 2/5)|0;
 K.xmax1 = (600 * 3/5)|0;
  
 K.Hit = { 'NONE': 0, 'CORRECT': 1, 'WRONG': -1 };
-K.Frame = { Rate: 75, Hole: 5, Lift: 9, Jump: 13, Max: 16};
 
-K.showTO = 5000;
+//K.Frame = { Rate: 50, Hole: 5, Lift: 9, Jump: 13, Max: 16};
+K.Frame = { Rate: 50, Hole: 5, Lift: 9, Jump: 16, Max: 22};
+
+K.tryRand = { Min: 2000, Max: 8000};
+K.showMax = 7;
+
+//K.showTO = 5000;
+K.showTO = 3000;
 
 K.popBaseWidth = 150;
 
@@ -50,7 +56,7 @@ K.nodeTextStyle = {
 };
 K.popupTextStyle = {
 	font: '18pt ' + K.font,
-    fontWeight: 'bold',
+        fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center',
 	wordWrap: true,

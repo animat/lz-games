@@ -34,3 +34,5 @@ K.canvasVWidth = 600;
 K.canvasVHeight = 400;
 
 K.canvasBg = '#000000';
+
+K.displayNode = { fontSizePad: 0.215};
