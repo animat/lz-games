@@ -292,7 +292,10 @@ LgzLib.Hud = function (mgr) {
         mgr.pause();
  
         $('#' + winid).css('display', 'block');
-
+        
+        if (winid == "winBug") { 
+           $("#textbug").focus(); 
+         }
     };
     thisObj.winClose = function (winid, resume) {
 		if (resume) {

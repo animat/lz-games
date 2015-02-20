@@ -132,9 +132,8 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
                                         thisObj.spinnerHide();
 				});
 		}
-		
-		// TODO @Cesar: It would be great to have clearer feedback to the user that the bug has been submitted
         thisObj.hud.winClose('winBug', false);
+        $("#textbug").val("");
         thisObj.spinnerShow();
     };
     thisObj.postScore = function (scoreval) {
