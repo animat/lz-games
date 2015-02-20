@@ -108,7 +108,7 @@ gulp.task('build_clean', function () {
             }
         ));
 });
-gulp.task('build_files', ['build_clean'], function () {
+gulp.task('build_files', ['inc','build_clean'], function () {
 	'use strict';
     var srcArr, dst;
 
