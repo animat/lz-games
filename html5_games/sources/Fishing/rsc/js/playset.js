@@ -225,7 +225,8 @@ Lgz.PlaySet = function (scene) {
         
         
         
-        thisObj.spriteMidPoint = thisObj.game.add.sprite(180, -50, 'dot');
+        //thisObj.spriteMidPoint = thisObj.game.add.sprite(180, -50, 'dot');
+        thisObj.spriteMidPoint = thisObj.game.add.sprite(180, 50, 'dot');
         thisObj.game.physics.enable(thisObj.spriteMidPoint, Phaser.Physics.ARCADE);
         thisObj.spriteMidPoint.body.static = true;
         thisObj.spriteMidPoint.body.immovable = true;
@@ -253,7 +254,8 @@ Lgz.PlaySet = function (scene) {
         window.setTimeout(
             function () {
                 //thisObj.lgzMgr.postScore();
-                thisObj.lgzMgr.hud.winOpen('winWon'); 
+                thisObj.lgzMgr.hud.winOpen('winWon');
+                thisObj.game.paused = false;
             },
             3000
         );         
