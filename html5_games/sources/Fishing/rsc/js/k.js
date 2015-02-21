@@ -27,6 +27,7 @@ K.balloonScale = 1;
 K.penguinX = 0;
 K.penguinY = 0;
 
+/*
 K.nodeTextStyle = { 
     font: '16pt ' + K.font, 
     fill: '#ffffff', 
@@ -35,7 +36,8 @@ K.nodeTextStyle = {
     shadowOffsetX: 1,
     shadowOffsetY: 1
 };
-K.fishTextStyle = {
+*/
+K.nodeTextStyle = {
     font: '10pt ' + K.font,
     fill: '#000000', 
     align: 'center', 

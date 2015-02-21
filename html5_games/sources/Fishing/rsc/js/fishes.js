@@ -8,20 +8,20 @@
  */
 /*jslint  nomen: true */
 var Lgz = Lgz || {};
-Lgz.Fish = function (playSet, label, nodeIdx) {
+Lgz.Fish = function (playSet, node, nodeIdx) {
     'use strict';
     
-    var thisObj, world, randX, randY,
+    var thisObj, world, randX, randY, spriteMMA,
         colorIdx, color, f0, f1, f2, f3, f4, frameArr, frameRate, vel, dir,
-        spriteBody,  spriteText, emitter, dir;
+        spriteBody, emitter, dir, width, height;
 
     thisObj = this;
-    this.playSet = playSet;
-    this.game = playSet.game;
-    this.nodeIdx = nodeIdx;
-    this.anim = {};
+    thisObj.playSet = playSet;
+    thisObj.game = playSet.game;
+    thisObj.nodeIdx = nodeIdx;
+    thisObj.anim = {};
 
-    world = this.game.world;
+    world = thisObj.game.world;
 
     randX = thisObj.game.rnd.integerInRange(-100, 800);
     randY = thisObj.game.rnd.integerInRange(260, 470);
@@ -38,15 +38,14 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
     frameArr = thisObj.shuffle([f0, f1, f2, f3, f2, f1, f3]);
 
     
-    Phaser.Sprite.call(this, this.game, randX, randY, 'dot');
-    this.game.add.existing(this); 
-    
-    spriteText = this.game.add.text(0, 0, ' '+ label +' ', K.fishTextStyle);
-    spriteText.anchor.setTo(0.5, 0);
-    spriteText.inputEnabled = false;
-    this.addChild(spriteText);
+    Phaser.Sprite.call(this, thisObj.game, randX, randY, 'dot');
+    thisObj.game.add.existing(this); 
 
-    spriteBody = this.game.add.sprite(0, 0, 'fish', f0);
+
+
+    
+    
+    spriteBody = thisObj.game.add.sprite(0, 0, 'fish', f0);
 
     spriteBody.inputEnabled = true;
     spriteBody.anchor.setTo(0.5, 1);
@@ -75,16 +74,37 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
         },
         thisObj
     );
-
-  
-    
-    
     thisObj.addChild(spriteBody);
-
-    //note: for debugging only
     thisObj.spriteBody = spriteBody;
-    thisObj.spriteText = spriteText;
     
+    spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node);
+    spriteMMA.playOnLoad = false;
+    this.addChild(spriteMMA);
+    thisObj.spriteMMA = spriteMMA;
+
+    width = Math.abs(spriteBody.width);
+    height = Math.abs(spriteBody.height);
+    //spriteMMA.y = (3* height)|0;
+    spriteMMA.eventLoadOK = function () {
+        //console.debug('Lgz.Popup: spriteMMA: eventLoadOK:');
+        console.log('eventLoadOK: ' 
+                + ' width: ' + width 
+                + ' height: ' + height
+                );
+        spriteMMA.conform(width, (height)|0);
+        spriteMMA.y = (height/5)|0;
+    };
+    spriteMMA.load();
+    
+
+/*    
+    spriteText = thisObj.game.add.text(0, 0, ' '+ label +' ', K.fishTextStyle);
+    spriteText.anchor.setTo(0.5, 0);
+    spriteText.inputEnabled = false;
+    thisObj.addChild(spriteText);
+    //note: for debugging only
+    thisObj.spriteText = spriteText; 
+*/
 
 
     //thisObj.anim.swim.play(25, true); //supposed to work according to docs, but doesnt :(
@@ -258,7 +278,8 @@ Lgz.Fish.prototype.caught = function() {
     console.debug('fish caught!');  
     this.testflip = false;
     this.spriteBody.anchor.setTo(0.5, 0.5);
-    this.spriteText.visible = false;
+    
+    this.spriteMMA.visible = false;
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
     this.body.angularVelocity = -700;
