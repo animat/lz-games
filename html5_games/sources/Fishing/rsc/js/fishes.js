@@ -8,20 +8,20 @@
  */
 /*jslint  nomen: true */
 var Lgz = Lgz || {};
-Lgz.Fish = function (playSet, label, nodeIdx) {
+Lgz.Fish = function (playSet, node, nodeIdx) {
     'use strict';
     
-    var thisObj, world, randX, randY,
+    var thisObj, world, randX, randY, spriteMMA,
         colorIdx, color, f0, f1, f2, f3, f4, frameArr, frameRate, vel, dir,
-        spriteBody,  spriteText, emitter, dir;
+        spriteBody, emitter, dir, width, height;
 
     thisObj = this;
-    this.playSet = playSet;
-    this.game = playSet.game;
-    this.nodeIdx = nodeIdx;
-    this.anim = {};
+    thisObj.playSet = playSet;
+    thisObj.game = playSet.game;
+    thisObj.nodeIdx = nodeIdx;
+    thisObj.anim = {};
 
-    world = this.game.world;
+    world = thisObj.game.world;
 
     randX = thisObj.game.rnd.integerInRange(-100, 800);
     randY = thisObj.game.rnd.integerInRange(260, 470);
@@ -38,22 +38,35 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
     frameArr = thisObj.shuffle([f0, f1, f2, f3, f2, f1, f3]);
 
     
-    Phaser.Sprite.call(this, this.game, randX, randY, 'dot');
-    this.game.add.existing(this); 
-    
-    spriteText = this.game.add.text(0, 0, ' '+ label +' ', K.fishTextStyle);
-    spriteText.anchor.setTo(0.5, 0);
-    spriteText.inputEnabled = false;
-    this.addChild(spriteText);
+    Phaser.Sprite.call(this, thisObj.game, randX, randY, 'dot');
+    thisObj.game.add.existing(this); 
 
-    spriteBody = this.game.add.sprite(0, 0, 'fish', f0);
+
+
+    
+    
+    spriteBody = thisObj.game.add.sprite(0, 0, 'fish', f0);
+
     spriteBody.inputEnabled = true;
     spriteBody.anchor.setTo(0.5, 1);
 
     spriteBody.input.useHandCursor = true;
  
-    thisObj.anim.swim = spriteBody.animations.add('swim', frameArr, false, false);
-    thisObj.anim.swim = spriteBody.animations.add('turn', [f0, f4], false, false);
+    frameRate = thisObj.game.rnd.integerInRange(3, 8);
+    //note: need frameRate for release
+    thisObj.frameRate = frameRate; 
+ 
+    thisObj.anim.swim = spriteBody.animations.add('swim', frameArr, frameRate, true, false);   
+    thisObj.anim.turn = spriteBody.animations.add('turn', [f0, f4], frameRate, false, false);
+    
+    thisObj.anim.hesitate = spriteBody.animations.add('hesitate', [f0, f4, f3, f4, f0, f4, f3, f4], frameRate, false, false);
+    thisObj.anim.hesitate.onComplete.add(thisObj.release, thisObj);
+    
+    thisObj.lure = {};
+    
+    thisObj.lure.dir = 0;
+    
+    
     spriteBody.events.onInputDown.add(
         function () {
             console.debug('spriteBody: touched();');
@@ -61,50 +74,47 @@ Lgz.Fish = function (playSet, label, nodeIdx) {
         },
         thisObj
     );
-
-  
-    
-    
     thisObj.addChild(spriteBody);
-
-    //note: for debugging only
     thisObj.spriteBody = spriteBody;
-    thisObj.spriteText = spriteText;
     
-    frameRate = thisObj.game.rnd.integerInRange(3, 8);
-    //note: need frameRate for release
-    this.frameRate = frameRate;
-    thisObj.spriteBody.animations.play('swim', frameRate, true);
+    spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node);
+    spriteMMA.playOnLoad = false;
+    this.addChild(spriteMMA);
+    thisObj.spriteMMA = spriteMMA;
+
+    width = Math.abs(spriteBody.width);
+    height = Math.abs(spriteBody.height);
+    //spriteMMA.y = (3* height)|0;
+    spriteMMA.eventLoadOK = function () {
+        //console.debug('Lgz.Popup: spriteMMA: eventLoadOK:');
+        console.log('eventLoadOK: ' 
+                + ' width: ' + width 
+                + ' height: ' + height
+                );
+        spriteMMA.conform(width, (height)|0);
+        spriteMMA.y = (height/5)|0;
+    };
+    spriteMMA.load();
+    
+
+/*    
+    spriteText = thisObj.game.add.text(0, 0, ' '+ label +' ', K.fishTextStyle);
+    spriteText.anchor.setTo(0.5, 0);
+    spriteText.inputEnabled = false;
+    thisObj.addChild(spriteText);
+    //note: for debugging only
+    thisObj.spriteText = spriteText; 
+*/
+
+
+    //thisObj.anim.swim.play(25, true); //supposed to work according to docs, but doesnt :(
+    thisObj.spriteBody.animations.play('swim', thisObj.frameRate, true);
     
     thisObj.game.physics.enable(thisObj, Phaser.Physics.ARCADE);
- 
     thisObj.body.collideWorldBounds = true;
-
     thisObj.initVelocity();
-
     thisObj.update = thisObj.actionFaceForward;
     
-/*    
-    emitter = thisObj.game.add.emitter(0, -20, 5);
-    emitter.makeParticles('bubble');
-    emitter.emitX = -50;
-    
-    emitter.maxParticleScale = 1;
-    emitter.minParticleScale = 0.2;
-    emitter.setYSpeed(-30, -40);
-    emitter.setXSpeed(0, 0);
-    emitter.gravity = 0;
-    emitter.width = 5;
-    emitter.minRotation = 0;
-    emitter.maxRotation = 0;
-    emitter.flow(1000, 200);
- 
-    //emitter.start(false, 1500, 10);
-    //thisObj.game.add.tween(emitter).to( { emitX: 800 }, 2000, Phaser.Easing.Linear.None, true, 0, Number.MAX_VALUE, true);   
-    thisObj.addChild(emitter);
-    thisObj.emitter=emitter;
-    
-*/
     
 };
 LgzLib.inherit(Lgz.Fish, Phaser.Sprite);
@@ -150,7 +160,12 @@ Lgz.Fish.prototype.actionFaceForward = function () {
         this.vx  = vx;
     }
 };
+/*
+ * Method: shuffle
+ * Desc:  Used to prevent fish from all blinking at the same time
+ */
 Lgz.Fish.prototype.shuffle = function (array) {
+
   var currentIdx = array.length, tmpVal, randomIdx ;
   while (0 !== currentIdx) {
 
@@ -168,30 +183,38 @@ Lgz.Fish.prototype.release = function () {
     var thisObj, frame;
     console.debug('wrong fish! idx: ' + this.nodeIdx);
     thisObj = this;
-    //this.initVelocity();
-    frame = this.spriteBody.frame;
-    this.spriteBody.loadTexture("fish", frame, false);
- 
-console.debug (
-        'release: vx: ' + this.vx 
-        + ' body.vx: ' + this.body.velocity.x
-        + ' body.vy: ' + this.body.velocity.y
-        + ' scale.x: ' + this.spriteBody.scale.x
-        + ' nodeIdx: ' + this.nodeIdx
-        )
-//    this.spriteBody.loadTexture("fish");
-    this.update = this.actionFaceForward;
-    this.playSet.missed();
+    //thisObj.initVelocity();
+    thisObj.spriteBody.animations.play('swim', thisObj.frameRate, true);    
+    frame = thisObj.spriteBody.frame;
+    thisObj.body.velocity.x = 500 * -thisObj.lure.dir;
+    console.debug('release vel: ' + thisObj.body.velocity.x);
+    thisObj.lure.dir = 0;
+    
+    
+    //thisObj.spriteBody.loadTexture("fish", frame, false);
+
+    thisObj.update = thisObj.actionFaceForward;
+    thisObj.playSet.missed();
     window.setTimeout(
         function () {
+                thisObj.spriteBody.loadTexture("fish", frame, false);
                 thisObj.initVelocity();
         },
-        500
+        1500
     );       
+};
+Lgz.Fish.prototype.hesitate = function () {
+    var thisObj, frame;
+    thisObj = this;
+ 
+   thisObj.spriteBody.animations.play('hesitate', 15, false);
 };
 Lgz.Fish.prototype.onFishInBasket = function () {
     console.debug('Fish.onFishInBasket: entered');
     //todo: get next word, resume play, allow new fish to be selected;
+    
+    this.body.angularVelocity = 0;
+    this.rotation = Math.PI * 1.5;    
     this.update = function() {};
     this.body.velocity.setTo(0, 0);    
     this.spriteBody.animations.stop('swim',0 );
@@ -206,7 +229,7 @@ Lgz.Fish.prototype.actionFlipToBasket = function () {
     if (!flag) {
         rc=this.game.physics.arcade.moveToObject(this, this.playSet.spriteInBasket, 800);
         //console.debug('actionFlipToBasket: rc: ' + rc);
-        if (rc < 0) {
+        if ( Math.abs(rc) < 1) {
             console.debug('actionFlipToBasket: rc <0. bounce: ' + this.body.bounce.x  + ' , ' + this.body.bounce.y);
             thisObj.onFishInBasket();
         }
@@ -227,8 +250,8 @@ Lgz.Fish.prototype.onMidPoint = function () {
         target.x += 10;        
     }
     console.debug('target.x: '  + target.x);    
-    this.body.angularVelocity = 0;
-    this.rotation = Math.PI * 1.5;
+    //this.body.angularVelocity = 0;
+    //this.rotation = Math.PI * 1.5;
     // heads or tails
     if (this.nodeIdx % 2) {
         this.spriteBody.scale.x *= -1;
@@ -240,10 +263,14 @@ Lgz.Fish.prototype.onMidPoint = function () {
     this.update = this.actionFlipToBasket;    
 };
 Lgz.Fish.prototype.actionFlipToMidPoint = function () {
-    var thisObj;
+    var thisObj, rc;
     thisObj = this;
-    this.game.physics.arcade.moveToObject(this, this.playSet.spriteMidPoint, 700);
-    this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteMidPoint, function() {thisObj.onMidPoint();});    
+    rc = this.game.physics.arcade.moveToObject(this, this.playSet.spriteMidPoint, 700);
+    //this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteMidPoint, function() {thisObj.onMidPoint();});    
+    if ( Math.abs(rc) < 1 ) {
+        thisObj.onMidPoint();        
+    }
+
 };
 Lgz.Fish.prototype.caught = function() {     
     var frame;
@@ -251,7 +278,8 @@ Lgz.Fish.prototype.caught = function() {
     console.debug('fish caught!');  
     this.testflip = false;
     this.spriteBody.anchor.setTo(0.5, 0.5);
-    this.spriteText.visible = false;
+    
+    this.spriteMMA.visible = false;
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
     this.body.angularVelocity = -700;
@@ -275,32 +303,55 @@ Lgz.Fish.prototype.onLure = function () {
         this.playSet.caught(thisObj);
     } else {
         //note: let the fish go
-        this.release();
+        //this.release();
+        this.hesitate();
     }
     thisObj.playSet.spritePenguin.luring(false);
 
 };
 Lgz.Fish.prototype.actionLure = function ()  {
-    var thisObj, rc;
+    var thisObj, rc, diff;
     thisObj = this;
     
     thisObj.playSet.spritePenguin.luring(true);
     //todo: testflip ugly hack. should be a better way.
-    if (!this.testflip) {
-        this.testflip = true;
-        if(this.x < 240 && this.body.velocity.x < 0 || this.x > 240 && this.body.velocity.x > 0) {
-            this.spriteBody.scale.x *= -1;
+    if (!thisObj.testflip) {
+        thisObj.testflip = true;
+        if(thisObj.x < 240 && thisObj.body.velocity.x < 0 || thisObj.x > 240 && thisObj.body.velocity.x > 0) {
+            thisObj.spriteBody.scale.x *= -1;
         }
     }
 
-    this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteHook, function() {thisObj.onLure();});
-
-    rc = this.game.physics.arcade.moveToObject(this, this.playSet.spriteHook, 150);
-    if (rc < 0 ) {
-        console.debug('actionLure: rc < 0');
-        //thisObj.onLure();
+    //thisObj.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteHook, function() {thisObj.onLure();});
+    if (!thisObj.lure.dir) {
+        diff = this.playSet.spriteHook.x  - thisObj.x;
+        thisObj.lure.dir = Math.abs(diff)/diff;
+        console.log('lure.dir: ' + thisObj.lure.dir);
+        thisObj.lure.x = thisObj.playSet.spriteHook.x +  (-thisObj.lure.dir * 70);
+        thisObj.lure.y = thisObj.playSet.spriteHook.y - 20;
+        thisObj.lure.count = 0;
+        
     }
-    //console.debug('update/lure: velx: ' + this.body.velocity.x);    
+    //rc = thisObj.game.physics.arcade.moveToObject(this, thisObj.playSet.spriteHook, 150);
+    rc = thisObj.game.physics.arcade.moveToXY(this, thisObj.lure.x, thisObj.lure.y, 150);
+    console.debug('actionLure: rc: ' + rc);
+    if ( Math.abs(rc) < 1 ) {
+        console.debug('actionLure: rc < 0 : ' 
+                    + rc + ' fish.x: ' 
+                    + thisObj.x 
+                    + ' lure.x: '
+                    + thisObj.lure.x 
+                    + ' hook.x: ' 
+                    + thisObj.playSet.spriteHook.x 
+                    + ' lure.count: ' 
+                    + thisObj.lure.count
+                    );
+        thisObj.lure.count += 1;
+        if (thisObj.lure.count > 30) {
+            thisObj.onLure();
+        }
+    }
+
 };
 Lgz.Fish.prototype.update = function () {
     'use strict';

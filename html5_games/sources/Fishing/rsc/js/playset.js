@@ -69,16 +69,19 @@ Lgz.PlaySet = function (scene) {
         return a.join("");        
     };
     thisObj.createFish = function () {
-        var i, nodeCount, text, fish, randX, randY, game;
+        var i, node, nodeCount, text, fish, randX, randY, game;
         
         game = thisObj.game;
         
         nodeCount = thisObj.nm.nodeCount();
         for (i = 0; i < nodeCount; i += 1) {
 
-            text = thisObj.nm.node('response', i).getAttribute('content');
+            //text = thisObj.nm.node('response', i).getAttribute('content');
             //todo: verify type is 'text'
-            fish  = new Lgz.Fish(thisObj,  text, i);
+            //fish  = new Lgz.Fish(thisObj,  text, i);
+            
+            node = thisObj.nm.node('response', i);
+            fish  = new Lgz.Fish(thisObj,  node, i);
             this.fishArr.push(fish);
 
         }
@@ -165,20 +168,12 @@ Lgz.PlaySet = function (scene) {
         thisObj.spriteSplash.visible = true;
         thisObj.spriteSplash.play('splash', 15);
     };
-    thisObj.onLoadOK = function () {
-        var i;
-        console.debug('PlaySet.onLoadOK: entered');
-        thisObj.question.display.createSprite();
-        thisObj.question.display.sprite.position.setTo(85, 25);
-    };
     thisObj.load = function () {
         var question, answer, i, substext;
-
-        thisObj.game.load.onLoadComplete.addOnce(thisObj.onLoadOK, thisObj);
-
         question  = {};
         question.node = thisObj.nm.getQuestion();
-        question.display = new LgzLib.DisplayNode(thisObj, question.node);
+
+        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 310, 30, 300, 50 );
         
         answer  = {};
         answer.node = thisObj.nm.getResponse();
@@ -187,8 +182,6 @@ Lgz.PlaySet = function (scene) {
         
         thisObj.question = question;
         thisObj.answer = answer;
-
-
 
         thisObj.game.load.start();
         
@@ -225,7 +218,8 @@ Lgz.PlaySet = function (scene) {
         
         
         
-        thisObj.spriteMidPoint = thisObj.game.add.sprite(180, -50, 'dot');
+        //thisObj.spriteMidPoint = thisObj.game.add.sprite(180, -50, 'dot');
+        thisObj.spriteMidPoint = thisObj.game.add.sprite(180, 50, 'dot');
         thisObj.game.physics.enable(thisObj.spriteMidPoint, Phaser.Physics.ARCADE);
         thisObj.spriteMidPoint.body.static = true;
         thisObj.spriteMidPoint.body.immovable = true;
@@ -253,30 +247,14 @@ Lgz.PlaySet = function (scene) {
         window.setTimeout(
             function () {
                 //thisObj.lgzMgr.postScore();
-                thisObj.lgzMgr.hud.winOpen('winWon'); 
+                thisObj.lgzMgr.hud.winOpen('winWon');
+                thisObj.game.paused = false;
             },
             3000
         );         
     };
-    /*
-     * note: obsolete
-     * 
-    thisObj.next = function () {
-        var rtn;
-        console.debug('playSet.next: ');
-        thisObj.question.display.sprite.visible = false;
- 
-        rtn = thisObj.nm.next();
-        if (rtn) {
-            thisObj.load();
-        } else {
-          thisObj.happy();
-        }
-        
-    };
-    */
     thisObj.eventNodeBeforeNext = function () {
-        thisObj.question.display.sprite.visible = false;        
+        thisObj.question.display.visible = false;        
     };
     thisObj.eventNodeAfterNext = function () {
         thisObj.load();

@@ -152,6 +152,7 @@ Lgz.Penguin = function (playSet) {
             eventMiss = true;
             twSet.RodUp.start();
             twSet.LineSwingIn.start();
+            twSet.cry();
             
         };
         twSet._cry = function() {
@@ -176,7 +177,7 @@ Lgz.Penguin = function (playSet) {
 
             window.setTimeout(
                 function () {
-                    twSet.cry();
+                   // twSet.cry();
                 },
                1000
             );              
