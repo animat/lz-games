@@ -318,6 +318,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.score.correct += 1;
         thisObj.score.total += 1;
         thisObj.scoreUpdateDisplay();
+        // TODO: I'd like to try playing a different sound effect here...
         thisObj.lgzMgr.soundPlay('b-hit2', 100, 1000);
         //note: pause before next word
         window.setTimeout(
