@@ -135,7 +135,7 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
             } else {
                 if (thisObj.hit === K.Hit.CORRECT ) {
                     if ( frame === K.Frame.Hole + 2) {
-                        thisObj.frameRate = 10 * K.Frame.Rate;                    
+                        thisObj.frameRate = 50 * K.Frame.Rate;                    
                     } else {
                         thisObj.frameRate = 3 * K.Frame.Rate;
                     }
