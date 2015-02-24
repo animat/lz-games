@@ -20,6 +20,26 @@
       "start": 5,
       "end": 11.478367346938775,
       "loop": false
+    },
+    "glass": {
+      "start": 13,
+      "end": 15.633333333333333,
+      "loop": false
+    },
+    "rubberband": {
+      "start": 17,
+      "end": 17.828140589569163,
+      "loop": false
+    },
+    "slingshot": {
+      "start": 19,
+      "end": 19.46167800453515,
+      "loop": false
+    },
+    "timpany": {
+      "start": 21,
+      "end": 25.73,
+      "loop": false
     }
   }
 }

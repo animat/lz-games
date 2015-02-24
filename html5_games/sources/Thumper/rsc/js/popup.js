@@ -84,6 +84,8 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
     
     spriteMMA.mask = spriteMask;
     
+    this.tryRand();
+    
 };
 LgzLib.inherit(Lgz.Popup, Phaser.Sprite);
 Lgz.Popup.prototype.tryRand = function () {
@@ -120,8 +122,9 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
     if (show) {
 
         if (frame < K.Frame.Max) {
-            window.setTimeout(
+            thisObj.winTO = window.setTimeout(
                 function () {
+                    //window.clearTimeout(thisObj.winTO);
                     thisObj.frameLoop(frame + 1, show);
                 },
                 K.Frame.Rate
@@ -149,15 +152,17 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
                 }                
             }
 
-            window.setTimeout(
+            thisObj.winTO = window.setTimeout(
                 function () {
+                    //window.clearTimeout(thisObj.winTO);
                     thisObj.frameLoop(frame - 1, show);
                 },
                 thisObj.frameRate
             );
         } else {
-            window.setTimeout(
+            thisObj.winTO = window.setTimeout(
                 function () {
+                    //window.clearTimeout(thisObj.winTO);
                     thisObj._hide();
                 },
                 K.Frame.Rate
@@ -184,9 +189,7 @@ Lgz.Popup.prototype.try = function () {
     idx = thisObj.matrix.idx(x,y);
     if (!thisObj.matrix.avl(x,y)) {
         // console.debug("Lgz.Popup.show: collision! " + x + "," + y + "," + idx)     
-        //thisObj.tryagain(timeout);
-        thisObj.tryRand();
-        return;
+        return false;
     }
 
     thisObj.matrix.reserve(x,y, this);
@@ -194,11 +197,10 @@ Lgz.Popup.prototype.try = function () {
     thisObj.y = y;
     thisObj.matrix.zsort(idx);
     thisObj._show();
+    return true;
 };
 Lgz.Popup.prototype._show = function () {
     var thisObj, distance, content;
- 
-    window.clearTimeout(this.winTO);
 
     thisObj = this;
     thisObj.visible = true;
@@ -218,7 +220,7 @@ Lgz.Popup.prototype._show = function () {
 
 Lgz.Popup.prototype._hide = function () {
     'use strict';
-    this.tryRand();     
+      
     this.spriteMMA.y = 0;
     this.visible = false;
     this.hit = K.Hit.NONE; 
@@ -258,6 +260,5 @@ Lgz.Popup.prototype.onHit = function () {
 };
 Lgz.Popup.prototype.update = function () {
     'use strict';
-    //note: this function set based on action phase
 
 };

@@ -96,11 +96,11 @@ LgzLib.Scenes.End.prototype.create = function () {
     sprite = this.game.add.text(150, 182, ps.score.total, K.signTextStyle);
     spriteSign.addChild(sprite);
 
-    this.lgzMgr.soundPlay('c-end');
+    this.lgzMgr.soundPlay('c-end', 100, 5000);
     
     window.setTimeout(
         function () {
-            thisObj.lgzHud.winOpen('winWon');
+            thisObj.lgzHud.winOpen('winWon', true);
         },
         500
     );
