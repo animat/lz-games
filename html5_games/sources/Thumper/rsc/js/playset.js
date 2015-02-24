@@ -93,7 +93,6 @@ Lgz.PlaySet = function (scene) {
             this.popupArr.push(popup);
 
         }
-        g.ps = this;
     };    
     thisObj.create = function () {
        var sprite;
@@ -158,9 +157,7 @@ Lgz.PlaySet = function (scene) {
        thisObj.load();
     };
     thisObj.update = function () {
-        if(thisObj.cont) {
-            thisObj._playLoop();
-        }
+        thisObj._playLoop();
     };
     thisObj.pause = function () {
         
@@ -173,30 +170,6 @@ Lgz.PlaySet = function (scene) {
         thisObj.nm.reset();
         return;
     };    
-
-    thisObj._playLoop0 = function () {
-        var idx, len, vcount, wordArr, ts, tryshow;
-        vcount = 0;
-        wordArr = thisObj.popupArr;
-        ts = Date.now();
-        len = wordArr.length;
-        for (idx = 0; idx < len; idx += 1) {
-            if (wordArr[idx].visible) {
-                vcount += 1;
-                if (wordArr[idx].hideTS && wordArr[idx].hideTS < ts ) {
-                    wordArr[idx].hide();
-                }
-
-            } else {
-                //console.debug('_playLoop: checking tryTS for idx: ' + idx + ' tryTS: ' + wordArr[idx].tryTS);
-                if (vcount < K.showMax && wordArr[idx].tryTS  && wordArr[idx].tryTS < ts) {
-                     console.debug('_playLoop: trying idx: ' + idx);
-                    wordArr[idx].try();
-               }               
-            }
-
-        }  
-    };
     thisObj.tryRand = function () {
         this.tryTS = Date.now() + this.game.rnd.integerInRange(K.tryRand.Min, K.tryRand.Max);
         console.debug('tryRand: ' + this.tryTS);
@@ -211,14 +184,14 @@ Lgz.PlaySet = function (scene) {
             if (wordArr[idx].visible) {
 
                 if (wordArr[idx].hideTS && wordArr[idx].hideTS < ts ) {
-                    wordArr[idx].hide();
+                  wordArr[idx].hide();
                 } else {
                     vcount += 1;
                 }
 
             } else {
-                //console.debug('_playLoop: checking tryTS for idx: ' + idx + ' tryTS: ' + wordArr[idx].tryTS);
-                if (vcount < K.showMax &&  thisObj.tryTS < ts) {
+ 
+                if (thisObj.cont && vcount < K.showMax &&  thisObj.tryTS < ts && wordArr[idx].tryTS < ts) {
                      console.debug('_playLoop: trying idx: ' + idx);
                     if (wordArr[idx].try()) {
                         thisObj.tryRand();
@@ -229,21 +202,6 @@ Lgz.PlaySet = function (scene) {
 
         }  
     };    
-    thisObj.playLoop = function () {
-        
-        if (!thisObj.game.paused && thisObj.cont) {
-            thisObj._playLoop();
-        }
-        if (thisObj.cont) {
-            window.setTimeout(
-                function () {
-                    thisObj.playLoop();
-                },
-                200
-            );
-        }
-    };
-
     thisObj.load = function () {
         var question, answer, i, substext;
         console.debug('Lgz.PlaySet.load:');
@@ -303,10 +261,7 @@ Lgz.PlaySet = function (scene) {
     thisObj.malletFollowPtr = function () {
         thisObj.lgzMallet.x = thisObj.lgzPtr.x;
         this.lgzMallet.y = thisObj.lgzPtr.y - 10;
-
-        if(thisObj.cont) {
-            thisObj._playLoop();
-        }       
+        thisObj._playLoop(); 
     };
     thisObj.malletHome = function () {
         window.setTimeout(

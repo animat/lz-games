@@ -39,7 +39,7 @@ K.Hit = { 'NONE': 0, 'CORRECT': 1, 'WRONG': -1 };
 //K.Frame = { Rate: 50, Hole: 5, Lift: 9, Jump: 13, Max: 16};
 K.Frame = { Rate: 50, Hole: 5, Lift: 9, Jump: 16, Max: 22};
 
-K.tryRand = { Min: 500, Max: 1000};
+K.tryRand = { Min: 300, Max: 900};
 K.showMax = 7;
 
 //K.showTO = 5000;

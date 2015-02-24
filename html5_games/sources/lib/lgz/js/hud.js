@@ -286,11 +286,12 @@ LgzLib.Hud = function (mgr) {
 		game.scale.enterIncorrectOrientation.add(thisObj.leftPortrait, this);
 		game.scale.leaveIncorrectOrientation.add(thisObj.enteredPortrait, this);
 	};
-    thisObj.winOpen = function (winid) {
+    thisObj.winOpen = function (winid, nopause) {
         var win, onClose;
         
-        mgr.pause();
- 
+        if(!nopause) {
+            mgr.pause();            
+        }
         $('#' + winid).css('display', 'block');
 
     };

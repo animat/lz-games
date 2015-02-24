@@ -84,9 +84,14 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
     
     spriteMMA.mask = spriteMask;
     
+    this.tryRand();
+    
 };
 LgzLib.inherit(Lgz.Popup, Phaser.Sprite);
- 
+Lgz.Popup.prototype.tryRand = function () {
+    this.tryTS = Date.now() + this.game.rnd.integerInRange(K.tryRand.Min, K.tryRand.Max);
+    console.debug('tryRand: ' + this.tryTS);
+};
 Lgz.Popup.prototype.frameLoop = function (frame, show) {
     var thisObj, textanchor, holeScaleX, holeScaleY, jumpFrame, frameDir;
     thisObj = this;
