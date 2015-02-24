@@ -1,1 +1,0 @@
-﻿interface gametypes.RecognitionGame {	public function attemptAnswer(attempt:Object):Void;	public function continuePlaying():Void;	public function evaluate():Void;	public function correctAnswer():Void;	public function incorrectAnswer():Void;	public function winGame():Void;	public function getScore():String;}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="9" height="17" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+enhanceContext(ctx);
+var ctrans = new cxform(0,0,0,0,255,255,255,255);
+function shape111(ctx,ctrans,frame,ratio,time){
+	ctx.fillStyle=tocolor(ctrans.apply([255,255,255,1]));
+	drawPath(ctx,"M 946 -82 L 914 -64 875 -70 Q 859 -70 856 -44 L 856 0 Q 856 21 876 91 L 895 170 893 188 891 191 885 200 Q 833 119 825 89 821 74 821 1 821 -59 829 -76 851 -128 936 -105 936 -98 946 -82 ");
+	ctx.fill("evenodd");
+}
+
+var originalWidth=9;
+var originalHeight=17;
+ function drawFrame(){
+	ctx.save();
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.fillStyle=tocolor(ctrans.apply([255,255,255,1]));
+	drawPath(ctx,"M 8.65 3.75 L 7.05 4.65 5.1 4.35 Q 4.3 4.35 4.15 5.65 L 4.15 7.85 Q 4.15 8.9 5.15 12.4 L 6.1 16.35 6 17.25 5.9 17.4 5.6 17.85 Q 3 13.8 2.6 12.3 2.4 11.55 2.4 7.9 2.4 4.9 2.8 4.05 3.9 1.45 8.15 2.6 8.15 2.95 8.65 3.75 ");
+	ctx.fill("evenodd");
+	ctx.restore();
+}
+	drawFrame();
+</script>
+</body>
+</html>

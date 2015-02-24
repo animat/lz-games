@@ -1,0 +1,342 @@
+/*
+ * css for external html 
+ */
+.lgzMin {
+	width: 100% !important;
+	min-width: 100% !important;
+	padding: 0 !important;
+}
+.lgzHide {
+    display: none !important;
+}
+/*
+ * css for embedded lgz game
+ */
+#lgzContainer {
+    width: 600px;
+    height: 425px;
+    margin: 0 auto;
+    position: relative;
+}
+#lgzContainer  {
+    color: #ffffff;
+}
+#lgzContainer p {
+    font-weight: bold;
+    font-size: larger;
+    color: #ffffff;
+    text-align: center;
+}
+#lgzContainer button {
+    color: #ffffff;
+}
+#lgzOrientWrap {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    background: #00aa00;
+    color: #ffffff;
+    display: none;
+}
+#lgzOrient {
+    text-align: center;
+}      
+#lgzContainer canvas {
+    text-rendering: optimizeLegibility;
+    margin: 0 auto !important;
+        
+}
+#lgzContainer canvas[style]  {
+    margin: 0 auto !important;
+}
+
+#lgzGameCanvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    /*
+     *cursor: none;
+    */
+}
+#lgzContainer *:focus {
+    outline: none;      
+}
+#lgzHud  {
+    text-align: center;  
+}
+#lgzHud .posTop {
+    position: absolute;
+    top: 0px;  
+}
+#lgzHud .posBottom {
+    position: absolute;
+    bottom: 0px;  
+}
+#lgzHud .posLeft {
+    position: absolute;
+    left: 0px;  
+}
+#lgzHud .posRight {
+    position: absolute;
+    right: 0px;  
+}
+#lgzHud .posCtr {
+    position: absolute;
+    width: 100%;
+    bottom: 30%;
+}
+#lgzHud .posBtmCtr {
+    position: absolute;
+    width: 100%;
+    bottom: 75px;
+}
+#lgzHud .posBtmLeft {
+    position: absolute;
+    bottom: 0;
+    left: 0px;
+}
+#lgzHud .posBtmRight {
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+}
+#lgzHud .spacer {
+    width: 100%;
+}
+
+
+//todo: define col style
+#lgzHud .col {
+
+    
+}
+#lgzHud .border {
+    border: 1px dashed blue;
+}
+#lgzHud .win {
+    display: none;
+}
+#lgzHud .modal {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto;
+    background: rgba(52, 63, 80, 0.8);
+}
+#lgzHud .winshape {
+    position: relative;
+    bottom: 0px;
+    width: 80%;
+    //height:85%;
+    margin: 0 auto;
+    padding: 10px;
+    
+    border-top: 1px solid;
+    border-left: 1px solid; 
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+   
+
+    border-radius: 0.5em;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+#lgzHud button {
+
+    font-weight: bold;
+    font-size: medium;
+    
+    min-width: 5em;
+    
+    background: 0;
+
+    padding-left: 15px;
+    padding-right:  15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    // display: inline-block;
+    border-radius: 2em;
+    
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+
+    margin: 0;
+    
+    border-top: 1px solid #dddddd !important;
+    border-left: 1px solid #dddddd !important;
+    border-bottom: 2px solid #555555 !important;
+    border-right: 2px solid #555555 !important;   
+    
+           
+}
+.fs#lgzHud button {
+    font-size: 3vh;
+    padding-left: 2vh;
+    padding-right: 2vh;    
+}
+#lgzHud button:active {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    //margin-left: 20px !important;
+    //margin-right: 20px !important;
+    
+    border-top: 2px solid #333333 !important;
+    border-left: 2px solid #333333 !important;
+    border-bottom: 1px solid #888888 !important;
+    border-right: 1px solid #888888 !important;
+
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#lgzHud .btngroup {
+    margin: 0 auto;
+    display: table;
+}
+#lgzHud .btngroup button {
+ 
+	margin-left: 15px;
+	margin-right: 15px;
+}
+#lgzHud textarea {
+    height: 10em;
+    width: 90%;
+}
+
+#lgzHud .bgclear {
+    background: none;
+}
+#lgzHud .bgsolid {
+    background: rgba(148, 195, 148, 0.9);
+}
+#lgzHud .round {
+    border-radius: 2em !important;
+}
+#lgzHud .square {
+    border-radius: 0em !important;
+}
+#lgzHud .msgbox {
+ 
+    text-align: center;
+    /* width: 100%; */
+    margin-top: 10%;
+    margin-bottom: 10%;
+    border: 1px solid #ffffff;
+    /* width: auto; */
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: rgba(39, 82, 173, 0.9);
+}
+.fs#lgzHud .msgbox {
+    font-size: 3vh;
+}
+#lgzHud .msgballoon {
+ 
+    text-align: center;
+ 
+    margin-top: 10%;
+    margin-bottom: 10%;
+ 
+ 
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+ 
+    border-radius: 30px;
+    background: rgba(39, 82, 173, 0.5);
+}
+.fs#lgzHud .msgballoon {
+    font-size: 3vh;
+}
+
+
+
+#lgzHudMenuBar {
+    display: flex;
+    display: -webkit-flex;
+    border: 0;
+    background: #aaaaaa;
+ 
+    width: 100%;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    height: 25px;
+    overflow: hidden;
+    margin: 0px;
+}
+.fsbar#lgzHudMenuBar {
+ 
+    height: 5.8vh;
+}
+#lgzHudMenuBar button {
+    width: 25%;
+    /*todo: deprecate
+    height: 22px;
+    */
+    font-size: 15px;
+    padding: 0;
+}
+/*
+.fsbar#lgzHudMenuBar button {
+    height: 5.3vh;
+    font-size: 3vh;
+}
+*/
+/*
+ * todo: add fs styles for moz, ie, test iOS
+ */
+
+#lgzHudFullScreen {
+    background: #aaaaff !important;
+   
+}
+#lgzHudExit {
+    background: #aaaaff !important;
+    display: none;
+}
+/*
+ *todo: bug:  font-size in rule (#lgzContainer p) overrides below,
+ * should be better way
+  
+#lgzHudLogo {
+   width: 80%;
+   font-size: 15px;
+}
+*/
+#lgzHudMenuBar p {
+    height: 5.3vh;
+    width: 80%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.fsbar#lgzHudMenuBar p {
+    height: 5.3vh;
+    font-size: 3vh;
+    padding-top: 1vh;
+}
+#lgzHudHelp {
+    background: #ff0000 !important;
+    
+}

@@ -1,1 +1,0 @@
-﻿interface gametypes.GroupingGame {	public function evaluate(attempt:Object):Void;	public function correctAnswer():Void;	public function incorrectAnswer():Void;	public function winGame():Void;	public function getScore():String;}

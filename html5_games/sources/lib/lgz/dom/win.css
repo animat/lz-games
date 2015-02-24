@@ -1,0 +1,41 @@
+/*
+ * This settings can be changed per game under rsc/dom/win.css
+*/
+
+
+
+#winPlay  {
+	position: absolute;
+	top: 0;
+	width: 100%;
+        
+}
+#winPlay button {
+    background: rgba(0,255,0,0.5);
+}
+
+ 
+#winMain button {
+	position: absolute;
+	bottom: 20%;
+	right: 10%;
+}
+#winExitConfirm {
+    position: absolute;
+}
+#winHint [subref] {
+    display: none;
+}
+#winHint button {
+    width: 120px;
+    font-size: 10px;        
+}
+#winWon  {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+#winWon button {
+    background: rgba(0,255,0,0.5);
+
+}
