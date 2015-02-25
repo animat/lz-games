@@ -170,22 +170,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.nm.reset();
         return;
     };    
-    // -----------
-    //
-    //
-    
 
-    thisObj.playSound = function (key, delayTO) {
-        if (!delayTO) {
-            delayTO = 0;
-        }
-        window.setTimeout(
-            function () {
-                thisObj.sfx.play(key);
-            },
-            delayTO
-        ); 
-    };
     thisObj._playLoop = function () {
         var idx, len, vcount, wordArr, ts, tryshow;
         vcount = 0;
@@ -318,8 +303,15 @@ Lgz.PlaySet = function (scene) {
         thisObj.score.correct += 1;
         thisObj.score.total += 1;
         thisObj.scoreUpdateDisplay();
-        // TODO: I'd like to try playing a different sound effect here...
-        thisObj.lgzMgr.soundPlay('b-hit2', 100, 1000);
+        /*
+         *     "b-hit2" (original)
+         *     "glass"
+         *     "rubberband"
+         *     "slingshot"
+         *     "timpany"
+         * 
+         */
+        thisObj.lgzMgr.soundPlay('glass', 100, 1000);
         //note: pause before next word
         window.setTimeout(
             function () {
