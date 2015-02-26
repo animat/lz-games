@@ -301,8 +301,7 @@ Lgz.PlaySet = function (scene) {
          *     "timpany"
          * 
          */
-        thisObj.lgzMgr.soundPlay('glass', 100, 1000);
-
+        thisObj.lgzMgr.soundPlay('rubberband', 100, 1000);
         //note: pause before next word
         window.setTimeout(
             function () {
