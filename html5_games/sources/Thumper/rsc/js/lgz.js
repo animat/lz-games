@@ -26,5 +26,8 @@ Lgz.init = function () {
     mgr.sceneInit();
  
     mgr.scenes.splash.start();
+    Lgz.hud.print('wih: ' + window.innerHeight 
+            + ' bh: ' + $('body').height()
+            + ' ch: ' + $('canvas').height());
 };
  

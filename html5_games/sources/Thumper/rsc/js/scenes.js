@@ -39,7 +39,11 @@ LgzLib.Scenes.Main.prototype.create = function () {
 
 };
 LgzLib.Scenes.Main.prototype.update = function () {
+    Lgz.hud.print('wih: ' + window.innerHeight 
+            + ' bh: ' + $('body').height()
+            + ' ch: ' + $('canvas').height());
     this.playSet.update();
+
 };
 
 LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {

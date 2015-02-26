@@ -30,7 +30,9 @@
 }
 .fs#lgzHud #winWon .msgballoon {
     width: 50vh;
+
     top: 30vh;
+
     right: 10vh;
 }
 #winWon #lgzBtnPlayAgain {

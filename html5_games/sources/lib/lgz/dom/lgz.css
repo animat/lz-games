@@ -289,6 +289,13 @@
 .fsbar#lgzHudMenuBar {
  
     height: 5.8vh;
+    
+   /*
+    * iOS ver < 8 do not handle veiwport units well
+    *
+    * 
+    height: 3.75vh;
+    */
 }
 #lgzHudMenuBar button {
     width: 25%;
