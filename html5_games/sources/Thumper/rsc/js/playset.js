@@ -267,7 +267,7 @@ Lgz.PlaySet = function (scene) {
         window.setTimeout(
             function () {
                 thisObj.lgzMallet.x = 320;
-                thisObj.lgzMallet.y = 430;
+                thisObj.lgzMallet.y = 350;
             },
             500
         );
@@ -279,6 +279,11 @@ Lgz.PlaySet = function (scene) {
             thisObj.lgzMgr.soundPlay('a-hit1', 100);
         }
 
+    };
+    thisObj.hitWrong = function () {
+        console.debug('Lgz.PlaySet._hitWrong: ');
+        thisObj.score.total += 1;
+        thisObj.scoreUpdateDisplay();
     };
     thisObj._hitCorrect = function () {
         console.debug('Lgz.PlaySet.hitCorrect: ');        
@@ -322,7 +327,7 @@ Lgz.PlaySet = function (scene) {
         );        
     }; 
     thisObj.scoreCreate = function() {
-        thisObj.spriteScore = this.game.add.text(540, 40, "0 / 0", K.scoreTextStyle);
+        thisObj.spriteScore = this.game.add.text(510, 45, " 0 / 0", K.scoreTextStyle);
     
     };
     thisObj.scoreUpdateDisplay = function () {
