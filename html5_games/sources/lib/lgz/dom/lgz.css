@@ -286,16 +286,23 @@
     overflow: hidden;
     margin: 0px;
 }
+body {
+    max-height: 100vh;
+}
+window {
+    max-height: 100vh;
+}
 .fsbar#lgzHudMenuBar {
- 
+ /*
     height: 5.8vh;
-    
+ */
    /*
     * iOS ver < 8 do not handle veiwport units well
     *
     * 
     height: 3.75vh;
     */
+ 
 }
 #lgzHudMenuBar button {
     width: 25%;
@@ -310,7 +317,12 @@
     height: 5.3vh;
     font-size: 3vh;
 }
+
 */
+.fsbar#lgzHudMenuBar button {
+    height: 4vh;
+    font-size: 2.3vh;
+}
 /*
  * todo: add fs styles for moz, ie, test iOS
  */
@@ -339,9 +351,14 @@
     padding-top: 3px;
 }
 .fsbar#lgzHudMenuBar p {
+    /*
     height: 5.3vh;
     font-size: 3vh;
-    padding-top: 1vh;
+    padding-top: 1vh;    
+    */
+    height: 3vh;
+    font-size: 1.3vh;
+ 
 }
 #lgzHudHelp {
     background: #ff0000 !important;

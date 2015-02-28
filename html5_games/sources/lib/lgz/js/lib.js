@@ -12,7 +12,7 @@
  * Generic library functions, not specific to any class or constructor
  */
 window.console = window.console || {};
-window.console.debug = window.console.debug || function () { "use strict"; };
+window.console.debug = window.console.debug || window.console.log || function () { "use strict"; };
 var LgzLib = LgzLib || {};
 Function.prototype.lgzExtends = function(parent) {
   var child;
@@ -71,4 +71,3 @@ LgzLib.splitUrl = function (url) {
 	return obj;	
 
 };
-
