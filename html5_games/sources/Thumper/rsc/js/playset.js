@@ -267,7 +267,7 @@ Lgz.PlaySet = function (scene) {
         window.setTimeout(
             function () {
                 thisObj.lgzMallet.x = 320;
-                thisObj.lgzMallet.y = 430;
+                thisObj.lgzMallet.y = 350;
             },
             500
         );
@@ -280,6 +280,11 @@ Lgz.PlaySet = function (scene) {
         }
 
     };
+    thisObj.hitWrong = function () {
+        console.debug('Lgz.PlaySet._hitWrong: ');
+        thisObj.score.total += 1;
+        thisObj.scoreUpdateDisplay();
+    };
     thisObj._hitCorrect = function () {
         console.debug('Lgz.PlaySet.hitCorrect: ');        
         if (!thisObj.cont) {
@@ -289,6 +294,10 @@ Lgz.PlaySet = function (scene) {
         thisObj.score.correct += 1;
         thisObj.score.total += 1;
         thisObj.scoreUpdateDisplay();
+        // TODO: I'd like to try playing a different sound effect here...
+        // thisObj.lgzMgr.soundPlay('b-hit2', 100, 1000);
+        
+ 
         /*
          *     "b-hit2" (original)
          *     "glass"
@@ -318,7 +327,7 @@ Lgz.PlaySet = function (scene) {
         );        
     }; 
     thisObj.scoreCreate = function() {
-        thisObj.spriteScore = this.game.add.text(540, 40, "0 / 0", K.scoreTextStyle);
+        thisObj.spriteScore = this.game.add.text(510, 45, " 0 / 0", K.scoreTextStyle);
     
     };
     thisObj.scoreUpdateDisplay = function () {

@@ -202,9 +202,9 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         g.json = loader.json;
         loader.audio = thisObj.game.load.audio(
             name,
-            K.urlRscMedia + name + '.ogg',
+            [K.urlRscMedia + name + '.ogg',
             K.urlRscMedia + name + '.mp3',
-            K.urlRscMedia + name + '.m4a'
+            K.urlRscMedia + name + '.m4a']
         );
         return loader;
     };
@@ -225,7 +225,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         return sfx;
     };
     thisObj._soundPlay = function (key, cutoff) {
-        thisObj.sfx.play(key);
+        thisObj.sfx.play(key, 0, K.volumeLevel);
         if (cutoff) {
             window.setTimeout(
                 function () {
