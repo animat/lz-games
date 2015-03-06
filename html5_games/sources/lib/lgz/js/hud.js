@@ -17,7 +17,7 @@ LgzLib.Hud = function (mgr) {
 	'use strict';
 	var thisObj, btnList, game, lang, eBody,
 		resizeDirty,
-		$lgzVP, $lgzHide, eWin, $lgzMin, $lgzHud,
+		$lgzVP, $lgzHide, lgzContainer, $lgzMin, $lgzHud,
 		$lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 	
 	thisObj = this;
@@ -37,7 +37,7 @@ LgzLib.Hud = function (mgr) {
 	$lgzBtnExit = $('#lgzHudExit');
 	$winPlay = $('#winPlay');
 
-	eWin =  document.getElementById('lgzContainer');
+	lgzContainer =  document.getElementById('lgzContainer');
 	$(window).resize(function () {
 		thisObj.onResize();
 	});
@@ -48,8 +48,8 @@ LgzLib.Hud = function (mgr) {
           $lgzHudLogo.text(str);  
         };
 	thisObj.onResizePost2 = function () {
-		eWin.style.width = game.canvas.style.width;
-		eWin.style.height = game.canvas.style.height;
+		lgzContainer.style.width = game.canvas.style.width;
+		lgzContainer.style.height = game.canvas.style.height;
 
 		//for ipad
 		if (!game.device.desktop &&  thisObj.isFullScreen()) {
@@ -106,6 +106,8 @@ LgzLib.Hud = function (mgr) {
 		
 	};
 	thisObj.fullScreenStart = function () {
+                //thisObj.bigScreenStart();
+		//return;
 		thisObj.requestedFS = true;
 
 		$lgzHide.css('display', 'none');
@@ -115,6 +117,7 @@ LgzLib.Hud = function (mgr) {
                 $lgzHudMenuBar.addClass('fsbar');
 		thisObj.viewPortFsDefault();
 		
+                
 		
 /*
  *      note: per device viewport setting for future use
@@ -137,7 +140,8 @@ LgzLib.Hud = function (mgr) {
 		game.scale.setShowAll();
                 
 		game.scale.startFullScreen(true);
-		
+                
+return;
 		thisObj.scaleRefreshTO();
 		if (!game.device.desktop) {
 			window.setTimeout(
@@ -396,5 +400,26 @@ LgzLib.Hud = function (mgr) {
             thisObj.hintAdd($winHintAvl, hlist[i]);
         }
             
+    };
+    thisObj.bigScreenEnterCb  = function () {
+        
+    };
+    thisObj.bigScreenExitCb = function () {
+        
+    };
+    thisObj.bigScreenErrorCb = function () {
+        
+    };
+    thisObj.bigScreenStart = function () {
+        console.log('LgzLib.Hud.bigScreenStart: request');
+        BigScreen.request(
+            lgzContainer,
+            thisObj.bigScreenEnterCb,
+            thisObj.bigScreenExitCb,
+            thisObj.bigScreenErrorCb
+        );
+    };
+    thisObj.bigScreenStop = function () {
+        BigScreen.exit();        
     };    
 };
