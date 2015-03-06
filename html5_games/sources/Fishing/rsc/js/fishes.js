@@ -221,57 +221,18 @@ Lgz.Fish.prototype.onFishInBasket = function () {
     this.playSet.found();
     this.playSet.fishBasketArr.push(this);
 };
-Lgz.Fish.prototype.actionFlipToBasket = function () {
-    var thisObj, flag, rc;
-    thisObj = this;
-
-    flag = this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteInBasket, function() {thisObj.onFishInBasket();});
-    if (!flag) {
-        rc=this.game.physics.arcade.moveToObject(this, this.playSet.spriteInBasket, 800);
-        //console.debug('actionFlipToBasket: rc: ' + rc);
-        if ( Math.abs(rc) < 1) {
-            console.debug('actionFlipToBasket: rc <0. bounce: ' + this.body.bounce.x  + ' , ' + this.body.bounce.y);
-            thisObj.onFishInBasket();
-        }
-    }
-};
-Lgz.Fish.prototype.onMidPoint = function () {
-    var target, thisObj;
-    
-    thisObj = this;
-    target = this.playSet.spriteInBasket;
-    
-    this.bringToTop();
-    this.playSet.spriteBasketFg.bringToTop();
-    if (target.x > 80) {
-        target.x = 5;
-        target.y += 5;
-    } else {
-        target.x += 10;        
-    }
-    console.debug('target.x: '  + target.x);    
-    //this.body.angularVelocity = 0;
-    //this.rotation = Math.PI * 1.5;
-    // heads or tails
-    if (this.nodeIdx % 2) {
-        this.spriteBody.scale.x *= -1;
-    }
-    this.body.bounce.set(0);
-    
-    //this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteInBasket, function() {thisObj.onFishInBasket();}); 
-    //this.game.physics.arcade.moveToObject(this, this.playSet.spriteInBasket, 800);
-    this.update = this.actionFlipToBasket;    
-};
-Lgz.Fish.prototype.actionFlipToMidPoint = function () {
-    var thisObj, rc;
-    thisObj = this;
-    rc = this.game.physics.arcade.moveToObject(this, this.playSet.spriteMidPoint, 700);
-    //this.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteMidPoint, function() {thisObj.onMidPoint();});    
-    if ( Math.abs(rc) < 1 ) {
-        thisObj.onMidPoint();        
-    }
-
-};
+Lgz.Fish.prototype.flipToBucket = function() {
+  var newX = this.game.math.bezierInterpolation(this.points.x, this.flipPosition);
+  var newY = this.game.math.bezierInterpolation(this.points.y, this.flipPosition);
+  console.log(newX+", "+newY+" ("+this.flipPosition+")");
+  console.log(this);
+  this.x = newX;
+  this.y = newY;
+  this.flipPosition += .01;
+  if (this.flipPosition >= 1) {
+    this.onFishInBasket();
+  }
+}
 Lgz.Fish.prototype.caught = function() {     
     var frame;
     //todo: animate fish caught and in basket
@@ -282,7 +243,7 @@ Lgz.Fish.prototype.caught = function() {
     this.spriteMMA.visible = false;
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
-    this.body.angularVelocity = -700;
+    this.body.angularVelocity = -1000;
     this.body.collideWorldBounds = false;
 
     //this.playSet.caught();
@@ -291,7 +252,12 @@ Lgz.Fish.prototype.caught = function() {
     this.spriteBody.loadTexture("fish", frame, false);
 
     //send fish to basket, free willy style 
-    this.update = this.actionFlipToMidPoint;
+    //this.update = this.actionFlipToMidPoint;
+    this.flipPosition = 0;
+    this.points = {"x": [ this.x, 200, 30 + Math.random() * 40 ], "y": [ this.y, -440, 300 ]};
+    this.bringToTop();
+    this.playSet.spriteBasketFg.bringToTop();
+    this.update = this.flipToBucket;
 
 };
 
