@@ -86,7 +86,6 @@ Lgz.Penguin = function (playSet) {
         twSet.parent = thisObj;
         
         twSet._loop = function () {
-            console.debug('twSet._loop: fishing');
             if (eventCatch | eventMiss| eventLuring) {
                 twSet.startLoop();
                 return;
@@ -99,7 +98,6 @@ Lgz.Penguin = function (playSet) {
         };
         twSet.startLoop = function() { 
             var randDelay = thisObj.game.rnd.integerInRange(3000, 7000);
-            console.debug('twSet.startLoop: rd: ' + randDelay);
             window.setTimeout(
                 function () {
                     twSet._loop();

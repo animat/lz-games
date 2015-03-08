@@ -59,6 +59,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     thisObj.anim.swim = spriteBody.animations.add('swim', frameArr, frameRate, true, false);   
     thisObj.anim.turn = spriteBody.animations.add('turn', [f0, f4], frameRate, false, false);
     
+    // TODO: How can I slow this animation down?
     thisObj.anim.hesitate = spriteBody.animations.add('hesitate', [f0, f4, f3, f4, f0, f4, f3, f4], frameRate, false, false);
     thisObj.anim.hesitate.onComplete.add(thisObj.release, thisObj);
     
@@ -69,7 +70,6 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     
     spriteBody.events.onInputDown.add(
         function () {
-            console.debug('spriteBody: touched();');
             thisObj.touched(); 
         },
         thisObj
@@ -133,9 +133,6 @@ Lgz.Fish.prototype.initVelocity = function () {
     vel = thisObj.game.rnd.integerInRange( -10, 10);
     thisObj.body.velocity.y=  vel;  
     thisObj.body.bounce.set(1);
-    console.log ('fish: dir: ' + dir + ' vel: ' + vel);
-    
-
 };
     
 
@@ -181,26 +178,38 @@ Lgz.Fish.prototype.shuffle = function (array) {
 };
 Lgz.Fish.prototype.release = function () {
     var thisObj, frame;
-    console.debug('wrong fish! idx: ' + this.nodeIdx);
     thisObj = this;
-    //thisObj.initVelocity();
+
     thisObj.spriteBody.animations.play('swim', thisObj.frameRate, true);    
     frame = thisObj.spriteBody.frame;
-    thisObj.body.velocity.x = 500 * -thisObj.lure.dir;
-    console.debug('release vel: ' + thisObj.body.velocity.x);
-    thisObj.lure.dir = 0;
     
+    // Shrink back, preparing to sprint...
+    thisObj.body.velocity.x = 50 * thisObj.lure.dir;
+    thisObj.spriteBody.scale.x = .6;
     
-    //thisObj.spriteBody.loadTexture("fish", frame, false);
-
-    thisObj.update = thisObj.actionFaceForward;
     thisObj.playSet.missed();
+    
+    // Sprint!
+    window.setTimeout(
+      function() {
+        thisObj.spriteBody.scale.x = 1.2;
+        thisObj.spriteBody.scale.y = .8;
+        thisObj.body.velocity.x = 500 * -thisObj.lure.dir;
+        thisObj.lure.dir = 0;
+      },
+      200
+    );
+    
+    // Resume normal swimming
     window.setTimeout(
         function () {
+                thisObj.spriteBody.scale.x = 1;
+                thisObj.spriteBody.scale.y = 1;
                 thisObj.spriteBody.loadTexture("fish", frame, false);
                 thisObj.initVelocity();
+                thisObj.update = thisObj.actionFaceForward;
         },
-        1500
+        3000
     );       
 };
 Lgz.Fish.prototype.hesitate = function () {
@@ -210,9 +219,6 @@ Lgz.Fish.prototype.hesitate = function () {
    thisObj.spriteBody.animations.play('hesitate', 15, false);
 };
 Lgz.Fish.prototype.onFishInBasket = function () {
-    console.debug('Fish.onFishInBasket: entered');
-    //todo: get next word, resume play, allow new fish to be selected;
-    
     this.body.angularVelocity = 0;
     this.rotation = Math.PI * 1.5;    
     this.update = function() {};
@@ -224,8 +230,6 @@ Lgz.Fish.prototype.onFishInBasket = function () {
 Lgz.Fish.prototype.flipToBucket = function() {
   var newX = this.game.math.bezierInterpolation(this.points.x, this.flipPosition);
   var newY = this.game.math.bezierInterpolation(this.points.y, this.flipPosition);
-  console.log(newX+", "+newY+" ("+this.flipPosition+")");
-  console.log(this);
   this.x = newX;
   this.y = newY;
   this.flipPosition += .01;
@@ -235,8 +239,6 @@ Lgz.Fish.prototype.flipToBucket = function() {
 }
 Lgz.Fish.prototype.caught = function() {     
     var frame;
-    //todo: animate fish caught and in basket
-    console.debug('fish caught!');  
     this.testflip = false;
     this.spriteBody.anchor.setTo(0.5, 0.5);
     
@@ -246,13 +248,11 @@ Lgz.Fish.prototype.caught = function() {
     this.body.angularVelocity = -1000;
     this.body.collideWorldBounds = false;
 
-    //this.playSet.caught();
 
     frame = this.spriteBody.frame;
     this.spriteBody.loadTexture("fish", frame, false);
 
     //send fish to basket, free willy style 
-    //this.update = this.actionFlipToMidPoint;
     this.flipPosition = 0;
     this.points = {"x": [ this.x, 200, 30 + Math.random() * 40 ], "y": [ this.y, -440, 300 ]};
     this.bringToTop();
@@ -275,50 +275,23 @@ Lgz.Fish.prototype.onLure = function () {
     thisObj.playSet.spritePenguin.luring(false);
 
 };
-Lgz.Fish.prototype.actionLure = function ()  {
-    var thisObj, rc, diff;
-    thisObj = this;
-    
-    thisObj.playSet.spritePenguin.luring(true);
-    //todo: testflip ugly hack. should be a better way.
-    if (!thisObj.testflip) {
-        thisObj.testflip = true;
-        if(thisObj.x < 240 && thisObj.body.velocity.x < 0 || thisObj.x > 240 && thisObj.body.velocity.x > 0) {
-            thisObj.spriteBody.scale.x *= -1;
-        }
-    }
 
-    //thisObj.game.physics.arcade.collide(thisObj, thisObj.playSet.spriteHook, function() {thisObj.onLure();});
-    if (!thisObj.lure.dir) {
-        diff = this.playSet.spriteHook.x  - thisObj.x;
-        thisObj.lure.dir = Math.abs(diff)/diff;
-        console.log('lure.dir: ' + thisObj.lure.dir);
-        thisObj.lure.x = thisObj.playSet.spriteHook.x +  (-thisObj.lure.dir * 70);
-        thisObj.lure.y = thisObj.playSet.spriteHook.y - 20;
-        thisObj.lure.count = 0;
-        
-    }
-    //rc = thisObj.game.physics.arcade.moveToObject(this, thisObj.playSet.spriteHook, 150);
-    rc = thisObj.game.physics.arcade.moveToXY(this, thisObj.lure.x, thisObj.lure.y, 150);
-    console.debug('actionLure: rc: ' + rc);
-    if ( Math.abs(rc) < 1 ) {
-        console.debug('actionLure: rc < 0 : ' 
-                    + rc + ' fish.x: ' 
-                    + thisObj.x 
-                    + ' lure.x: '
-                    + thisObj.lure.x 
-                    + ' hook.x: ' 
-                    + thisObj.playSet.spriteHook.x 
-                    + ' lure.count: ' 
-                    + thisObj.lure.count
-                    );
-        thisObj.lure.count += 1;
-        if (thisObj.lure.count > 30) {
-            thisObj.onLure();
-        }
-    }
-
-};
+Lgz.Fish.prototype.moveToLure = function() {
+  var newX = this.game.math.linearInterpolation(this.pathToHook.x, this.pathToHookPosition);
+  var newY = this.game.math.linearInterpolation(this.pathToHook.y, this.pathToHookPosition);
+  this.x = newX;
+  this.y = newY;
+  
+  this.pathToHookPosition += 0.008;
+  if (this.pathToHookPosition >= 1) {
+    this.update = function() {};
+    this.x = 245;
+    this.y = 350;
+    this.body.velocity.x = 0;
+    this.body.velocity.y = 0;
+    this.onLure();
+  }
+}
 Lgz.Fish.prototype.update = function () {
     'use strict';
     //note: this function set based on action phase
@@ -328,7 +301,18 @@ Lgz.Fish.prototype.touched = function () {
     frame = this.spriteBody.frame;
     this.spriteBody.loadTexture("fish_glow", frame, false);
     this.body.bounce.setTo(0);    
-    this.update = this.actionLure;
+    // TODO: the target destination is currently hardcoded rather than being the hook/lure sprite's x and y coordinates
+    this.pathToHook = {"x": [this.x, 245], "y": [this.y, 350]};
+    this.pathToHookPosition = 0;
+    if(this.x < 240 && this.body.velocity.x < 0 || this.x > 240 && this.body.velocity.x > 0) {
+      this.spriteBody.scale.x *= -1;
+    }
+    if (this.spriteBody.scale.x > 0) {
+      this.lure.dir = 1;
+    } else {
+      this.lure.dir = -1;
+    }
+    this.update = this.moveToLure;
     this.bringToTop();
     this.playSet.zsort();
 
