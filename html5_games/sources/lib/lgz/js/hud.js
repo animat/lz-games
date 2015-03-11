@@ -109,6 +109,7 @@ LgzLib.Hud = function (mgr) {
         if (!game.device.desktop &&  thisObj.isFullScreen()) {
                 window.scrollTo(0, 0);
         }
+        mgr.scenes.current.eventResized();
     };
     thisObj.onResizePost = function () {
         
