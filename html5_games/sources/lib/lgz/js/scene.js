@@ -172,12 +172,15 @@ LgzLib.Scenes.Main.prototype.rscload = function () {
     console.debug('Scenes.Main.rscload: key ' + this.key);
     this.lgzMgr.rscImage('main');
 };
+LgzLib.Scenes.Main.prototype._createBg = function () {
+    this.game.add.sprite(0, 0, 'main');    
+};
 LgzLib.Scenes.Main.prototype.create = function () {
     'use strict';
     var thisObj, hints, nm;
     thisObj = this;
     console.debug('Scenes.Main.create: key ' + this.key);
-    thisObj.game.add.sprite(0, 0, 'main');
+    thisObj._createBg();
     
     hints = thisObj.lgzMgr.hints;
     

@@ -15,7 +15,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj = this;
 
     thisObj.init = function () {
-        game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas');
+        game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
         lang = new LgzLib.Lang();
         lang.load(gamePrefix,  K.lang);
         thisObj.lang = lang;
