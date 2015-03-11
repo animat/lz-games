@@ -67,8 +67,14 @@ LgzLib.Scene.prototype.start = function () {
     'use strict';
     //note: called by lgzMgr or other to start this scene
     this.game.state.start(this.key,  true, false);
+    this.lgzMgr.scenes.current = this;
 };
-
+LgzLib.Scene.prototype.eventResized = function () {
+    'use strict';
+    console.debug('LgzLib.Scene.prototype.eventResized: ');
+    //note: called by lgzHud on canvas resize (fullscreen)
+ 
+};
 // define common scenes
 LgzLib.Scenes = {};
 

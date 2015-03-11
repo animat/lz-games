@@ -44,7 +44,8 @@ LgzLib.Hud = function (mgr) {
     $lgzBtnFS = $('#lgzHudFullScreen');
     $lgzBtnExit = $('#lgzHudExit');
     $winPlay = $('#winPlay');
-
+    thisObj.objArr = [];
+    
     eWin =  document.getElementById('lgzContainer');
     $(window).resize(function () {
             thisObj.onResize();
@@ -422,5 +423,130 @@ LgzLib.Hud = function (mgr) {
             thisObj.hintAdd($winHintAvl, hlist[i]);
         }
             
+    };
+    thisObj.objJQ = function (jqstring) {
+        var $obj;
+        $obj = $(jqstring);
+        $obj.lgzProps = {};
+        $obj.extend({
+          lgzHudCssPV: function(cssprop, virtpx) {
+            var realpx, scalex, scaley;
+            if(thisObj.isFullScreen()) {
+                scalex = $lgzCanvas.width() / game.canvas.width;
+                scaley = $lgzCanvas.height() / game.canvas.height;
+            } else {
+                scalex = 1;
+                scaley = 1;
+            }
+            $obj.scalex = scalex;
+            $obj.scaley = scaley;
+            switch (cssprop) {
+            case 'width':
+            case 'left':
+            case 'right':
+            case 'padding-left':
+            case 'padding-right':
+            case 'margin-left':
+            case 'margin-right':
+                if (virtpx === 'auto') {
+                    realpx = virtpx;
+                } else {
+                    realpx = virtpx * scalex;
+                }
+                    
+ 
+                $obj.css(cssprop, realpx);
+                break;
+            case 'height':
+            case 'top':
+            case 'bottom':
+            case 'padding-top':
+            case 'padding-right':
+            case 'margin-top':
+            case 'margin-right':            
+            case 'font-size':
+                if (virtpx === 'auto') {
+                    realpx = virtpx;
+                } else {
+                    realpx = virtpx * scaley;
+                }                
+                $obj.css(cssprop, realpx);
+                break;
+            case 'border-radius':
+                if (virtpx === 'auto') {
+                    realpx = virtpx;
+                } else {
+                    realpx = virtpx * ((scalex + scaley)/2);
+                }                
+                $obj.css(cssprop, realpx);                
+                break;
+            }              
+                
+          },
+          lgzHudCssSet: function (cssprops) {
+              for (var prop in cssprops) {
+                  if (cssprops.hasOwnProperty(prop)) {
+                      $obj.lgzHudCssPV(prop, cssprops[prop]);
+                  }
+              }
+          },
+          lgzHudCssGet: function (cssprops) {
+              var props, val;
+              props = {};
+              for (var prop in cssprops) {
+                  if (cssprops.hasOwnProperty(prop)) {
+                        val =  $obj.css(prop);
+                        if (val !== '0px') {
+                            if (val !== 'auto') {
+                              props[prop] = parseInt(val, 10);
+                            } else {
+                              props[prop] = val;
+                            }
+                        }
+                  }
+              }
+              return props;
+          },
+          lgzHudCssSave: function () {
+              $obj.lgzProps = $obj.lgzHudCssGet({
+               'height': null,
+               'width': null,
+               'top': null,
+               'bottom': null,
+               'left': null,
+               'right': null,
+               'margin-top': null,
+               'margin-bottom': null,
+               'margin-left': null,
+               'margin-right': null,
+               'padding-top': null,
+               'padding-bottom': null,
+               'padding-left': null,
+               'padding-right': null,
+               'font-size': null,
+               'border-radius': null
+              });
+              
+          },
+          lgzHudCssResize: function () {
+              $obj.lgzHudCssSet($obj.lgzProps);
+          }          
+        });
+        thisObj.objArr.push($obj);
+        return $obj;
+            
+    };
+    thisObj.objArrSave = function () {
+        var i;
+        for(i = 0; i < thisObj.objArr.length; i += 1) {
+            thisObj.objArr[i].lgzHudCssSave();
+        }
+    };
+    thisObj.objArrResize = function () {
+        var i, $obj;
+        for(i = 0; i < thisObj.objArr.length; i += 1) {
+            $obj = thisObj.objArr[i];
+            $obj.lgzHudCssSet($obj.lgzProps);
+        }
     };    
 };
