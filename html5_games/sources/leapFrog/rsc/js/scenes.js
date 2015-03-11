@@ -27,6 +27,12 @@ LgzLib.Scene.prototype.preload = function () {
     this.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
     this.saveCpu.renderOnFPS = 15;
 };
+LgzLib.Scenes.Splash.prototype.preinit = function () {
+
+    this.lgzHud.objJQ('#lgzInput');
+    this.lgzHud.objArrSave();
+
+};
 LgzLib.Scenes.Welcome.prototype.rscload = function () {
     'use strict';
 };
@@ -95,6 +101,13 @@ LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
     'use strict';
     console.debug('Scenes2.Main.eventNodeFinish:');
     this.playSet.eventNodeFinish();
+};
+LgzLib.Scenes.Main.prototype.eventResized = function () {
+    console.debug('Scenes2.Main.eventResized: key ' + this.key);    
+ 
+   console.log('Scenes2.eventResized: fs: ' + this.lgzHud.isFullScreen());
+   console.log ('Scenes2.eventResized: cw: ' + $('canvas').width() + ' csw: ' + $('canvas').css('width'));
+   this.lgzHud.objArrResize();   
 };
 LgzLib.Scenes.End.prototype.rscload = function () {
     'use strict';
