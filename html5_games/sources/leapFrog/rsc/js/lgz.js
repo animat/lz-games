@@ -26,7 +26,8 @@ Lgz.init = function () {
     console.debug('Lgz.init: game exists? ' + mgr.game);
     
     console.debug('Lgz.init: device exists? ' + mgr.game.device);
-    mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;    
+    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
+    mgr.hud.orient = mgr.hud.ORIENT.NONE;    
     Lgz.cjsInit();
  
 };
@@ -60,7 +61,9 @@ Lgz.cjsHandleComplete = function () {
         root.playGame.text.text = str;
         root.playGame.text_1.text = str;
     };
- 
+    strTags['IDS_PLAY_AGAIN_BUTTON'] = function(str) {
+        root.playAgain.text.text = str;
+    }; 
     cjs.strTags = strTags;
 
     root.playGame.on('click', function() {
@@ -81,7 +84,7 @@ Lgz.cjsHandleComplete = function () {
     //createjs.Ticker.addEventListener("tick", stage);
     createjs.Touch.enable(stage);
 
-    cjs.root.gotoAndPlay('intro');
+    //cjs.root.gotoAndPlay('intro');
     console.log('calling mgr.sceneInit()');
 
     

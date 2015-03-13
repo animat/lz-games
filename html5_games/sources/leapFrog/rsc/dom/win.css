@@ -1,5 +1,7 @@
 #lgzInput {
+    /*
     z-index: 1;
+    */
     position: absolute;
     width: 130px;
     height: 25px;

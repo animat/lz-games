@@ -73,7 +73,7 @@ LgzLib.Scene.prototype.eventResized = function () {
     'use strict';
     console.debug('LgzLib.Scene.prototype.eventResized: ');
     //note: called by lgzHud on canvas resize (fullscreen)
- 
+    this.lgzHud.objArrResize();
 };
 // define common scenes
 LgzLib.Scenes = {};
@@ -85,7 +85,16 @@ LgzLib.Scenes.Splash  = function (lgzMgr) {
 };
 LgzLib.Scenes.Splash.extends(LgzLib.Scene);
 //LgzLib.inherit(LgzLib.Scenes.Splash, LgzLib.Scene);
+LgzLib.Scenes.Splash.prototype.preinit = function () {
+    console.debug('LgzLib.Scenes.Splash.prototype.preinit');
+    this.lgzHud.objJQ('#lgzHudMenuBar');
+    this.lgzHud.objJQ('#lgzHudFullScreen');
+    this.lgzHud.objJQ('#lgzHudExit');
+    this.lgzHud.objJQ('#lgzHudLogo');
+    this.lgzHud.objJQ('#lgzHudHelp');
+    this.lgzHud.objArrSave();
 
+};
 LgzLib.Scenes.Splash.prototype.preload = function () {
     'use strict';
     var i, _objs;

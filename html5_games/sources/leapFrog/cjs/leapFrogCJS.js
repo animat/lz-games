@@ -20,9 +20,6 @@ lib.properties = {
 
 
 // symbols:
-
-
-
 (lib.water_splash = function() {
 	this.initialize();
 
@@ -441,7 +438,7 @@ p.nominalBounds = new cjs.Rectangle(-16.9,-9.6,33.9,19.3);
 	this.initialize();
 
 	// Layer 1
-	this.text = new cjs.Text("IDS_PLAY_AGIN_BUTTON", "bold 18px 'Trebuchet MS'", "#FFFFFF");
+	this.text = new cjs.Text("IDS_PLAY_AGAIN_BUTTON", "bold 18px 'Trebuchet MS'", "#FFFFFF");
 	this.text.lineHeight = 20;
 	this.text.lineWidth = 183;
 
@@ -1910,11 +1907,7 @@ p.nominalBounds = new cjs.Rectangle(-40.7,0.8,63,24.5);
 
 
 (lib.leapFrogCJS = function(mode,startPosition,loop, labels) {
-    
-    console.log('leapFrogCJS: mode: ' + mode);   
-    console.log('leapFrogCJS: startPosition: ' + startPosition);
-    console.log('leapFrogCJS: loop: ' + loop);       
-    console.log('leapFrogCJS: labels: ' + labels);   
+     
     var thisObj;
     
     thisObj = this;
@@ -2005,6 +1998,7 @@ p.nominalBounds = new cjs.Rectangle(-40.7,0.8,63,24.5);
 		/* stop();*/
 	}
 	this.frame_17 = function() {
+            /*ivanixcu: added manually. moved to playset.js
             this.land_left = new lib.land_left();
             this.land_left.setTransform(0,120);
             this.addChild(this.land_left);
@@ -2012,6 +2006,7 @@ p.nominalBounds = new cjs.Rectangle(-40.7,0.8,63,24.5);
             this.frog = new lib.frog();
             this.frog.setTransform(130,170);
             this.addChild(this.frog);
+            */
             
             this.stop();
 		/* var gameid:Number;

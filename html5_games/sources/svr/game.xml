@@ -2,14 +2,44 @@
 <xml>
   <format gamename="Poker Pairs"></format>
   <description>
-    <text>Test Spanish UI</text>
+    <text>Test English UI</text>
   </description>
-<gamedata>
-<node>
-	<question content='apple' name='english' type='text'/>
-	<response content='APPLE' name='lang' type='text'/>
-</node> 
-
-
-</gamedata><templatedata/>  <language>Spanish</language>
+    <gamedata>
+        <node>
+                <question content='apple' name='english' type='text'/>
+                <response content='APPLE' name='lang' type='text'/>
+        </node> 
+        <node>
+                <question content='bannana' name='english' type='text'/>
+                <response content='BANNANA' name='lang' type='text'/>
+        </node>
+        <node>
+                <question content='orange' name='english' type='text'/>
+                <response content='ORANGE' name='lang' type='text'/>
+        </node>         
+        <node>
+                <question content='pineapple' name='english' type='text'/>
+                <response content='PINEAPPLE' name='lang' type='text'/>
+        </node>         
+        <node>
+                <question content='kiwi' name='english' type='text'/>
+                <response content='KIWI' name='lang' type='text'/>
+        </node>         
+        <node>
+                <question content='berries' name='english' type='text'/>
+                <response content='BERRIES' name='lang' type='text'/>
+        </node>         
+        <node>
+                <question content='keylime pie' name='english' type='text'/>
+                <response content='KEYLIME PIE' name='lang' type='text'/>
+        </node>         
+        <node>
+                <question content='coconut' name='english' type='text'/>
+                <response content='COCONUT' name='lang' type='text'/>
+        </node>         
+    </gamedata>
+    <templatedata/>  
+    <language>English</language>
+    <hints/>
+    <charset/>
 </xml>

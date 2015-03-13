@@ -17,7 +17,8 @@ LgzLib.Hud = function (mgr) {
     'use strict';
     var thisObj, btnList, game, lang, eBody,
             resizeDirty,
-            $lgzVP, $lgzOrient, $lgzOrientWrap, $lgzHide, eWin, $lgzMin, $lgzHud,
+            $lgzVP, $lgzOrient, $lgzOrientWrap, $lgzCanvas,
+            $lgzHide, eWin, $lgzMin, $lgzHud,
             $lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 
     thisObj = this;
@@ -35,6 +36,7 @@ LgzLib.Hud = function (mgr) {
     $lgzOrient = $('#lgzOrient');
     $lgzOrientWrap = $('#lgzOrientWrap');
 
+    $lgzCanvas = $('#lgzGameCanvas').filter(':first');
     $lgzHide = $('[lgzHide]');
     $lgzMin = $('[lgzMin]');
     $lgzHud  = $('#lgzHud');

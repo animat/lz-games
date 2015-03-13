@@ -22,7 +22,7 @@
 
  */
 LgzLib.Scenes.Splash.prototype.preinit = function () {
-
+    console.debug('LgzLib.Scenes2.Splash.prototype.preinit');
     this.lgzHud.objJQ('#winWon .msgballoon');
     this.lgzHud.objJQ('#winWon button');
     this.lgzHud.objArrSave();

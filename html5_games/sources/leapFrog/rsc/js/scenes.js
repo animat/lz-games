@@ -25,12 +25,17 @@ LgzLib.Scene.prototype.preload = function () {
     //note: called by game obj
     console.debug('Scene.preload: key ' + this.key);
     this.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
-    this.saveCpu.renderOnFPS = 15;
+    this.saveCpu.renderOnFPS = 20;
 };
-LgzLib.Scenes.Splash.prototype.preinit = function () {
 
+LgzLib.Scenes.Splash.prototype.p_preinit = LgzLib.Scenes.Splash.prototype.preinit;
+
+LgzLib.Scenes.Splash.prototype.preinit = function () {
+    console.debug('LgzLib.Scenes2.Splash.prototype.preinit');
+    
     this.lgzHud.objJQ('#lgzInput');
-    this.lgzHud.objArrSave();
+
+    this.p_preinit();
 
 };
 LgzLib.Scenes.Welcome.prototype.rscload = function () {
@@ -39,9 +44,7 @@ LgzLib.Scenes.Welcome.prototype.rscload = function () {
 LgzLib.Scenes.Welcome.prototype.create = function () {
     'use strict';
     console.debug('Scenes2.Welcome.create: key ' + this.key);
-    //this.lgzHud.forceLandscape();
-    //this.game.add.sprite(0, 0, 'welcome');
-    //this.lgzHud.winOpen('winPlay');
+    this.lgzMgr.cjs.root.gotoAndPlay('intro');
 };
 LgzLib.Scenes.Welcome.prototype.render = function () {
     this.lgzMgr.cjs.stage.update();
@@ -62,29 +65,25 @@ LgzLib.Scenes.Main.prototype._create = LgzLib.Scenes.Main.prototype.create;
 LgzLib.Scenes.Main.prototype.create = function () {
     'use strict';
     this._create();
-    console.debug('Scenes2.create: key ' + this.key);    
-
+    console.debug('Scenes2.create: key ' + this.key);
+    
+    this.lgzMgr.cjs.root.gotoAndPlay('game'); 
     this.playSet.create();
-    this.lgzMgr.cjs.root.gotoAndPlay('game');    
-
 };
 LgzLib.Scenes.Main.prototype.update = function () {
     'use strict';    
     this.playSet.update();
-    //console.debug('LgzLib.Scenes.Main.update: renderType' + this.game.renderType );
-    //Lgz.mgr.cjs.stage.update();
-
 };
 LgzLib.Scenes.Main.prototype.preRender = function () {
     'use strict';
-    //console.debug('LgzLib.Scenes.Main.preRender: renderType: ' + this.game.renderType );
     Lgz.mgr.cjs.stage.update();
-    
 };
 LgzLib.Scenes.Main.prototype.render = function () {
     'use strict';
-    //console.debug('LgzLib.Scenes.Main.render: renderType: ' + this.game.renderType );
-
+};
+LgzLib.Scenes.Main.prototype.shutdown = function () {
+    'use strict';
+    this.playSet.shutdown();
 };
 LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
     'use strict';
@@ -104,9 +103,6 @@ LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
 };
 LgzLib.Scenes.Main.prototype.eventResized = function () {
     console.debug('Scenes2.Main.eventResized: key ' + this.key);    
- 
-   console.log('Scenes2.eventResized: fs: ' + this.lgzHud.isFullScreen());
-   console.log ('Scenes2.eventResized: cw: ' + $('canvas').width() + ' csw: ' + $('canvas').css('width'));
    this.lgzHud.objArrResize();   
 };
 LgzLib.Scenes.End.prototype.rscload = function () {
@@ -119,5 +115,10 @@ LgzLib.Scenes.End.prototype.create = function () {
     var ps, score, spriteSign, sprite, thisObj;
     
     console.debug('Scene.create: key ' + this.key);
-
+    this.lgzMgr.cjs.strTags.IDS_INTRO("");
+    this.lgzMgr.cjs.root.gotoAndPlay('win');
+    
+};
+LgzLib.Scenes.End.prototype.render = function () {
+    this.lgzMgr.cjs.stage.update();
 };
