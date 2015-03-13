@@ -210,7 +210,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.createWaterFx();
         
         
-        thisObj.spriteHook = thisObj.game.add.sprite(250, 380, 'dot');
+        thisObj.spriteHook = thisObj.game.add.sprite(260, 335, 'dot');
         thisObj.game.physics.enable(thisObj.spriteHook, Phaser.Physics.ARCADE);
         thisObj.spriteHook.body.static = true;
         thisObj.spriteHook.body.immovable = true;
