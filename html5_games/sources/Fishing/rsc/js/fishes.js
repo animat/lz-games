@@ -278,8 +278,8 @@ Lgz.Fish.prototype.moveToLure = function() {
   this.pathToHookPosition += 0.008;
   if (this.pathToHookPosition >= 1) {
     this.update = function() {};
-    this.x = this.playSet.spriteHook.x;
-    this.y = this.playSet.spriteHook.y;
+    this.x = this.pathToHook.x[1];
+    this.y = this.pathToHook.y[1];
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
     this.onLure();
@@ -293,18 +293,19 @@ Lgz.Fish.prototype.touched = function () {
     var frame;
     frame = this.spriteBody.frame;
     this.spriteBody.loadTexture("fish_glow", frame, false);
-    this.body.bounce.setTo(0);    
-    // TODO: the target destination is currently hardcoded rather than being the hook/lure sprite's x and y coordinates
-    this.pathToHook = {"x": [this.x, this.playSet.spriteHook.x], "y": [this.y, this.playSet.spriteHook.y]};
-    this.pathToHookPosition = 0;
+    this.body.bounce.setTo(0);  
+
     if(this.x < 240 && this.body.velocity.x < 0 || this.x > 240 && this.body.velocity.x > 0) {
       this.spriteBody.scale.x *= -1;
     }
     if (this.spriteBody.scale.x > 0) {
       this.lure.dir = 1;
+      this.pathToHook = {"x": [this.x, this.playSet.spriteHook.x+90], "y": [this.y, this.playSet.spriteHook.y]};
     } else {
       this.lure.dir = -1;
+      this.pathToHook = {"x": [this.x, this.playSet.spriteHook.x+30], "y": [this.y, this.playSet.spriteHook.y]};
     }
+    this.pathToHookPosition = 0;
     this.update = this.moveToLure;
     this.bringToTop();
     this.playSet.zsort();
