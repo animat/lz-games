@@ -382,7 +382,8 @@ a.btn.btn-red:active {
     width: 120px;    
 }
 #lgzHudLogo {
-   width: 600px;
-   font-size: 15px;
+    width: 600px;
+    padding: 0;
+    margin: 0;
+    padding-top: 3px;
 }
-

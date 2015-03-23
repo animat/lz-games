@@ -217,8 +217,12 @@ LgzLib.Hud = function (mgr) {
 
             $lgzHud.removeClass('fs');
             $lgzHudMenuBar.removeClass('fsbar');
-            // mgr.resume();
-            // thisObj.onResize();
+            
+        /*
+         * ivanixcu:note: something leaves 'min-height' in html element after leaving fullscreen
+         */
+        console.log('LgzLib.Hud.fullscreenStopPost');
+            $('html').attr('style','');
 
     };
     thisObj.fullScreenStop = function () {
