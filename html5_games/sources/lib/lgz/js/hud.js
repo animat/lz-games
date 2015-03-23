@@ -18,7 +18,7 @@ LgzLib.Hud = function (mgr) {
     var thisObj, btnList, game, lang, eBody,
             resizeDirty,
             $lgzVP, $lgzOrient, $lgzOrientWrap, $lgzCanvas,
-            $lgzHide, eWin, $lgzMin, $lgzHud,
+            $lgzHide, lgzContainer, $lgzMin, $lgzHud,
             $lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 
     thisObj = this;
@@ -48,7 +48,7 @@ LgzLib.Hud = function (mgr) {
     $winPlay = $('#winPlay');
     thisObj.objArr = [];
     
-    eWin =  document.getElementById('lgzContainer');
+    lgzContainer =  document.getElementById('lgzContainer');
     $(window).resize(function () {
             thisObj.onResize();
     });
@@ -104,8 +104,8 @@ LgzLib.Hud = function (mgr) {
         
     };
     thisObj.onResizePost2 = function () {
-        eWin.style.width = game.canvas.style.width;
-        eWin.style.height = game.canvas.style.height;
+        lgzContainer.style.width = game.canvas.style.width;
+        lgzContainer.style.height = game.canvas.style.height;
 
         //for ipad
         if (!game.device.desktop &&  thisObj.isFullScreen()) {
@@ -187,6 +187,11 @@ LgzLib.Hud = function (mgr) {
             game.scale.setShowAll();
 
             game.scale.startFullScreen(true);
+
+            return;
+/*
+ * todo:  merged iframe branch has return here, need to retest if code below is needed.
+ */
 
             thisObj.scaleRefreshTO();
             if (!game.device.desktop) {
@@ -551,5 +556,27 @@ LgzLib.Hud = function (mgr) {
             $obj = thisObj.objArr[i];
             $obj.lgzHudCssSet($obj.lgzProps);
         }
+    };    
+
+    thisObj.bigScreenEnterCb  = function () {
+        
+    };
+    thisObj.bigScreenExitCb = function () {
+        
+    };
+    thisObj.bigScreenErrorCb = function () {
+        
+    };
+    thisObj.bigScreenStart = function () {
+        console.log('LgzLib.Hud.bigScreenStart: request');
+        BigScreen.request(
+            lgzContainer,
+            thisObj.bigScreenEnterCb,
+            thisObj.bigScreenExitCb,
+            thisObj.bigScreenErrorCb
+        );
+    };
+    thisObj.bigScreenStop = function () {
+        BigScreen.exit();        
     };    
 };

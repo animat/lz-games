@@ -33,6 +33,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         globLgz.scenes = thisObj.scenes;
         
         thisObj.spinnerInit();
+        
     };
  
     thisObj.pause = function () {
@@ -83,6 +84,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         }
         //thisObj.startScene('Main');
         thisObj.scenes.main.start();
+        game.stage.disableVisibilityChange = true;
     };
     thisObj.exit = function () {
         thisObj.hud.fullScreenStop();
