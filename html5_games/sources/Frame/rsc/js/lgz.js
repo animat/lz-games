@@ -11,12 +11,14 @@
 var g = {};
 
 var Lgz = Lgz || {};
-Lgz.parentFrame = function () {
- 
-    Lgz.parentFrameObj = new LgzLib.MsgFrames.Parent();
-};
 
-Lgz.childFrame = function () {
-    'use strict';
-    Lgz.childFrameObj = new LgzLib.MsgFrames.Loader();
-}; 
+if ($('#lgzFrame').length) {
+    console.log('lgz.js: found parent frame: #lgzFrame');
+ 
+    Lgz.frameParent = new LgzLib.MsgFrames.Parent();
+}
+if ($('#lgzBody').length) {
+    console.log('lgz.js: found loader frame: #lgzFrame');
+    Lgz.frameLoader = new LgzLib.MsgFrames.Loader();
+}
+console.log("lgz.js loaded for /Frame/web.html");

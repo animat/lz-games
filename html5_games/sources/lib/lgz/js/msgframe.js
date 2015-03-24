@@ -96,6 +96,50 @@ LgzLib.MsgFrames.Parent.prototype.userId = function () {
     return  this.$lgzParms.attr('userid');
 };
 
+LgzLib.MsgFrames.Parent.prototype.viewFullScreen = function () {
+    'use strict';
+    var $f, w, h, ratio;
+    console.log('LgzLib.MsgFrames.Parent.prototype.viewFullScreen');
+
+    $f = this.$lgzFrame;
+    
+    $f.css('background','#ff00ff');    
+    $f.css('position','fixed');
+    $f.css('top','0px');
+    $f.css('left','0px');
+    
+    w = parseInt($f.attr('width'), 10);
+    h = parseInt($f.attr('height'), 10);
+    
+    ratio = h/w;
+    
+    w = $(window).width();
+    h = Math.round(w * ratio);
+    console.log('viewFullScreen: w x h: ' + w + ' x ' + h);
+    
+    this.$lgzFrame.width(w);
+    this.$lgzFrame.height(h);
+
+};
+LgzLib.MsgFrames.Parent.prototype.viewNormal = function () {
+    'use strict';
+    var $f, w, h, ratio;
+    console.log('LgzLib.MsgFrames.Parent.prototype.viewNormal');
+
+    $f = this.$lgzFrame;
+    
+    $f.css('background','#ff00ff');    
+    $f.css('position','');
+    $f.css('top','');
+    $f.css('left','');
+    
+    w = parseInt($f.attr('width'), 10);
+    h = parseInt($f.attr('height'), 10);
+    console.log('viewFullScreen: w x h: ' + w + ' x ' + h);
+    this.$lgzFrame.width(w);
+    this.$lgzFrame.height(h);
+
+};
 LgzLib.MsgFrames.Parent.prototype.eventSwitch = function (msg) {
     var value;
     'use strict';
@@ -121,10 +165,13 @@ LgzLib.MsgFrames.Parent.prototype.eventSwitch = function (msg) {
             //todo: set iframe width and height
             break;
         case this.CK.ViewIsFullScreen:
-            //todo?  
+            //todo?
+            console.log('frameParent: ViewIsFullScreen');
+            this.viewFullScreen();
             break;
         case this.CK.ViewIsNormal:
-            //todo? 
+            //todo?
+            this.viewNormal();
             break;                
     }
 
@@ -142,12 +189,16 @@ LgzLib.MsgFrames.Loader  = function () {
     LgzLib.MsgFrame.call(this);
 };
 LgzLib.MsgFrames.Loader.extends(LgzLib.MsgFrame);
-
-
 LgzLib.MsgFrames.Loader.prototype.loadGame = function (name) {
-    var url;
+    var url, idx;
 
-    url = K.urlSvrGames + name + '/frame.html';
+    //url = K.urlSvrGames + name + '/frame.html';
+    //url = location.origin + '/'+ name + '/frame.html?';
+    
+    idx = location.pathname.search('/Frame');
+    url = location.origin + location.pathname.substring(0,idx) + '/' + name + '/frame.html?';
+    console.log('LgzLib.MsgFrames.Loader: url: ' + url);
+    
     //todo: test url exists before loading?
     location.href = url;
 };
@@ -184,7 +235,8 @@ LgzLib.MsgFrames.Loader.prototype.eventSwitch = function (msg) {
 LgzLib.MsgFrames.Loader.prototype.initFrame = function () {
     'use strict';
     this.sendToParent(this.CK.FrameIsLoader);
-    this.sendToParent(this.CK.GameIdGet);    
+    //this.sendToParent(this.CK.ViewIsFullScreen);    
+    this.sendToParent(this.CK.GameIdGet);
 };
 
 
@@ -192,6 +244,7 @@ LgzLib.MsgFrames.Loader.prototype.initFrame = function () {
 LgzLib.MsgFrames.Game  = function (mgr) {
     'use strict';
     this.lgzMgr = mgr;
+    this.lgzHud = mgr.hud;
     LgzLib.MsgFrame.call(this);
 };
 LgzLib.MsgFrames.Game.extends(LgzLib.MsgFrame);

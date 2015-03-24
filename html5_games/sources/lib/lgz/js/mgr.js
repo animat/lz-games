@@ -20,6 +20,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         lang.load(gamePrefix,  K.lang);
         thisObj.lang = lang;
         thisObj.game = game;
+        thisObj.msgframe = new LgzLib.MsgFrames.Game(thisObj);        
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.nm = new LgzLib.NodeManager(thisObj);
         thisObj.hints = new LgzLib.Hints(thisObj);
@@ -78,8 +79,12 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         }, 900);
     };
     thisObj.play = function () {
+        var desktop;
+        console.log('LgzLib.Mgr.play: ');
         thisObj.hud.winCloseAll(true);
-        if (!game.device.desktop) {
+        desktop = game.device.desktop;
+        if (!desktop) {
+            console.log('LgzLib.Mgr.play: !desktop');
             thisObj.hud.fullScreenStart();
         }
         //thisObj.startScene('Main');

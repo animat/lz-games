@@ -155,54 +155,67 @@ LgzLib.Hud = function (mgr) {
             $lgzVP.attr('content', 'user-scalable=no, width=device-width, height=device-height, target-densitydpi=device-dpi, initial-scale=1.0, maximum-scale=1.0, minimal-ui');
 
     };
+    thisObj.fullScreenMsgFrame = function (flag) {
+        var CK, msgframe;
+        msgframe = mgr.msgframe;
+        CK = msgframe.CK;
+        if (flag) {
+            msgframe.sendToParent(CK.ViewIsFullScreen);
+        } else {
+            msgframe.sendToParent(CK.ViewIsNormal);
+        }
+    };
     thisObj.fullScreenStart = function () {
-            thisObj.requestedFS = true;
+        console.log('LgzLib.Hud.fullScreenStart: ');
+        thisObj.requestedFS = true;
 
-            $lgzHide.css('display', 'none');
-            $lgzMin.addClass('lgzMin');
+        $lgzHide.css('display', 'none');
+        $lgzMin.addClass('lgzMin');
 
-            $lgzHud.addClass('fs');
-            $lgzHudMenuBar.addClass('fsbar');
-            thisObj.viewPortFsDefault();
+        $lgzHud.addClass('fs');
+        $lgzHudMenuBar.addClass('fsbar');
+        thisObj.viewPortFsDefault();
 
 
 /*
 *      note: per device viewport setting for future use
 *
-            window.setTimeout(
-                    function () { thisObj.viewPortFsCustom();
-                            },
-                    500
-            );
+        window.setTimeout(
+                function () { thisObj.viewPortFsCustom();
+                        },
+                500
+        );
 
 */
-            game.scale.fullScreenTarget =  document.getElementById('lgzContainer');
+        game.scale.fullScreenTarget =  document.getElementById('lgzContainer');
 
-            //note: use SHOW_ALL to keep aspect
-            //game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-            //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+        //note: use SHOW_ALL to keep aspect
+        //game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-            game.scale.setShowAll();
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.setShowAll();
 
-            game.scale.startFullScreen(true);
-
-            return;
+        game.scale.startFullScreen(true);
+        console.log('LgzLib.Hud.fullScreenStart: past return');
+        if (!game.device.desktop) {
+            thisObj.fullScreenMsgFrame(true);
+        }
+        return;
 /*
- * todo:  merged iframe branch has return here, need to retest if code below is needed.
- */
+* todo:  merged iframe branch has return here, need to retest if code below is needed.
+*/
+        thisObj.scaleRefreshTO();
+        if (!game.device.desktop) {
+            thisObj.fullScreenMsgFrame(true);
 
-            thisObj.scaleRefreshTO();
-            if (!game.device.desktop) {
-                    window.setTimeout(
-                            function () { thisObj.onResize();
-                                    },
-                            200
-                    );
-            }
-
-
+            window.setTimeout(
+                function () { thisObj.onResize();
+                        },
+                200
+            );
+        }
     };
     thisObj.fullScreenStopPost = function () {
 
@@ -228,9 +241,13 @@ LgzLib.Hud = function (mgr) {
     thisObj.fullScreenStop = function () {
 
             thisObj.requestedFS = false;
+            if (!game.device.desktop) {
+                thisObj.fullScreenMsgFrame(false);
+            }            
             if (!game.device.iOS) {
                     game.scale.stopFullScreen();
             }
+            
             game.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
             game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
 
@@ -269,7 +286,7 @@ LgzLib.Hud = function (mgr) {
             var fs, desktop;
             fs = thisObj.isFullScreen();
             desktop = game.device.desktop;
-
+ 
             if (!fs) {
                     if (desktop) {
                             $lgzBtnFS.css('display', 'block');
