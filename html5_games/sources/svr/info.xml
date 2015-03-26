@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gameInfo gameName="Poker Pairs" gameSWF="pokerPairs">
-  <description>Test for Italian UI language</description>
-<hints></hints><set language="Italian"><character>á</character><character>à</character><character>é</character><character>è</character><character>í</character><character>ì</character><character>ó</character><character>ò</character><character>ú</character><character>ù</c</gameInfo>
+<gameInfo gameName="Leap Frog" gameSWF="leapFrog">
+  <description>Thumper Practice</description>
+<hints></hints>
+<set language="German">
+    <character>ä</character>
+    <character>ß</character>
+    <character>ö</character>
+    <character>ü</character>
+</set>
+</gameInfo>

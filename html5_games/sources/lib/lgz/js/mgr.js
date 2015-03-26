@@ -15,11 +15,12 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj = this;
 
     thisObj.init = function () {
-        game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas');
+        game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
         lang = new LgzLib.Lang();
         lang.load(gamePrefix,  K.lang);
         thisObj.lang = lang;
         thisObj.game = game;
+        thisObj.msgframe = new LgzLib.MsgFrames.Game(thisObj);        
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.nm = new LgzLib.NodeManager(thisObj);
         thisObj.hints = new LgzLib.Hints(thisObj);
@@ -33,6 +34,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         globLgz.scenes = thisObj.scenes;
         
         thisObj.spinnerInit();
+        
     };
  
     thisObj.pause = function () {
@@ -77,12 +79,17 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         }, 900);
     };
     thisObj.play = function () {
+        var desktop;
+        console.log('LgzLib.Mgr.play: ');
         thisObj.hud.winCloseAll(true);
-        if (!game.device.desktop) {
+        desktop = game.device.desktop;
+        if (!desktop) {
+            console.log('LgzLib.Mgr.play: !desktop');
             thisObj.hud.fullScreenStart();
         }
         //thisObj.startScene('Main');
         thisObj.scenes.main.start();
+        game.stage.disableVisibilityChange = true;
     };
     thisObj.exit = function () {
         thisObj.hud.fullScreenStop();

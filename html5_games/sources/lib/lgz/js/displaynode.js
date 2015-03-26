@@ -298,10 +298,12 @@ LgzLib.DisplayNodeAudio = function (game, node, configOpts) {
 };
 LgzLib.DisplayNodeAudio.lgzExtends(LgzLib.DisplayNodeImage);
 LgzLib.DisplayNodeAudio.prototype._eventPlay = function () {
+    console.debug('LgzLib.DisplayNodeAudio.prototype._eventPlay');
     this.audioSprite.play('',0, K.volumeLevel);
 };
 LgzLib.DisplayNodeAudio.prototype.eventPlay = function () {
    var thisObj;
+   console.debug('LgzLib.DisplayNodeAudio.prototype.eventPlay');
    thisObj = this;
    window.setTimeout(
         function () {

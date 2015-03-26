@@ -1,10 +1,83 @@
 /*
  * css for external html 
  */
+/*
+body {
+    max-height: 100vh;
+}
+window {
+    max-height: 100vh;
+}
+*/
+
+a.btn {
+    text-decoration: none; 
+    margin: 0 10px;     
+
+    display: inline-block;
+    color: #666;
+    background-color: #eee;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-bottom-width: 3px;
+}
+a.btn:hover {
+    background-color: #e3e3e3;
+    border-color: rgba(0,0,0,0.5);
+}
+a.btn:active {
+    background-color: #CCC;
+    border-color: rgba(0,0,0,0.9);
+}
+
+/* blue button */
+
+a.btn.btn-blue {
+    background-color: #699DB6;
+    border-color: rgba(0,0,0,0.3);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+    color: #FFF;
+}
+
+a.btn.btn-blue:hover {
+    background-color: #4F87A2;
+    border-color: rgba(0,0,0,0.5);
+}
+
+a.btn.btn-blue:active {
+    background-color: #3C677B;
+    border-color: rgba(0,0,0,0.9);
+}
+
+/* red button */
+
+a.btn.btn-red {
+    background-color: #E48681;
+    border-color: rgba(0,0,0,0.3);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+    color: #FFF;
+}
+a.btn.btn-red:hover {
+    background-color: #DA4F49;
+    border-color: rgba(0,0,0,0.5);
+}
+
+a.btn.btn-red:active {
+    background-color: #B32C24;
+    border-color: rgba(0,0,0,0.9);
+}
+
 .lgzMin {
 	width: 100% !important;
 	min-width: 100% !important;
 	padding: 0 !important;
+    margin: 0 !important;
 }
 .lgzHide {
     display: none !important;
@@ -186,11 +259,7 @@
     
            
 }
-.fs#lgzHud button {
-    font-size: 3vh;
-    padding-left: 2vh;
-    padding-right: 2vh;    
-}
+
 #lgzHud button:active {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
@@ -286,57 +355,35 @@
     overflow: hidden;
     margin: 0px;
 }
-.fsbar#lgzHudMenuBar {
- 
-    height: 5.8vh;
-}
-#lgzHudMenuBar button {
-    width: 25%;
-    /*todo: deprecate
-    height: 22px;
-    */
-    font-size: 15px;
-    padding: 0;
-}
-/*
-.fsbar#lgzHudMenuBar button {
-    height: 5.3vh;
-    font-size: 3vh;
-}
-*/
-/*
- * todo: add fs styles for moz, ie, test iOS
- */
 
 #lgzHudFullScreen {
-    background: #aaaaff !important;
-   
+    position: absolute;
+    left: 0;
+    height: 24px;
+    margin: 0;
+    padding: 5px;
+    width: 120px;
 }
 #lgzHudExit {
-    background: #aaaaff !important;
+    position: absolute;
+    left: 0;
+    height: 24px;
+    margin: 0;
+    padding: 5px;
+    width: 120px;
     display: none;
 }
-/*
- *todo: bug:  font-size in rule (#lgzContainer p) overrides below,
- * should be better way
-  
-#lgzHudLogo {
-   width: 80%;
-   font-size: 15px;
-}
-*/
-#lgzHudMenuBar p {
-    height: 5.3vh;
-    width: 80%;
-    font-size: 15px;
-    padding-top: 3px;
-}
-.fsbar#lgzHudMenuBar p {
-    height: 5.3vh;
-    font-size: 3vh;
-    padding-top: 1vh;
-}
 #lgzHudHelp {
-    background: #ff0000 !important;
-    
+    position: absolute;
+    right: 0;
+    height: 24px;
+    margin: 0;
+    padding: 5px;
+    width: 120px;    
+}
+#lgzHudLogo {
+    width: 600px;
+    padding: 0;
+    margin: 0;
+    padding-top: 3px;
 }

@@ -1,0 +1,59 @@
+#lgzInput {
+    /*
+    z-index: 1;
+    */
+    position: absolute;
+    width: 130px;
+    height: 25px;
+    font-size: 25px;
+    top: 42px;
+    left: 320px;
+    visibility: visible;
+}
+#winPlay .msgballoon {
+    position: absolute;
+    top: 250px;
+    margin: 0;
+    padding: 20px;
+    width: 400px;
+    margin-left: 20px;
+}
+.fs#lgzHud #winPlay .msgballoon {
+    top: 65vh;
+    width: 75vh;
+    left: 5vh;
+}
+#winPlay button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.fs#lgzHud #winPlay button {
+    top: 10vh;
+}
+#winWon .msgballoon {
+    position: absolute;
+    margin: 0;
+    padding: 20px;
+    right: 20px;
+    top: 110px;
+    width: 240px;
+}
+.fs#lgzHud #winWon .msgballoon {
+    width: 50vh;
+    top: 30vh;
+    right: 10vh;
+}
+#winWon #lgzBtnPlayAgain {
+    position: absolute;
+    top: 330px;
+    right: 60px;
+    width: 29%;
+    /* min-height: 5%; */
+}
+.fs#lgzHud #winWon button {
+    position: absolute;
+    top: 80vh;
+    left: 82vh;
+    width: 45vh;
+}

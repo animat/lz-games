@@ -17,6 +17,9 @@ K.urlSvrMediaAudio = 'svr/audio/';
 K.urlRscMedia = 'rsc/mma/';
 K.urlLibMedia = 'lib/lgz/mma/';
 
+K.urlSvrGames = 'http://localhost:8080/';
+
+
 K.lang = "en";
 K.region = "US";
 K.locale = "en";

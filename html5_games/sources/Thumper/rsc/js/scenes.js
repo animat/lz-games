@@ -19,34 +19,49 @@
  * 
  * We customize methods here
  * 
+
  */
+LgzLib.Scenes.Splash.prototype.preinit = function () {
+    console.debug('LgzLib.Scenes2.Splash.prototype.preinit');
+    this.lgzHud.objJQ('#winWon .msgballoon');
+    this.lgzHud.objJQ('#winWon button');
+    this.lgzHud.objArrSave();
+
+};
 LgzLib.Scenes.Main.prototype.preinit = function () {
     this.playSet = new Lgz.PlaySet(this);
 };
 LgzLib.Scenes.Main.prototype.rscload = function () {
-    console.debug('Scenes2.rscload: key ' + this.key);    
+    console.debug('Scenes2.Main.rscload: key ' + this.key);    
     this.lgzMgr.rscImage('main');
     this.playSet.rscload();
 
 };
 LgzLib.Scenes.Main.prototype._create = LgzLib.Scenes.Main.prototype.create;
 LgzLib.Scenes.Main.prototype.create = function () {
-
     this._create();
-    console.debug('Scenes2.create: key ' + this.key);    
-
+    console.debug('Scenes2.Main.create: key ' + this.key);    
     this.playSet.create();
-
+};
+LgzLib.Scenes.Main.prototype.eventResized = function () {
+    console.debug('Scenes2.Main.eventResized: key ' + this.key);    
+ 
+   console.log('Scenes2.eventResized: fs: ' + this.lgzHud.isFullScreen());
+   console.log ('Scenes2.eventResized: cw: ' + $('canvas').width() + ' csw: ' + $('canvas').css('width'));
+   this.lgzHud.objArrResize();   
 };
 LgzLib.Scenes.Main.prototype.update = function () {
+    Lgz.hud.print('wih: ' + window.innerHeight 
+            + ' bh: ' + $('body').height()
+            + ' ch: ' + $('canvas').height());
     this.playSet.update();
+
 };
 
 LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
     'use strict';
     console.debug('Scenes2.Main.eventNodeBeforeNext:');
     this.playSet.eventNodeBeforeNext();
-    
 };
 LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
     'use strict';
@@ -60,7 +75,7 @@ LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
 };
 LgzLib.Scenes.End.prototype.rscload = function () {
     'use strict';
-    console.debug('Scene.rscload: key ' + this.key);
+    console.debug('Scene.End.rscload: key ' + this.key);
     
     this.lgzMgr.rscImage('end');
     this.lgzMgr.rscImage('sign2');
@@ -69,7 +84,7 @@ LgzLib.Scenes.End.prototype.create = function () {
     'use strict';
     var ps, score, spriteSign, sprite, thisObj;
     
-    console.debug('Scene.create: key ' + this.key);
+    console.debug('Scene.End.create: key ' + this.key);
     
     thisObj = this;
     ps = this.lgzMgr.scenes.main.playSet;

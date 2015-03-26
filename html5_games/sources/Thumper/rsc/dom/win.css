@@ -28,7 +28,7 @@
     top: 110px;
     width: 240px;
 }
-.fs#lgzHud #winWon .msgballoon {
+.xxxfs#lgzHud #winWon .msgballoon {
     width: 50vh;
     top: 30vh;
     right: 10vh;
@@ -37,10 +37,10 @@
     position: absolute;
     top: 330px;
     right: 60px;
-    width: 29%;
+    width: 200px;
     /* min-height: 5%; */
 }
-.fs#lgzHud #winWon button {
+.xxxfs#lgzHud #winWon button {
     position: absolute;
     top: 80vh;
     left: 82vh;
