@@ -14,15 +14,16 @@
 window.console = window.console || {};
 window.console.debug = window.console.debug || window.console.log || function () { "use strict"; };
 var LgzLib = LgzLib || {};
-Function.prototype.lgzExtends = function(parent) {
-  var child;
-  child = this;
-  child.prototype = Object.create(parent.prototype);
-  child.prototype.constructor = child;
-  child.prototype._super = parent;
+Function.prototype.lgzExtends = function (parent) {
+    'use strict';
+    var child;
+    child = this;
+    child.prototype = Object.create(parent.prototype);
+    child.prototype.constructor = child;
+    child.prototype._super = parent;
 };
 //todo: deprecate extends and inherit functions below
-Function.prototype.extends = function(parent) {
+Function.prototype.extends = function (parent) {
   var child;
   child = this;
   child.prototype = Object.create(parent.prototype);

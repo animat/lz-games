@@ -57,11 +57,12 @@ LgzLib.Lang = function () {
             thisObj.onLoad();
         }
     };
-    thisObj.load = function (name, langStr) {
+    thisObj.load = function (name, langStr, onLoad) {
         var fullurl, langCode;
         langCode = thisObj.pageCode(langStr);
         thisObj.page[pageCode] = {};
         idxArr.push(pageCode);
+        this.onLoad = onLoad;
 
 		fullurl = K.urlSvrXML + name +  '_' + langCode + '.xml';
         console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);

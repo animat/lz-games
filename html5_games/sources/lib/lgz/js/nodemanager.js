@@ -21,8 +21,7 @@ LgzLib.NodeManager = function (mgr) {
     
     thisObj.nodes = [];
     thisObj.idx = 0;
-    thisObj.url = K.urlSvrXML + mgr.gameId() + '.xml?';
-    thisObj.loadURL = function (url, onloaded, onerror) {
+    thisObj.xxxloadURL = function (url, onloaded, onerror) {
         thisObj.url = url;
         thisObj.idx = 0;
         $.get(url, function (data) {
@@ -55,7 +54,7 @@ LgzLib.NodeManager = function (mgr) {
         thisObj.eventLoadOK();
     };
     thisObj.load = function () {
-
+        thisObj.url = K.urlSvrXML + mgr.gameId() + '.xml?';
         thisObj.idx = 0;
         thisObj.completed = 0;
         
