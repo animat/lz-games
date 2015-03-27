@@ -3,6 +3,8 @@
 	$: true,
 	Phaser: true,
 	K: true,
+	createjs: true,
+	lib: true,
 	console: true,
 	window: true,
 	LgzLib: true
@@ -16,57 +18,62 @@ Lgz.init = function () {
     var mgr;
 
     //note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
-
-
-    $("[resname='IDS_INSTRUCTIONS']").attr('resname','IDS_INTRO');    
+    $("[resname='IDS_INSTRUCTIONS']").attr('resname', 'IDS_INTRO');
     $('#lgzBtnPlay').attr('resname', 'IDS_PLAY_BUTTON');
 
 
-    mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
-    console.debug('Lgz.init: game exists? ' + mgr.game);
-    
-    console.debug('Lgz.init: device exists? ' + mgr.game.device);
-    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
-    mgr.hud.orient = mgr.hud.ORIENT.NONE;    
-    Lgz.cjsInit();
+    mgr = new LgzLib.Mgr(
+        Lgz,
+        K.urlGamePrefix,
+        function () {
+            Lgz._cbMgrReady(mgr);
+        }
+    );
  
 };
-
-Lgz.cjsInit  = function () {
-	//canvas = document.getElementById("canvas");
-
-	var loader = new createjs.LoadQueue(false);
+Lgz._cbMgrReady = function (mgr) {
+    'use strict';
+    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
+    mgr.hud.orient = mgr.hud.ORIENT.NONE;
+    Lgz.cjsInit(mgr);
+};
+Lgz.cjsInit  = function (mgr) {
+    'use strict';
+    var loader;
+	loader = new createjs.LoadQueue(false);
 	loader.installPlugin(createjs.Sound);
-	loader.addEventListener("complete", Lgz.cjsHandleComplete);
+	loader.addEventListener(
+        "complete",
+        function () {
+            Lgz._cbCjsReady(mgr);
+        }
+    );
 	loader.loadManifest(lib.properties.manifest);
 };
-
-Lgz.cjsHandleComplete = function () {
-    console.log('Lgz.cjsHandleComplete');
-    var cjs, root,  strTags, stage, mgr;
+Lgz._cbCjsReady = function (mgr) {
+    'use strict';
+    var cjs, root,  strTags, stage;
+    console.log('Lgz._cbCjsReady');
     
-    
-    
-    mgr = Lgz.mgr; 
     cjs = {};
     root = new lib.leapFrogCJS();
     //exportRoot = new lib.leapFrogCJS(null, null, null, null, Lgz.mgr);
     cjs.root = root;
 
     strTags = {};
-    strTags['IDS_INTRO'] = function(str) {
+    strTags.IDS_INTRO = function (str) {
         root.text_2.text = str;
     };
-    strTags['IDS_PLAY_BUTTON'] = function(str) {
+    strTags.IDS_PLAY_BUTTON = function (str) {
         root.playGame.text.text = str;
         root.playGame.text_1.text = str;
     };
-    strTags['IDS_PLAY_AGAIN_BUTTON'] = function(str) {
+    strTags.IDS_PLAY_AGAIN_BUTTON = function (str) {
         root.playAgain.text.text = str;
-    }; 
+    };
     cjs.strTags = strTags;
 
-    root.playGame.on('click', function() {
+    root.playGame.on('click', function () {
         console.log('playGame: clicked');
         //root.gotoAndPlay('game');
         mgr.play();
@@ -90,11 +97,5 @@ Lgz.cjsHandleComplete = function () {
     
     mgr.cjs = cjs;
     mgr.sceneInit();
-    mgr.scenes.splash.start();    
+    mgr.scenes.splash.start();
 };
- 
-function playSound(id, loop) {
-    console.log('playSound: ' + id);
-	//createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
-};
-
