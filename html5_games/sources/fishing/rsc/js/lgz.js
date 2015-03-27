@@ -19,7 +19,17 @@ Lgz.init = function () {
     $('#lgzBtnPlay').attr('resname', 'IDS_PLAY_BTN');
     $('#lgzBtnPlayAgain').attr('resname', 'IDS_PLAY_AGAIN_BTN');
   
-    mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
+    mgr = new LgzLib.Mgr(
+        Lgz,
+        K.urlGamePrefix,
+        function () {
+            Lgz._cbMgrReady(mgr);
+        }
+    );
+ 
+};
+Lgz._cbMgrReady = function (mgr) {
+    'use strict';
     mgr.sceneInit();
-    mgr.scenes.splash.start();          
+    mgr.scenes.splash.start();
 };
