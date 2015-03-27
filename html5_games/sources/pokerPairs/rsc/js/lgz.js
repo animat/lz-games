@@ -10,11 +10,31 @@
 
 var Lgz = Lgz || {};
 
-Lgz.init = function () {
+Lgz.xxinit = function () {
     'use strict';
     var mgr;
    
     mgr = new LgzLib.Mgr(Lgz, K.urlGamePrefix);
     mgr.sceneInit();
-    mgr.scenes.splash.start();        
+    mgr.scenes.splash.start();
+ 
+};
+Lgz.init = function () {
+    'use strict';
+    var mgr;
+   
+    mgr = new LgzLib.Mgr(
+        Lgz,
+        K.urlGamePrefix,
+        function () {
+            Lgz._cbMgrReady(mgr);
+        }
+    );
+ 
+};
+Lgz._cbMgrReady = function (mgr) {
+    'use strict';
+    console.log('Lgz._cbMgrReady: ');
+    mgr.sceneInit();
+    mgr.scenes.splash.start();
 };
