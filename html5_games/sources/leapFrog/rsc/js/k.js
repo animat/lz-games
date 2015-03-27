@@ -22,7 +22,7 @@ K.renderFPS = 15;
 K.xdiv = 250; 
 K.ydiv = 150;
 */
-K.xdiv = 200; 
+K.xdiv = 200;
 K.ydiv = 60;
 
 K.xmin =  10;
@@ -47,16 +47,16 @@ K.showTO = 3000;
 
 K.popBaseWidth = 150;
 
-K.nodeTextStyle = { 
+K.nodeTextStyle = {
     font: '18pt ' + K.font,
     fill: '#ffffff',
     align: 'center',
     wordWrap: true,
-    wordWrapWidth: K.popBaseWidth    
+    wordWrapWidth: K.popBaseWidth
 };
 K.popupTextStyle = {
 	font: '18pt ' + K.font,
-        fontWeight: 'bold',
+    fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center',
 	wordWrap: true,
@@ -70,13 +70,13 @@ K.scoreTextStyle = {
 };
 K.signTextStyle = {
 	font: '16pt ' + K.font,
-        fontWeight: 'bold',
+    fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center'
 };
 K.signSmallTextStyle = {
 	font: '9pt ' + K.font,
-        fontWeight: 'bold',
+    fontWeight: 'bold',
 	fill: '#ffffff',
 	align: 'center'
 };
