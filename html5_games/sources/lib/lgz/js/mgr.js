@@ -1,27 +1,52 @@
 /*global
     $: true,
+    document: true,
     Phaser: true,
     K: true, console: true,
     window: true,
+    Spinner: true,
     LgzLib: true
  */
 /*jslint  nomen: true */
 
 var g  = g || {};
 var LgzLib = LgzLib || {};
-LgzLib.Mgr = function (globLgz, gamePrefix) {
+LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     'use strict';
-    var thisObj, game, lang;
+    var thisObj, initCount, game, lang;
     thisObj = this;
+    initCount = 0;
 
+    thisObj._cbInitPost = function () {
+        initCount += 1;
+        if (initCount < 3) {
+            return;
+        }
+
+        //thisObj.spinnerHide();
+        onReady();
+    };
     thisObj.init = function () {
         game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
-        lang = new LgzLib.Lang();
-        lang.load(gamePrefix,  K.lang);
-        thisObj.lang = lang;
         thisObj.game = game;
-        thisObj.msgframe = new LgzLib.MsgFrames.Game(thisObj);        
+        thisObj.spinnerInit();
+        thisObj.lang = new LgzLib.Lang();
         thisObj.hud = new LgzLib.Hud(thisObj);
+        thisObj.spinnerShow();
+
+        thisObj.lang.load(
+            gamePrefix,
+            K.lang,
+            function () {
+                thisObj._cbInitPost();
+            }
+        );
+        thisObj.msgframe = new LgzLib.MsgFrames.Game(
+            thisObj,
+            function () {
+                thisObj._cbInitPost();
+            }
+        );
         thisObj.nm = new LgzLib.NodeManager(thisObj);
         thisObj.hints = new LgzLib.Hints(thisObj);
         thisObj.scenes = {};
@@ -32,8 +57,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         globLgz.nm = thisObj.nm;
         globLgz.mgr = thisObj;
         globLgz.scenes = thisObj.scenes;
-        
-        thisObj.spinnerInit();
+        thisObj._cbInitPost();
         
     };
  
@@ -53,29 +77,33 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
     thisObj.help = function () {
         thisObj.hud.winOpen('winHelp');
     };
-    thisObj._welcome2 = function () {
+    thisObj._cbWelcome2 = function () {
         console.debug('LgzLib.Mgr.welcome2:');
         thisObj.hud.localize();
         thisObj.hints.init();
         thisObj.hud.toggleFsButtons();
         thisObj.game.paused = false;
+        thisObj.spinnerHide();
+        thisObj.hud.winCloseAll(false);
         thisObj.scenes.welcome.start();
     };
-    thisObj._welcome1 = function () {
+    thisObj._cbWelcome1 = function () {
         var langStr;
         console.debug('LgzLib.Mgr.welcome1:');
-        thisObj.lang.onLoad = function () {
-            thisObj._welcome2();
-        };
 
         langStr = thisObj.nm.dataFind("language").text();
-        thisObj.lang.load(gamePrefix,  langStr);
+        thisObj.lang.load(
+            gamePrefix,
+            langStr,
+            function () {
+                thisObj._cbWelcome2();
+            }
+        );
     };
     thisObj.welcome = function () {
         console.debug('LgzLib.Mgr.welcome:');
-        thisObj.hud.winCloseAll(false);
         window.setTimeout(function () {
-            thisObj._welcome1();
+            thisObj._cbWelcome1();
         }, 900);
     };
     thisObj.play = function () {
@@ -120,24 +148,30 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
                 thisObj._sendBugReply(data);
             },
             2000
-        ); 
+        );
     };
     thisObj.sendBug = function () {
         var url, $lgzParms, $form, sdata, gameid, userid, body;
      
         url = '/play/report_bug';
         $lgzParms = $("#lgzParms");
-        gameid = $lgzParms.attr("game_id");
-		// TODO @Cesar: Users do not need to sign in for some games. Will this param default to 0?
-        userid = $lgzParms.attr("user_id");
+        gameid = $lgzParms.attr("gameid");
+
+		//note: For users not signed in, userid defaults to 0
+        userid = $lgzParms.attr("userid");
         body = $("#textbug").val();
-		if (body != "") {
-	        $.post(url, {body: body, game_id: gameid, user_id: userid}).success(
-					function (data) { thisObj.sendBugReply(data); }
-				).error(function() {
+		if (body !== "") {
+	        $.post(
+                url,
+                {body: body, game_id: gameid, user_id: userid}
+            ).success(
+			    function (data) { thisObj.sendBugReply(data); }
+			).error(
+                function () {
 					console.log("Error submitting this bug...");
-                                        thisObj.spinnerHide();
-				});
+                    thisObj.spinnerHide();
+		        }
+            );
 		}
         thisObj.hud.winClose('winBug', false);
         $("#textbug").val("");
@@ -147,22 +181,24 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
         var $lgzParms, userid, gameid, url;
         url = "/high_scores/create";
         $lgzParms = $("#lgzParms");
-        gameid = $lgzParms.attr("game_id");
-        userid = $lgzParms.attr("user_id");
+        gameid = $lgzParms.attr("gameid");
+        userid = $lgzParms.attr("userid");
         $.post(url, {game_id: gameid, user_id: userid, score: scoreval});
     };
     thisObj.gameId = function () {
         var id, tail, $lgzParms, urlparm, gameid;
         $lgzParms = $("#lgzParms");
         
-        urlparm = document.URL.match(/.*\?xmlid=(.*)/);
+        urlparm = document.URL.match(/.*\?gameid=(.*)/);
         if (urlparm) {
-            $lgzParms.attr('game_id', urlparm[1]);
+
+            console.log('LgzLib.Mgr.gameId: setting gameid from url parm');
+            $lgzParms.attr('gameid', urlparm[1]);
         }
         
-        
-        gameid = $lgzParms.attr("game_id");
+        gameid = $lgzParms.attr("gameid");
         if (gameid !== "") {
+            console.log('LgzLib.Mgr.gameId: ' + gameid);
             return gameid;
         }
         
@@ -172,7 +208,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             return null;
         }
         id = tail.split('.')[0];
-        $lgzParms.attr('game_id', id);
+        $lgzParms.attr('gameid', id);
         
         return id;
     };
@@ -253,41 +289,41 @@ LgzLib.Mgr = function (globLgz, gamePrefix) {
             delayTO
         );
     };
-    thisObj.spinnerShow = function() {
+    thisObj.spinnerShow = function () {
         var target;
         
         thisObj.hud.winOpen('winProgress');
         target = document.getElementById('winProgress');
         thisObj.spinner.spin(target);
     };
-    thisObj.spinnerHide = function() {
+    thisObj.spinnerHide = function () {
         thisObj.hud.winClose('winProgress');
         thisObj.spinner.stop();
-    };    
+    };
     thisObj.spinnerInit = function () {
         var cfg;
         cfg = {
-          lines: 13, // The number of lines to draw
-          length: 14, // The length of each line
-          width: 10, // The line thickness
-          radius: 29, // The radius of the inner circle
-          corners: 1, // Corner roundness (0..1)
-          rotate: 0, // The rotation offset
-          direction: 1, // 1: clockwise, -1: counterclockwise
-          color: '#0FF', // #rgb or #rrggbb or array of colors
-          speed: 1, // Rounds per second
-          trail: 30, // Afterglow percentage
-          shadow: false, // Whether to render a shadow
-          hwaccel: false, // Whether to use hardware acceleration
-          className: 'spinner', // The CSS class to assign to the spinner
-          zIndex: 2e9, // The z-index (defaults to 2000000000)
-          top: '50%', // Top position relative to parent
-          left: '50%' // Left position relative to parent
+            lines: 13, // The number of lines to draw
+            length: 14, // The length of each line
+            width: 10, // The line thickness
+            radius: 29, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#0FF', // #rgb or #rrggbb or array of colors
+            speed: 1, // Rounds per second
+            trail: 30, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '50%', // Top position relative to parent
+            left: '50%' // Left position relative to parent
         };
 
         thisObj.spinner = new Spinner(cfg);
         
-    };        
+    };
     thisObj.init();
 
 };
