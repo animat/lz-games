@@ -41,7 +41,7 @@ Lgz.cjsInit  = function (mgr) {
     'use strict';
     var loader;
 	loader = new createjs.LoadQueue(false);
-	loader.installPlugin(createjs.Sound);
+	// loader.installPlugin(createjs.Sound);
 	loader.addEventListener(
         "complete",
         function () {
@@ -75,7 +75,11 @@ Lgz._cbCjsReady = function (mgr) {
 
     root.playGame.on('click', function () {
         console.log('playGame: clicked');
-        //root.gotoAndPlay('game');
+        mgr.play();
+    });
+
+    root.playAgain.on('click', function () {
+        console.log('playAgain: clicked');
         mgr.play();
     });
     

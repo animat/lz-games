@@ -2092,6 +2092,7 @@ p.nominalBounds = new cjs.Rectangle(-40.7,0.8,63,24.5);
 
 	// Play again
 	this.playAgain = new lib.playAgain();
+    this.playAgainBtn = new cjs.ButtonHelper(this.playAgain, 0, 1, 2, false);
 	this.playAgain.setTransform(255.1,332.6);
 	this.playAgain._off = true;
 
