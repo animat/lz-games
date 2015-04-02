@@ -292,7 +292,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     thisObj.spinnerShow = function () {
         var target;
         
-        thisObj.hud.winOpen('winProgress');
+        thisObj.hud.winOpen('winProgress', true);
         target = document.getElementById('winProgress');
         thisObj.spinner.spin(target);
     };
