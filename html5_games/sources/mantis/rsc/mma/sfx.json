@@ -1,0 +1,20 @@
+{
+  "resources": [
+    "sfx.ogg",
+    "sfx.m4a",
+    "sfx.mp3",
+    "sfx.ac3"
+  ],
+  "spritemap": {
+    "_drip": {
+      "start": 0,
+      "end": 0.4179591836734694,
+      "loop": false
+    },
+    "_spring": {
+      "start": 2,
+      "end": 3.0448979591836736,
+      "loop": false
+    }
+  }
+}
