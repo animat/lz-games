@@ -195,12 +195,13 @@ LgzLib.DisplayNodeText.prototype.eventFileComplete = function () {
     //note: not used    
 };
 LgzLib.DisplayNodeText.prototype.load = function () {
-   var sprite, thisObj, style;
+   var sprite, thisObj, style, copyStyle;
 
    style  = this._lgzCreateOpts.text.style || K.nodeTextStyle;
+   copyStyle = JSON.parse(JSON.stringify(style));
 
    //sprite = new Phaser.Text(this.game, 0, 0, ' '+ this.lgzContent + ' ', style);
-   sprite = new Phaser.Text(this.game, 0, 0, this.lgzContent, style);
+   sprite = new Phaser.Text(this.game, 0, 0, this.lgzContent, copyStyle);
    sprite.visible = false;
    this.game.add.existing(sprite);
    //this.textSprite = sprite;
