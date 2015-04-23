@@ -278,11 +278,36 @@ LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
         break;
     }
 };
+LgzLib.MsgFrames.Game.prototype.gameParmsUrl = function () {
+    'use strict';
+    var id, urlparms, gameid;
+
+    urlparms = this.getJsonFromUrl();
+
+    if (urlparms.gameid) {
+        this.$lgzParms.attr('gameid', urlparms.gameid);
+
+        if (urlparms.userid) {
+            this.$lgzParms.attr('userid', urlparms.userid);
+        }
+        return true;
+    }    
+    return false;
+
+};
 LgzLib.MsgFrames.Game.prototype.initFrame = function () {
     'use strict';
     this.$lgzParms = $('#lgzParms');
-    this.sendToParent(this.CK.FrameIsGame);
-    this.sendToParent(this.CK.GameParmsGet);
+ 
+    
+    if(this.gameParmsUrl()) {
+        console.log('LgzLib.MsgFrames.Game.initFrame: gameParmsUrl true');
+        this._cbInit();        
+    } else {
+        this.sendToParent(this.CK.FrameIsGame);
+        this.sendToParent(this.CK.GameParmsGet);        
+    }
+
 };
 
 //_______________________________________________________________
