@@ -23,17 +23,29 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
             return;
         }
 
-        //thisObj.spinnerHide();
+        /*
+         * ivanixcu: todo: Phaser plugin manager (Lgz.game.plugins) is not avl 
+         * immediately after create game obj. Test in this execution point show that it is ready.
+         * Need to find definite way of knowing when plugin mgr is ready.
+         */
+         
+        console.log('LgzLib.Mgr._cbInitPost: plugin Mgr ready? add saveCPU ' + thisObj.game.plugins);
+        thisObj.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
+        thisObj.saveCpu.renderOnFPS = K.renderFPS;
+
         onReady();
     };
     thisObj.init = function () {
         game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
         thisObj.game = game;
+        
         thisObj.spinnerInit();
         thisObj.lang = new LgzLib.Lang();
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.spinnerShow();
 
+
+    
         thisObj.lang.load(
             gamePrefix,
             K.lang,
@@ -68,6 +80,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         //override
     };
     thisObj.sceneInit = function () {
+        console.log('LgzLib.Mgr.sceneInit: plugins ready? ' + thisObj.game.plugins); 
         thisObj.scenes.splash = new LgzLib.Scenes.Splash(thisObj);
         thisObj.scenes.welcome = new LgzLib.Scenes.Welcome(thisObj);
         thisObj.scenes.main = new LgzLib.Scenes.Main(thisObj);
@@ -292,7 +305,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     thisObj.spinnerShow = function () {
         var target;
         
-        thisObj.hud.winOpen('winProgress');
+        thisObj.hud.winOpen('winProgress', true);
         target = document.getElementById('winProgress');
         thisObj.spinner.spin(target);
     };
