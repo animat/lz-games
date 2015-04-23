@@ -6,19 +6,19 @@
     <header></header>
     <body>
       <trans-unit id="001" resname="IDS_CONGRATS">
-        <source>Congrats!</source>
+        <source>en: Congrats!</source>
       </trans-unit>
       <trans-unit id="002" resname="IDS_INSTRUCTIONS">
-        <source>ivx: Spell out the words before the flower is finished growing to have create a healthy garden.</source>
+        <source>en: Spell out the words before the flower is finished growing to have create a healthy garden.</source>
       </trans-unit>
       <trans-unit id="003" resname="IDS_PLAY_AGAIN">
-        <source>Play again?</source>
+        <source>en: Play again?</source>
       </trans-unit>
       <trans-unit id="004" resname="IDS_PLAY_GAME">
-        <source>ivx: Play the game!</source>
+        <source>en: Play the game!</source>
       </trans-unit>
       <trans-unit id="005" resname="IDS_YOU_WIN">
-        <source>Great job, you beat Garden Grows!</source>
+        <source>en: Great job, you beat Garden Grows!</source>
       </trans-unit>
     </body>
   </file>

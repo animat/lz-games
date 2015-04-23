@@ -21,13 +21,14 @@
  * We customize methods here
  *
  */
+
 LgzLib.Scene.prototype.preload = function () {
     'use strict';
     //note: called by game obj
     console.debug('Scene.preload: key ' + this.key);
     this.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
     //note: todo: reset to 20 after dev/debug
-    this.saveCpu.renderOnFPS = 10;
+    this.saveCpu.renderOnFPS = 5;
 };
 
 LgzLib.Scenes.Splash.prototype.p_preinit = LgzLib.Scenes.Splash.prototype.preinit;
@@ -53,6 +54,7 @@ LgzLib.Scenes.Welcome.prototype.render = function () {
 
 LgzLib.Scenes.Main.prototype.preinit = function () {
     'use strict';
+        
     this.game.renderer.clearBeforeRender = false;
     this.playSet = new Lgz.PlaySet(this);
 };
@@ -66,6 +68,7 @@ LgzLib.Scenes.Main.prototype._createBg = function() {};
 LgzLib.Scenes.Main.prototype._create = LgzLib.Scenes.Main.prototype.create;
 LgzLib.Scenes.Main.prototype.create = function () {
     'use strict';
+
     this._create();
     console.debug('Scenes2.create: key ' + this.key);
 
@@ -87,21 +90,7 @@ LgzLib.Scenes.Main.prototype.shutdown = function () {
     'use strict';
     this.playSet.shutdown();
 };
-LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
-    'use strict';
-    console.debug('Scenes2.Main.eventNodeBeforeNext:');
-    this.playSet.eventNodeBeforeNext();
-};
-LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
-    'use strict';
-    console.debug('Scenes2.Main.eventNodeAfterNext:');
-    this.playSet.eventNodeAfterNext();
-};
-LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
-    'use strict';
-    console.debug('Scenes2.Main.eventNodeFinish:');
-    this.playSet.eventNodeFinish();
-};
+
 LgzLib.Scenes.Main.prototype.eventResized = function () {
     'use strict';
     console.debug('Scenes2.Main.eventResized: key ' + this.key);
@@ -115,13 +104,7 @@ LgzLib.Scenes.End.prototype.create = function () {
     'use strict';
     var ps, score, spriteSign, sprite, thisObj;
     console.debug('Scene.create: key ' + this.key);
-    /*
-     * note: Scenes.End not used
-     *
-    this.lgzMgr.cjs.strTags.IDS_INTRO("");
-    this.lgzMgr.cjs.root.addChild(this.lgzMgr.clip.spriteTimer);
-    this.lgzMgr.cjs.root.gotoAndPlay('win');
-    */
+
 };
 LgzLib.Scenes.End.prototype.render = function () {
     'use strict';

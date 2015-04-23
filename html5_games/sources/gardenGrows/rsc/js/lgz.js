@@ -10,7 +10,7 @@
 	LgzLib: true
  */
 /*jslint  nomen: true */
-var g = {};
+var g = g || {};
  
 /*
  *
@@ -32,6 +32,7 @@ function handleFileLoad(evt) {
  *
  */
 var Lgz = Lgz || {};
+Lgz.g = {};
 var images = images;
 Lgz._cbMgrReady = function (mgr) {
     'use strict';
@@ -72,6 +73,7 @@ Lgz._cbCjsReady = function (mgr) {
         root.congratsWindow.text_1.text = str;
     };
     strTags.IDS_PLAY_AGAIN = function (str) {
+        root.playAgain.text.text = str;
         /*
         objs.spriteWin.playAgain.text.text = str;
         */
@@ -82,7 +84,11 @@ Lgz._cbCjsReady = function (mgr) {
         console.log('playGame: clicked');
         mgr.play();
     });
-
+    root.playAgain.on('click', function () {
+        console.log('playAgain: clicked');
+        mgr.play();
+    });
+    
     /*
     objs.spriteWin.playAgain.on('click', function () {
         console.log('playAgain: clicked');

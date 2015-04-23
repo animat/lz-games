@@ -6,14 +6,14 @@
     "sfx.ac3"
   ],
   "spritemap": {
-    "_drip": {
+    "bellwav": {
       "start": 0,
-      "end": 0.4179591836734694,
+      "end": 1.8024489795918368,
       "loop": false
     },
-    "_spring": {
-      "start": 2,
-      "end": 3.0448979591836736,
+    "blossommp3": {
+      "start": 3,
+      "end": 5.351020408163265,
       "loop": false
     }
   }

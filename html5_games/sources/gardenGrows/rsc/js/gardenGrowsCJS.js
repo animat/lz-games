@@ -45,7 +45,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,598,345);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(0,0,598,345);
 
-
+//ivanixcu: note: submit/cancel
 (lib.submit = function() {
 	this.initialize();
 
@@ -120,6 +120,8 @@ p.nominalBounds = new cjs.Rectangle(0,0,598,345);
 	this.shape_14.setTransform(8.3,-7.7);
 
 	this.addChild(this.shape_14,this.shape_13,this.shape_12,this.shape_11,this.shape_10,this.shape_9,this.shape_8,this.shape_7,this.shape_6,this.shape_5,this.shape_4,this.shape_3,this.shape_2,this.shape_1,this.shape,this.text_1,this.text);
+
+        this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(-30.2,-18,61.9,36.2);
 
@@ -232,7 +234,7 @@ p.nominalBounds = null;
 	this.shape.setTransform(101.5,42.5);
 
 	this.addChild(this.shape,this.text);
-    this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
+        this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
 
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(0,-1,203,87);
@@ -252,6 +254,7 @@ p.nominalBounds = new cjs.Rectangle(0,-1,203,87);
 	this.shape.setTransform(44,15.5);
 
 	this.addChild(this.shape,this.text);
+        this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(-91,0,273,31);
 
@@ -684,6 +687,7 @@ p.nominalBounds = new cjs.Rectangle(28,69.3,339,99.7);
 	this.shape_14.setTransform(8.3,-7.7);
 
 	this.addChild(this.shape_14,this.shape_13,this.shape_12,this.shape_11,this.shape_10,this.shape_9,this.shape_8,this.shape_7,this.shape_6,this.shape_5,this.shape_4,this.shape_3,this.shape_2,this.shape_1,this.shape,this.text_1,this.text);
+        this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(-30.2,-18,61.9,36.2);
 
@@ -1240,7 +1244,7 @@ p.nominalBounds = new cjs.Rectangle(-30.2,-18,61.9,36.2);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(-299.8,-193.2,527,361.7);
 
-
+//ivanixcu:note: iknowit button
 (lib.answerQuestion = function() {
 	this.initialize();
 
@@ -1280,6 +1284,8 @@ p.nominalBounds = new cjs.Rectangle(-299.8,-193.2,527,361.7);
 	this.shape_7.setTransform(31.4,19.6);
 
 	this.addChild(this.shape_7,this.shape_6,this.shape_5,this.shape_4,this.shape_3,this.shape_2,this.shape_1,this.shape);
+
+        this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(0,0,60.4,32.3);
 
@@ -2358,6 +2364,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,598,493.7);
 		}*/
 	}
 	this.frame_7 = function() {
+
         this.stop();
 		/* stop();
 		var gameid:Number;
@@ -2400,12 +2407,22 @@ p.nominalBounds = new cjs.Rectangle(0,0,598,493.7);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(13).to({_off:false},0).to({scaleX:1},9,cjs.Ease.get(1)).to({scaleY:1,y:171.4},7,cjs.Ease.get(1)).wait(1));
 
-	// Flowers
+	// XXXXFlowers
+        //ivanixcu: goodjob/trygain message (not used)
 	this.signal = new lib.signal();
 	this.signal.setTransform(293.8,33.4);
 	this.signal._off = true;
 
 	this.timeline.addTween(cjs.Tween.get(this.signal).wait(7).to({_off:false},0).to({_off:true},6).wait(17));
+
+        //ivanixcu: insert container. 
+        //used by Lgz.PlaySet to add Lgz.Plant(s)
+        
+        this.flowerbed = new cjs.Container();
+        this.flowerbed.setTransform(0,0,1,1);
+        this.flowerbed._off = true;
+        this.timeline.addTween(cjs.Tween.get(this.flowerbed).wait(7).to({_off:false},0).wait(17));
+
 
 	// Ground
 	this.ground = new lib.ground();
@@ -2414,7 +2431,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,598,493.7);
 
 	this.timeline.addTween(cjs.Tween.get(this.ground).wait(7).to({_off:false},0).wait(6).to({x:299.9,y:410.4},0).wait(17));
 
-	// Signals
+        // Signals
 	this.tryAgain = new lib.signal();
 	this.tryAgain.setTransform(301.5,104.3);
 	this.tryAgain._off = true;

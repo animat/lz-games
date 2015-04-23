@@ -18,34 +18,9 @@ K.renderType = Phaser.CANVAS;
 // K.renderForce = true;
 K.renderForce = false;
 K.renderFPS = 15;
-
-/*
-K.xdiv = 200;
-K.ydiv = 60;
-
-K.xmin =  10;
-K.xmax = 590;
-K.ymin =  70;
-K.ymax = 390;
-
-K.y1 = 100;
-K.xmin1 = (600 * 2/5)|0;
-K.xmax1 = (600 * 3/5)|0;
-*/
- 
-K.Hit = { 'NONE': 0, 'CORRECT': 1, 'WRONG': -1 };
-
-K.tryRand = { Min: 700, Max: 1500};
-K.showMax = 7;
-
-//K.showTO = 5000;
-K.showTO = 3000;
-
-K.popBaseWidth = 150;
-
-console.log('loading: rsc/js/k.js');
+  
 K.nodeTextStyle = {
-    font: '10pt ' + K.font,
+    font: '16pt ' + K.font,
     fill: '#ffffff',
     align: 'center',
     stroke: "white",
@@ -54,22 +29,32 @@ K.nodeTextStyle = {
     shadowOffsetX: 2,
     shadowOffsetY: 2
 };
-K.xxxscoreTextStyle = {
-	font: '18pt ' + K.font,
-    fontWeight: 'bold',
-	fill: '#ffffff',
-	align: 'center'
-};
-K.xxxsignTextStyle = {
-	font: '16pt ' + K.font,
-    fontWeight: 'bold',
-	fill: '#ffffff',
-	align: 'center'
-};
-K.xxxsignSmallTextStyle = {
-	font: '9pt ' + K.font,
-    fontWeight: 'bold',
-	fill: '#ffffff',
-	align: 'center'
-};
-K.lastMatchTO = 5000;
+ 
+ K.widthPct = 0.9;
+ K.baseY = 400;
+ K.leafHeight = 32;
+ K.leafWidth = 55;
+ K.stemHeight = 32;
+ K.stemDipY = 10;
+ 
+ 
+ K.flowerHead = {
+     offX: -3,
+     offY: -37,
+     width: 60,
+     height: 62
+ };
+ K.flowerHead1 = {
+     offX: -10,
+     offY: -60
+ };
+ K.flowerHead2 = {
+     offX: -25,
+     offY: -55
+ };
+ K.flowerHead3 = {
+     offX: -30,
+     offY: -60
+ };
+K.flowerDarkTO = 500;
+K.growTS = 3000; // grow every 3 seconds
