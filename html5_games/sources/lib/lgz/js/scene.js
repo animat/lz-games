@@ -50,9 +50,11 @@ LgzLib.Scene.prototype.rscload = function () {
 LgzLib.Scene.prototype.preload = function () {
     'use strict';
     //note: called by game obj
+    /*
     console.debug('Scene.preload: key ' + this.key);
     this.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
     this.saveCpu.renderOnFPS = K.renderFPS;
+    */
 
 };
 LgzLib.Scene.prototype.create = function () {
@@ -92,20 +94,26 @@ LgzLib.Scenes.Splash.prototype.preinit = function () {
     this.lgzHud.objJQ('#lgzHudExit');
     this.lgzHud.objJQ('#lgzHudLogo');
     this.lgzHud.objJQ('#lgzHudHelp');
+    this.lgzHud.objJQ('#lgzAccentBar');
+    this.lgzHud.objJQ('#lgzHudAccent');
     this.lgzHud.objArrSave();
 
 };
 LgzLib.Scenes.Splash.prototype.preload = function () {
     'use strict';
-    var i, _objs;
+    var i, _objs, lgzMgr;
     console.debug('Splash.preload: ');
     this._super.prototype.preload.call(this);
 
+    lgzMgr = this.lgzMgr;
+    
+
+    
     //todo: prefix lib images to prevent clobbering from custom game sprites or displaynodes
-    this.lgzMgr.rscImage('dot', true);
-    this.lgzMgr.rscImage('audio', true);
-    this.lgzMgr.rscImage('question', true);
-    this.lgzMgr.rscImage('box', true);
+    lgzMgr.rscImage('dot', true);
+    lgzMgr.rscImage('audio', true);
+    lgzMgr.rscImage('question', true);
+    lgzMgr.rscImage('box', true);
     
     _objs = this._super._objs;
     for (i in _objs) {

@@ -22,14 +22,14 @@ LgzLib.Hud = function (mgr) {
             $lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 
     thisObj = this;
-
+    game = mgr.game;
+    lang = mgr.lang;
 
     thisObj.ORIENT = {NONE: 0, PORTRAIT: 1, LANDSCAPE: 2};
     thisObj.orient = thisObj.ORIENT.LANDSCAPE;
 
     resizeDirty = false;
-    game = mgr.game;
-    lang = mgr.lang;
+
     eBody = $('body')[0];
 
     $lgzVP = $('#lgzViewPort');
@@ -45,15 +45,22 @@ LgzLib.Hud = function (mgr) {
 
     $lgzBtnFS = $('#lgzHudFullScreen');
     $lgzBtnExit = $('#lgzHudExit');
+    
+
     $winPlay = $('#winPlay');
     thisObj.objArr = [];
     
     lgzContainer =  document.getElementById('lgzContainer');
+
+    thisObj.requestedFS = false;
+    
+    
     $(window).resize(function () {
             thisObj.onResize();
     });
 
-    thisObj.requestedFS = false;
+
+
 
     thisObj.print = function (str) {
       $lgzHudLogo.text(str);  
@@ -599,5 +606,33 @@ LgzLib.Hud = function (mgr) {
     };
     thisObj.bigScreenStop = function () {
         BigScreen.exit();        
+    };
+    thisObj.toggleVisibility = function ($var) {
+        var display;
+        display = $var.css('visibility');
+        if (display === 'visible') {
+            $var.css('visibility','hidden');
+        } else {
+            $var.css('visibility','visible');
+        }
     };    
+    thisObj.initAccent = function () {
+        var $lgzHudAccent, $lgzAccentBar;
+        $lgzHudAccent = $('#lgzHudAccent');    
+        $lgzAccentBar = $('#lgzAccentBar');
+        
+        $lgzHudAccent.click(function() {
+            thisObj.toggleVisibility($lgzAccentBar);
+        });
+        console.log('LgzLib.Hud.initAccent: game? ' + game);
+   
+        if(game.device.desktop) {
+            $lgzHudAccent.css('visibility', 'visible');
+        }            
+    };
+    thisObj.init = function () {
+        
+        thisObj.initAccent();
+    };
+    thisObj.init();
 };

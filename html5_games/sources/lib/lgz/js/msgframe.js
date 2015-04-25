@@ -262,6 +262,47 @@ LgzLib.MsgFrames.Game  = function (mgr, cbInit) {
     LgzLib.MsgFrame.call(this);
 };
 LgzLib.MsgFrames.Game.lgzExtends(LgzLib.MsgFrame);
+ 
+LgzLib.MsgFrames.Game.prototype.loadAccentsOK = function (data) {
+    'use strict';
+    var i, set, charArr, strHTML, $ac, lgzInput;
+    
+    set = $(data).find('set');
+    charArr = set.find('character');
+    strHTML='';
+    for (i = 0; i < charArr.length; i += 1) {
+        strHTML += '<a href="#" >' + charArr[i].innerHTML + '</a>';
+    }
+    if (charArr.length) {
+        lgzInput = $('#lgzInput')[0];
+        $ac =$('#lgzAccentBar');
+        $ac[0].innerHTML = strHTML;
+        if (lgzInput) {
+            $ac.click(function (event) {
+                if (event.target !== $ac[0]) {
+                    lgzInput.value += event.target.innerHTML;
+                }
+            });
+        }
+    }
+
+};
+LgzLib.MsgFrames.Game.prototype.loadAccentsFAIL = function () {
+    'use strict';
+    console.error('LgzLib.MsgFrameGame.loadAccents: ERROR');
+};
+LgzLib.MsgFrames.Game.prototype.loadAccents = function (gameid) {
+    'use strict';
+    var thisObj, url;
+    thisObj = this;
+    url = K.urlSvrXML + 'info.xml?id=' + gameid;
+ 
+    $.get(url, function (data) {
+        thisObj.loadAccentsOK(data);
+    }).error(function () {
+        thisObj.loadAccentsFAIL();
+    });
+};
 LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
     'use strict';
     var parms;
@@ -274,15 +315,48 @@ LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
         parms = msg.value;
         this.$lgzParms.attr('gameid', parms.gameid);
         this.$lgzParms.attr('userid', parms.userid);
-        this._cbInit();
+        this._initFrame();
         break;
     }
+};
+LgzLib.MsgFrames.Game.prototype.gameParmsUrl = function () {
+    'use strict';
+    var id, urlparms, gameid;
+
+    urlparms = this.getJsonFromUrl();
+
+    if (urlparms.gameid) {
+        this.$lgzParms.attr('gameid', urlparms.gameid);
+
+        if (urlparms.userid) {
+            this.$lgzParms.attr('userid', urlparms.userid);
+        }
+        return true;
+    }    
+    return false;
+
+};
+LgzLib.MsgFrames.Game.prototype._initFrame = function () {
+    'use strict';
+    var gameid;
+    
+    gameid = this.$lgzParms.attr('gameid');
+    this.loadAccents(gameid);
+    this._cbInit();  
 };
 LgzLib.MsgFrames.Game.prototype.initFrame = function () {
     'use strict';
     this.$lgzParms = $('#lgzParms');
-    this.sendToParent(this.CK.FrameIsGame);
-    this.sendToParent(this.CK.GameParmsGet);
+ 
+    
+    if(this.gameParmsUrl()) {
+        console.log('LgzLib.MsgFrames.Game.initFrame: gameParmsUrl true');
+        this._initFrame();        
+    } else {
+        this.sendToParent(this.CK.FrameIsGame);
+        this.sendToParent(this.CK.GameParmsGet);        
+    }
+
 };
 
 //_______________________________________________________________
