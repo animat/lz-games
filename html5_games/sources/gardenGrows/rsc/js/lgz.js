@@ -11,35 +11,9 @@
  */
 /*jslint  nomen: true */
 var g = g || {};
- 
-/*
- *
-
-function init() {
-	canvas = document.getElementById("canvas");
-	images = images||{};
-
-	var loader = new createjs.LoadQueue(false);
-	loader.installPlugin(createjs.Sound);
-	loader.addEventListener("fileload", handleFileLoad);
-	loader.addEventListener("complete", handleComplete);
-	loader.loadManifest(lib.properties.manifest);
-}
-
-function handleFileLoad(evt) {
-	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
-}
- *
- */
 var Lgz = Lgz || {};
-Lgz.g = {};
 var images = images;
-Lgz._cbMgrReady = function (mgr) {
-    'use strict';
-    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
-    mgr.hud.orient = mgr.hud.ORIENT.NONE;
-    Lgz.cjsInit(mgr);
-};
+
 Lgz._cbCjsFileLoaded = function (evt) {
     'use strict';
 	if (evt.item.type === "image") {
@@ -110,27 +84,7 @@ Lgz._cbCjsReady = function (mgr) {
     mgr.sceneInit();
     mgr.scenes.splash.start();
 };
-Lgz.init = function () {
-    'use strict';
-    var mgr;
 
-
-    //note: using cjs text ui instead of domui
-    /*
-    $("[resname='IDS_INSTRUCTIONS']").attr('resname', 'IDS_INTRO');
-    $('#lgzBtnPlay').attr('resname', 'IDS_PLAY_BUTTON');
-    */
-
-
-    mgr = new LgzLib.Mgr(
-        Lgz,
-        K.urlGamePrefix,
-        function () {
-            Lgz._cbMgrReady(mgr);
-        }
-    );
- 
-};
 Lgz.cjsInit  = function (mgr) {
     'use strict';
     var loader;
@@ -147,4 +101,31 @@ Lgz.cjsInit  = function (mgr) {
         }
     );
 	loader.loadManifest(lib.properties.manifest);
+};
+Lgz._cbMgrReady = function (mgr) {
+    'use strict';
+    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
+    mgr.hud.orient = mgr.hud.ORIENT.NONE;
+    
+    /*
+     * note:  Call mgr.hud.inputInit() on input type games.
+     * Enables input field handling and displays accent toggle button
+     * 
+     */
+    mgr.hud.inputInit();
+    
+    Lgz.cjsInit(mgr);
+};
+Lgz.init = function () {
+    'use strict';
+    var mgr;
+
+    mgr = new LgzLib.Mgr(
+        Lgz,
+        K.urlGamePrefix,
+        function () {
+            Lgz._cbMgrReady(mgr);
+        }
+    );
+ 
 };

@@ -315,8 +315,6 @@ Lgz.PlaySet = function (scene) {
         if (avlArr.length) {
             i = this.game.rnd.integerInRange(0, avlArr.length - 1);
             i = avlArr[i];
-            Lgz.g.avlArr = avlArr;
-
             plant = thisObj.plantArr[i];
             plant.newStem();
             thisObj.growCount -= 1;            
@@ -388,7 +386,8 @@ Lgz.PlaySet = function (scene) {
     thisObj.wrong = function () {
         console.log('Lgz.PlaySet.wrong:');
         thisObj.lgzMgr.soundPlay('bellwav');
-        $lgzInput.val('');
+        thisObj.lgzMgr.hud.inputFxWrong(thisObj.plantSelected.text);
+        //$lgzInput.val('');
     };
     thisObj.check = function () {
         if ($lgzInput.val() === thisObj.plantSelected.text) {
