@@ -39,3 +39,13 @@ K.canvasVHeight = 400;
 K.canvasBg = '#000000';
 
 K.displayNode = { fontSizePad: 0.215};
+
+//config for animatining bad characters (letterfx)
+K.inputFxWrongOpts  = {
+        "timing":500,
+        "fx":"fly-bottom fade",
+        "backwards":true,
+        "fx_duration":"3s",
+        "pattern": /(^.+$)/g,
+        "letter_end": "stay"
+};

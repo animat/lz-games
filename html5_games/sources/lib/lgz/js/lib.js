@@ -72,3 +72,13 @@ LgzLib.splitUrl = function (url) {
 	return obj;	
 
 };
+LgzLib.copy = function (obj) {
+    var copy;
+    copy = {};
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            copy[prop] = obj[prop];
+        }
+    }
+    return copy;
+};

@@ -337,8 +337,6 @@ a.btn.btn-red:active {
     font-size: 3vh;
 }
 
-
-
 #lgzHudMenuBar {
     display: flex;
     display: -webkit-flex;
@@ -414,4 +412,25 @@ a.btn.btn-red:active {
     height: 24px;    
     padding: 5px;
     visibility: hidden;    
+}
+#lgzInput {
+ 
+    position: absolute;
+    width: 200px;
+    height: 20px;
+    font-size: 20px;
+    top: 50px;
+    left: 200px;
+
+}
+#lgzInputFx {
+ 
+    position: absolute;
+    visibility: hidden;
+    border: 1px dashed;
+    color: green;
+    text-align: left;
+}
+#lgzInputFx span {
+    color: red;
 }
