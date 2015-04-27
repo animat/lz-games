@@ -261,7 +261,7 @@ Lgz.PlaySet = function (scene) {
         console.log('Lgz.PlaySet.correct:');
         thisObj._answeredCorrect = true;
         $lgzInput.css('display', 'none');
-        thisObj.lgzMgr.soundPlay('_spring');
+        thisObj.lgzMgr.soundPlay('_spring',1200);
 
 
         if (thisObj.cjsFirstAction) {
@@ -298,7 +298,8 @@ Lgz.PlaySet = function (scene) {
         console.log('Lgz.PlaySet.wrong:');
 
         thisObj._answeredCorrect = false;
-        thisObj.lgzMgr.soundPlay('_drip');
+        thisObj.lgzMgr.hud.inputFxWrong(thisObj.answer.text);
+        thisObj.lgzMgr.soundPlay('_drip', 1500);
 
         if (thisObj.cjsFirstAction) {
             cjsRoot.removeChild(thisObj.spriteStatic);
