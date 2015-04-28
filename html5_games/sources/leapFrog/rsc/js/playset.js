@@ -285,6 +285,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.tweenScrollRight();
     };
     thisObj.wrong = function () {
+        thisObj.lgzMgr.hud.inputFxWrong(thisObj.answer.text);
         thisObj.lgzMgr.soundPlay('slidemp3');
         thisObj.spriteFrog.gotoAndPlay('incorrect');
     };
@@ -293,7 +294,6 @@ Lgz.PlaySet = function (scene) {
             thisObj.correct();
         } else {
             thisObj.wrong();
-            //thisObj.correct();
         }
     };
 };

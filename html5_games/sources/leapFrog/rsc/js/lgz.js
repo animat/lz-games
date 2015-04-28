@@ -13,30 +13,8 @@
 var g = {};
  
 var Lgz = Lgz || {};
-Lgz.init = function () {
-    'use strict';
-    var mgr;
-
-    //note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
-    $("[resname='IDS_INSTRUCTIONS']").attr('resname', 'IDS_INTRO');
-    $('#lgzBtnPlay').attr('resname', 'IDS_PLAY_BUTTON');
 
 
-    mgr = new LgzLib.Mgr(
-        Lgz,
-        K.urlGamePrefix,
-        function () {
-            Lgz._cbMgrReady(mgr);
-        }
-    );
- 
-};
-Lgz._cbMgrReady = function (mgr) {
-    'use strict';
-    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
-    mgr.hud.orient = mgr.hud.ORIENT.NONE;
-    Lgz.cjsInit(mgr);
-};
 Lgz.cjsInit  = function (mgr) {
     'use strict';
     var loader;
@@ -102,4 +80,29 @@ Lgz._cbCjsReady = function (mgr) {
     mgr.cjs = cjs;
     mgr.sceneInit();
     mgr.scenes.splash.start();
+};
+Lgz._cbMgrReady = function (mgr) {
+    'use strict';
+    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
+    mgr.hud.orient = mgr.hud.ORIENT.NONE;
+    mgr.hud.inputInit();
+    Lgz.cjsInit(mgr);
+};
+Lgz.init = function () {
+    'use strict';
+    var mgr;
+
+    //note: LgzLib Dom has 'IDS_PLAY'. Need 'IDS_PLAY_GAME' for this game
+    $("[resname='IDS_INSTRUCTIONS']").attr('resname', 'IDS_INTRO');
+    $('#lgzBtnPlay').attr('resname', 'IDS_PLAY_BUTTON');
+
+
+    mgr = new LgzLib.Mgr(
+        Lgz,
+        K.urlGamePrefix,
+        function () {
+            Lgz._cbMgrReady(mgr);
+        }
+    );
+ 
 };
