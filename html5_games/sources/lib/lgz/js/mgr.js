@@ -23,44 +23,19 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
             return;
         }
 
-        //thisObj.spinnerHide();
+        /*
+         * ivanixcu: todo: Phaser plugin manager (Lgz.game.plugins) is not avl 
+         * immediately after create game obj. Test in this execution point show that it is ready.
+         * Need to find definite way of knowing when plugin mgr is ready.
+         */
+         
+        console.log('LgzLib.Mgr._cbInitPost: plugin Mgr ready? add saveCPU ' + thisObj.game.plugins);
+        thisObj.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
+        thisObj.saveCpu.renderOnFPS = K.renderFPS;
+
         onReady();
     };
-    thisObj.init = function () {
-        game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
-        thisObj.game = game;
-        thisObj.spinnerInit();
-        thisObj.lang = new LgzLib.Lang();
-        thisObj.hud = new LgzLib.Hud(thisObj);
-        thisObj.spinnerShow();
 
-        thisObj.lang.load(
-            gamePrefix,
-            K.lang,
-            function () {
-                thisObj._cbInitPost();
-            }
-        );
-        thisObj.msgframe = new LgzLib.MsgFrames.Game(
-            thisObj,
-            function () {
-                thisObj._cbInitPost();
-            }
-        );
-        thisObj.nm = new LgzLib.NodeManager(thisObj);
-        thisObj.hints = new LgzLib.Hints(thisObj);
-        thisObj.scenes = {};
-
-        globLgz.lang = thisObj.lang;
-        globLgz.game = thisObj.game;
-        globLgz.hud = thisObj.hud;
-        globLgz.nm = thisObj.nm;
-        globLgz.mgr = thisObj;
-        globLgz.scenes = thisObj.scenes;
-        thisObj._cbInitPost();
-        
-    };
- 
     thisObj.pause = function () {
         //override
     };
@@ -68,6 +43,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         //override
     };
     thisObj.sceneInit = function () {
+        console.log('LgzLib.Mgr.sceneInit: plugins ready? ' + thisObj.game.plugins); 
         thisObj.scenes.splash = new LgzLib.Scenes.Splash(thisObj);
         thisObj.scenes.welcome = new LgzLib.Scenes.Welcome(thisObj);
         thisObj.scenes.main = new LgzLib.Scenes.Main(thisObj);
@@ -324,6 +300,66 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         thisObj.spinner = new Spinner(cfg);
         
     };
-    thisObj.init();
+    thisObj._init2 = function () {
+         
+        thisObj.spinnerInit();
+        thisObj.lang = new LgzLib.Lang();
+        thisObj.hud = new LgzLib.Hud(thisObj);
+        thisObj.spinnerShow();
+
+
+    
+        thisObj.lang.load(
+            gamePrefix,
+            K.lang,
+            function () {
+                thisObj._cbInitPost();
+            }
+        );
+        thisObj.msgframe = new LgzLib.MsgFrames.Game(
+            thisObj,
+            function () {
+                thisObj._cbInitPost();
+            }
+        );
+        thisObj.nm = new LgzLib.NodeManager(thisObj);
+        thisObj.hints = new LgzLib.Hints(thisObj);
+        thisObj.scenes = {};
+
+        globLgz.lang = thisObj.lang;
+        globLgz.game = thisObj.game;
+        globLgz.hud = thisObj.hud;
+        globLgz.nm = thisObj.nm;
+        globLgz.mgr = thisObj;
+        globLgz.scenes = thisObj.scenes;
+        thisObj._cbInitPost();
+        
+    };
+    thisObj._initWait = function () {
+        var wait = 0;
+        if (!thisObj.game.device) {
+            console.log('game.device not ready!');
+            wait += 1;
+        }
+        if (!thisObj.game.plugins) {
+            console.log('game.plugins not ready!');
+            wait += 1;            
+        }        
+        if (wait) {
+            window.setTimeout(function () {
+                console.log('initWait: waiting');
+                thisObj._initWait();
+            }, 10);
+        } else {
+            console.log('initWait: game engine ready');
+            thisObj._init2();
+        }
+    };
+    thisObj._init = function () {
+       game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
+       thisObj.game = game;
+       thisObj._initWait();
+    };     
+    thisObj._init();
 
 };

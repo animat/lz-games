@@ -337,8 +337,6 @@ a.btn.btn-red:active {
     font-size: 3vh;
 }
 
-
-
 #lgzHudMenuBar {
     display: flex;
     display: -webkit-flex;
@@ -386,4 +384,53 @@ a.btn.btn-red:active {
     padding: 0;
     margin: 0;
     padding-top: 3px;
+}
+#lgzAccentBar {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    border: 1px solid;
+    padding: 4px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.5);
+    visibility: hidden;    
+}
+#lgzAccentBar a {
+    padding: 2px;
+    margin: 2px;
+    border: 1px solid;
+    border-radius: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
+    text-decoration: none;
+
+}
+#lgzHudAccent {
+    position: absolute;
+    left: 120px;
+    width: 15px;
+    height: 24px;    
+    padding: 5px;
+    visibility: hidden;    
+}
+#lgzInput {
+ 
+    position: absolute;
+    width: 200px;
+    height: 20px;
+    font-size: 20px;
+    top: 50px;
+    left: 200px;
+
+}
+#lgzInputFx {
+ 
+    position: absolute;
+    visibility: hidden;
+    border: 1px dashed;
+    color: green;
+    text-align: left;
+}
+#lgzInputFx span {
+    color: red;
 }

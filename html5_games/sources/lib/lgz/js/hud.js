@@ -22,14 +22,14 @@ LgzLib.Hud = function (mgr) {
             $lgzHudMenuBar, $lgzBtnFS, $lgzBtnExit, $winPlay, $lgzHudLogo;
 
     thisObj = this;
-
+    game = mgr.game;
+    lang = mgr.lang;
 
     thisObj.ORIENT = {NONE: 0, PORTRAIT: 1, LANDSCAPE: 2};
     thisObj.orient = thisObj.ORIENT.LANDSCAPE;
 
     resizeDirty = false;
-    game = mgr.game;
-    lang = mgr.lang;
+
     eBody = $('body')[0];
 
     $lgzVP = $('#lgzViewPort');
@@ -45,15 +45,21 @@ LgzLib.Hud = function (mgr) {
 
     $lgzBtnFS = $('#lgzHudFullScreen');
     $lgzBtnExit = $('#lgzHudExit');
+    
+    
+
     $winPlay = $('#winPlay');
     thisObj.objArr = [];
     
     lgzContainer =  document.getElementById('lgzContainer');
+
+    thisObj.requestedFS = false;
+    
+    
     $(window).resize(function () {
             thisObj.onResize();
     });
 
-    thisObj.requestedFS = false;
 
     thisObj.print = function (str) {
       $lgzHudLogo.text(str);  
@@ -599,5 +605,98 @@ LgzLib.Hud = function (mgr) {
     };
     thisObj.bigScreenStop = function () {
         BigScreen.exit();        
+    };
+    thisObj.toggleVisibility = function ($var) {
+        var display;
+        display = $var.css('visibility');
+        if (display === 'visible') {
+            $var.css('visibility','hidden');
+        } else {
+            $var.css('visibility','visible');
+        }
+    };
+    thisObj.inputFxWrong = function (correct) {
+        var a, i, len, mask, match, sel, $lgzInputFx, badopts;
+
+        
+        sel="span";
+        a = thisObj.$lgzInput.val();
+        thisObj.$lgzInputFx.text(a);
+        thisObj.$lgzInput.val('');
+        
+        match = true;
+        mask = "";
+        for (i=0; i < a.length; i += 1) {
+            if (a.charAt(i) === correct.charAt(i)) {
+                if (!match) {
+                    mask += "</" + sel + ">";
+                }
+                mask += a.charAt(i);
+
+                match = true;
+            } else {
+                if (match) {
+                    mask += "<" + sel + ">";
+                }
+                mask += a.charAt(i);
+                match = false;
+            }
+        }
+        if (!match) {
+            mask += "</" + sel + ">";
+        }
+        badopts = LgzLib.copy(K.inputFxWrongOpts);
+        badopts.replacement = mask;
+        badopts.onElementComplete = function() {
+            thisObj._inputFxHide();
+        };
+        g.bo = badopts;
+        thisObj._inputFxShow();        
+        thisObj.$lgzInputFx.letterfx(badopts);
+
     };    
+    thisObj._inputFxShow = function () {
+        thisObj.$lgzInputFx.css('visibility', 'visible');
+    };
+    thisObj._inputFxHide = function () {
+        thisObj.$lgzInputFx.css('visibility', 'hidden');
+    };
+    thisObj._inputFxCssCopy = function (p) {
+        thisObj.$lgzInputFx.css(p, thisObj.$lgzInput.css(p));
+    };    
+    thisObj._inputFxInit = function () {
+        thisObj._inputFxCssCopy('top');
+        thisObj._inputFxCssCopy('left');
+        thisObj._inputFxCssCopy('width');
+        thisObj._inputFxCssCopy('height');
+        thisObj._inputFxCssCopy('font-size');
+        thisObj._inputFxCssCopy('border-width');        
+    };    
+
+    thisObj._inputAccentInit = function () {
+        var $lgzHudAccent, $lgzAccentBar;
+        $lgzHudAccent = $('#lgzHudAccent');    
+        $lgzAccentBar = $('#lgzAccentBar');
+        
+        $lgzHudAccent.click(function() {
+            thisObj.toggleVisibility($lgzAccentBar);
+        });
+        console.log('LgzLib.Hud.initAccent: game? ' + game);
+   
+        if(game.device.desktop) {
+            $lgzHudAccent.css('visibility', 'visible');
+        }            
+    };    
+    thisObj.inputInit = function () {
+        thisObj.$lgzInput = $('#lgzInput');
+        thisObj.$lgzInputFx = $('#lgzInputFx');
+        thisObj._inputFxInit();
+        thisObj._inputAccentInit();        
+    };
+        
+    thisObj._init = function () {
+        //ivanixcu: todo: bring in initiation from top of function
+
+    };
+    thisObj._init();
 };
