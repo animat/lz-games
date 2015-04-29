@@ -36,35 +36,6 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         onReady();
     };
     
-    // @Cesar: I got a bit confused merging this commit. Should this function be here?
-    thisObj.init = function () {
-        game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
-        thisObj.game = game;
-        
-        thisObj.spinnerInit();
-        thisObj.lang = new LgzLib.Lang();
-        thisObj.hud = new LgzLib.Hud(thisObj);
-        thisObj.spinnerShow();
-
-
-    
-        thisObj.lang.load(
-            gamePrefix,
-            K.lang,
-            function () {
-                thisObj._cbInitPost();
-            }
-        );
-        thisObj.msgframe = new LgzLib.MsgFrames.Game(
-            thisObj,
-            function () {
-                thisObj._cbInitPost();
-            }
-        );
-        thisObj.nm = new LgzLib.NodeManager(thisObj);
-        thisObj.hints = new LgzLib.Hints(thisObj);
-        thisObj.scenes = {};
-    }
     thisObj.pause = function () {
         //override
     };
