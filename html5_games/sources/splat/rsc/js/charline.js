@@ -8,10 +8,10 @@ Lgz.CharLine = function (playSet, x, y, char, cg) {
     thisObj = this;
         
     this.playSet = playSet;
-    this.game = playSet.game;    
+    this.game = playSet.game;
     this.char = char;
 
-    Phaser.Sprite.call(this, this.game, x, y, 'dot');    
+    Phaser.Sprite.call(this, this.game, x, y, 'dot');
     //Phaser.Sprite.call(this, this.game, x, y, 'balloons', 'underline');
 
     spriteText = this.game.add.text(0, 0, '__', K.balloonTextStyle);
@@ -31,13 +31,13 @@ Lgz.CharLine = function (playSet, x, y, char, cg) {
 
     this.body.static = true;
     
-    this.body.setRectangleFromSprite(this.spriteText);    
+    this.body.setRectangleFromSprite(this.spriteText);
     this.body.onBeginContact.add(this.onContact, this);
 
     this.body.setCollisionGroup(cg.underlines);
     this.body.collides([cg.letters]); 
 }
-LgzLib.inherit(Lgz.CharLine, Phaser.Sprite);
+Lgz.CharLine.lgzExtends(Phaser.Sprite);
 Lgz.CharLine.prototype.bounceOff = function (balloon, dir) {
     var randX, randY;
     

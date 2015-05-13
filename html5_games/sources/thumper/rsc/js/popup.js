@@ -87,17 +87,19 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
     this.tryRand();
     
 };
-LgzLib.inherit(Lgz.Popup, Phaser.Sprite);
+Lgz.Popup.lgzExtends(Phaser.Sprite);
 Lgz.Popup.prototype.tryRand = function () {
+    'use strict';
     this.tryTS = Date.now() + this.game.rnd.integerInRange(K.tryRand.Min, K.tryRand.Max);
     console.debug('tryRand: ' + this.tryTS);
 };
 Lgz.Popup.prototype.frameLoop = function (frame, show) {
+    'use strict';
     var thisObj, textanchor, holeScaleX, holeScaleY, jumpFrame, frameDir;
     thisObj = this;
  
 
-    if (frame < K.Frame.Hole ) {
+    if (frame < K.Frame.Hole) {
         holeScaleX = (thisObj.spriteMMA.width / 15) * (frame / 5);
         holeScaleY = holeScaleX / 10;
 
@@ -129,16 +131,16 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
                 },
                 K.Frame.Rate
             );
-        } 
+        }
     } else {
         if (frame > 0) {
             if (thisObj.hit === K.Hit.NONE) {
                 thisObj.frameRate = K.Frame.Rate;
 
             } else {
-                if (thisObj.hit === K.Hit.CORRECT ) {
-                    if ( frame === K.Frame.Hole + 2) {
-                        thisObj.frameRate = 50 * K.Frame.Rate;                    
+                if (thisObj.hit === K.Hit.CORRECT) {
+                    if (frame === K.Frame.Hole + 2) {
+                        thisObj.frameRate = 50 * K.Frame.Rate;
                     } else {
                         thisObj.frameRate = 3 * K.Frame.Rate;
                     }
@@ -149,7 +151,7 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
                     } else {
                         thisObj.frameRate = K.Frame.Rate;
                     }
-                }                
+                }
             }
 
             thisObj.winTO = window.setTimeout(
@@ -166,8 +168,8 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
                     thisObj._hide();
                 },
                 K.Frame.Rate
-            );            
-        }  
+            );
+        }
     }
 };
 Lgz.Popup.prototype.try = function () {
@@ -181,9 +183,9 @@ Lgz.Popup.prototype.try = function () {
     y = thisObj.game.rnd.integerInRange(K.ymin, K.ymax);
  
     if (y < K.y1) {
-      x  = thisObj.game.rnd.integerInRange(K.xmin1, K.xmax1); 
+      x  = thisObj.game.rnd.integerInRange(K.xmin1, K.xmax1);
     } else {
-      x  = thisObj.game.rnd.integerInRange(K.xmin, K.xmax);  
+      x  = thisObj.game.rnd.integerInRange(K.xmin, K.xmax);
     }
 
     idx = thisObj.matrix.idx(x,y);

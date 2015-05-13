@@ -361,4 +361,4 @@ Lgz.Penguin = function (playSet) {
         );            
     };
 };
-LgzLib.inherit(Lgz.Penguin, Phaser.Sprite);
+Lgz.Penguin.lgzExtends(Phaser.Sprite);

@@ -8,6 +8,7 @@
 	document: true,
 	console: true
 */
+/*jslint  nomen: true */
 /*
  * Generic library functions, not specific to any class or constructor
  */
@@ -20,24 +21,7 @@ Function.prototype.lgzExtends = function (parent) {
     child = this;
     child.prototype = Object.create(parent.prototype);
     child.prototype.constructor = child;
-    child.prototype._super = parent;
-};
-//todo: deprecate extends and inherit functions below
-Function.prototype.extends = function (parent) {
-  var child;
-  child = this;
-  child.prototype = Object.create(parent.prototype);
-  child.prototype.constructor = child;
-  child.prototype._super = parent;
-};
-
-LgzLib.inherit = function (sub, xsuper) {
-	"use strict";
-	var newSubPrototype = Object.create(xsuper.prototype);
-	newSubPrototype.constructor = sub;
-	sub.prototype = newSubPrototype;
-    sub._super = xsuper;
-
+    child.prototype._super = parent.prototype;
 };
 LgzLib.splitUrl = function (url) {
 	"use strict";
@@ -69,13 +53,14 @@ LgzLib.splitUrl = function (url) {
 		obj.base = arr.join('.');
 		break;
 	}
-	return obj;	
+	return obj;
 
 };
 LgzLib.copy = function (obj) {
-    var copy;
+    'use strict';
+    var copy, prop;
     copy = {};
-    for (var prop in obj) {
+    for (prop in obj) {
         if (obj.hasOwnProperty(prop)) {
             copy[prop] = obj[prop];
         }

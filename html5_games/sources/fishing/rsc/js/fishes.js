@@ -13,7 +13,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     
     var thisObj, world, randX, randY, spriteMMA,
         colorIdx, color, f0, f1, f2, f3, f4, frameArr, frameRate, vel, dir,
-        spriteBody, emitter, dir, width, height;
+        spriteBody, emitter, width, height;
 
     thisObj = this;
     thisObj.playSet = playSet;
@@ -39,7 +39,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
 
     
     Phaser.Sprite.call(this, thisObj.game, randX, randY, 'dot');
-    thisObj.game.add.existing(this); 
+    thisObj.game.add.existing(this);
 
 
 
@@ -54,9 +54,9 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
  
     frameRate = thisObj.game.rnd.integerInRange(3, 8);
     //note: need frameRate for release
-    thisObj.frameRate = frameRate; 
+    thisObj.frameRate = frameRate;
  
-    thisObj.anim.swim = spriteBody.animations.add('swim', frameArr, frameRate, true, false);   
+    thisObj.anim.swim = spriteBody.animations.add('swim', frameArr, frameRate, true, false);
     thisObj.anim.turn = spriteBody.animations.add('turn', [f0, f4], frameRate, false, false);
     
     thisObj.anim.hesitate = spriteBody.animations.add('hesitate', [f0, f4, f3, f4], frameRate, false, false);
@@ -69,7 +69,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     
     spriteBody.events.onInputDown.add(
         function () {
-            thisObj.touched(); 
+            thisObj.touched();
         },
         thisObj
     );
@@ -96,7 +96,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     spriteText.inputEnabled = false;
     thisObj.addChild(spriteText);
     //note: for debugging only
-    thisObj.spriteText = spriteText; 
+    thisObj.spriteText = spriteText;
 */
 
 
@@ -110,21 +110,22 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     
     
 };
-LgzLib.inherit(Lgz.Fish, Phaser.Sprite);
+Lgz.Fish.lgzExtends(Phaser.Sprite);
 
 Lgz.Fish.prototype.initVelocity = function () {
+    'use strict';
     var thisObj, dir, vel;
     
     thisObj = this;
     thisObj.vx = null;
-    this.testflip = false;    
+    this.testflip = false;
     //note: initial random direction and velocity;
-    dir = 1 - (2 * thisObj.game.rnd.integerInRange(0, 1));       
+    dir = 1 - (2 * thisObj.game.rnd.integerInRange(0, 1));
     vel = thisObj.game.rnd.integerInRange(10, 20);
-    thisObj.body.velocity.x=  dir * vel * this.frameRate;  
+    thisObj.body.velocity.x =  dir * vel * this.frameRate;
 
     vel = thisObj.game.rnd.integerInRange( -10, 10);
-    thisObj.body.velocity.y=  vel;  
+    thisObj.body.velocity.y=  vel;
     thisObj.body.bounce.set(1);
 };
     
@@ -173,7 +174,7 @@ Lgz.Fish.prototype.release = function () {
     var thisObj, frame;
     thisObj = this;
 
-    thisObj.spriteBody.animations.play('swim', thisObj.frameRate, true);    
+    thisObj.spriteBody.animations.play('swim', thisObj.frameRate, true);
     frame = thisObj.spriteBody.frame;
     
     // Shrink back, preparing to sprint...
@@ -203,7 +204,7 @@ Lgz.Fish.prototype.release = function () {
                 thisObj.update = thisObj.actionFaceForward;
         },
         3000
-    );       
+    );
 };
 Lgz.Fish.prototype.hesitate = function () {
     var thisObj, frame;
@@ -213,9 +214,9 @@ Lgz.Fish.prototype.hesitate = function () {
 };
 Lgz.Fish.prototype.onFishInBasket = function () {
     this.body.angularVelocity = 0;
-    this.rotation = Math.PI * 1.5;    
+    this.rotation = Math.PI * 1.5;
     this.update = function() {};
-    this.body.velocity.setTo(0, 0);    
+    this.body.velocity.setTo(0, 0);
     this.spriteBody.animations.stop('swim',0 );
     this.playSet.found();
     this.playSet.fishBasketArr.push(this);
@@ -293,7 +294,7 @@ Lgz.Fish.prototype.touched = function () {
     var frame;
     frame = this.spriteBody.frame;
     this.spriteBody.loadTexture("fish_glow", frame, false);
-    this.body.bounce.setTo(0);  
+    this.body.bounce.setTo(0);
 
     if(this.x < 240 && this.body.velocity.x < 0 || this.x > 240 && this.body.velocity.x > 0) {
       this.spriteBody.scale.x *= -1;
