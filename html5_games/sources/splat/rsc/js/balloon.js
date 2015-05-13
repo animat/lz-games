@@ -235,7 +235,7 @@ Lgz.Balloon.prototype.kill = function () {
     if (this.strArr) {
         this.killTail(true);
     }
-    this._super.prototype.kill.call(this);
+    this._super.kill.call(this);
 }
 Lgz.Balloon.prototype.pop = function () {
     'use strict';

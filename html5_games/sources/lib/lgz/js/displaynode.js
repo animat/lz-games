@@ -9,30 +9,28 @@
 /*jslint  nomen: true */
 
 var LgzLib = LgzLib || {};
-g = g || {};
-
 
 LgzLib.DisplayNodeMMA = function (game, node, configOpts) {
     'use strict';
-    var type, content, game;
+    var type, content;
 
     type =  node.getAttribute('type');
 
     switch (type) {
     case 'text':
-            return new LgzLib.DisplayNodeText(game, node, configOpts);
-            break;
+        return new LgzLib.DisplayNodeText(game, node, configOpts);
+        break;
     case 'image':
-            return new LgzLib.DisplayNodeImage(game, node, configOpts);
-            break;
+        return new LgzLib.DisplayNodeImage(game, node, configOpts);
+        break;
     case 'audio':
-            return new LgzLib.DisplayNodeAudio(game, node, configOpts);
-            break;
-    }        
+        return new LgzLib.DisplayNodeAudio(game, node, configOpts);
+        break;
+    }
 };
 LgzLib.DisplayNodeImage = function (game, node, configOpts) {
     'use strict';
-    var game, thisObj, cfgopts;
+    var thisObj, cfgopts;
     
     thisObj = this;
     thisObj.lgzNode = node;
@@ -41,7 +39,6 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
     cfgopts.text = cfgopts.text || {};
     cfgopts.image = cfgopts.image || {};
     cfgopts.audio = cfgopts.audio || {};
-    g.cfg = cfgopts;
     thisObj._lgzCreateOpts = cfgopts;
     
     thisObj.playOnLoad = true;
@@ -55,60 +52,57 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
      * in Mac OSX browsers, we use custom center() method
      */
     
-    thisObj.anchor.setTo(0,0);
+    thisObj.anchor.setTo(0, 0);
  
     thisObj.inputEnabled = true;
     
  
     thisObj.events.onInputDown.add(
-        function() { 
+        function () {
             thisObj.eventPlay();
-        }, 
+        },
         thisObj
     );
     
 };
 LgzLib.DisplayNodeImage.lgzExtends(Phaser.Sprite);
 LgzLib.DisplayNodeImage.prototype.eventPlay = function () {
-
+    'use strict';
 };
 LgzLib.DisplayNodeImage.prototype.eventLoadOK = function () {
-    
+    'use strict';
 };
 LgzLib.DisplayNodeImage.prototype._eventFileComplete = function (key) {
+    'use strict';
     var sprite;
 
-   sprite = new Phaser.Sprite(this.game, 0, 0, key);
-   this.texture = sprite.texture;
+    sprite = new Phaser.Sprite(this.game, 0, 0, key);
+    this.texture = sprite.texture;
    
 };
 
-LgzLib.DisplayNodeImage.prototype.eventFileComplete = function (progress, cacheKey, success, totalLoaded, totalFiles) { 
+LgzLib.DisplayNodeImage.prototype.eventFileComplete = function (progress, cacheKey, success, totalLoaded, totalFiles) {
     'use strict';
     
-    console.debug('DisplayNodeImage.eventFileComplete: progress, cacheKey, success, totalLoaded, totalFiles');
-     console.debug('DisplayNodeImage.eventFileComplete: ' +  progress + ', ' + cacheKey + ', ' + success + ', ' +  totalLoaded + ', ' + totalFiles);
+    if (cacheKey !== this.lgzContent) {
+        console.debug('LgzLib.DisplayNodeImage: key not match content');
+        return;
+    }
+    //note: some MMA  may expect more than one rsc files to be loaded
+    // track the count here.
+    this.lgzRscLoaded += 1;
+    if (this.lgzRscLoaded < this.lgzRscRequired) {
+        console.debug('LgzLib.DisplayNodeImage: rscloaded < rscrequired');
+        return;
+    }
 
-
-     if (cacheKey !== this.lgzContent) {
-         console.debug('LgzLib.DisplayNodeImage: key not match content');
-         return;
-     }
-     //note: some MMA  may expect more than one rsc files to be loaded
-     // track the count here.
-     this.lgzRscLoaded += 1;
-     if (this.lgzRscLoaded < this.lgzRscRequired) {
-         console.debug('LgzLib.DisplayNodeImage: rscloaded < rscrequired');
-         return;
-     }
-
-     this.game.load.onFileComplete.remove(this.eventFileComplete, this);
-     this._eventFileComplete(this.lgzContent);
-     if (this.playOnLoad) {
-         this.eventPlay();
-     }
+    this.game.load.onFileComplete.remove(this.eventFileComplete, this);
+    this._eventFileComplete(this.lgzContent);
+    if (this.playOnLoad) {
+        this.eventPlay();
+    }
      
-     this.eventLoadOK();
+    this.eventLoadOK();
 };
 LgzLib.DisplayNodeImage.prototype._load = function () {
     'use strict';
@@ -272,7 +266,7 @@ LgzLib.DisplayNodeText.prototype.maxTextFont = function (w, h) {
 LgzLib.DisplayNodeText.prototype.conform = function (w, h) {
     'use strict';
     var width, height;
-    //this._super.prototype.conform.call(this, w, h);
+    //this._super.conform.call(this, w, h);
     //return;
     
     if (!w && !h) {
@@ -316,7 +310,7 @@ LgzLib.DisplayNodeAudio.prototype.eventPlay = function () {
 LgzLib.DisplayNodeAudio.prototype._eventFileComplete = function (key) {
     var sprite;
     console.debug('DisplayNodeAudio.prototype._eventFileComplete: entered');
-    this._super.prototype._eventFileComplete.call(this, 'audio');
+    this._super._eventFileComplete.call(this, 'audio');
     this.audioSprite = this.game.add.audio(key);
 };
 LgzLib.DisplayNodeAudio.prototype._load = function () {
@@ -403,7 +397,7 @@ LgzLib.DisplayNode = function (parent, node) {
 
 	Phaser.Group.call(this, game);
 };
-LgzLib.inherit(LgzLib.DisplayNode, Phaser.Group);
+LgzLib.DisplayNode.lgzExtends(Phaser.Group);
 
 LgzLib.DisplayNode.prototype.loadImage = function (content) {
 	'use strict';

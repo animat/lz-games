@@ -85,9 +85,9 @@ LgzLib.Scenes.Splash  = function (lgzMgr) {
     'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
-LgzLib.Scenes.Splash.extends(LgzLib.Scene);
-//LgzLib.inherit(LgzLib.Scenes.Splash, LgzLib.Scene);
+LgzLib.Scenes.Splash.lgzExtends(LgzLib.Scene);
 LgzLib.Scenes.Splash.prototype.preinit = function () {
+    'use strict';
     console.debug('LgzLib.Scenes.Splash.prototype.preinit');
     this.lgzHud.objJQ('#lgzHudMenuBar');
     this.lgzHud.objJQ('#lgzHudFullScreen');
@@ -103,7 +103,7 @@ LgzLib.Scenes.Splash.prototype.preload = function () {
     'use strict';
     var i, _objs, lgzMgr;
     console.debug('Splash.preload: ');
-    this._super.prototype.preload.call(this);
+    this._super.preload.call(this);
 
     lgzMgr = this.lgzMgr;
     
@@ -115,7 +115,11 @@ LgzLib.Scenes.Splash.prototype.preload = function () {
     lgzMgr.rscImage('question', true);
     lgzMgr.rscImage('box', true);
     
-    _objs = this._super._objs;
+    //ivanixcu: todo: this looks like a bug?
+    //._super used to point to parent class/function,
+    //now it points to parent.prototype
+    //_objs = this._super._objs;
+    _objs =  LgzLib.Scene._objs;
     for (i in _objs) {
         if (_objs.hasOwnProperty(i)) {
             console.debug('_objs idx: ' + i);
@@ -170,7 +174,7 @@ LgzLib.Scenes.Welcome  = function (lgzMgr) {
     'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
-LgzLib.Scenes.Welcome.extends(LgzLib.Scene);
+LgzLib.Scenes.Welcome.lgzExtends(LgzLib.Scene);
 LgzLib.Scenes.Welcome.prototype.rscload = function () {
     'use strict';
     console.debug('Scenes.Welcome.rscload: key ' + this.key);
@@ -189,7 +193,7 @@ LgzLib.Scenes.Main  = function (lgzMgr) {
     'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
-LgzLib.Scenes.Main.extends(LgzLib.Scene);
+LgzLib.Scenes.Main.lgzExtends(LgzLib.Scene);
 LgzLib.Scenes.Main.prototype.rscload = function () {
     'use strict';
     console.debug('Scenes.Main.rscload: key ' + this.key);
@@ -289,7 +293,7 @@ LgzLib.Scenes.End  = function (lgzMgr) {
     'use strict';
     LgzLib.Scene.call(this, lgzMgr);
 };
-LgzLib.Scenes.End.extends(LgzLib.Scene);
+LgzLib.Scenes.End.lgzExtends(LgzLib.Scene);
 LgzLib.Scenes.End.prototype.rscload = function () {
     'use strict';
     console.debug('Scenes.End.rscload: key ' + this.key);

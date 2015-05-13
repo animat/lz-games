@@ -27,13 +27,14 @@ Lgz.Cloud = function (playSet) {
     Phaser.Sprite.call(this, this.game, randX, randY, 'clouds', frame);
     this.game.add.existing(this);
     
-    this.game.physics.enable(thisObj, Phaser.Physics.ARCADE);    
+    this.game.physics.enable(thisObj, Phaser.Physics.ARCADE);
     this.body.velocity.x = -thisObj.game.rnd.integerInRange(1, 20);
     this.anchor.setTo(0.5, 0.5);
     
 };
-LgzLib.inherit(Lgz.Cloud, Phaser.Sprite);
-Lgz.Cloud.prototype.update = function ()  {
+Lgz.Cloud.lgzExtends(Phaser.Sprite);
+Lgz.Cloud.prototype.update = function () {
+    'use strict';
     if (this.x < -100) {
         this.x = 1000;
     }

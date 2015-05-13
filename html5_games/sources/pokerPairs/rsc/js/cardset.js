@@ -39,12 +39,12 @@ Lgz.Card = function (cardSet, x, y, node) {
     sprite.animations.add('hide', [4, 5, 3, 2, 1, 0]);
 
     sprite.events.onInputDown.add(
-            function () {thisObj.onhit(sprite); },
-            thisObj
+        function () {thisObj.onhit(sprite); },
+        thisObj
     );
 
 };
-LgzLib.inherit(Lgz.Card, Phaser.Group);
+Lgz.Card.lgzExtends(Phaser.Group);
 Lgz.Card.prototype.createMMA = function () {
     'use strict';
     console.debug('createMMA:');
@@ -68,16 +68,16 @@ Lgz.Card.prototype.update = function (sprite) {
 Lgz.Card.prototype.onhit = function (sprite) {
     'use strict';
     if (this.cardSet.lock) {
-            return;
+        return;
     }
     if (!this.allowHit) {
-            return;
+        return;
     }
     if (!this.hit) {
-            this.showSprite(sprite);
+        this.showSprite(sprite);
     } else {
-            this.hideSprite(sprite, false);
-            this.cardSet.firstCard = null;
+        this.hideSprite(sprite, false);
+        this.cardSet.firstCard = null;
     }
 };
 Lgz.Card.prototype.showSprite = function (sprite) {
@@ -94,20 +94,20 @@ Lgz.Card.prototype.showSprite = function (sprite) {
     sprite.animations.play('show', 20, false);
     thisObj.hit = true;
     window.setTimeout(
-            function () {
-                    //sprite.children[0].visible = true;
-                    thisObj.dn.show();
-                    thisObj.cardSet.lock = false;
-            },
-            K.textTO
+        function () {
+            //sprite.children[0].visible = true;
+            thisObj.dn.show();
+            thisObj.cardSet.lock = false;
+        },
+        K.textTO
     );
 
     //sprite.children[0].visible = true;
     if (thisObj.cardSet.firstCard) {
-            thisObj.matchSprite(sprite);
+        thisObj.matchSprite(sprite);
     } else {
-            thisObj.cardSet.firstCard = thisObj;
-            //thisObj.lock = false;
+        thisObj.cardSet.firstCard = thisObj;
+        //thisObj.lock = false;
     }
 };
 Lgz.Card.prototype.matchSprite = function (sprite) {
@@ -121,11 +121,11 @@ Lgz.Card.prototype.matchSprite = function (sprite) {
     cardA = thisObj.cardSet.firstCard;
     cardB = thisObj;
     if (!cardA.node.parentNode.isSameNode(cardB.node.parentNode)) {
-    console.debug('matchSprite: no match');
-            cardA.hideSpriteTO(cardA.sprite, false, K.hideFirstTO);
-            cardB.hideSpriteTO(cardB.sprite, true, K.hideSecondTO);
-            thisObj.cardSet.firstCard = null;
-            return;
+        console.debug('matchSprite: no match');
+        cardA.hideSpriteTO(cardA.sprite, false, K.hideFirstTO);
+        cardB.hideSpriteTO(cardB.sprite, true, K.hideSecondTO);
+        thisObj.cardSet.firstCard = null;
+        return;
     }
 
     console.debug('matchSprite: matched!');
@@ -139,12 +139,12 @@ Lgz.Card.prototype.matchSprite = function (sprite) {
 
 
     if (thisObj.cardSet.cardArr.length === (thisObj.cardSet.paired * 2)) {
-            window.setTimeout(
-                    function () {
-                            thisObj.cardSet.allMatched();
-                    },
-                    K.lastMatchTO
-            );
+        window.setTimeout(
+            function () {
+                thisObj.cardSet.allMatched();
+            },
+            K.lastMatchTO
+        );
     }
 };
 Lgz.Card.prototype.hideSprite = function (sprite, unlock) {
@@ -157,7 +157,7 @@ Lgz.Card.prototype.hideSprite = function (sprite, unlock) {
     //sprite.children[0].visible = false;
     this.dn.hide();
     if (unlock) {
-            this.cardSet.lock = false;
+        this.cardSet.lock = false;
     }
 };
 Lgz.Card.prototype.hideSpriteTO = function (sprite, unlock, to) {
@@ -166,7 +166,7 @@ Lgz.Card.prototype.hideSpriteTO = function (sprite, unlock, to) {
 
     thisObj = this;
     window.setTimeout(function () {
-            thisObj.hideSprite(sprite, unlock);
+        thisObj.hideSprite(sprite, unlock);
     }, to);
 
 };
@@ -181,21 +181,21 @@ Lgz.Card.prototype.pairSprite = function (sprite, num) {
     toY = K.pairOffsetY + (this.cardSet.paired * (K.pairHeight + K.pairMarginY));
 
     this.game.add.tween(sprite).to(
-            {x: toX, y: toY},
-            2400,
-            Phaser.Easing.Bounce.Out,
-            true,
-            1000,
-            false
+        {x: toX, y: toY},
+        2400,
+        Phaser.Easing.Bounce.Out,
+        true,
+        1000,
+        false
     );
 
     this.game.add.tween(sprite.scale).to(
-            {x: K.pairScale, y: K.pairScale},
-            2400,
-            Phaser.Easing.Bounce.Out,
-            true,
-            1000,
-            false
+        {x: K.pairScale, y: K.pairScale},
+        2400,
+        Phaser.Easing.Bounce.Out,
+        true,
+        1000,
+        false
     );
 };
         
@@ -215,7 +215,7 @@ Lgz.CardSet = function (scene) {
         thisObj.lgzMgr.rscImage('dice');
         thisObj.lgzMgr.rscImage('bg');
         thisObj.lgzMgr.rscAtlas('card');
-        thisObj.lgzMgr.rscAudio('sfx');        
+        thisObj.lgzMgr.rscAudio('sfx');
     };
     thisObj.create = function (ondone) {
         console.debug('Lgz.CardSet.create: ' + ondone);
@@ -232,34 +232,34 @@ Lgz.CardSet = function (scene) {
         thisObj.dealStart(ondone);
     };
     thisObj.createCard = function (node) {
-            var card, x, y, num;
+        var card, x, y, num;
 
-            num = thisObj.cardArr.length;
-            x = K.cardOffX + (Math.floor(num % K.cardCols) * (K.cardWidth + K.cardMarginX));
-            y = K.cardOffY + (Math.floor(num / K.cardCols) * (K.cardHeight + K.cardMarginY));
-            card = new Lgz.Card(thisObj, x, y, node);
-            thisObj.cardArr.push(card);
+        num = thisObj.cardArr.length;
+        x = K.cardOffX + (Math.floor(num % K.cardCols) * (K.cardWidth + K.cardMarginX));
+        y = K.cardOffY + (Math.floor(num / K.cardCols) * (K.cardHeight + K.cardMarginY));
+        card = new Lgz.Card(thisObj, x, y, node);
+        thisObj.cardArr.push(card);
     };
     thisObj.dealRand = function (arr, max) {
-            var r, tries;
-            tries = 1000;
+        var r, tries;
+        tries = 1000;
+        r = (Math.random() * max | 0);
+        while (arr[r] && tries > 0) {
             r = (Math.random() * max | 0);
-            while (arr[r] && tries > 0) {
-                    r = (Math.random() * max | 0);
-                    tries -= 1;
-                    if (tries === 0) {
-                            console.error('random card max tries reached');
-                    }
+            tries -= 1;
+            if (tries === 0) {
+                console.error('random card max tries reached');
             }
-            return r;
+        }
+        return r;
     };
     thisObj.dealDone = function () {
-            var i;
-            console.debug('dealDone: entered');
-            for (i = 0; i < thisObj.cardArr.length; i += 1) {
-                    thisObj.cardArr[i].createMMA();
-            }
-            thisObj.ondone();
+        var i;
+        console.debug('dealDone: entered');
+        for (i = 0; i < thisObj.cardArr.length; i += 1) {
+                thisObj.cardArr[i].createMMA();
+        }
+        thisObj.ondone();
     };
     thisObj.dealStart = function (ondone) {
         var i, nodeCount, arrRand, qa, idx, rec;
@@ -272,44 +272,43 @@ Lgz.CardSet = function (scene) {
         nodeCount = thisObj.nm.nodeCount();
         for (i = 0; i < nodeCount; i += 1) {
 
-                idx = thisObj.dealRand(arrRand, nodeCount * 2);
-                arrRand[idx] = thisObj.nm.getQuestion(i);
+            idx = thisObj.dealRand(arrRand, nodeCount * 2);
+            arrRand[idx] = thisObj.nm.getQuestion(i);
 
-                idx = thisObj.dealRand(arrRand, nodeCount * 2);
-                arrRand[idx] = thisObj.nm.getResponse(i);
+            idx = thisObj.dealRand(arrRand, nodeCount * 2);
+            arrRand[idx] = thisObj.nm.getResponse(i);
         }
         for (i = 0; i < arrRand.length; i += 1) {
-                rec = arrRand[i];
-                thisObj.createCard(rec);
+            rec = arrRand[i];
+            thisObj.createCard(rec);
         }
         thisObj.game.load.start();
 
     };
     thisObj.showSound = function () {
-            thisObj.sfx.play('swish');
+        thisObj.sfx.play('swish');
     };
     thisObj.hideSound = function () {
-            thisObj.sfx.play('swish');
+        thisObj.sfx.play('swish');
     };
     thisObj.matchSound = function () {
-            thisObj.sfx.play('swoosh');
+        thisObj.sfx.play('swoosh');
     };
 
     thisObj.pairSfxTO = function (to) {
         window.setTimeout(
-                function () {
-                        thisObj.sfx.play('swoosh');
-                },
-                to
+            function () {
+                thisObj.sfx.play('swoosh');
+            },
+            to
         );
 
     };
     thisObj.allMatched = function () {
-            var time;
-            time = thisObj.scene.timer.value();
-            thisObj.lgzMgr.postScore(time);
-            thisObj.lgzMgr.hud.winOpen('winWon');
-
+        var time;
+        time = thisObj.scene.timer.value();
+        thisObj.lgzMgr.postScore(time);
+        thisObj.lgzMgr.hud.winOpen('winWon');
     };
 
     thisObj.update = function () {
