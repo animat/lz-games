@@ -687,6 +687,18 @@ LgzLib.Hud = function (mgr) {
             $lgzHudAccent.css('visibility', 'visible');
         }            
     };    
+    thisObj.inputSelectReplace = function (val) {
+        var lgzInput, input, value, bvalue, evalue, pos;
+        input  = thisObj.$lgzInput[0];
+        bvalue = input.value.substring(0, input.selectionStart );
+        evalue = input.value.substring(input.selectionEnd );
+        input.value = bvalue + val;
+        pos = input.value.length;
+        input.value += evalue;
+        input.selectionStart = pos;
+        input.selectionEnd = pos;
+        input.focus();
+    };
     thisObj.inputInit = function () {
         thisObj.$lgzInput = $('#lgzInput');
         thisObj.$lgzInputFx = $('#lgzInputFx');

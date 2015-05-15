@@ -265,22 +265,23 @@ LgzLib.MsgFrames.Game.lgzExtends(LgzLib.MsgFrame);
  
 LgzLib.MsgFrames.Game.prototype.loadAccentsOK = function (data) {
     'use strict';
-    var i, set, charArr, strHTML, $ac, lgzInput;
+    var thisObj, i, set, charArr, strHTML, $ac, lgzInput;
     
+    thisObj = this;
     set = $(data).find('set');
     charArr = set.find('character');
-    strHTML='';
+    strHTML = '';
     for (i = 0; i < charArr.length; i += 1) {
         strHTML += '<a href="#" >' + charArr[i].innerHTML + '</a>';
     }
     if (charArr.length) {
         lgzInput = $('#lgzInput')[0];
-        $ac =$('#lgzAccentBar');
+        $ac = $('#lgzAccentBar');
         $ac[0].innerHTML = strHTML;
         if (lgzInput) {
             $ac.click(function (event) {
                 if (event.target !== $ac[0]) {
-                    lgzInput.value += event.target.innerHTML;
+                    thisObj.lgzHud.inputSelectReplace(event.target.innerHTML);
                 }
             });
         }
