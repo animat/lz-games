@@ -50,12 +50,6 @@ LgzLib.Scene.prototype.rscload = function () {
 LgzLib.Scene.prototype.preload = function () {
     'use strict';
     //note: called by game obj
-    /*
-    console.debug('Scene.preload: key ' + this.key);
-    this.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
-    this.saveCpu.renderOnFPS = K.renderFPS;
-    */
-
 };
 LgzLib.Scene.prototype.create = function () {
     'use strict';

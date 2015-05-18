@@ -24,7 +24,7 @@
 LgzLib.Scenes.Splash.prototype._create = LgzLib.Scenes.Splash.prototype.create;
 LgzLib.Scenes.Splash.prototype.create = function () {
     'use strict';
-    this._create();    
+    this._create();
     this.game.stage.backgroundColor = K.canvasBg;
 
 };
