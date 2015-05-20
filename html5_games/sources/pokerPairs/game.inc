@@ -1,1 +1,1 @@
-@@include('lib/lgz/dom/page.html')
+@@include('lib/lgz/dom/game.html')
