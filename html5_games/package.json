@@ -4,7 +4,8 @@
   "description": "sample game dir setup",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "env": "env"
   },
   "author": "",
   "license": "lgz",
@@ -25,6 +26,7 @@
     "gulp-watch": "~1.0.5",
     "gulp-jsbeautifier": "0.0.2",
     "gulp-jsdoc": "~0.1.4",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "run-sequence": "~1.1.0"
   }
 }

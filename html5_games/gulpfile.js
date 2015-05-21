@@ -9,6 +9,8 @@ var rename = require('gulp-rename');
 var fileinclude = require('gulp-file-include');
 var watch = require('gulp-watch');
 var open = require('open');
+var util = require('util');
+var runSequence = require('run-sequence');
 
 // include plug-ins
 var minifyHTML = require('gulp-minify-html');
@@ -89,63 +91,6 @@ gulp.task('xxx_build_minlib', function () {
 });
 
 
-gulp.task('build_clean', function () {
-    'use strict';
-    var dst;
-	dst = [buildDir];
-	return gulp.src(dst, {read: false})
-        .pipe(shell(
-	        [
-                'echo cleaning:  <%= f(file.path) %>',
-                'rm -rf  "<%= f(file.path) %>"'
-	        ],
-            {
-                templateData: {
-                    f: function (s) {
-                        return s;
-                    }
-                }
-            }
-        ));
-});
-gulp.task('build_files', ['inc','build_clean'], function () {
-	'use strict';
-    var srcArr, dst;
-
-    //build:  html files
-	srcArr = ['*.html'];
-    console.log('mark1');
-	gulp.src(srcArr).pipe(gulp.dest(buildDir));
-
-    console.log('mark2');
-    //build:  rsc
-	gulp.src('rsc/dom/*.css').pipe(gulp.dest(buildDir + '/rsc/dom'));
-
-	gulp.src('rsc/js/*').pipe(gulp.dest(buildDir + '/rsc/js'));
-
-	srcArr = ['rsc/mma/*', '!rsc/mma/*.svg'  ];
-	return gulp.src(srcArr).pipe(gulp.dest(buildDir + '/rsc/mma'));
-
-});
-gulp.task('build_game', ['build_files'],  function () {
-	'use strict';
-    var dst;
-	dst = [buildDir];
-	return gulp.src(dst, {read: false})
-        .pipe(shell(
-	        [
-                'echo "linking lib, svr in pwd: `pwd` with path: <%= f(file.path) %>!" ',
-                'cd <%= f(file.path) %>; ln -s ../lib lib; ln -s ../svr svr;'
-	        ],
-            {
-                templateData: {
-                    f: function (s) {
-                        return s;
-                    }
-                }
-            }
-        ));
-});
 gulp.task('inc', function () {
 	'use strict';
 	gulp.src(['./*.inc'])
@@ -155,6 +100,10 @@ gulp.task('inc', function () {
 		}))
 		.pipe(gulp.dest('./'));
 	
+});
+gulp.task('compile_game', ['inc'], function () {
+	'use strict';
+
 });
 
 gulp.task('build_subsvr', function () {
@@ -231,6 +180,96 @@ gulp.task('build_lib', function () {
             }
         ));
 });
+gulp.task('build_clean', function () {
+    'use strict';
+    var dst;
+	dst = [buildDir];
+	return gulp.src(dst, {read: false})
+        .pipe(shell(
+	        [
+                'echo cleaning:  <%= f(file.path) %>',
+                'rm -rf  "<%= f(file.path) %>"'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
+});
+gulp.task('build_links',  function () {
+	'use strict';
+    var dst;
+	dst = [buildDir];
+	return gulp.src(dst, {read: false})
+        .pipe(shell(
+	        [
+                'echo "linking lib, svr in pwd: `pwd` with path: <%= f(file.path) %>!" ',
+                'cd <%= f(file.path) %>; ln -s ../lib lib; ln -s ../svr svr;'
+	        ],
+            {
+                templateData: {
+                    f: function (s) {
+                        return s;
+                    }
+                }
+            }
+        ));
+});
+gulp.task('build_html',  function () {
+	'use strict';
+    var srcArr;
+
+	srcArr = ['*.html'];
+    console.log('building html files');
+	return gulp.src(srcArr).pipe(gulp.dest(buildDir));
+
+
+});
+gulp.task('build_css', function () {
+	'use strict';
+    var srcArr, rtc;
+
+    console.log('building css files');
+	rtc = gulp.src('rsc/dom/*.css').pipe(gulp.dest(buildDir + '/rsc/dom'));
+    return rtc;
+
+
+});
+gulp.task('build_js', function () {
+	'use strict';
+    var srcArr, rtc;
+
+    console.log('building js files');
+	rtc = gulp.src('rsc/js/*').pipe(gulp.dest(buildDir + '/rsc/js'));
+    return rtc;
+
+});
+gulp.task('build_mma', function () {
+	'use strict';
+    var srcArr, rtc;
+
+    console.log('building mma files');
+	srcArr = ['rsc/mma/*', '!rsc/mma/*.svg'  ];
+    rtc = gulp.src(srcArr).pipe(gulp.dest(buildDir + '/rsc/mma'));
+    return rtc;
+
+});
+gulp.task('build_game', ['build_clean', 'compile_game'], function () {
+	'use strict';
+
+    runSequence(
+        'build_html',
+        'build_js',
+        'build_css',
+        'build_mma',
+        'build_links'
+    );
+
+
+});
 gulp.task('build_games', function () {
     'use strict';
     var srcArr;
@@ -251,8 +290,6 @@ gulp.task('build_games', function () {
             }
         ));
 });
-
-
 
 
 gulp.task('default', ['nop'], function () { });
