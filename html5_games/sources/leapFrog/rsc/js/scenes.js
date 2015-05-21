@@ -21,14 +21,6 @@
  * We customize methods here
  *
  */
-LgzLib.Scene.prototype.preload = function () {
-    'use strict';
-    //note: called by game obj
-    console.debug('Scene.preload: key ' + this.key);
-    this.saveCpu = this.game.plugins.add(Phaser.Plugin.SaveCPU);
-    this.saveCpu.renderOnFPS = 20;
-};
-
 LgzLib.Scenes.Splash.prototype.p_preinit = LgzLib.Scenes.Splash.prototype.preinit;
 
 LgzLib.Scenes.Splash.prototype.preinit = function () {
