@@ -427,7 +427,6 @@ a.btn.btn-red:active {
  
     position: absolute;
     visibility: hidden;
-    border: 1px dashed;
     color: green;
     text-align: left;
 }
