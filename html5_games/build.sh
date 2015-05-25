@@ -11,6 +11,6 @@ find  sources -type f -exec chmod 644  {} \;
 echo "$0: Installing npm modules"
 rm -f npm.out
 npm install | tee npm.out
-./build.env
+. ./build.env
 rm -f build.out
 gulp build_all 2>&1 | tee build.out
