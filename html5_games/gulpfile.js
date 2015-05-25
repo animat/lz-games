@@ -40,19 +40,27 @@ var shell =  require('gulp-shell');
 var rootDir = process.cwd();
 console.info('rootDir: ' + rootDir);
 
-var gameDir = path.basename(process.env.INIT_CWD);
-console.info('gameDir: ' + gameDir);
+var srcDir = path.basename(process.env.INIT_CWD);
+console.info('srcDir: ' + srcDir);
 
-var buildRaw = rootDir + '/build/raw/' + gameDir;
+var buildRaw = rootDir + '/build/raw/' + srcDir;
 console.info('buildRaw: ' + buildRaw);
 
-var buildMin = rootDir + '/build/min/' + gameDir;
+var buildMin = rootDir + '/build/min/' + srcDir;
 console.info('buildMin: ' + buildMin);
 
 
+var targetBuildDir = function (name) {
+    'use strict';
+    var srcDir;
+    srcDir = path.basename(process.cwd());
+    return rootDir + '/build/' + name + '/' + srcDir;
+};
+
+/*
 var tailDir = path.dirname(process.env.INIT_CWD);
 console.info('tailDir: ' + tailDir);
-
+*/
 
 // Added to allow calling gulpfile.js from game subdirectory
 // and avoid having symbolic link back up to root directory (html5_games)
@@ -183,6 +191,9 @@ gulp.task('build_svr', function (cb) {
     var srcDir;
     srcDir = rootDir + '/sources/svr';
     process.chdir(srcDir);
+    console.info('srcDir: ' + 'svr');
+    buildMin = targetBuildDir('min');
+    buildRaw = targetBuildDir('raw');
     runSequence(
         'build_raw_clean',
         'build_raw_svr',
@@ -211,6 +222,9 @@ gulp.task('build_lib', function (cb) {
     var srcDir;
     srcDir = rootDir + '/sources/lib';
     process.chdir(srcDir);
+    console.info('srcDir: ' + 'lib');
+    buildMin = targetBuildDir('min');
+    buildRaw = targetBuildDir('raw');
     runSequence(
         'build_raw_clean',
         'build_raw_lib',
@@ -410,39 +424,11 @@ gulp.task('build_all', function () {
     );
 });
 
-gulp.task('build_test2', function () {
-    'use strict';
-    var srcArr, svrDir;
-	return gulp.src('.', {read: false})
-        .pipe( shell(['echo shell: pwd: `pwd`' ])
-        );
-
-});
-gulp.task('build_test1', function () {
-	'use strict';
-    runSequence(
-        'build_test2'
-    );
-    process.exit(0);
-});
 gulp.task('build_test',  function () {
 	'use strict';
     var dst;
-	dst = ['.'];
-	return gulp.src(dst, {read: false})
-        .pipe(shell(
-	        [
-                'echo "build_test1"',
-                'gulp build_test1 2>&1 '
-	        ],
-            {
-                templateData: {
-                    f: function (s) {
-                        return s;
-                    }
-                }
-            }
-        ));
+	dst = targetBuildDir('min');
+    console.log('build_test: ' + dst);
 });
 gulp.task('default',  function () {
     'use strict';

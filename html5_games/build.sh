@@ -9,5 +9,8 @@ find  sources -type d -exec chmod 755  {} \;
 echo "$0: Setting file permisisons"
 find  sources -type f -exec chmod 644  {} \;
 echo "$0: Installing npm modules"
-npm install
-gulp build_all
+rm -f npm.out
+npm install | tee npm.out
+./build.env
+rm -f build.out
+gulp build_all 2>&1 | tee build.out
