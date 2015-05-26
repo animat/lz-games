@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Swish"></format>
+  <description>
+    <text>SpanishBall</text>
+  </description>
+<gamedata><node><question content='puntos' name='english' type='text'/><responses answer='all'><response content='score' name='lang' type='text'/><response content='' name='categ' type=''/></responses></node> <node><question content='equipo' name='english' type='text'/><responses answer='all'><response content='team' name='lang' type='text'/><response content='' name='categ' type=''/></responses></node> <node><question content='pelota' name='english' type='text'/><responses answer='all'><response content='ball' name='lang' type='text'/><response content='' name='categ' type=''/></responses></node></gamedata><templatedata><set max="6" min="2" linkedto="categ" label="Categories"><option type="" content="" name="value"/></set></templatedata>  <language>Chinese</language>
+</xml>
