@@ -8,3 +8,7 @@ __MACOSX
 Thumbs.db
 /html5_games/flash_cjs/games/leapFrog/nbproject/private/
 /html5_games/flash_cjs/games/pokerPairs/nbproject/private/
+/html5_games/build/
+/html5_games/npm.out
+/html5_games/build.out
+/html5_games/sources/*/min/

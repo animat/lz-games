@@ -1,0 +1,41 @@
+Build code to provide more robust building of minified games.
+
+Commands:
+
+"bash build.sh" (replaces bash prep.sh).
+Installs required npm / gulp modules
+Builds raw and min games in build directory
+
+For gulp commands, set path to local gulp by running ". ./build.env" 
+gulp commands as follows:
+
+"gulp compile_game" (run inside game directory)
+Creates (game)/min folder with minified code files.
+
+"gulp build_game" (run inside game directory)
+Creates build/min/(game) folder with minified code files
+Creates build/raw/(game) folder with uncompressed code files
+
+"gulp build_lib"
+Creates build/min/lib folder stripped of css/js
+Creates build/raw/lib folder with uncompressed code files
+
+"gulp build_svr"
+Creates build/min/svr folder
+Creates build/raw/svr folder
+
+"gulp build_all"
+Runs "build_lib", "build_svr" and "build_game" for every game in
+sources folder.
+
+follow up commit:
+make 1 minfied js script for each game for now.
+save output of npm and gulp build to npm.out and build.out
+prep.sh renamed to build.sh
+added build.env to set path to local gulp binary. TODO:
+scan output files for errors
+
+followup commit:
+fix build.env call in bulid.sh
+
+Notes from: https://github.com/animat/lz-games/pull/101
