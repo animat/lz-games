@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gameInfo gameName="Bathtub Bubbles" gameSWF="bathtubBubbles">
+  <description>Match the color in the bathtub to the correct bubble.</description>
+<hints><type>movetoend</type></hints><set language="Spanish"><character>á</character><character>é</character><character>í</character><character>ñ</character><character>ó</character><character>ú</character><character>¡</character><character>¿</character></set></gameInfo>
