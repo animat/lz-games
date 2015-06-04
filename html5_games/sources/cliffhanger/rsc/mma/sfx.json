@@ -1,0 +1,35 @@
+{
+  "resources": [
+    "sfx.ogg",
+    "sfx.m4a",
+    "sfx.mp3",
+    "sfx.ac3"
+  ],
+  "spritemap": {
+    "correct": {
+      "start": 0,
+      "end": 4.571428571428571,
+      "loop": false
+    },
+    "fallmp3copy": {
+      "start": 6,
+      "end": 6.940408163265306,
+      "loop": false
+    },
+    "fallmp3": {
+      "start": 8,
+      "end": 8.940408163265307,
+      "loop": false
+    },
+    "hyperspeed": {
+      "start": 10,
+      "end": 11.097142857142858,
+      "loop": false
+    },
+    "win": {
+      "start": 13,
+      "end": 18.56408163265306,
+      "loop": false
+    }
+  }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Bath Tub Bubbles"></format>
+  <description>
+    <text>Match the color in the bathtub to the correct bubble.</text>
+  </description>
+<gamedata><node><question content='orange' name='value' type='text'/><responses answer='all'><response content='anaranjado-' name='answer' type='text'/></responses></node> <node><question content='gray' name='value' type='text'/><responses answer='all'><response content='gris-' name='answer' type='text'/></responses></node> <node><question content='pink' name='value' type='text'/><responses answer='all'><response content='rosado-' name='answer' type='text'/></responses></node> <node><question content='white' name='value' type='text'/><responses answer='all'><response content='blanco-' name='answer' type='text'/></responses></node> <node><question content='black' name='value' type='text'/><responses answer='all'><response content='negro-' name='answer' type='text'/></responses></node> <node><question content='brown' name='value' type='text'/><responses answer='all'><response content='café-' name='answer' type='text'/></responses></node></gamedata><templatedata><set label="Options:" linkedto="answer"><option name="value" content="blanco-" type="text"/><option name="value" content="anaranjado-" type="text"/><option name="value" content="rosado-" type="text"/><option name="value" content="negro-" type="text"/><option name="value" content="café-" type="text"/><option name="value" content="gris-" type="text"/></set></templatedata>  <language>Spanish</language>
+</xml>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Cliffhanger"></format>
+  <description>
+    <text>Stuff</text>
+  </description>
+<gamedata><node><question content='Drive ' name='question' type='text'/><responses answer='all'><response content='Carro' name='ltarget' type='text'/><response content='Car' name='rtarget' type='text'/></responses></node> <node><question content='Used to drink' name='question' type='text'/><responses answer='all'><response content='Botella' name='ltarget' type='text'/><response content='Bottle' name='rtarget' type='text'/></responses></node> <node><question content='Where to eat' name='question' type='text'/><responses answer='all'><response content='Mesa' name='ltarget' type='text'/><response content='Table' name='rtarget' type='text'/></responses></node></gamedata><templatedata><set linkedto="ltarget" label="First match"><option type="text" content="Puerta" name="value"/><option type="text" content="Carro" name="value"/><option type="text" content="Barco" name="value"/><option type="text" content="Botella" name="value"/><option type="text" content="Mesa" name="value"/></set><set linkedto="rtarget" label="Second match"><option type="text" content="Door" name="value"/><option type="text" content="Car" name="value"/><option type="text" content="Boat" name="value"/><option type="text" content="Bottle" name="value"/><option type="text" content="Table" name="value"/></set></templatedata>  <language>Chinese</language>
+</xml>

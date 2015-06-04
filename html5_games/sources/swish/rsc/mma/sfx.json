@@ -1,0 +1,30 @@
+{
+  "resources": [
+    "sfx.ogg",
+    "sfx.m4a",
+    "sfx.mp3",
+    "sfx.ac3"
+  ],
+  "spritemap": {
+    "applausewav": {
+      "start": 0,
+      "end": 5.276734693877551,
+      "loop": false
+    },
+    "beepwav": {
+      "start": 7,
+      "end": 7.130612244897959,
+      "loop": false
+    },
+    "buzzerwav": {
+      "start": 9,
+      "end": 10.854693877551021,
+      "loop": false
+    },
+    "swishwav": {
+      "start": 12,
+      "end": 12.417959183673469,
+      "loop": false
+    }
+  }
+}

@@ -365,6 +365,7 @@ LgzLib.Hud = function (mgr) {
     };
     thisObj._localizeCJS = function () {
         var strTags, p;
+         console.log('LgzLib.Hud._localizeCJS');
         
         if (!mgr.cjs || !mgr.cjs.strTags) {
             console.log('LgzLib.Hud._localizeCJS: no cjs found');

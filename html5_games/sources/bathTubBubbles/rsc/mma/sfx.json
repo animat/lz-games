@@ -1,0 +1,20 @@
+{
+  "resources": [
+    "sfx.ogg",
+    "sfx.m4a",
+    "sfx.mp3",
+    "sfx.ac3"
+  ],
+  "spritemap": {
+    "popmp3": {
+      "start": 0,
+      "end": 0.47020408163265304,
+      "loop": false
+    },
+    "splashmp3": {
+      "start": 2,
+      "end": 4.925714285714285,
+      "loop": false
+    }
+  }
+}
