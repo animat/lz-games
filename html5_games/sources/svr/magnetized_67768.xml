@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Magnetized"></format>
+  <description>
+    <text>Official Spanish demo for Magnetized</text>
+  </description>
+<gamedata><node><question content='Sí, yo la tengo' name='english' type='text'/><response content='¿Tienes mi sudadera?' name='lang' type='text'/></node> <node><question content='Sí, la pongo esta noche' name='english' type='text'/><response content='¿Pones la mesa esta noche?' name='lang' type='text'/></node> <node><question content='No mi hermana lo va a envolver' name='english' type='text'/><response content='¿Vas a envolve el regalo?' name='lang' type='text'/></node> <node><question content='La hago por la noche' name='english' type='text'/><response content='¿Cuándo haces la tarea?' name='lang' type='text'/></node> <node><question content='No, no los traigo' name='english' type='text'/><response content='¿Traes los globos a la fiesta?' name='lang' type='text'/></node></gamedata><templatedata/>  <language>Spanish</language>
+</xml>
