@@ -109,7 +109,7 @@ Lgz.Plant.prototype.blossom = function () {
 
 Lgz.Plant.prototype.newStem = function () {
     'use strict';
-    var thisObj, seed, char, charIdx, stemSprite, textSprite, tween, y1, y2;
+    var thisObj, seed, char, charIdx, stemSprite, textSprite, tween;
     thisObj = this;
     this.stemAvl = false;
     seed = this.game.rnd.integerInRange(0, 3);
@@ -137,11 +137,9 @@ Lgz.Plant.prototype.newStem = function () {
     stemSprite.addChild(textSprite);
 
     this.stemGrp.addChild(stemSprite);
-    y1 = thisObj.stemGrp.y + K.stemDipY;
-    y2 = thisObj.stemGrp.y - K.stemHeight;
+    var targetY = thisObj.stemGrp.y - K.stemHeight;
     tween = createjs.Tween.get(thisObj.stemGrp)
-            .to({y: y1 }, 200)
-            .to({y: y2 }, 500)
+            .to({y: targetY }, 1500, createjs.Ease.elasticInOut)
             .call(function() { thisObj.eventTweenStemCompleted(); });
         
 
