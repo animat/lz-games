@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <format gamename="Cliffhanger"></format>
+  <description>
+    <text>Fruits</text>
+  </description>
+<gamedata><node><question content='Fruit1' name='question' type='text'/><responses answer='all'><response content='Orange' name='ltarget' type='text'/><response content='Narangja' name='rtarget' type='text'/></responses></node> <node><question content='Puerta1' name='question' type='text'/><responses answer='all'><response content='' name='ltarget' type=''/><response content='Puerta' name='rtarget' type='text'/></responses></node> <node><question content='Fruit2' name='question' type='text'/><responses answer='all'><response content='Watermelon' name='ltarget' type='text'/><response content='Sandia' name='rtarget' type='text'/></responses></node></gamedata><templatedata><set linkedto="ltarget" label="First match"><option type="text" content="Orange" name="value"/><option type="text" content="Door" name="value"/><option type="text" content="Watermelon" name="value"/></set><set linkedto="rtarget" label="Second match"><option type="text" content="Narangja" name="value"/><option type="text" content="Puerta" name="value"/><option type="text" content="Sandia" name="value"/></set></templatedata>  <language>Chinese</language>
+</xml>
