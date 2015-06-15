@@ -333,7 +333,7 @@ LgzLib.MsgFrames.Game.prototype.gameParmsUrl = function () {
             this.$lgzParms.attr('userid', urlparms.userid);
         }
         return true;
-    }    
+    }
     return false;
 
 };
@@ -343,19 +343,19 @@ LgzLib.MsgFrames.Game.prototype._initFrame = function () {
     
     gameid = this.$lgzParms.attr('gameid');
     this.loadAccents(gameid);
-    this._cbInit();  
+    this._cbInit();
 };
 LgzLib.MsgFrames.Game.prototype.initFrame = function () {
     'use strict';
     this.$lgzParms = $('#lgzParms');
  
     
-    if(this.gameParmsUrl()) {
+    if (this.gameParmsUrl()) {
         console.log('LgzLib.MsgFrames.Game.initFrame: gameParmsUrl true');
-        this._initFrame();        
+        this._initFrame();
     } else {
         this.sendToParent(this.CK.FrameIsGame);
-        this.sendToParent(this.CK.GameParmsGet);        
+        this.sendToParent(this.CK.GameParmsGet);
     }
 
 };
@@ -364,6 +364,6 @@ LgzLib.MsgFrames.Game.prototype.initFrame = function () {
 
 LgzLib.MsgFrames.Native  = function () {
     'use strict';
-    LgzLib.MsgFrame.call(this);
+    LgzLib.MsgFrame.Parent.call(this);
 };
-LgzLib.MsgFrames.Native.lgzExtends(LgzLib.MsgFrame);
+LgzLib.MsgFrames.Native.lgzExtends(LgzLib.MsgFrames.Parent);
