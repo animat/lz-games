@@ -58,7 +58,7 @@
 
 */
 var Cjs2Phaser = {};
-Cjs2Phaser.BitmapData = function (game, CjsLibDef, width, height) {
+Cjs2Phaser.BitmapData = function (game, CjsLibDef, width, height, vw, vh) {
     'use strict';
     var thisObj, spriteCJS, bounds, stageCJS, key;
 
@@ -66,8 +66,6 @@ Cjs2Phaser.BitmapData = function (game, CjsLibDef, width, height) {
 
     spriteCJS = new CjsLibDef();
     bounds = spriteCJS.nominalBounds;
-    spriteCJS.x = -bounds.x;
-    spriteCJS.y = -bounds.y;
 
     if (typeof width === 'undefined' || width === '') {
         width = bounds.width;
@@ -84,6 +82,8 @@ Cjs2Phaser.BitmapData = function (game, CjsLibDef, width, height) {
 
     thisObj.spriteCJS = spriteCJS;
     thisObj.stageCJS = stageCJS;
+
+    thisObj.scale2bounds(vw, vh);
     thisObj.updateCJS();
 };
 Cjs2Phaser.BitmapData.lgzExtends(Phaser.BitmapData);
@@ -92,20 +92,43 @@ Cjs2Phaser.BitmapData.prototype.updateCJS = function () {
     this.stageCJS.update();
     this.dirty = true;
 };
-Cjs2Phaser.Sprite = function (game, CjsLibDef,  x, y, width, height) {
+Cjs2Phaser.BitmapData.prototype.scale2bounds = function (w, h) {
+    'use strict';
+    var bounds, nw, nh, scaleX, scaleY, ctrX, ctrY;
+    bounds = this.spriteCJS.nominalBounds;
+
+    nw = bounds.width;
+    nh = bounds.height;
+
+
+    if (typeof w === 'undefined' || w === '') {
+        w = this.width;
+    }
+    if (typeof h === 'undefined' || h === '') {
+        h = this.height;
+    }
+
+    scaleX = w / nw;
+    scaleY = h / nh;
+
+    ctrX = Math.floor((this.width - w) / 2);
+    ctrY = Math.floor((this.height - h) / 2);
+
+    this.spriteCJS.scaleX = scaleX;
+    this.spriteCJS.scaleY = scaleY;
+    this.spriteCJS.x  = ctrX - bounds.x * scaleX;
+    this.spriteCJS.y =  ctrY - bounds.y * scaleY;
+
+};
+Cjs2Phaser.Sprite = function (game, CjsLibDef,  x, y, width, height, vw, vh) {
     'use strict';
     var thisObj, cjsBounds;
     thisObj = this;
     thisObj.game = game;
-    thisObj.hybridBMD = new Cjs2Phaser.BitmapData(thisObj.game, CjsLibDef, width, height);
+    thisObj.hybridBMD = new Cjs2Phaser.BitmapData(thisObj.game, CjsLibDef, width, height, vw, vh);
     thisObj.spriteCJS = thisObj.hybridBMD.spriteCJS;
 
     Phaser.Sprite.call(thisObj, game, x, y, thisObj.hybridBMD);
-
-    // game.world.add(this);
-
-    thisObj.anchor.setTo(0.5, 0.5);
-
 };
 Cjs2Phaser.Sprite.lgzExtends(Phaser.Sprite);
 Cjs2Phaser.Sprite.prototype.boundsNominal = function () {
