@@ -80,6 +80,18 @@ LgzLib.Scenes.Main.prototype.shutdown = function () {
     'use strict';
     this.playSet.shutdown();
 };
+LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    this.playSet.eventNodeBeforeNext();
+};
+LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    this.playSet.eventNodeAfterNext();
+};
+LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
+    'use strict';
+    this.playSet.eventNodeFinish();
+};
 
 LgzLib.Scenes.Main.prototype.eventResized = function () {
     'use strict';
