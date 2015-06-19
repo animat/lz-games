@@ -34006,7 +34006,13 @@ Phaser.Text.prototype.updateText = function () {
         maxLineWidth = Math.max(maxLineWidth, lineWidth);
     }
 
-    this.canvas.width = maxLineWidth + this.style.strokeThickness;
+    //ivanixcu: fix cropped text issues
+    // - 1st issue is when shadows are used, offsetX was not accounted for.
+    // - 2nd issue is left side of longer width char such as 'W' sometimes  cropped.
+    //
+    //   this.canvas.width = maxLineWidth + this.style.strokeThickness;
+    //
+    this.canvas.width = maxLineWidth + this.style.strokeThickness + this.style.shadowOffsetX + 4;
 
     //calculate text height
     var lineHeight = this.determineFontHeight('font: ' + this.style.font + ';') + this.style.strokeThickness + this._lineSpacing + this.style.shadowOffsetY;
@@ -34038,6 +34044,11 @@ Phaser.Text.prototype.updateText = function () {
     for (i = 0; i < lines.length; i++)
     {
         var linePosition = new PIXI.Point(this.style.strokeThickness / 2, this.style.strokeThickness / 2 + i * lineHeight);
+
+//
+//ivanixcu: fix cropping of longer width char 'W'
+//
+        linePosition.x += 2;
 
         if (this.style.align === 'right')
         {
