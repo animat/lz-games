@@ -6,10 +6,72 @@
     createjs: true,
     lib: true,
     window: true,
+    Cjs2Phaser: true,
     LgzLib: true
  */
 /*jslint  nomen: true */
 var Lgz = Lgz || {};
+Lgz.Hoop = function (playSet, node, x, y) {
+    'use strict';
+    var thisObj, game, spriteMMA, height, width;
+
+    thisObj = this;
+
+    this.playSet = playSet;
+    game = this.playSet.game;
+    this.game = game;
+    Cjs2Phaser.Sprite.call(this, game, lib.hoop,  x, y);
+
+    this.anchor.setTo(0, 0);
+
+    this.node = node;
+
+    spriteMMA = new LgzLib.DisplayNodeMMA(
+        this.game,
+        this.node,
+        0,
+        0
+    );
+    spriteMMA.playOnLoad = false;
+    this.addChild(spriteMMA);
+    this.spriteMMA = spriteMMA;
+
+    //spriteMMA.anchor.setTo(0.5, 0.5);
+    spriteMMA.eventLoadOK = function () {
+        spriteMMA.center(thisObj.width, thisObj.height);
+    };
+    spriteMMA.load();
+    this.reset();
+};
+Lgz.Hoop.lgzExtends(Cjs2Phaser.Sprite);
+Lgz.Hoop.prototype.reset = function () {
+    'use strict';
+   
+    this.revive();
+    //this.spriteCJS.gotoAndStop('static');
+};
+Lgz.Hoop.prototype._eventHit = function () {
+    'use strict';
+    var thisObj;
+    thisObj = this;
+    thisObj.kill();
+};
+Lgz.Hoop.prototype.eventHit = function () {
+    'use strict';
+    var thisObj;
+    console.log('Lgz.Hoop.eventHit:');
+    this.spriteCJS.gotoAndPlay('pop');
+
+    thisObj  = this;
+    window.setTimeout(
+        function () {
+            console.log('Hoop: killed');
+            thisObj._eventHit();
+        },
+        2000
+    );
+
+};
 Lgz.PlaySet = function (scene) {
     'use strict';
     var thisObj, $lgzInput, cjs, cjsRoot, cjsStage;
@@ -18,7 +80,6 @@ Lgz.PlaySet = function (scene) {
     thisObj.lgzMgr = scene.lgzMgr;
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
-    thisObj.syncTS = 0;
  
     thisObj.cjsRoot = cjsRoot;
 
@@ -65,20 +126,32 @@ Lgz.PlaySet = function (scene) {
     };
 
     thisObj._create = function () {
+
+        var i, $optArr, obj, xgap, x;
         
         console.log('Lgz.PlaySet.create: 1');
 
-        thisObj.nodeCount = thisObj.nm.nodeCount();        
+        thisObj.nodeCount = thisObj.nm.nodeCount();
         thisObj.sprites = {};
  
         thisObj.nm.reset();
         thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
         thisObj.cjsCreate();
-        thisObj.growCount = 0;
+
+        thisObj.groupHoops = thisObj.game.add.group();
+
+        $optArr = thisObj.nm.$tpdata.find('option');
+
+        xgap = Math.round(K.canvasVWidth / $optArr.length);
+        for (i = 0; i < $optArr.length; i += 1) {
+            x = xgap * i;
+            obj = new Lgz.Hoop(thisObj, $optArr[i], x, 0);
+            thisObj.groupHoops.addChild(obj);
+        }
+        
 
         $lgzInput.keypress(
             function (event) {
-                console.log('Lgz.PlaySet.create: on $lgzInput.keypress()');
                 if (event.keyCode === 13) {
                     thisObj.check();
                 }
@@ -86,11 +159,9 @@ Lgz.PlaySet = function (scene) {
         );
         thisObj.lgzMgr.spinnerHide();
 
-        thisObj.updateSyncTS();
  
     };
     thisObj.create = function () {
-        thisObj.syncTS = 0;
 
         thisObj.lgzMgr.spinnerShow();
         window.setTimeout(
@@ -100,15 +171,18 @@ Lgz.PlaySet = function (scene) {
             500
         );
     };
-    thisObj.updateSyncTS = function () {
-        thisObj.syncTS = Date.now() + K.syncTS;
-    };
-    thisObj.update = function () {
+    thisObj.syncCJS = function () {
         var currentTS;
         currentTS = Date.now();
-        if (thisObj.syncTS && thisObj.syncTS < currentTS) {
-            thisObj.updateSyncTS();
+        if (!thisObj.cjsTS || thisObj.cjsTS < currentTS) {
+            thisObj.cjsTS = Date.now() + K.cjsTS;
+            thisObj.game.cjsRender = true;
+        } else {
+            thisObj.game.cjsRender = false;
         }
+    };
+    thisObj.update = function () {
+        thisObj.syncCJS();
     };
     thisObj.pause = function () {
 
@@ -127,7 +201,6 @@ Lgz.PlaySet = function (scene) {
         thisObj.lgzMgr.postScore();
     };
     thisObj.dialogAnswerShow = function () {
-        thisObj.syncTS = 0;
         $lgzInput.val('');
         $lgzInput.css('display', 'block');
         $lgzInput.focus();
@@ -143,11 +216,9 @@ Lgz.PlaySet = function (scene) {
     };
     thisObj.eventAnswerCancel = function () {
         thisObj.dialogAnswerHide();
-        thisObj.syncTS = 1;
     };
     thisObj.correct = function () {
         console.log('Lgz.PlaySet.correct:');
-        thisObj._answeredCorrect = true;
         thisObj.dialogAnswerHide();
         thisObj.lgzMgr.soundPlay('blossommp3');
         thisObj.updateSyncTS();

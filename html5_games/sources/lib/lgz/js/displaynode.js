@@ -4,13 +4,14 @@
 	K: true,
 	console: true,
 	window: true,
-	LgzLib: true
+	LgzLib: true,
+    PIXI: true
  */
 /*jslint  nomen: true */
 
 var LgzLib = LgzLib || {};
 
-LgzLib.DisplayNodeMMA = function (game, node, configOpts) {
+LgzLib.DisplayNodeMMA = function (game, node, x, y, configOpts) {
     'use strict';
     var type, content;
 
@@ -18,17 +19,17 @@ LgzLib.DisplayNodeMMA = function (game, node, configOpts) {
 
     switch (type) {
     case 'text':
-        return new LgzLib.DisplayNodeText(game, node, configOpts);
+        return new LgzLib.DisplayNodeText(game, node, x, y, configOpts);
         break;
     case 'image':
-        return new LgzLib.DisplayNodeImage(game, node, configOpts);
+        return new LgzLib.DisplayNodeImage(game, node, x, y, configOpts);
         break;
     case 'audio':
-        return new LgzLib.DisplayNodeAudio(game, node, configOpts);
+        return new LgzLib.DisplayNodeAudio(game, node, x, y, configOpts);
         break;
     }
 };
-LgzLib.DisplayNodeImage = function (game, node, configOpts) {
+LgzLib.DisplayNodeImage = function (game, node, x, y, configOpts) {
     'use strict';
     var thisObj, cfgopts;
     
@@ -43,7 +44,7 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
     
     thisObj.playOnLoad = true;
     
-    Phaser.Sprite.call(thisObj, game, 0, 0, null);
+    Phaser.Sprite.call(thisObj, game, x, y, null);
     game.add.existing(thisObj);
  
     /*
@@ -53,10 +54,8 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
      */
     
     thisObj.anchor.setTo(0, 0);
- 
     thisObj.inputEnabled = true;
     
- 
     thisObj.events.onInputDown.add(
         function () {
             thisObj.eventPlay();
@@ -110,12 +109,12 @@ LgzLib.DisplayNodeImage.prototype._load = function () {
     
     splitUrl = LgzLib.splitUrl(this.lgzContent);
     if (!splitUrl.ext || splitUrl.ext === 'swf') {
-            splitUrl.ext = 'png';
+        splitUrl.ext = 'png';
     }
     if (splitUrl.proto) {
-            url = splitUrl.proto + '//' + splitUrl.base + '.' +  splitUrl.ext;
+        url = splitUrl.proto + '//' + splitUrl.base + '.' +  splitUrl.ext;
     } else {
-            url = K.urlSvrMedia + splitUrl.base + '.' + splitUrl.ext;
+        url = K.urlSvrMedia + splitUrl.base + '.' + splitUrl.ext;
     }
 
     this.loader = this.game.load.image(this.lgzContent, url, false);
@@ -133,21 +132,27 @@ LgzLib.DisplayNodeImage.prototype.load = function () {
     this.game.load.start();
 };
 LgzLib.DisplayNodeImage.prototype.vwidth = function () {
+    'use strict';
     return this.width;
 };
 LgzLib.DisplayNodeImage.prototype.vheight = function () {
+    'use strict';
     return this.height;
 };
-LgzLib.DisplayNodeImage.prototype.center = function () {
+LgzLib.DisplayNodeImage.prototype.center = function (w, h) {
 	'use strict';
-	var dx, dy, spriteText;
+	var dx, dy, bw, bh, bx, by;
+
+    bw = w || 0;
+    bh = h || 0;
+    bx = (bw / 2)|0;
+    by = (bh / 2)|0;
  
 	console.debug('DisplayNodeImage.center:');
-        this.anchor.setTo(0,0);
-        spriteText = this.spriteText;        
-    	dx = Math.floor(-this.vwidth() / 2);
-	dy = Math.floor(-this.vheight() / 2);        
-        this.position.x = dx;
+    this.anchor.setTo(0, 0);
+    dx = Math.floor(bx - this.vwidth() / 2);
+	dy = Math.floor(by - this.vheight() / 2);
+    this.position.x = dx;
 	this.position.y = dy;
         
 };
@@ -156,14 +161,14 @@ LgzLib.DisplayNodeImage.prototype.conform = function (w, h) {
     var  parent, scalex, scaley, basew, baseh;
 
     
-    this.scale.setTo(1, 1);    
+    this.scale.setTo(1, 1);
     if (!w && !h) {
         parent = this.parent;
-        scalex = (parent.width / parent.scale.x )/ this.width;
-        scaley = (parent.height / parent.scale.y )/ this.height;        
+        scalex = (parent.width / parent.scale.x) / this.width;
+        scaley = (parent.height / parent.scale.y) / this.height;
     } else {
         scalex = (w) / this.width;
-        scaley = (h) / this.height;        
+        scaley = (h) / this.height;
     }
     
 
@@ -177,49 +182,53 @@ LgzLib.DisplayNodeImage.prototype.conform = function (w, h) {
 
 };
 
-LgzLib.DisplayNodeText = function (game, node, configOpts) {
-    var game;
-    LgzLib.DisplayNodeImage.call(this, game, node, configOpts);
+LgzLib.DisplayNodeText = function (game, node, x, y, configOpts) {
+    'use strict';
+
+    LgzLib.DisplayNodeImage.call(this, game, node, x, y, configOpts);
 };
 LgzLib.DisplayNodeText.lgzExtends(LgzLib.DisplayNodeImage);
 LgzLib.DisplayNodeText.prototype._eventFileComplete = function () {
+    'use strict';
     //note: not used
 };
 LgzLib.DisplayNodeText.prototype.eventFileComplete = function () {
+    'use strict';
     //note: not used    
 };
 LgzLib.DisplayNodeText.prototype.load = function () {
-   var sprite, thisObj, style, copyStyle;
+    'use strict';
+    var sprite, thisObj, style, copyStyle;
 
-   style  = this._lgzCreateOpts.text.style || K.nodeTextStyle;
-   copyStyle = JSON.parse(JSON.stringify(style));
+    style  = this._lgzCreateOpts.text.style || K.nodeTextStyle;
+    copyStyle = JSON.parse(JSON.stringify(style));
 
-   //sprite = new Phaser.Text(this.game, 0, 0, ' '+ this.lgzContent + ' ', style);
-   sprite = new Phaser.Text(this.game, 0, 0, this.lgzContent, copyStyle);
-   sprite.visible = false;
-   this.game.add.existing(sprite);
-   //this.textSprite = sprite;
-   this.texture = sprite.texture;
-   //this.eventLoadOK();
-   this.spriteText  = sprite;
+    this.copyStyle = copyStyle;
+    sprite = new Phaser.Text(this.game, 0, 0, this.lgzContent, copyStyle);
+    sprite.visible = false;
+    this.game.add.existing(sprite);
+    this.texture = sprite.texture;
+    this.spriteText  = sprite;
    
-   thisObj = this;
-   window.setTimeout(
+    thisObj = this;
+    window.setTimeout(
         function () {
             thisObj.eventLoadOK();
         },
         50
-   );   
+    );
 };
 LgzLib.DisplayNodeText.prototype.vwidth = function () {
+    'use strict';
     var spriteText;
     spriteText = this.spriteText;
     return (spriteText.width - spriteText.fontSize * K.displayNode.fontSizePad);
 };
 LgzLib.DisplayNodeText.prototype.vheight = function () {
+    'use strict';
     var spriteText;
-    spriteText = this.spriteText;    
-    return (spriteText.height - spriteText.fontSize * K.displayNode.fontSizePad);     
+    spriteText = this.spriteText;
+    return (spriteText.height - spriteText.fontSize * K.displayNode.fontSizePad);
 };
 
 /*
@@ -233,14 +242,17 @@ LgzLib.DisplayNodeText.prototype.vheight = function () {
 
 LgzLib.DisplayNodeText.prototype.center = function (w, h) {
 	'use strict';
-	var dx, dy, spriteText;
+	var dx, dy, bw, bh, bx, by;
+
+    bw = w || 0;
+    bh = h || 0;
+    bx = (bw / 2)|0;
+    by = (bh / 2)|0;
  
-	console.debug('DisplayNodeText.center:');
-        this.anchor.setTo(0,0);
-        spriteText = this.spriteText;        
-    	dx = Math.floor(-this.vwidth() / 2);
-	dy = Math.floor(-this.vheight() / 2);        
-        this.position.x = dx;
+    this.anchor.setTo(0, 0);
+    dx = Math.floor(bx - this.vwidth() / 2);
+	dy = Math.floor(by - this.vheight() / 2);
+    this.position.x = dx;
 	this.position.y = dy;
         
 };
@@ -250,10 +262,10 @@ LgzLib.DisplayNodeText.prototype.maxTextFont = function (w, h) {
 
 	console.debug('maxTextFont:');
 
-        spriteText = this.spriteText;
+    spriteText = this.spriteText;
 	spriteText.font = K.font;
-	maxW = w -  0;
-	maxH = h -  0;
+	maxW = w;
+	maxH = h;
         //todo: set max and min font size constants (K.maxTextFont.Min,Max) 
 	for (size = 40; size > 12; size -= 2) {
 		spriteText.fontSize = size;
@@ -281,40 +293,42 @@ LgzLib.DisplayNodeText.prototype.conform = function (w, h) {
     console.log('conform to width: ' + width + ' height: ' + height);
 
     this.maxTextFont(width, height);
-    this.center(width, height);    
+    this.center(width, height);
     this.texture = this.spriteText.texture;
     
 };
-LgzLib.DisplayNodeAudio = function (game, node, configOpts) {
-    var game;
-    
-    LgzLib.DisplayNodeImage.call(this, game, node, configOpts);
+LgzLib.DisplayNodeAudio = function (game, node, x, y, configOpts) {
+    'use strict';
+    LgzLib.DisplayNodeImage.call(this, game, node, x, y, configOpts);
 
 };
 LgzLib.DisplayNodeAudio.lgzExtends(LgzLib.DisplayNodeImage);
 LgzLib.DisplayNodeAudio.prototype._eventPlay = function () {
+    'use strict';
     console.debug('LgzLib.DisplayNodeAudio.prototype._eventPlay');
-    this.audioSprite.play('',0, K.volumeLevel);
+    this.audioSprite.play('', 0, K.volumeLevel);
 };
 LgzLib.DisplayNodeAudio.prototype.eventPlay = function () {
-   var thisObj;
-   console.debug('LgzLib.DisplayNodeAudio.prototype.eventPlay');
-   thisObj = this;
-   window.setTimeout(
+    'use strict';
+    var thisObj;
+    console.debug('LgzLib.DisplayNodeAudio.prototype.eventPlay');
+    thisObj = this;
+    window.setTimeout(
         function () {
             thisObj._eventPlay();
         },
         1200
-   );     
+    );
 };
 LgzLib.DisplayNodeAudio.prototype._eventFileComplete = function (key) {
+    'use strict';
     var sprite;
     console.debug('DisplayNodeAudio.prototype._eventFileComplete: entered');
     this._super._eventFileComplete.call(this, 'audio');
     this.audioSprite = this.game.add.audio(key);
 };
 LgzLib.DisplayNodeAudio.prototype._load = function () {
-    'use strict';    
+    'use strict';
     var content, splitUrl, url;
     console.debug('LgzLib.DisplayNodeAudio._load: entered');
     
@@ -327,8 +341,8 @@ LgzLib.DisplayNodeAudio.prototype._load = function () {
 
 
     this.loader = this.game.load.audio(
-            content,
-            [K.urlSvrMediaAudio + content + '.mp3',
+        content,
+        [K.urlSvrMediaAudio + content + '.mp3',
             K.urlSvrMediaAudio + content + '.ogg']
     );
             
@@ -348,15 +362,17 @@ LgzLib.DisplayBox = function (game, x, y, w, h, configOpts) {
     
     cfg.strokeWidth = cfg.strokeWidth || 0;
     cfg.strokeColor = cfg.strokeColor || 0;
+    cfg.strokeAlpha = cfg.strokeAlpha || 1;
     
     box = new PIXI.Graphics();
     box.clear();
     box.boundsPadding = 0;
-    box.lineStyle(cfg.strokeWidth, cfg.strokeColor, 1);
+    box.lineStyle(cfg.strokeWidth, cfg.strokeColor, cfg.strokeAlpha);
     box.drawRect(0, 0, w - 1, h - 1);
     
     this.texture = box.generateTexture();
     this.box = box;
+    this.boxCfg = cfg;
     
 };
 LgzLib.DisplayBox.lgzExtends(Phaser.Sprite);
@@ -366,15 +382,17 @@ LgzLib.DisplayNodeBox = function (game, node, x, y, w, h, configOpts) {
     
     LgzLib.DisplayBox.call(this, game, x, y, w, h, configOpts);
     
-    sprite = new LgzLib.DisplayNodeMMA(game, node, configOpts);
+    sprite = new LgzLib.DisplayNodeMMA(game, node, x, y, configOpts);
     this.addChild(sprite);
  
     this.mma = sprite;
     this.node = node;
+    sprite.visible = false;
     
     sprite.eventLoadOK = function () {
         console.debug('DisplayNodeBox: eventLoadOK:');
         sprite.conform();
+        sprite.visible = true;
     };
     sprite.load();
  
