@@ -93,7 +93,6 @@ LgzLib.Scenes.End.prototype.rscload = function () {
 };
 LgzLib.Scenes.End.prototype.create = function () {
     'use strict';
-    var ps, score, spriteSign, sprite, thisObj;
     console.debug('Scene.create: key ' + this.key);
 
 };
