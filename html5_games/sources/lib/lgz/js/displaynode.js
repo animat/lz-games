@@ -11,7 +11,7 @@
 
 var LgzLib = LgzLib || {};
 
-LgzLib.DisplayNodeMMA = function (game, node, configOpts) {
+LgzLib.DisplayNodeMMA = function (game, node, x, y, configOpts) {
     'use strict';
     var type, content;
 
@@ -19,17 +19,17 @@ LgzLib.DisplayNodeMMA = function (game, node, configOpts) {
 
     switch (type) {
     case 'text':
-        return new LgzLib.DisplayNodeText(game, node, configOpts);
+        return new LgzLib.DisplayNodeText(game, node, x, y, configOpts);
         break;
     case 'image':
-        return new LgzLib.DisplayNodeImage(game, node, configOpts);
+        return new LgzLib.DisplayNodeImage(game, node, x, y, configOpts);
         break;
     case 'audio':
-        return new LgzLib.DisplayNodeAudio(game, node, configOpts);
+        return new LgzLib.DisplayNodeAudio(game, node, x, y, configOpts);
         break;
     }
 };
-LgzLib.DisplayNodeImage = function (game, node, configOpts) {
+LgzLib.DisplayNodeImage = function (game, node, x, y, configOpts) {
     'use strict';
     var thisObj, cfgopts;
     
@@ -44,7 +44,7 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
     
     thisObj.playOnLoad = true;
     
-    Phaser.Sprite.call(thisObj, game, 0, 0, null);
+    Phaser.Sprite.call(thisObj, game, x, y, null);
     game.add.existing(thisObj);
  
     /*
@@ -54,10 +54,8 @@ LgzLib.DisplayNodeImage = function (game, node, configOpts) {
      */
     
     thisObj.anchor.setTo(0, 0);
- 
     thisObj.inputEnabled = true;
     
- 
     thisObj.events.onInputDown.add(
         function () {
             thisObj.eventPlay();
@@ -184,11 +182,11 @@ LgzLib.DisplayNodeImage.prototype.conform = function (w, h) {
 
 };
 
-LgzLib.DisplayNodeText = function (game, node, configOpts) {
+LgzLib.DisplayNodeText = function (game, node, x, y, configOpts) {
     'use strict';
 
-    LgzLib.DisplayNodeImage.call(this, game, node, configOpts);
-};
+    LgzLib.DisplayNodeImage.call(this, game, node, x, y, configOpts);
+  };
 LgzLib.DisplayNodeText.lgzExtends(LgzLib.DisplayNodeImage);
 LgzLib.DisplayNodeText.prototype._eventFileComplete = function () {
     'use strict';
@@ -205,6 +203,7 @@ LgzLib.DisplayNodeText.prototype.load = function () {
     style  = this._lgzCreateOpts.text.style || K.nodeTextStyle;
     copyStyle = JSON.parse(JSON.stringify(style));
 
+    this.copyStyle = copyStyle;
     sprite = new Phaser.Text(this.game, 0, 0, this.lgzContent, copyStyle);
     sprite.visible = false;
     this.game.add.existing(sprite);
@@ -298,10 +297,9 @@ LgzLib.DisplayNodeText.prototype.conform = function (w, h) {
     this.texture = this.spriteText.texture;
     
 };
-LgzLib.DisplayNodeAudio = function (game, node, configOpts) {
+LgzLib.DisplayNodeAudio = function (game, node, x, y, configOpts) {
     'use strict';
-    LgzLib.DisplayNodeImage.call(this, game, node, configOpts);
-
+    LgzLib.DisplayNodeImage.call(this, game, node, x, y, configOpts);
 };
 LgzLib.DisplayNodeAudio.lgzExtends(LgzLib.DisplayNodeImage);
 LgzLib.DisplayNodeAudio.prototype._eventPlay = function () {
@@ -363,15 +361,17 @@ LgzLib.DisplayBox = function (game, x, y, w, h, configOpts) {
     
     cfg.strokeWidth = cfg.strokeWidth || 0;
     cfg.strokeColor = cfg.strokeColor || 0;
+    cfg.strokeAlpha = cfg.strokeAlpha || 1;
     
     box = new PIXI.Graphics();
     box.clear();
     box.boundsPadding = 0;
-    box.lineStyle(cfg.strokeWidth, cfg.strokeColor, 1);
+    box.lineStyle(cfg.strokeWidth, cfg.strokeColor, cfg.strokeAlpha);
     box.drawRect(0, 0, w - 1, h - 1);
     
     this.texture = box.generateTexture();
     this.box = box;
+    this.boxCfg = cfg;
     
 };
 LgzLib.DisplayBox.lgzExtends(Phaser.Sprite);
@@ -381,15 +381,17 @@ LgzLib.DisplayNodeBox = function (game, node, x, y, w, h, configOpts) {
     
     LgzLib.DisplayBox.call(this, game, x, y, w, h, configOpts);
     
-    sprite = new LgzLib.DisplayNodeMMA(game, node, configOpts);
+    sprite = new LgzLib.DisplayNodeMMA(game, node, x, y, configOpts);
     this.addChild(sprite);
  
     this.mma = sprite;
     this.node = node;
+    sprite.visible = false;
     
     sprite.eventLoadOK = function () {
         console.debug('DisplayNodeBox: eventLoadOK:');
         sprite.conform();
+        sprite.visible = true;
     };
     sprite.load();
  

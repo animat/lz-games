@@ -26,7 +26,7 @@ Lgz.Bubble = function (playSet, node, bmd) {
     this.anchor.setTo(0.5, 0.5);
 
     this.node = node;
-    spriteMMA = new LgzLib.DisplayNodeMMA(this.game, this.node);
+    spriteMMA = new LgzLib.DisplayNodeMMA(this.game, this.node, 0, 0);
     spriteMMA.playOnLoad = false;
     this.addChild(spriteMMA);
     this.spriteMMA = spriteMMA;

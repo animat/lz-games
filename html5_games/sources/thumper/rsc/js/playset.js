@@ -85,7 +85,7 @@ Lgz.PlaySet = function (scene) {
             //todo: verify type is 'text'
             //popup  = new Lgz.Popup(thisObj,  text, i);
             node = thisObj.nm.node('response', i);
-            spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node);
+            spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node, 0, 0);
             spriteMMA.playOnLoad = false;
             
             popup  = new Lgz.Popup(thisObj,  spriteMMA, i);
