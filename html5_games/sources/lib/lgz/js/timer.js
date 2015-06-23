@@ -9,15 +9,15 @@
 /*jslint  nomen: true */
 
 var LgzLib = LgzLib || {};
-LgzLib.Timer = function (spriteText) {
+LgzLib.Timer = function (spriteText, countdown) {
     'use strict';
-    var thisObj = this;
+    var thisObj;
+
+    thisObj = this;
+    thisObj.delayTO = 1000;
     
-    thisObj.start = function () {
-        thisObj.beginTS = new Date();
-        thisObj.endTS = thisObj.beginTS;
-        thisObj.paused = false;
-        
+    thisObj.eventTime = function (rem) {
+        //note: intercept in game code
     };
     thisObj.pause = function () {
         thisObj.paused = true;
@@ -34,18 +34,60 @@ LgzLib.Timer = function (spriteText) {
     thisObj.value = function () {
         return spriteText.text;
     };
-    thisObj.update = function () {
-        var now, dur, min, sec, s;
+	thisObj.update = function () {
+    };
+	thisObj.updateInterval = function () {
+    };
+    thisObj.updateCountUp = function () {
+        var  dur, min, sec;
+
+	    if (thisObj.paused) {
+	        return;
+	    }
         
-        if (thisObj.paused) {
-            return;
-        }
- 
         thisObj.endTS = new Date();
-        
         dur = Math.floor((thisObj.endTS - thisObj.beginTS) / 1000);
         min = Math.floor(dur / 60);
         sec = (dur % 60) / 100;
         spriteText.text = min + ':' + sec.toFixed(2).toString().replace('0.', '');
+        thisObj.eventTime(dur);
+
     };
+    thisObj.updateCountDown = function () {
+        var  dur, min, rem;
+
+	    if (thisObj.paused) {
+	        return;
+	    }
+        
+        thisObj.endTS = new Date();
+        dur = Math.floor((thisObj.endTS - thisObj.beginTS) / 1000);
+        rem = countdown - dur;
+        spriteText.text = rem;
+        thisObj.eventTime(rem);
+
+    };
+    thisObj.reset = function () {
+        thisObj.beginTS = new Date();
+        thisObj.endTS = thisObj.beginTS;
+        thisObj.paused = false;
+    };
+    thisObj.start = function () {
+        thisObj.reset();
+
+        thisObj.updateTOID = window.setInterval(
+            function () {
+                thisObj.updateInterval();
+            },
+            thisObj.delayTO
+        );
+    };
+    thisObj.stop = function () {
+        window.clearInterval(thisObj.updateTOID);
+    };
+    if (countdown) {
+        thisObj.updateInterval = thisObj.updateCountDown;
+    } else {
+        thisObj.updateInterval = thisObj.updateCountUp;
+    }
 };
