@@ -29,10 +29,6 @@ Lgz._cbCjsReady = function (mgr) {
     root = new lib.alphabetTreeCJS();
     cjs.root = root;
 
-    objs = {};
-    // objs.spriteWin = new lib.win();
-    cjs.objs = objs;
-
     strTags = {};
     strTags.IDS_INSTRUCTIONS = function (str) {
         root.instructions.text = str;
@@ -42,16 +38,11 @@ Lgz._cbCjsReady = function (mgr) {
         root.playGame.text_1.text = str;
     };
     strTags.IDS_CONGRATS = function (str) {
-        //todo: root.congratsWindow.text.text = str;
-    };
-    strTags.IDS_YOU_WIN = function (str) {
-        //todo: root.congratsWindow.text_1.text = str;
+        root.text.text = str;
+        root.text_1.text = str;
     };
     strTags.IDS_PLAY_AGAIN = function (str) {
         root.playAgain.text.text = str;
-        /*
-        objs.spriteWin.playAgain.text.text = str;
-        */
     };
     cjs.strTags = strTags;
 
@@ -63,13 +54,6 @@ Lgz._cbCjsReady = function (mgr) {
         console.log('playAgain: clicked');
         mgr.play();
     });
-    
-    /*
-    objs.spriteWin.playAgain.on('click', function () {
-        console.log('playAgain: clicked');
-        mgr.play();
-    });
-    */
     
     stage = new createjs.Stage(Lgz.game.canvas);
     stage.addChild(root);
@@ -90,7 +74,6 @@ Lgz.cjsInit  = function (mgr) {
     'use strict';
     var loader;
 	loader = new createjs.LoadQueue(false);
-	// loader.installPlugin(createjs.Sound);
 	loader.addEventListener(
         "fileload",
         Lgz._cbCjsFileLoaded
@@ -105,16 +88,7 @@ Lgz.cjsInit  = function (mgr) {
 };
 Lgz._cbMgrReady = function (mgr) {
     'use strict';
-    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
-    mgr.hud.orient = mgr.hud.ORIENT.NONE;
-    
-    /*
-     * note:  Call mgr.hud.inputInit() on input type games.
-     * Enables input field handling and displays accent toggle button
-     * 
-     */
-    mgr.hud.inputInit();
-    
+    mgr.hud.orient = mgr.hud.ORIENT.LANDSCAPE;
     Lgz.cjsInit(mgr);
 };
 Lgz.init = function () {
@@ -129,4 +103,25 @@ Lgz.init = function () {
         }
     );
  
+};
+//note: for making maps
+Lgz.debug = function () {
+    'use strict';
+    Lgz.pos = [];
+    Lgz.savepos = function (event) {
+        var p, sprite, ps;
+        p = {};
+        p.x = event.x;
+        p.y = event.y;
+        Lgz.pos.push(p);
+        ps = Lgz.mgr.scenes.main.playSet;
+        //sprite =  new Lgz.Decoy(ps, Lgz.pos.length);
+        sprite =  new Lgz.Decoy(ps, 10);
+        sprite.x = p.x;
+        sprite.y = p.y;
+        Lgz.sprite = sprite;
+    };
+    Lgz.mgr.game.canvas.onclick = function (event) {
+        Lgz.savepos(event);
+    };
 };

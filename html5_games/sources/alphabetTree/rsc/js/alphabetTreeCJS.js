@@ -380,10 +380,12 @@ p.nominalBounds = new cjs.Rectangle(0,0,436.4,60.9);
 	this.text.setTransform(90.5,6);
 
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(255,255,255,0)").s().p("AuSEiIAApDIckAAIAAJDg");
+	this.shape.graphics.f("rgba(255,255,255,0.1)").s().p("AuSEiIAApDIckAAIAAJDg");
 	this.shape.setTransform(92.5,31);
 
 	this.addChild(this.shape,this.text);
+    this.helper = new cjs.ButtonHelper(this, 0, 1, 1, false);
+
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(1,2,183,58);
 
@@ -1334,12 +1336,14 @@ p.nominalBounds = new cjs.Rectangle(-17.3,-44.2,62.1,62.7);
 	this.timeline.addTween(cjs.Tween.get(this.correct).wait(8).to({_off:false},0).to({_off:true},7).wait(6));
 
 	// Group display
+   /* 
 	this.optionGroupDisplay = new lib.optionDisplay();
 	this.optionGroupDisplay.setTransform(318.7,216);
 	this.optionGroupDisplay.alpha = 0.801;
 	this.optionGroupDisplay._off = true;
 
 	this.timeline.addTween(cjs.Tween.get(this.optionGroupDisplay).wait(8).to({_off:false},0).to({_off:true},7).wait(6));
+    */
 
 	// Rabbit
 	this.instance = new lib.rabbit();
