@@ -19,18 +19,8 @@ LgzLib.NodeManager = function (mgr) {
     thisObj.K_GAVEUP = -1;
     
     
-    thisObj.nodes = [];
+    thisObj.$nodes = [];
     thisObj.idx = 0;
-    thisObj.xxxloadURL = function (url, onloaded, onerror) {
-        thisObj.url = url;
-        thisObj.idx = 0;
-        $.get(url, function (data) {
-            thisObj.nodes = $(data).find("gamedata").children();
-            onloaded();
-        }).error(function () {
-            onerror();
-        });
-    };
 
 
     /*
@@ -42,10 +32,10 @@ LgzLib.NodeManager = function (mgr) {
         var i;
         thisObj.idx = 0;
 
-        thisObj.remaining = thisObj.nodes.length;
+        thisObj.remaining = thisObj.$nodes.length;
         
-        for (i = 0; i < thisObj.nodes.length; i += 1) {
-            thisObj.nodes[i].answered = thisObj.K_NOTYET;
+        for (i = 0; i < thisObj.$nodes.length; i += 1) {
+            thisObj.$nodes[i].answered = thisObj.K_NOTYET;
         }
         return;
     };
@@ -60,33 +50,40 @@ LgzLib.NodeManager = function (mgr) {
         
         $.get(thisObj.url, function (data) {
             thisObj.data = data;
-            thisObj.nodes = $(data).find("gamedata").children();
+            thisObj.$nodes = $(data).find("gamedata").children();
+
+            //note: nodes prop deprecated, should be $nodes
+            //todo: remove nodes.length reference in gardenGrows/rsc/js/playset.js
+            //      then remove here
+            thisObj.nodes = thisObj.$nodes;
+
+            thisObj.$tpdata = $(data).find("templatedata");
             thisObj.onLoad();
         }).error(function () {
             thisObj.eventLoadFAIL();
         });
     };
     thisObj.nodeCurrent = function () {
-        return thisObj.nodes[this.idx];
+        return thisObj.$nodes[this.idx];
     };
     thisObj.nodeCount = function () {
-        return thisObj.nodes.length;
+        return thisObj.$nodes.length;
     };
 
     thisObj.nodeAt = function (num) {
         var n, subnode;
-        if (num < 0 || num > (thisObj.nodes.length - 1)) {
+        if (num < 0 || num > (thisObj.$nodes.length - 1)) {
             return null;
         }
         n = {};
         n.q = {};
         n.a = {};
-        subnode  = thisObj.nodes[num].querySelector('question');
+        subnode  = thisObj.$nodes[num].querySelector('question');
         if (subnode) {
             n.q.content = subnode.getAttribute('content');
             n.q.type = subnode.getAttribute('type');
         }
-        subnode  = thisObj.nodes[num].querySelector('response');
+        subnode  = thisObj.$nodes[num].querySelector('response');
         if (subnode) {
             n.a.content = subnode.getAttribute('content');
             n.a.type = subnode.getAttribute('type');
@@ -96,23 +93,39 @@ LgzLib.NodeManager = function (mgr) {
     };
     thisObj.nodeChildAt = function (num, childname) {
  
-            if (num < 0 || num > (thisObj.nodes.length - 1)) {
+            if (num < 0 || num > (thisObj.$nodes.length - 1)) {
                 return null;
             }
-            return thisObj.nodes[num].querySelector(childname);
+            return thisObj.$nodes[num].querySelector(childname);
         
     };
-    thisObj.node = function (childname, idx) {
+    thisObj.node$ = function (jquery, idx) {
         var num;
         if (idx === undefined) {
             num = thisObj.idx;
         } else {
             num = idx;
         }
-        if (num < 0 || num > (thisObj.nodes.length - 1)) {
+        if (num < 0 || num > (thisObj.$nodes.length - 1)) {
             return null;
         }
-        return thisObj.nodes[num].querySelector(childname);
+        return $(thisObj.$nodes[num]).find(jquery);
+        
+    };
+    thisObj.node = function (childname, idx) {
+        //todo:  
+        //  return thisObj.node$(childname, idx)[0];
+        //
+        var num;
+        if (idx === undefined) {
+            num = thisObj.idx;
+        } else {
+            num = idx;
+        }
+        if (num < 0 || num > (thisObj.$nodes.length - 1)) {
+            return null;
+        }
+        return thisObj.$nodes[num].querySelector(childname);
         
     };
     thisObj.getQuestion = function (num) {
@@ -120,17 +133,20 @@ LgzLib.NodeManager = function (mgr) {
     };
     thisObj.getResponse = function (num) {
         return thisObj.node('response', num);
+        //
+        // todo: change to?
+        // return thisObj.node$('response', num)[0];
     };
     thisObj.nodeAnswered = function () {
-        if (!thisObj.nodes[thisObj.idx].answered) {
-            thisObj.nodes[thisObj.idx].answered = thisObj.K_ANSWERED;
+        if (!thisObj.$nodes[thisObj.idx].answered) {
+            thisObj.$nodes[thisObj.idx].answered = thisObj.K_ANSWERED;
             thisObj.remaining -= 1;
         }
         thisObj._nodeNext();
     };
     thisObj.nodeGiveUp = function () {
-        if (!thisObj.nodes[thisObj.idx].answered) {
-            thisObj.nodes[thisObj.idx].answered = thisObj.K_GAVEUP;
+        if (!thisObj.$nodes[thisObj.idx].answered) {
+            thisObj.$nodes[thisObj.idx].answered = thisObj.K_GAVEUP;
             thisObj.remaining -= 1;
         }
         thisObj._nodeNext();
@@ -152,12 +168,12 @@ LgzLib.NodeManager = function (mgr) {
             return false;
         }
 
-        if (thisObj.idx + 2 > thisObj.nodes.length) {
+        if (thisObj.idx + 2 > thisObj.$nodes.length) {
             thisObj.idx =  0;
         } else {
             thisObj.idx += 1;
         }
-        if (!thisObj.nodes[thisObj.idx].answered) {
+        if (!thisObj.$nodes[thisObj.idx].answered) {
             return true;
         } else {
             //note: recursive call!
@@ -166,7 +182,7 @@ LgzLib.NodeManager = function (mgr) {
     };
 
     thisObj.count = function () {
-        return thisObj.nodes.length;
+        return thisObj.$nodes.length;
     };
     thisObj.dataFind = function (str) {
         return $(thisObj.data).find(str);
