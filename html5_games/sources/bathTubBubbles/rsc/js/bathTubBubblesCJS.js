@@ -151,10 +151,11 @@ p.nominalBounds = new cjs.Rectangle(-91.4,-46.3,182.9,92.6);
 	this.text.setTransform(108.5,0);
 
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(255,255,255,0)").s().p("AxUCHIAAkNMAiqAAAIAAENg");
+	this.shape.graphics.f("rgba(255,255,255,0.1)").s().p("AxUCHIAAkNMAiqAAAIAAENg");
 	this.shape.setTransform(110,13.5);
 
 	this.addChild(this.shape,this.text);
+    this.helper = new cjs.ButtonHelper(this, 0, 1, 1, false);
 }).prototype = p = new cjs.Container();
 p.nominalBounds = new cjs.Rectangle(-1,0,222,27.3);
 
@@ -2136,6 +2137,7 @@ p.nominalBounds = new cjs.Rectangle(-20.5,-21.4,42.9,42);
 		/* gotoAndPlay(1);*/
 	}
 	this.frame_91 = function() {
+        this.dispatchEvent('done');
         this.stop();
 		/* stop();
 		*/
@@ -3236,7 +3238,7 @@ p.nominalBounds = new cjs.Rectangle(-58.8,-62.9,117.6,125.9);
 
 
 (lib.Boy = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{"static":0,wrong:6,wrong_done:67,correct:68,correct_done:125,wince:126});
+	this.initialize(mode,startPosition,loop,{"static":0,wrong:10,wrong_done:67,correct:68,correct_done:125,wince:126});
 
 	// timeline functions:
 	this.frame_0 = function() {
@@ -3250,7 +3252,8 @@ p.nominalBounds = new cjs.Rectangle(-58.8,-62.9,117.6,125.9);
 		*/
 	}
 	this.frame_67 = function() {
-        this.stop();
+        //this.stop();
+        this.gotoAndStop('static');
 		/* stop();
 		*/
 	}
@@ -3259,10 +3262,12 @@ p.nominalBounds = new cjs.Rectangle(-58.8,-62.9,117.6,125.9);
 		*/
 	}
 	this.frame_125 = function() {
+        this.dispatchEvent('done');
         this.stop();
 		/* stop();*/
 	}
 	this.frame_160 = function() {
+        this.gotoAndStop('static');
 		/* gotoAndStop("static");*/
 	}
 
@@ -4461,6 +4466,12 @@ p.nominalBounds = new cjs.Rectangle(-165.1,-130.6,330.3,306.8);
 	this.text_2.lineWidth = 150;
 	this.text_2.setTransform(1.7,4.7);
 
+    //ivanixcu: separate text sprite for final score
+	this.text_Final = new cjs.Text("Current score:", "14px 'Trebuchet MS'", "#91052D");
+	this.text_Final.lineHeight = 16;
+	this.text_Final.lineWidth = 150;
+	this.text_Final.setTransform(1.7,4.7);
+
 	this.text_3 = new cjs.Text("#", "22px 'Trebuchet MS'", "#91052D");
 	this.text_3.textAlign = "center";
 	this.text_3.lineHeight = 24;
@@ -4470,7 +4481,14 @@ p.nominalBounds = new cjs.Rectangle(-165.1,-130.6,330.3,306.8);
 	this.pointsBubbleBG = new lib.bubble2();
 	this.pointsBubbleBG.setTransform(20.1,-7.4,4.225,4.225);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.pointsBubbleBG,p:{regX:0,regY:0,x:20.1,y:-7.4,mode:"independent",startPosition:undefined}},{t:this.text_3,p:{x:46.1,y:21.2,text:"#",font:"22px 'Trebuchet MS'",color:"#91052D",lineHeight:24,lineWidth:44}},{t:this.text_2,p:{x:1.7,y:4.7,text:"Current score:",font:"14px 'Trebuchet MS'",color:"#91052D",textAlign:"",lineHeight:16,lineWidth:150}}]},9).to({state:[{t:this.pointsBubbleBG,p:{regX:0.9,regY:-0.5,x:152,y:97.8,mode:"synched",startPosition:0}},{t:this.text_3,p:{x:154,y:53.5,text:"Final score:",font:"20px 'Trebuchet MS'",color:"#118CB7",lineHeight:22,lineWidth:196}},{t:this.text_2,p:{x:149,y:78,text:"#",font:"28px 'Trebuchet MS'",color:"#BD0027",textAlign:"center",lineHeight:30,lineWidth:48}}]},6).wait(8));
+	//ivanixcu: modified for proper IDS language swapping: 
+	this.timeline.addTween(
+        cjs.Tween.get({})
+        .to({state:[]})
+        .to({state:[{t:this.pointsBubbleBG,p:{regX:0,regY:0,x:20.1,y:-7.4,mode:"independent",startPosition:undefined}},{t:this.text_3,p:{x:46.1,y:21.2,text:"#",font:"22px 'Trebuchet MS'",color:"#91052D",lineHeight:24,lineWidth:44}},{t:this.text_2,p:{x:1.7,y:4.7,font:"14px 'Trebuchet MS'",color:"#91052D",textAlign:"",lineHeight:16,lineWidth:150}}]},9)
+        .to({state:[{t:this.pointsBubbleBG,p:{regX:0.9,regY:-0.5,x:152,y:97.8,mode:"synched",startPosition:0}},{t:this.text_Final,p:{x:154,y:53.5,font:"20px 'Trebuchet MS'",color:"#118CB7", textAlign:"center", lineHeight:22,lineWidth:196}},{t:this.text_3,p:{x:149,y:78,font:"28px 'Trebuchet MS'",color:"#BD0027",textAlign:"center",lineHeight:30,lineWidth:48}}]},6).wait(8)
+    );
+    // this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.pointsBubbleBG,p:{regX:0,regY:0,x:20.1,y:-7.4,mode:"independent",startPosition:undefined}},{t:this.text_3,p:{x:46.1,y:21.2,text:"#",font:"22px 'Trebuchet MS'",color:"#91052D",lineHeight:24,lineWidth:44}},{t:this.text_2,p:{x:1.7,y:4.7,text:"Current score:",font:"14px 'Trebuchet MS'",color:"#91052D",textAlign:"",lineHeight:16,lineWidth:150}}]},9).to({state:[{t:this.pointsBubbleBG,p:{regX:0.9,regY:-0.5,x:152,y:97.8,mode:"synched",startPosition:0}},{t:this.text_3,p:{x:154,y:53.5,text:"Final score:",font:"20px 'Trebuchet MS'",color:"#118CB7",lineHeight:22,lineWidth:196}},{t:this.text_2,p:{x:149,y:78,text:"#",font:"28px 'Trebuchet MS'",color:"#BD0027",textAlign:"center",lineHeight:30,lineWidth:48}}]},6).wait(8));
 
 	// BG
 	this.shape_1 = new cjs.Shape();

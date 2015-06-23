@@ -48,6 +48,7 @@ LgzLib.Scenes.Main.prototype.preinit = function () {
         
     this.game.renderer.clearBeforeRender = false;
     this.playSet = new Lgz.PlaySet(this);
+    this.cjsStage = this.lgzMgr.cjs.stage;
 };
 LgzLib.Scenes.Main.prototype.rscload = function () {
     'use strict';
@@ -72,7 +73,7 @@ LgzLib.Scenes.Main.prototype.update = function () {
 };
 LgzLib.Scenes.Main.prototype.preRender = function () {
     'use strict';
-    this.lgzMgr.cjs.stage.update();
+    this.cjsStage.update();
 };
 LgzLib.Scenes.Main.prototype.render = function () {
     'use strict';
@@ -81,7 +82,21 @@ LgzLib.Scenes.Main.prototype.shutdown = function () {
     'use strict';
     this.playSet.shutdown();
 };
-
+LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeBeforeNext:');
+    this.playSet.eventNodeBeforeNext();
+};
+LgzLib.Scenes.Main.prototype.eventNodeAfterNext = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeAfterNext:');
+    this.playSet.eventNodeAfterNext();
+};
+LgzLib.Scenes.Main.prototype.eventNodeFinish = function () {
+    'use strict';
+    console.debug('Scenes2.Main.eventNodeFinish:');
+    this.playSet.eventNodeFinish();
+};
 LgzLib.Scenes.Main.prototype.eventResized = function () {
     'use strict';
     console.debug('Scenes2.Main.eventResized: key ' + this.key);

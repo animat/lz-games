@@ -37,8 +37,14 @@ Lgz._cbCjsReady = function (mgr) {
     strTags.IDS_INSTRUCTIONS = function (str) {
         root.text.text = str;
     };
-    strTags.IDS_PLAY_GAME = function (str) {
+    strTags.IDS_PLAY = function (str) {
         root.play_.text.text = str;
+    };
+    strTags.IDS_CURRENT_SCORE = function (str) {
+        root.text_2.text = str;
+    };
+    strTags.IDS_FINAL_SCORE = function (str) {
+        root.text_Final.text = str;
     };
     /*
      * todo: remove 
@@ -133,4 +139,14 @@ Lgz.init = function () {
         }
     );
  
+};
+Lgz.debug = function () {
+    ps = Lgz.mgr.scenes.main.playSet;
+    b0 = ps.groupBubbles.children[0];
+    for(var i = 1; i < ps.groupBubbles.children.length; i +=1) {
+        ps.groupBubbles.children[i].x = 500;
+    };
+    b0.x = 100;
+    b0.y = 100;
+
 };
