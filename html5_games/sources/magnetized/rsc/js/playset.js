@@ -109,7 +109,7 @@ Lgz.WordTile.prototype._matchTile = function (leftTile, rightTile) {
     y = rightTile.world.y;
 
 
-    if (Math.abs(tx - x) < 20 && Math.abs(ty - y) < 20) {
+    if (Math.abs(tx - x) < 40 && Math.abs(ty - y) < 40) {
         return true;
     }
     return false;
