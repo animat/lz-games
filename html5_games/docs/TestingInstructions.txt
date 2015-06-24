@@ -1,0 +1,11 @@
+Lots of ways to test!
+
+Option A:
+  - cd into the html5_games/sources directory
+  - run the http-server . command
+  - browse to... http://localhost:8080/bathTubBubbles/game.html?gameid=bathTubBubbles_69857
+    - the gameid is a direct reference to an XML file in the sources/svr directory
+
+Option B:
+  - same as above...
+  - browse to... http://localhost:8080/Frame/web.html?gameSWF=bathTubBubbles&gameid=bathTubBubbles_69857
