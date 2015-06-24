@@ -167,7 +167,7 @@ Lgz.WordTile.prototype.initInput = function () {
 
     thisObj = this;
     thisObj.inputEnabled = true;
-    thisObj.input.enableDrag(true);
+    thisObj.input.enableDrag(false);
     thisObj.events.onInputDown.add(
         function () {
             thisObj.bringToTop();
