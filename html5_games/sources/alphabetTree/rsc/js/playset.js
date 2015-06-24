@@ -130,7 +130,7 @@ Lgz.Decoy.prototype.initInput = function () {
     var thisObj;
     thisObj = this;
     this.inputEnabled = true;
-    this.input.enableDrag(true);
+    this.input.enableDrag(false);
     this.events.onDragStop.add(
         function () {
             thisObj.eventDragStop();
