@@ -2,6 +2,10 @@
 
 gid=`id -g`
 
+echo "$0:  Creating/Updating /LZGAMESRC symlink for native compile"
+sudo rm -f /LZGAMESRC
+sudo ln -s `pwd`/sources /LZGAMESRC
+
 echo "$0:  Changing ownership to $USER:$gid"
 sudo chown -R  $USER:$gid .
 echo "$0: Setting folder permisisons"
