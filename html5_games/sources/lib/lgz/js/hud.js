@@ -496,6 +496,7 @@ LgzLib.Hud = function (mgr) {
                 case 'left':
                 case 'right':
                 case 'padding-left':
+                case 'padding-right':
                 case 'margin-left':
                 case 'margin-right':
                     if (virtpx === 'auto') {
@@ -511,8 +512,9 @@ LgzLib.Hud = function (mgr) {
                 case 'top':
                 case 'bottom':
                 case 'padding-top':
-                case 'padding-right':
+                case 'padding-bottom':
                 case 'margin-top':
+                case 'margin-bottom':
                 case 'font-size':
                     if (virtpx === 'auto') {
                         realpx = virtpx;
@@ -558,14 +560,24 @@ LgzLib.Hud = function (mgr) {
                 return props;
             },
             lgzHudCssSave: function () {
-                $obj.lgzProps = $obj.lgzHudCssGet({ 'height': null, 'width': null, 'top': null, 'bottom': null, 'left': null, 'right': null, 'margin-top': null,
-                    'margin-bottom': null, 'margin-left': null, 'margin-right': null, 'padding-top': null,
+                $obj.lgzProps = $obj.lgzHudCssGet({
+                    'height': null,
+                    'width': null,
+                    'top': null,
+                    'bottom': null,
+                    'left': null,
+                    'right': null,
+                    'margin-top': null,
+                    'margin-bottom': null,
+                    'margin-left': null,
+                    'margin-right': null,
+                    'padding-top': null,
                     'padding-bottom': null,
                     'padding-left': null,
                     'padding-right': null,
                     'font-size': null,
                     'border-radius': null
-                    });
+                });
               
             },
             lgzHudCssResize: function () {
