@@ -12,7 +12,7 @@ var Lgz = Lgz || {};
 Lgz.Card = function (cardSet, x, y, node) {
     'use strict';
         
-    var thisObj, label, sprite, angle, num, dn;
+    var thisObj, label, spriteCard, angle, num, dn, spriteMMA, width, height;
 
     thisObj = this;
     this.cardSet = cardSet;
@@ -23,48 +23,40 @@ Lgz.Card = function (cardSet, x, y, node) {
 
     num = cardSet.cardArr.length;
 
-    sprite = cardSet.game.add.sprite(x, y, 'card');
-    sprite.scale.setTo(K.cardScale);
+    spriteCard = cardSet.game.add.sprite(x, y, 'card');
+    spriteCard.anchor.setTo(0.5, 0.5);
+    spriteCard.scale.setTo(K.cardScale);
+    this.spriteCard = spriteCard;
 
-    dn = new LgzLib.DisplayNode(thisObj, node);
-    dn.load();
-    this.dn = dn;
+    spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node, 0, 0);
+    spriteMMA.playOnLoad = false;
+    spriteCard.addChild(spriteMMA);
+    thisObj.spriteMMA = spriteMMA;
 
-    this.sprite = sprite;
+    width = Math.floor(Math.abs(spriteCard.width) * 0.8);
+    height = Math.floor(Math.abs(spriteCard.height * 0.8));
+    spriteMMA.eventLoadOK = function () {
+        spriteMMA.conform(width, height);
+        spriteMMA.anchor.setTo(0.5, 0.5);
+    };
+    spriteMMA.visible = false;
+    spriteMMA.load();
+    
+
     this.hit = false;
     this.allowHit = true;
 
-    sprite.inputEnabled = true;
-    sprite.animations.add('show', [0, 1, 2, 3, 5, 4]);
-    sprite.animations.add('hide', [4, 5, 3, 2, 1, 0]);
+    spriteCard.inputEnabled = true;
+    spriteCard.animations.add('show', [0, 1, 2, 3, 5, 4]);
+    spriteCard.animations.add('hide', [4, 5, 3, 2, 1, 0]);
 
-    sprite.events.onInputDown.add(
-        function () {thisObj.onhit(sprite); },
+    spriteCard.events.onInputDown.add(
+        function () {thisObj.onhit(spriteCard); },
         thisObj
     );
 
 };
 Lgz.Card.lgzExtends(Phaser.Group);
-Lgz.Card.prototype.createMMA = function () {
-    'use strict';
-    console.debug('createMMA:');
-
-    this.dn.createSprite();
-    this.sprite.addChild(this.dn.sprite);
-    this.dn.conform();
-//todo: scale to fit container and retain aspect
-    this.dn.hide();
-
-};
-Lgz.Card.prototype.update = function (sprite) {
-    'use strict';
-/*
-    if (!this.sprite.children.length && (!this.dn.loader || this.dn.loader.hasLoaded)) {
-            console.debug('Card.update:2');
-            this.addMMA(this.dn);
-    }
-*/
-};
 Lgz.Card.prototype.onhit = function (sprite) {
     'use strict';
     if (this.cardSet.lock) {
@@ -74,43 +66,39 @@ Lgz.Card.prototype.onhit = function (sprite) {
         return;
     }
     if (!this.hit) {
-        this.showSprite(sprite);
+        this.show();
     } else {
-        this.hideSprite(sprite, false);
+        this.hide(false);
         this.cardSet.firstCard = null;
     }
 };
-Lgz.Card.prototype.showSprite = function (sprite) {
+Lgz.Card.prototype.show = function () {
     'use strict';
     var thisObj;
 
     thisObj = this;
 
     thisObj.cardSet.lock = true;
-
-
     thisObj.cardSet.showSound();
 
-    sprite.animations.play('show', 20, false);
+    this.spriteCard.animations.play('show', 20, false);
     thisObj.hit = true;
     window.setTimeout(
         function () {
-            //sprite.children[0].visible = true;
-            thisObj.dn.show();
+            thisObj.spriteMMA.visible = true;
             thisObj.cardSet.lock = false;
         },
         K.textTO
     );
 
-    //sprite.children[0].visible = true;
     if (thisObj.cardSet.firstCard) {
-        thisObj.matchSprite(sprite);
+        thisObj.match();
     } else {
         thisObj.cardSet.firstCard = thisObj;
         //thisObj.lock = false;
     }
 };
-Lgz.Card.prototype.matchSprite = function (sprite) {
+Lgz.Card.prototype.match = function () {
     'use strict';
 
     var cardA, cardB, thisObj;
@@ -122,8 +110,8 @@ Lgz.Card.prototype.matchSprite = function (sprite) {
     cardB = thisObj;
     if (!cardA.node.parentNode.isSameNode(cardB.node.parentNode)) {
         console.debug('matchSprite: no match');
-        cardA.hideSpriteTO(cardA.sprite, false, K.hideFirstTO);
-        cardB.hideSpriteTO(cardB.sprite, true, K.hideSecondTO);
+        cardA.hideTO(false, K.hideFirstTO);
+        cardB.hideTO(true, K.hideSecondTO);
         thisObj.cardSet.firstCard = null;
         return;
     }
@@ -131,8 +119,8 @@ Lgz.Card.prototype.matchSprite = function (sprite) {
     console.debug('matchSprite: matched!');
     thisObj.cardSet.paired += 1;
 
-    cardA.pairSprite(cardA.sprite, 1);
-    cardB.pairSprite(cardB.sprite, 0);
+    cardA.pairSprite(cardA.spriteCard, 1);
+    cardB.pairSprite(cardB.spriteCard, 0);
     thisObj.cardSet.pairSfxTO(K.pairSfxTO);
     thisObj.cardSet.firstCard = null;
     thisObj.cardSet.lock = false;
@@ -147,26 +135,25 @@ Lgz.Card.prototype.matchSprite = function (sprite) {
         );
     }
 };
-Lgz.Card.prototype.hideSprite = function (sprite, unlock) {
+Lgz.Card.prototype.hide = function (unlock) {
     'use strict';
 	
     this.cardSet.hideSound();
-    sprite.animations.play('hide', 20, false);
+    this.spriteCard.animations.play('hide', 20, false);
 
     this.hit = false;
-    //sprite.children[0].visible = false;
-    this.dn.hide();
+    this.spriteMMA.visible = false;
     if (unlock) {
         this.cardSet.lock = false;
     }
 };
-Lgz.Card.prototype.hideSpriteTO = function (sprite, unlock, to) {
+Lgz.Card.prototype.hideTO = function (unlock, to) {
     'use strict';
     var thisObj;
 
     thisObj = this;
     window.setTimeout(function () {
-        thisObj.hideSprite(sprite, unlock);
+        thisObj.hide(unlock);
     }, to);
 
 };
@@ -257,7 +244,7 @@ Lgz.CardSet = function (scene) {
         var i;
         console.debug('dealDone: entered');
         for (i = 0; i < thisObj.cardArr.length; i += 1) {
-                thisObj.cardArr[i].createMMA();
+                // thisObj.cardArr[i].createMMA();
         }
         thisObj.ondone();
     };
