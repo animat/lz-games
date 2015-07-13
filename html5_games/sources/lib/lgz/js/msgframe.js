@@ -6,6 +6,7 @@
     parent: true,
     window: true,
     screen: true,
+    StatusBar: true,
     LgzLib: true
  */
 /*jslint  nomen: true */
@@ -202,6 +203,8 @@ LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
 	    );
     }
 
+    StatusBar.hide();
+
 };
 LgzLib.MsgFrames.Parent.prototype.eventViewNormal = function () {
     'use strict';
@@ -221,6 +224,7 @@ LgzLib.MsgFrames.Parent.prototype.eventViewNormal = function () {
     this.$lgzFrame.width(w);
     this.$lgzFrame.height(h);
 
+    StatusBar.show();
 
 };
 LgzLib.MsgFrames.Parent.prototype.attachToDOM = function () {
