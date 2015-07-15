@@ -85,8 +85,7 @@ Lgz._cbCjsReady = function (mgr) {
 };
 Lgz._cbMgrReady = function (mgr) {
     'use strict';
-    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
-    mgr.hud.orient = mgr.hud.ORIENT.NONE;
+    mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;
     mgr.hud.inputInit();
     Lgz.cjsInit(mgr);
 };

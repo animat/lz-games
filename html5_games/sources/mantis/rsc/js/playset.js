@@ -171,10 +171,11 @@ Lgz.PlaySet = function (scene) {
 
         $lgzInput.keypress(
             function (event) {
-                console.log('Lgz.PlaySet.create: on $lgzInput.keypress()');
+                console.log('Lgz.PlaySet.create: on $lgzInput.keypress(' + event.keyCode + ')');
                 if (event.keyCode === 13) {
                     thisObj.check();
                 }
+                return true;
             }
         );
 
@@ -183,6 +184,7 @@ Lgz.PlaySet = function (scene) {
 
         thisObj.timer.start();
         thisObj.load();
+        thisObj.lgzMgr.hud.inputFocus();
         thisObj.update  = thisObj.updateTimer;
 
     };
