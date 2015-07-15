@@ -15,7 +15,7 @@ var Lgz = Lgz || {};
 if ($('#lgzFrame').length) {
     console.log('lgz.js: found parent frame: #lgzFrame');
  
-    Lgz.frameParent = new LgzLib.MsgFrames.Parent();
+    Lgz.frameParent = new LgzLib.MsgFrames.ParentWeb();
 }
 if ($('#lgzBody').length) {
     console.log('lgz.js: found loader frame: #lgzFrame');

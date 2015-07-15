@@ -70,7 +70,7 @@ LgzLib.Hud = function (mgr) {
         //ivanix: we need our own landscape check, 
         // seems bug in phaser that distorts aspect ratio (EXACT_FIT)
         // even though we set to SHOW_ALL
-        if (window.orientation) {
+        if (window.hasOwnProperty('orientation')) {
             if (window.orientation === 0 || window.orientation === 180) {
                 return false;
             }
@@ -112,6 +112,42 @@ LgzLib.Hud = function (mgr) {
             }
         }
         
+    };
+    thisObj.orientNormalRequest = function () {
+        var mf, CK;
+        mf = mgr.msgframe;
+        CK = mf.CK;
+        if (mf.parentIsNative) {
+            mf.sendToParent(CK.OrientNormal);
+        }
+    };
+    thisObj._orientLockRequest = function () {
+        window.setTimeout(
+            function () {
+                mgr.game.paused = false;
+            },
+            500
+        );
+    };
+    thisObj.orientLockRequest = function () {
+        var mf, CK;
+        console.log('orientLockRequest: paused: ' + mgr.game.paused);
+        mf = mgr.msgframe;
+        CK = mf.CK;
+        if (mf.parentIsNative) {
+
+            thisObj.orientManage = function () {};
+
+            switch (thisObj.orient) {
+            case thisObj.ORIENT.PORTRAIT:
+                mf.sendToParent(CK.OrientLockPortrait);
+                break;
+            case thisObj.ORIENT.LANDSCAPE:
+                mf.sendToParent(CK.OrientLockLandScape);
+                break;
+            }
+            thisObj._orientLockRequest();
+        }
     };
     thisObj.onResizePost2 = function () {
         lgzContainer.style.width = game.canvas.style.width;
@@ -195,23 +231,9 @@ LgzLib.Hud = function (mgr) {
         $lgzHudMenuBar.addClass('fsbar');
         thisObj.viewPortFsDefault();
 
-
-/*
-*      note: per device viewport setting for future use
-*
-        window.setTimeout(
-                function () { thisObj.viewPortFsCustom();
-                        },
-                500
-        );
-
-*/
         game.scale.fullScreenTarget =  document.getElementById('lgzContainer');
 
         //note: use SHOW_ALL to keep aspect
-        //game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-        //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.setShowAll();
@@ -222,21 +244,6 @@ LgzLib.Hud = function (mgr) {
             thisObj.fullScreenMsgFrame(true);
         }
         return;
-/*
-* todo:  merged iframe branch has return here, need to retest if code below is needed.
-*/
-/*
-        thisObj.scaleRefreshTO();
-        if (!game.device.desktop) {
-            thisObj.fullScreenMsgFrame(true);
-
-            window.setTimeout(
-                function () { thisObj.onResize();
-                        },
-                200
-            );
-        }
-*/
     };
     thisObj.fullScreenStopPost = function () {
 
@@ -709,11 +716,30 @@ LgzLib.Hud = function (mgr) {
         input.selectionEnd = pos;
         input.focus();
     };
+    thisObj.inputFocus = function () {
+        console.log('LgzLib.Hud.inputFocus');
+        if (thisObj.$lgzInput) {
+            window.focus();
+            thisObj.$lgzInput.focus();
+        }
+    };
     thisObj.inputInit = function () {
         thisObj.$lgzInput = $('#lgzInput');
         thisObj.$lgzInputFx = $('#lgzInputFx');
         thisObj._inputFxCssSync();
         thisObj._inputAccentInit();
+        //note: code to fix iframe input focus issue on iOS native app
+        thisObj.$lgzInput.focus();
+        if (game.device.iOS) {
+		    window.document.addEventListener(
+		        "touchend",
+		        function (event) {
+		            console.error('LgzLib.Hud.touchend:  game window taking focus');
+		            window.focus();
+		        },
+		        false
+		    );
+        }
     };
         
     thisObj._init = function () {
