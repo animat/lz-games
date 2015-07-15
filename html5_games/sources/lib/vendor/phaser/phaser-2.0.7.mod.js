@@ -34119,6 +34119,11 @@ Phaser.Text.prototype.runWordWrap = function (text) {
         }
     }
 
+//ivanixcu: remove extra space left by wordwrap that skews width and centering.
+    if(result[result.length-1] === ' ') {
+        result = result.substring(0, result.length - 1);
+    }
+
     return result;
 
 };
