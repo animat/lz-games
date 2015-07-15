@@ -126,7 +126,6 @@ LgzLib.MsgFrames.Parent.prototype.gameParms = function () {
 
     baseUrl = JSON.parse(JSON.stringify(this.baseUrl));
 
-
 /*
  * note: not used.  first try at passing parms between 
  * ionic/angular to msgframe.parent which then passes on to child loader and child game
@@ -166,7 +165,6 @@ LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen = function () {
 LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
     'use strict';
     var thisObj, $f, w, h, ratio;
-
     console.log('LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen');
 
     $f = this.$lgzFrame;
