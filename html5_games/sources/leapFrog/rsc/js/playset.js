@@ -152,10 +152,11 @@ Lgz.PlaySet = function (scene) {
 
         $lgzInput.keypress(
             function (event) {
-                console.log('Lgz.PlaySet.create: on $lgzInput.keypress()');
+                console.log('Lgz.PlaySet.create: on $lgzInput.keypress(' + event.keyCode + ')');
                 if (event.keyCode === 13) {
                     thisObj.check();
                 }
+                return true;
             }
         );
         thisObj.timer.start();
