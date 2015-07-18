@@ -13,7 +13,7 @@
 */
 
 var LgzLib = LgzLib || {};
-LgzLib.Lang = function () {
+LgzLib.Lang = function (lgzMgr) {
     "use strict";
     var thisObj, pageCode, idxArr;
     
@@ -64,7 +64,7 @@ LgzLib.Lang = function () {
         idxArr.push(pageCode);
         this.onLoad = onLoad;
 
-		fullurl = K.urlSvrXML + name +  '_' + langCode + '.xml';
+		fullurl = lgzMgr.baseUrl.lang + '/' + langCode + '/' + name +  '_' + langCode + '.xml';
         console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);
         $.ajax({
             type: 'GET',

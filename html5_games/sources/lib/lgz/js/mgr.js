@@ -434,6 +434,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
             null,
             true
         );
+        game.lgzMgr = thisObj;
         thisObj.game = game;
         thisObj._initWait();
     };
