@@ -98,10 +98,13 @@ LgzLib.Scenes.Main.prototype.update = function () {
 LgzLib.Scenes.Main.prototype.preRender = function () {
     'use strict';
     // console.log('Main.preRender:');
+ 
+ /*
     this.playSet.preRender();
     if (this.cjsRender) {
         this.cjsStage.update();
     }
+    */
 };
 LgzLib.Scenes.Main.prototype.render = function () {
     'use strict';

@@ -17,17 +17,32 @@ K.renderType = Phaser.CANVAS;
 // K.renderType = Phaser.WEBGL;
 // K.renderForce = true;
 K.renderForce = false;
-K.renderFPS = 15;
+
+K.renderFPS = 1;
+K.cjsTS = 1000; // time (ms) between CJS draws 
   
-K.nodeTextStyle = {
+K.nodeTextStyleLeft = {
     font: '16pt ' + K.font,
-    fill: '#ffffff',
+    fill: '#005500',
     align: 'center',
     stroke: "white",
     strokeThickness: 0,
-    shadowColor: 'rgba(0,0,0,1)',
+    shadowColor: '#00aa00',
     shadowOffsetX: 2,
     shadowOffsetY: 2
 };
-K.syncTS = 3000; // grow every 3 seconds
- 
+K.nodeTextStyleRight = {
+    font: '16pt ' + K.font,
+    fill: '#ddffdd',
+    align: 'center',
+    stroke: "white",
+    strokeThickness: 0,
+    shadowColor: '#00aa00',
+    shadowOffsetX: 2,
+    shadowOffsetY: 2
+};
+
+K.leftTreeX = 15;
+K.rightTreeX = 490;
+K.leftTopY = 150;
+K.rightTopY = 200;

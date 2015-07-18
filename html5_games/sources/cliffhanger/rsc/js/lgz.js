@@ -121,16 +121,7 @@ Lgz.cjsInit  = function (mgr) {
 };
 Lgz._cbMgrReady = function (mgr) {
     'use strict';
-    //mgr.hud.orient = mgr.hud.ORIENT.PORTRAIT;      
     mgr.hud.orient = mgr.hud.ORIENT.NONE;
-    
-    /*
-     * note:  Call mgr.hud.inputInit() on input type games.
-     * Enables input field handling and displays accent toggle button
-     * 
-     */
-    mgr.hud.inputInit();
-    
     Lgz.cjsInit(mgr);
 };
 Lgz.init = function () {
