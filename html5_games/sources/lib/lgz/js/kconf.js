@@ -1,10 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 var LZCONF = {};
 LZCONF.baseUrl = {
     LZPROD: {
@@ -12,6 +5,18 @@ LZCONF.baseUrl = {
         games: 'http://linguazone.s3.amazonaws.com/games',
         lang: 'http://linguazone.com/lang',
         mma: 'http://linguazone.s3.amazonaws.com/mma'
+    },
+    LZDEV: {
+        api: 'http://localhost:3000/api/v2',
+        games: 'http://linguazone.s3.amazonaws.com/games/raw',
+        lang: 'http://linguazone.com/lang',
+        mma: 'http://linguazone.s3.amazonaws.com/mma'
+    },
+    LZSTAGING: {
+      api: 'http://lz-staging.herokuapp.com/api/v2',
+      games: 'http://lz-staging.s3.amazonaws.com/games/raw',
+      lang: 'http://linguazone.com/lang',
+      mma: 'http://linguazone.s3.amazonaws.com/mma'
     },
     IVANIXPUB1: {
         api: 'http://lgz.ivanix.com/api/v2',
@@ -34,6 +39,6 @@ LZCONF.baseUrl = {
 };
 var K =  {};
 
-K.baseUrl = LZCONF.baseUrl.IVANIXPUB1;
+K.baseUrl = LZCONF.baseUrl.LZSTAGING;
 
 
