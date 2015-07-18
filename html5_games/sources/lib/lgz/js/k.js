@@ -1,24 +1,18 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*global
+	Phaser: true,
+	console: true,
+	window: true
  */
+/*jslint  nomen: true */
+var K = K || {};
 
-var K =  {};
-
-//note: for production, urlSvrXML will point to linguazone svr
-K.urlSvrXML = 'svr/';
-
-//note: for production, urlSvrMedia may point to amazon svr
-K.urlSvrMedia = 'svr/';
-K.urlSvrMediaAudio = 'svr/audio/';
+K.renderType = Phaser.CANVAS;
+K.renderForce = false;
+K.renderFPS = 25;
 
 //note: urlRscMedia points to game's local multi media assets
 K.urlRscMedia = 'rsc/mma/';
 K.urlLibMedia = 'lib/lgz/mma/';
-
-K.urlSvrGames = 'http://localhost:8080/';
-
 
 K.lang = "en";
 K.region = "US";
@@ -29,6 +23,8 @@ K.volumeLevel = 2;
         
 K.StyleButton = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'none', 'strokeThickness': 0, 'align': 'right' };
 K.StyleTitle = { 'font': '60px ' + K.font, 'fill': 'white', 'stroke': 'black', 'strokeThickness': 6, 'align': 'right' };
+
+
 K.nodeTextStyle = { font: '14pt ' + K.font, fill: '#ffffff', align: 'center'};
 
 K.canvasWidth = 600;
@@ -38,7 +34,11 @@ K.canvasVHeight = 400;
 
 K.canvasBg = '#000000';
 
-K.displayNode = { fontSizePad: 0.215};
+K.displayNode = {
+    fontSizePad: 0.215,
+    fontSizeMin: 5,
+    fontSizeMax: 100
+};
 
 //config for animatining bad characters (letterfx)
 K.inputFxWrongOpts  = {

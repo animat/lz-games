@@ -90,6 +90,9 @@ LgzLib.Scenes.Splash.prototype.preinit = function () {
     this.lgzHud.objJQ('#lgzHudHelp');
     this.lgzHud.objJQ('#lgzAccentBar');
     this.lgzHud.objJQ('#lgzHudAccent');
+
+    this.lgzHud.objJQ('#lgzInput');
+    this.lgzHud.objJQ('#lgzInputFx');
     this.lgzHud.objArrSave();
 
 };
@@ -227,14 +230,16 @@ LgzLib.Scenes.Main.prototype.create = function () {
     };
     nm.eventNodeFinish = function () {
         thisObj.eventNodeFinish();
-    }; 
+    };
 
     thisObj.lgzMgr.pause = function () {
+        console.log('scene.js: lgzMgr.pause:');
         thisObj.game.paused = true;
         thisObj.eventGamePaused();
 
     };
     thisObj.lgzMgr.resume = function () {
+        console.log('scene.js: lgzMgr.resume:');
         thisObj.game.paused = false;
         thisObj.eventGameResumed();
     };
