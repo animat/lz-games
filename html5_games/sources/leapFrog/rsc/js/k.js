@@ -11,7 +11,7 @@ K.urlGamePrefix = 'leapFrog';
 
 K.font = 'Arial';
 K.filefx = 'png';
-K.renderFPS = 2;
+K.renderFPS = 25;
 K.nodeTextStyle = {
     font: '18pt ' + K.font,
     fill: '#ffffff',
