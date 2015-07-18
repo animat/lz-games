@@ -510,7 +510,6 @@ Lgz.PlaySet = function (scene) {
    
     thisObj.correct = function () {
         console.log('Lgz.PlaySet.correct:');
-        thisObj._answeredCorrect = true;
         thisObj.dialogAnswerHide();
         thisObj.lgzMgr.soundPlay('blossommp3');
     };

@@ -17,16 +17,16 @@ K.renderType = Phaser.CANVAS;
 // K.renderType = Phaser.WEBGL;
 // K.renderForce = true;
 K.renderForce = false;
-K.renderFPS = 15;
-K.syncTS = 1000;
+K.renderFPS = 5;
+K.cjsTS = 1000;
   
 K.nodeTextStyle = {
     font: '16pt ' + K.font,
-    fill: '#ffffff',
+    fill: '#000000',
     align: 'center',
-    stroke: "white",
+    stroke: "#ffffff",
     strokeThickness: 0,
-    shadowColor: 'rgba(0,0,0,1)',
-    shadowOffsetX: 2,
-    shadowOffsetY: 2
+    shadowColor: '#000000',
+    shadowOffsetX: 0,
+    shadowOffsetY: 0
 };
