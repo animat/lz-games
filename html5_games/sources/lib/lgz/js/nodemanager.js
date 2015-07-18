@@ -44,7 +44,9 @@ LgzLib.NodeManager = function (mgr) {
         thisObj.eventLoadOK();
     };
     thisObj.load = function () {
-        thisObj.url = K.urlSvrXML + mgr.gameId() + '.xml?';
+
+        // thisObj.url = mgr.baseUrl.api + '/games/qa/' + mgr.gameId() + '.xml?';
+        thisObj.url = mgr.baseUrl.api + '/games/qa/' + mgr.gameId();
         thisObj.idx = 0;
         thisObj.completed = 0;
         

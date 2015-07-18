@@ -17,9 +17,16 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     thisObj = this;
     initCount = 0;
 
+    globLgz.mgr = thisObj;
+
     thisObj._cbInitPost = function () {
         initCount += 1;
+        /*
         if (initCount < 3) {
+            return;
+        }
+        */
+        if (initCount < 2) {
             return;
         }
 
@@ -35,7 +42,6 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
 
         onReady();
     };
-    
     thisObj.pause = function () {
         //override
     };
@@ -43,7 +49,9 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         //override
     };
     thisObj.sceneInit = function () {
-        console.log('LgzLib.Mgr.sceneInit: plugins ready? ' + thisObj.game.plugins); 
+
+
+        console.log('LgzLib.Mgr.sceneInit: plugins ready? ' + thisObj.game.plugins);
         thisObj.scenes.splash = new LgzLib.Scenes.Splash(thisObj);
         thisObj.scenes.welcome = new LgzLib.Scenes.Welcome(thisObj);
         thisObj.scenes.main = new LgzLib.Scenes.Main(thisObj);
@@ -82,20 +90,50 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
             thisObj._cbWelcome1();
         }, 900);
     };
-    thisObj.play = function () {
-        var desktop;
-        console.log('LgzLib.Mgr.play: ');
-        thisObj.hud.winCloseAll(true);
-        desktop = game.device.desktop;
-        if (!desktop) {
-            console.log('LgzLib.Mgr.play: !desktop');
-            thisObj.hud.fullScreenStart();
-        }
-        //thisObj.startScene('Main');
+    thisObj._playStartScene = function () {
         thisObj.scenes.main.start();
         game.stage.disableVisibilityChange = true;
+        window.setTimeout(
+            function () {
+                console.log('LgzLib.Mgr._playStartScene: hud.inputFocus()');
+                thisObj.hud.inputFocus();
+            },
+            100
+        );
+    };
+    thisObj._playStartFS = function () {
+        thisObj.hud.fullScreenStart();
+        window.setTimeout(
+            function () {
+                thisObj._playStartScene();
+            },
+            500
+        );
+    };
+    thisObj.play = function () {
+        var desktop;
+        console.log('LgzLib.Mgr.play:1:' + thisObj.game.paused);
+        thisObj.hud.winCloseAll(true);
+        console.log('LgzLib.Mgr.play:2:' + thisObj.game.paused);
+        desktop = game.device.desktop;
+        if (desktop) {
+            thisObj._playStartScene();
+            return;
+        }
+
+//ivanixcu: TODO: fix native orientlock and fullscreen timings
+        console.log('LgzLib.Mgr.play:2: !desktop. paused: ' + thisObj.game.paused);
+        thisObj.hud.orientLockRequest();
+        console.log('LgzLib.Mgr.play:3: !desktop. paused: ' + thisObj.game.paused);
+        window.setTimeout(
+            function () {
+                thisObj._playStartFS();
+            },
+            600
+        );
     };
     thisObj.exit = function () {
+        thisObj.hud.orientNormalRequest();
         thisObj.hud.fullScreenStop();
         thisObj.hud.fullScreenStopPost();
         thisObj.hud.onResize();
@@ -129,6 +167,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     thisObj.sendBug = function () {
         var url, $lgzParms, $form, sdata, gameid, userid, body;
      
+        //todo: add url prefix, games will not reside on linguazone
         url = '/play/report_bug';
         $lgzParms = $("#lgzParms");
         gameid = $lgzParms.attr("gameid");
@@ -155,6 +194,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     };
     thisObj.postScore = function (scoreval) {
         var $lgzParms, userid, gameid, url;
+        //todo: add url prefix, games will not reside on linguazone
         url = "/high_scores/create";
         $lgzParms = $("#lgzParms");
         gameid = $lgzParms.attr("gameid");
@@ -173,6 +213,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         }
         
         gameid = $lgzParms.attr("gameid");
+        console.error('LgzLib.Mgr.gameId: gameid empty');
         if (gameid !== "") {
             console.log('LgzLib.Mgr.gameId: ' + gameid);
             return gameid;
@@ -302,13 +343,39 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     };
     thisObj._init2 = function () {
          
+        /*
         thisObj.spinnerInit();
-        thisObj.lang = new LgzLib.Lang();
+        thisObj.lang = new LgzLib.Lang(thisObj);
+        thisObj.hud = new LgzLib.Hud(thisObj);
+        thisObj.spinnerShow();
+        */
+
+        thisObj.msgframe = new LgzLib.MsgFrames.Game(
+            thisObj,
+            function () {
+                //thisObj._cbInitPost();
+                thisObj._init3();
+            }
+        );
+    
+    };
+    thisObj._init3 = function () {
+        var prop, mf;
+
+        mf = thisObj.msgframe;
+        if (mf) {
+            for (prop in mf.baseUrl) {
+                if (mf.baseUrl.hasOwnProperty(prop)) {
+	                thisObj.baseUrl[prop] = mf.baseUrl[prop];
+                }
+            }
+        }
+
+        thisObj.spinnerInit();
+        thisObj.lang = new LgzLib.Lang(thisObj);
         thisObj.hud = new LgzLib.Hud(thisObj);
         thisObj.spinnerShow();
 
-
-    
         thisObj.lang.load(
             gamePrefix,
             K.lang,
@@ -316,12 +383,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
                 thisObj._cbInitPost();
             }
         );
-        thisObj.msgframe = new LgzLib.MsgFrames.Game(
-            thisObj,
-            function () {
-                thisObj._cbInitPost();
-            }
-        );
+
         thisObj.nm = new LgzLib.NodeManager(thisObj);
         thisObj.hints = new LgzLib.Hints(thisObj);
         thisObj.scenes = {};
@@ -330,7 +392,6 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         globLgz.game = thisObj.game;
         globLgz.hud = thisObj.hud;
         globLgz.nm = thisObj.nm;
-        globLgz.mgr = thisObj;
         globLgz.scenes = thisObj.scenes;
         thisObj._cbInitPost();
         
@@ -343,8 +404,8 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         }
         if (!thisObj.game.plugins) {
             console.log('game.plugins not ready!');
-            wait += 1;            
-        }        
+            wait += 1;
+        }
         if (wait) {
             window.setTimeout(function () {
                 console.log('initWait: waiting');
@@ -356,10 +417,27 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         }
     };
     thisObj._init = function () {
-       game = new Phaser.Game(K.canvasWidth, K.canvasHeight, Phaser.CANVAS, 'lgzGameCanvas', null, true);
-       thisObj.game = game;
-       thisObj._initWait();
-    };     
+        var prop;
+
+        this.baseUrl = {};
+        for (prop in K.baseUrl) {
+            if (K.baseUrl.hasOwnProperty(prop)) {
+	            this.baseUrl[prop] = K.baseUrl[prop];
+            }
+        }
+
+        game = new Phaser.Game(
+            K.canvasWidth,
+            K.canvasHeight,
+            Phaser.CANVAS,
+            'lgzGameCanvas',
+            null,
+            true
+        );
+        game.lgzMgr = thisObj;
+        thisObj.game = game;
+        thisObj._initWait();
+    };
     thisObj._init();
 
 };
