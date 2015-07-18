@@ -55,4 +55,3 @@ K.clockTextStyle = {
 K.clockX = K.canvasWidth  - 30;
 K.clockY = K.canvasHeight - 40;
 
-K.lastMatchTO = 5000;

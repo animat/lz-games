@@ -26,7 +26,7 @@ LgzLib.Scenes.Splash.prototype.p_preinit = LgzLib.Scenes.Splash.prototype.preini
 LgzLib.Scenes.Splash.prototype.preinit = function () {
     'use strict';
     console.debug('LgzLib.Scenes2.Splash.prototype.preinit');
-    this.lgzHud.objJQ('#lgzInput');
+    //this.lgzHud.objJQ('#lgzInput');
     this.p_preinit();
 };
 LgzLib.Scenes.Welcome.prototype.rscload = function () {

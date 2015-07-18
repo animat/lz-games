@@ -193,7 +193,7 @@ Lgz.PlaySet = function (scene) {
  
                 if (thisObj.cont && vcount < K.showMax &&  thisObj.tryTS < ts && wordArr[idx].tryTS < ts) {
                      console.debug('_playLoop: trying idx: ' + idx);
-                    if (wordArr[idx].try()) {
+                    if (wordArr[idx].tryReserve()) {
                         thisObj.tryRand();
                         vcount += 1;
                     }

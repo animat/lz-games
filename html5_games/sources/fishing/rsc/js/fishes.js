@@ -76,7 +76,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     thisObj.addChild(spriteBody);
     thisObj.spriteBody = spriteBody;
     
-    spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node);
+    spriteMMA = new LgzLib.DisplayNodeMMA(thisObj.game, node, 0, 0);
     spriteMMA.playOnLoad = false;
     this.addChild(spriteMMA);
     thisObj.spriteMMA = spriteMMA;
@@ -86,6 +86,7 @@ Lgz.Fish = function (playSet, node, nodeIdx) {
     spriteMMA.eventLoadOK = function () {
         spriteMMA.conform(width, (height)|0);
         spriteMMA.y = (height/5)|0;
+        spriteMMA.anchor.setTo(0.5, 0);
     };
     spriteMMA.load();
     

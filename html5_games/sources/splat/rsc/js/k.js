@@ -12,10 +12,7 @@ K.urlMedia = 'rsc/mma';
 
 K.font = 'Arial';
 K.filefx = 'png';
-// K.filefx = 'svg';
 K.renderType = Phaser.CANVAS;
-//K.renderType = Phaser.WEBGL;
-// K.renderForce = true;
 K.renderForce = false;
 K.renderFPS = 15;
 
@@ -52,5 +49,3 @@ K.balloonTextStyle = {
     shadowOffsetY: 1,
     align: 'center'
 };
-
-K.lastMatchTO = 5000;

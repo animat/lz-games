@@ -30,5 +30,5 @@ Lgz.init = function () {
 Lgz._cbMgrReady = function (mgr) {
     'use strict';
     mgr.sceneInit();
-    mgr.scenes.splash.start();   
+    mgr.scenes.splash.start();
 };

@@ -180,12 +180,30 @@ Lgz.PlaySet = function (scene) {
         $lgzInput.css('display', 'none');
         $lgzInput.unbind();
     };
+    thisObj.eventQuestionLoadOK = function (spriteMMA) {
+        //todo: change alignment and boxing based on text or image
+        // text - right justify question
+        spriteMMA.anchor.setTo(1, 0.5);
+    };
     thisObj.load = function () {
-        var question, answer, i, substext;
+        var question, answer, i, substext, cfgOpts;
         console.debug('Lgz.PlaySet.load:');
         question  = {};
         question.node = thisObj.nm.getQuestion();
-        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 175, 50, 300, 50);
+
+        cfgOpts = {
+            eventLoadOK: thisObj.eventQuestionLoadOK
+        };
+
+        question.display = new LgzLib.DisplayNodeBox(
+            thisObj.game,
+            question.node,
+            175,
+            50,
+            300,
+            50,
+            cfgOpts
+        );
         answer  = {};
         answer.node = thisObj.nm.getResponse();
         answer.text = answer.node.getAttribute('content');

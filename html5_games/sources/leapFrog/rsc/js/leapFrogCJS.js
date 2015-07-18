@@ -11,10 +11,7 @@ lib.properties = {
 	height: 400,
 	fps: 25,
 	color: "#FFFFFF",
-	manifest: [
-		{src:"sounds/boingmp3.mp3", id:"boingmp3"},
-		{src:"sounds/slidemp3.mp3", id:"slidemp3"}
-	]
+	manifest: [{}]
 };
 
 
