@@ -29,13 +29,13 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
 
  
     
-    spriteHole = thisObj.game.add.graphics(0,0);
+    spriteHole = thisObj.game.add.graphics(0, 0);
     spriteHole.beginFill(0x000000);
     spriteHole.drawCircle(0, 1, 9);
     spriteHole.endFill();
     spriteHole.scale.setTo(1, 0.8);
     
-    spriteMound = thisObj.game.add.graphics(0,0);
+    spriteMound = thisObj.game.add.graphics(0, 0);
     spriteMound.beginFill(0xd2691e);
     spriteMound.drawCircle(0, 0, 10);
     spriteMound.endFill();
@@ -50,8 +50,7 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
     spriteMMA.events.onInputDown.add(
         function () {
             if (thisObj.playSet.cont) {
-                //console.debug('spriteMMA.onInputDown');
-                thisObj.onHit();              
+                thisObj.onHit();
             }
         },
         thisObj
@@ -59,9 +58,10 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
    
     this.addChild(spriteMMA);
     spriteMMA.eventLoadOK = function () {
-        //console.debug('Lgz.Popup: spriteMMA: eventLoadOK:');
+
         spriteMMA.conform(K.popBaseWidth, K.popBaseWidth);
-        thisObj.scaleHeight = (thisObj.spriteMMA.vheight() / (K.Frame.Lift- K.Frame.Hole))|0;        
+        spriteMMA.anchor.setTo(0.5, 0);
+        thisObj.scaleHeight = (thisObj.spriteMMA.vheight() / (K.Frame.Lift- K.Frame.Hole))|0;
         thisObj.scaleJump =  (2 * K.popBaseWidth / 3/ (K.Frame.Jump - K.Frame.Lift))|0;
         thisObj._hide();
     };
@@ -70,7 +70,7 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
     thisObj.spriteMMA = spriteMMA;
     
     maskHeight = -(K.popBaseWidth * 1.5)|0;
-    spriteMask = thisObj.game.add.graphics(0,0);
+    spriteMask = thisObj.game.add.graphics(0, 0);
     spriteMask.beginFill(0xffffff);
     spriteMask.moveTo(0, 0);
     spriteMask.lineTo(K.popBaseWidth, 0);
@@ -91,7 +91,6 @@ Lgz.Popup.lgzExtends(Phaser.Sprite);
 Lgz.Popup.prototype.tryRand = function () {
     'use strict';
     this.tryTS = Date.now() + this.game.rnd.integerInRange(K.tryRand.Min, K.tryRand.Max);
-    console.debug('tryRand: ' + this.tryTS);
 };
 Lgz.Popup.prototype.frameLoop = function (frame, show) {
     'use strict';
@@ -109,15 +108,13 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
         if (frame < K.Frame.Lift) {
             frameDir = (1 - 2 * show);
             thisObj.spriteMMA.y += thisObj.scaleHeight * frameDir;
-            // console.debug('frameLoop:  frame: ' + frame + ' y1: ' + thisObj.spriteMMA.y);
         } else {
-            if ( frame < K.Frame.Jump) {
+            if (frame < K.Frame.Jump) {
                 frameDir = (1 - 2 * show);
             } else {
                 frameDir = -(1 - 2 * show);
             }
             thisObj.spriteMMA.y += thisObj.scaleJump * frameDir * (1.10 - show);
-            // console.debug('frameLoop:  frame: ' + frame + ' y2: ' + thisObj.spriteMMA.y);
         }
         
     }
@@ -126,7 +123,6 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
         if (frame < K.Frame.Max) {
             thisObj.winTO = window.setTimeout(
                 function () {
-                    //window.clearTimeout(thisObj.winTO);
                     thisObj.frameLoop(frame + 1, show);
                 },
                 K.Frame.Rate
@@ -144,7 +140,6 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
                     } else {
                         thisObj.frameRate = 3 * K.Frame.Rate;
                     }
-                    //console.debug('frameRate now ' + thisObj.frameRate);
                 } else {
                     if (frame > K.Frame.Jump - 1) {
                         thisObj.frameRate = 1 * K.Frame.Rate;
@@ -156,7 +151,6 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
 
             thisObj.winTO = window.setTimeout(
                 function () {
-                    //window.clearTimeout(thisObj.winTO);
                     thisObj.frameLoop(frame - 1, show);
                 },
                 thisObj.frameRate
@@ -164,7 +158,6 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
         } else {
             thisObj.winTO = window.setTimeout(
                 function () {
-                    //window.clearTimeout(thisObj.winTO);
                     thisObj._hide();
                 },
                 K.Frame.Rate
@@ -172,29 +165,25 @@ Lgz.Popup.prototype.frameLoop = function (frame, show) {
         }
     }
 };
-Lgz.Popup.prototype.try = function () {
+Lgz.Popup.prototype.tryReserve = function () {
     'use strict';
     var thisObj, distance, x, y, idx, frame, randDelay;
     
-    //console.debug('Popup.try: nodeIdx: ' + this.nodeIdx);
-
     thisObj = this;
-
     y = thisObj.game.rnd.integerInRange(K.ymin, K.ymax);
  
     if (y < K.y1) {
-      x  = thisObj.game.rnd.integerInRange(K.xmin1, K.xmax1);
+        x  = thisObj.game.rnd.integerInRange(K.xmin1, K.xmax1);
     } else {
-      x  = thisObj.game.rnd.integerInRange(K.xmin, K.xmax);
+        x  = thisObj.game.rnd.integerInRange(K.xmin, K.xmax);
     }
 
-    idx = thisObj.matrix.idx(x,y);
-    if (!thisObj.matrix.avl(x,y)) {
-        // console.debug("Lgz.Popup.show: collision! " + x + "," + y + "," + idx)     
+    idx = thisObj.matrix.idx(x, y);
+    if (!thisObj.matrix.avl(x, y)) {
         return false;
     }
 
-    thisObj.matrix.reserve(x,y, this);
+    thisObj.matrix.reserve(x, y, this);
     thisObj.x = x;
     thisObj.y = y;
     thisObj.matrix.zsort(idx);
@@ -202,18 +191,19 @@ Lgz.Popup.prototype.try = function () {
     return true;
 };
 Lgz.Popup.prototype._show = function () {
+    'use strict';
     var thisObj, distance, content;
 
     thisObj = this;
     thisObj.visible = true;
-    distance = ((thisObj.y + 200)/600);
+    distance = ((thisObj.y + 200) / 600);
     thisObj.scale.x = distance;
     thisObj.scale.y = distance;
     //thisObj.spriteMask.x = thisObj.spriteMMA.x;
     thisObj.spriteMask.x = -(thisObj.spriteMMA.vwidth()/2)|0;
     thisObj.frameRate = K.Frame.Rate;
     
-    thisObj.frameLoop(1, 1);   
+    thisObj.frameLoop(1, 1);
 
     thisObj.hideTS = Date.now() + K.showTO;
     thisObj.spriteMMA.eventPlay();
@@ -225,36 +215,31 @@ Lgz.Popup.prototype._hide = function () {
       
     this.spriteMMA.y = 0;
     this.visible = false;
-    this.hit = K.Hit.NONE; 
-    this.matrix.release(this.x, this.y);  
+    this.hit = K.Hit.NONE;
+    this.matrix.release(this.x, this.y);
 };
 Lgz.Popup.prototype.hide = function () {
     'use strict';
-    //console.debug('Popup.hide: nodeIdx: ' + this.nodeIdx);    
     this.hideTS = 0;
     this.tryTS = 0;
     
     if (this.hit === K.Hit.WRONG) {
-        this.frameLoop(K.Frame.Max-1, 0);        
+        this.frameLoop(K.Frame.Max - 1, 0);
     } else {
-        this.frameLoop(K.Frame.Lift-1, 0);
+        this.frameLoop(K.Frame.Lift - 1, 0);
     }
 
 };
 Lgz.Popup.prototype.onHit = function () {
     'use strict';
-
-    // console.debug("Lgz.popup.onHit");
     this.hideTS = 1;
     if (this.nodeIdx === this.playSet.nm.idx) {
-        //console.debug("Lgz.popup.onHit: correct");
         //note: match
         this.hit = K.Hit.CORRECT;
         this.playSet.hitCorrect();
     } else {
         this.hit = K.Hit.WRONG;
         //note: let the popup go
-        //console.debug("Lgz.popup.onHit: wrong");
         this.playSet.hitWrong();
     }
     

@@ -12,16 +12,10 @@ K.urlMedia = 'rsc/mma';
 
 K.font = 'Arial';
 K.filefx = 'png';
-// K.filefx = 'svg';
 K.renderType = Phaser.CANVAS;
-// K.renderType = Phaser.WEBGL;
-// K.renderForce = true;
 K.renderForce = false;
-K.renderFPS = 15;
-/*
-K.xdiv = 250; 
-K.ydiv = 150;
-*/
+// K.renderFPS = 15;
+K.renderFPS = 5;
 K.xdiv = 200; 
 K.ydiv = 60;
 
@@ -80,4 +74,3 @@ K.signSmallTextStyle = {
 	fill: '#ffffff',
 	align: 'center'
 };
-K.lastMatchTO = 5000;

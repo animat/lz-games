@@ -35,7 +35,7 @@ Lgz.Balloon = function (playSet, label, cg) {
 
  
     randX = thisObj.game.rnd.integerInRange(100, 600);
-    randY = thisObj.game.rnd.integerInRange(100, 400); 
+    randY = thisObj.game.rnd.integerInRange(100, 400);
     Phaser.Sprite.call(this, this.game, randX, randY, 'dot');
  
  
@@ -61,14 +61,14 @@ Lgz.Balloon = function (playSet, label, cg) {
     spriteHead.anchor.setTo(0.5, 0.5);
     
     thisObj.anim.pop = spriteHead.animations.add('pop', [f1, f2, f3], false, false);
-    thisObj.anim.pop.onComplete.add (
-        function() { thisObj.popped(); },
+    thisObj.anim.pop.onComplete.add(
+        function () { thisObj.popped(); },
         thisObj
     );
     spriteHead.events.onInputDown.add(
         function () {
-            console.debug('spriteHead: touched();')
-            thisObj.touched(); 
+            console.debug('spriteHead: touched();');
+            thisObj.touched();
         },
         thisObj
     );
@@ -87,18 +87,18 @@ Lgz.Balloon = function (playSet, label, cg) {
     thisObj.spriteText = spriteText;
     thisObj.spriteTail = spriteTail;
     
-    this.game.add.existing(this);          
+    this.game.add.existing(this);
     
-    this.popx = Math.round((this.spriteHead.width / 4 ));
-    this.popy = Math.round((this.spriteHead.height/ 4 ));
+    this.popx = Math.round((this.spriteHead.width / 4));
+    this.popy = Math.round((this.spriteHead.height / 4));
     
     this.enableBody = true;
     this.physicsBodyType = Phaser.Physics.P2JS;
     this.game.physics.p2.enable(this, false, false);
 
     //this.body.setRectangleFromSprite(this.spriteHead);
-    this.body.addCircle(Math.round(this.spriteHead.width/2), 0, 0, 0);
-    this.body.addCircle(Math.round(this.spriteHead.width/4), 0, -12, 0);
+    this.body.addCircle(Math.round(this.spriteHead.width / 2), 0, 0, 0);
+    this.body.addCircle(Math.round(this.spriteHead.width / 4), 0, -12, 0);
     //this.body.debug = true;
     
     
@@ -111,7 +111,7 @@ Lgz.Balloon = function (playSet, label, cg) {
         this.body.fixedRotation = true;
     }
     
-    this.body.data.gravityScale=0;
+    this.body.data.gravityScale = 0;
     //this.body.setZeroDamping();
     this.body.data.maxVelocity = new Phaser.Point(20, 20);
     this.body.data.maxAngular = 20;
@@ -119,73 +119,74 @@ Lgz.Balloon = function (playSet, label, cg) {
     this.body.setCollisionGroup(cg.balloons);
     this.body.collides([cg.balloons, cg.letters]);
  
-    randX = this.game.rnd.integerInRange(50,100);
-    if (Math.random() > .5) {
-      randX *= -1;
+    randX = this.game.rnd.integerInRange(50, 100);
+    if (Math.random() > 0.5) {
+        randX *= -1;
     }
-    randY = this.game.rnd.integerInRange(-30,50);
+    randY = this.game.rnd.integerInRange(-30, 50);
     this.body.moveUp(randY);
     this.body.moveRight(randX);
     
     if (this.playSet.useTailPhysics) {
         this.spriteTail.visible = false;
-        this.createTailPhysics();        
+        this.createTailPhysics();
     }
 
     
 };
-Lgz.Balloon.extends(Phaser.Sprite);
-
-
-Lgz.Balloon.prototype.damp = function(gravity) {
+Lgz.Balloon.lgzExtends(Phaser.Sprite);
+Lgz.Balloon.prototype.damp = function (gravity) {
+    'use strict';
     var vel, vx, vy;
 
-    if(!this.body) {
+    if (!this.body) {
         return;
     }
-    vel = this.body.data.velocity;    
-    if(gravity) {
-        if(vel[0] < -K.velMaxX || vel[0] >  K.velMaxX ) {
+    vel = this.body.data.velocity;
 
-            vx =  vel[0] - (Math.abs(vel[0])/vel[0]);
+    if (gravity) {
+        if (vel[0] < -K.velMaxX || vel[0] >  K.velMaxX) {
+
+            vx =  vel[0] - (Math.abs(vel[0]) / vel[0]);
             //console.debug('damping vx:' + vel[0] + ' to ' + vx);
             vel[0] = vx;
-        }  
-        if( vel[1] > K.velMaxY) {
-            vy =   vel[1] - (Math.abs(vel[1])/vel[1]);
-             //console.debug('damping vy:' + vel[1] + ' to ' + vy);
-             vel[1] = vy;
+        }
+        if (vel[1] > K.velMaxY) {
+            vy = vel[1] - (Math.abs(vel[1]) / vel[1]);
+            //console.debug('damping vy:' + vel[1] + ' to ' + vy);
+            vel[1] = vy;
         }
         if (this.body.y > K.floorY && vel[1] !== 0 && Math.abs(vel[1]) < 2) {
             vel[0] = 0;
             vel[1] = 0;
         }
-    } else {        
+    } else {
         
-        if(vel[0] < -K.velMaxX || vel[0] >  K.velMaxX ) {
+        if (vel[0] < -K.velMaxX || vel[0] >  K.velMaxX) {
 
-            vx =  vel[0] - (Math.abs(vel[0])/vel[0]);
+            vx =  vel[0] - (Math.abs(vel[0]) / vel[0]);
             //console.debug('damping vx:' + vel[0] + ' to ' + vx);
             vel[0] = vx;
-        }  
-        if(vel[1] < -K.velMaxY || vel[1] > K.velMaxY) {
-            vy =   (Math.abs(vel[1]/3) *(Math.abs(vel[1])/vel[1]));
-             console.debug('damping vy:' + vel[1] + ' to ' + vy);
-             vel[1] = vy;
-        }  
-    } 
+        }
+        if (vel[1] < -K.velMaxY || vel[1] > K.velMaxY) {
+            vy =   (Math.abs(vel[1] / 3) * (Math.abs(vel[1]) / vel[1]));
+            console.debug('damping vy:' + vel[1] + ' to ' + vy);
+            vel[1] = vy;
+        }
+    }
 
 };
 Lgz.Balloon.prototype.update = function (sprite) {
     'use strict';
     
-    if (this.spriteHead.visible) { 
+    if (this.spriteHead.visible) {
         //this.damp(false);
         return;
     }
     //this.damp(true);   
 };
 Lgz.Balloon.prototype.touched = function () {
+    'use strict';
     var dx, dy, absx, absy;
     dx  = Math.round(this.x   - this.game.input.x);
     dy  = Math.round(this.y   - this.game.input.y);
@@ -193,35 +194,37 @@ Lgz.Balloon.prototype.touched = function () {
     console.debug('touch: (' + dx + ',' + dy + ')');
     absx = Math.abs(dx);
     absy = Math.abs(dy);
-    if (absx < this.popx && absy < this.popy ) {
+    if (absx < this.popx && absy < this.popy) {
         console.debug('pop range!');
         this.pop();
         return;
-    } 
+    }
     if (this.body) {
         this.body.moveDown(dy * 5);
         this.body.moveRight(dx * 5);
     }
 };
 Lgz.Balloon.prototype._killTail = function () {
+    'use strict';
     var thisObj, i;
     thisObj = this;
     
     if (thisObj.strArr) {
-        for(i=0; i < thisObj.strArr.segments; i += 1) {
+        for (i = 0; i < thisObj.strArr.segments; i += 1) {
             thisObj.strArr[i].kill();
         }
         // thisObj.strArr = null;
-    }    
+    }
 };
 Lgz.Balloon.prototype.killTail = function (nodelay) {
+    'use strict';
     var thisObj, i, delayTO;
     thisObj = this;
     delayTO = 5000;
     thisObj.game.physics.p2.removeConstraint(thisObj.k1);
-    thisObj.strArr[0].body.data.gravityScale=5;
+    thisObj.strArr[0].body.data.gravityScale = 5;
     if (nodelay) {
-          delayTO = 0;
+        delayTO = 0;
     }
 
     window.setTimeout(
@@ -229,14 +232,15 @@ Lgz.Balloon.prototype.killTail = function (nodelay) {
             thisObj._killTail();
         },
         delayTO
-    );    
+    );
 };
 Lgz.Balloon.prototype.kill = function () {
+    'use strict';
     if (this.strArr) {
         this.killTail(true);
     }
     this._super.kill.call(this);
-}
+};
 Lgz.Balloon.prototype.pop = function () {
     'use strict';
     var thisObj, i;
@@ -265,14 +269,15 @@ Lgz.Balloon.prototype.pop = function () {
     );
         
 };
-Lgz.Balloon.prototype.popped = function() {
+Lgz.Balloon.prototype.popped = function () {
+    'use strict';
     var thisObj;
     thisObj = this;
     this.spriteHead.visible = false;
     this.spriteTail.visible = false;
     this.body.setRectangleFromSprite(this.spriteText);
     this.body.setCollisionGroup(this.cg.letters);
-    this.body.collides([this.cg.underlines]);    
+    this.body.collides([this.cg.underlines]);
     
     if (!this.body.static) {
         this.inputEnabled = true;
@@ -282,13 +287,15 @@ Lgz.Balloon.prototype.popped = function() {
         this.events.onDragStop.add(thisObj.onDragStop, this);
     }
 };
-Lgz.Balloon.prototype._onDragStart = function ()  {
+Lgz.Balloon.prototype._onDragStart = function () {
+    'use strict';
     console.debug('_onDragStart');
-    this.body.moves = false;    
+    this.body.moves = false;
     this.bodyhold = this.body;
     this.body = null;
 };
-Lgz.Balloon.prototype.onDragStart = function ()  {
+Lgz.Balloon.prototype.onDragStart = function () {
+    'use strict';
     var thisObj;
     console.debug('onDragStart');
     thisObj = this;
@@ -302,9 +309,10 @@ Lgz.Balloon.prototype.onDragStart = function ()  {
             thisObj._onDragStart();
         },
         100
-    );   
+    );
 };
 Lgz.Balloon.prototype.onDragStop = function () {
+    'use strict';
     console.debug('onDragStop');
     this.bodyhold.x = this.x;
     this.bodyhold.y = this.y;
@@ -323,6 +331,7 @@ Lgz.Balloon.prototype.onDragStop = function () {
  * Not working yet :(
  */
 Lgz.Balloon.prototype.createTailPhysics = function () {
+    'use strict';
 
     var newRect, width, height, lastRect, maxForce,
         xAnchor, yAnchor, segments, rcHeight,
@@ -337,7 +346,7 @@ Lgz.Balloon.prototype.createTailPhysics = function () {
     yAnchor = this.body.y;
     segments = K.tailSegments;
     this.strArr = [];
-    x = xAnchor;     
+    x = xAnchor;
     y = 0;
     
     for (var i = 0; i <  segments; i++)
