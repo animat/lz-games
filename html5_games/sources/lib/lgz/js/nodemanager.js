@@ -45,8 +45,7 @@ LgzLib.NodeManager = function (mgr) {
     };
     thisObj.load = function () {
 
-        // thisObj.url = mgr.baseUrl.api + '/games/qa/' + mgr.gameId() + '.xml?';
-        thisObj.url = mgr.baseUrl.api + '/games/qa/' + mgr.gameId();
+        thisObj.url = mgr.baseUrl.api + '/games/' + mgr.gameId() + '.xml';
         thisObj.idx = 0;
         thisObj.completed = 0;
         
@@ -61,8 +60,8 @@ LgzLib.NodeManager = function (mgr) {
 
             thisObj.$tpdata = $(data).find("templatedata");
             thisObj.onLoad();
-        }).error(function () {
-            thisObj.eventLoadFAIL();
+        }).error(function (err) {
+            thisObj.eventLoadFAIL(err);
         });
     };
     thisObj.nodeCurrent = function () {

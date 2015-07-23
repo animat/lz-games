@@ -8,10 +8,16 @@
 <body ontouchstart="" onload="Lgz.init()" id="fstarget" style="font-family: sans-serif" class="lgzMin" >
 @@include('lib/lgz/dom/body.html')
 
-<script type="text/javascript" src="lib/lgz/js/kconf.js?"></script>
+<script type="text/javascript" src="../lib/lgz/js/kconf.js?"></script>
+<!--removeIf(prod) -->
+<script type="text/javascript" src="../lib/lgz/js/test.js?"></script>
+<!--endRemoveIf(prod) -->
 <!-- build:js1 game.js -->
 @@include('lib/lgz/dom/tail.html')
 @@include('rsc/dom/tail.html')
+<!--removeIf(prod) -->
+<script type="text/javascript" src="../testconf.js?"></script>
+<!--endRemoveIf(prod) -->
 <!-- endbuild -->
 </body>
 </html>

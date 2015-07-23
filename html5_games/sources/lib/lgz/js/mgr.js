@@ -5,6 +5,7 @@
     K: true, console: true,
     window: true,
     Spinner: true,
+    LgzTest: true,
     LgzLib: true
  */
 /*jslint  nomen: true */
@@ -18,6 +19,16 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     initCount = 0;
 
     globLgz.mgr = thisObj;
+
+    //removeIf(prod)
+    //note: force var to value set in sources/testconf.js
+    LgzTest.point(
+        'tp-gamePrefix',
+        function (value) {
+            gamePrefix = value;
+        }
+    );
+    //endRemoveIf(prod)
 
     thisObj._cbInitPost = function () {
         initCount += 1;
@@ -72,10 +83,26 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         thisObj.scenes.welcome.start();
     };
     thisObj._cbWelcome1 = function () {
-        var langStr;
+        var $langData, $charSet, langStr;
         console.debug('LgzLib.Mgr.welcome1:');
 
-        langStr = thisObj.nm.dataFind("language").text();
+        // langStr = thisObj.nm.dataFind("language").text();
+        $langData = thisObj.nm.dataFind('language');
+        $charSet = $langData.find('set');
+        thisObj.hud.charSetInit($charSet);
+
+        langStr = $langData.find('name').text();
+
+        //removeIf(prod)
+        //note: force var to value set in sources/testconf.js
+        LgzTest.point(
+            'tp-langStr',
+            function (value) {
+                langStr = value;
+            }
+        );
+        //endRemoveIf(prod)
+
         thisObj.lang.load(
             gamePrefix,
             langStr,
@@ -213,11 +240,22 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         }
         
         gameid = $lgzParms.attr("gameid");
-        console.error('LgzLib.Mgr.gameId: gameid empty');
+
+        //removeIf(prod)
+        //note: force var to value set in sources/testconf.js
+        LgzTest.point(
+            'tp-gameid',
+            function (value) {
+                gameid = value;
+            }
+        );
+        //endRemoveIf(prod)
+        
         if (gameid !== "") {
             console.log('LgzLib.Mgr.gameId: ' + gameid);
             return gameid;
         }
+        console.error('LgzLib.Mgr.gameId: gameid empty');
         
         tail = document.URL.match(/.*\/(.*)$/)[1];
         if (!tail) {
@@ -317,6 +355,16 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         thisObj.hud.winClose('winProgress');
         thisObj.spinner.stop();
     };
+    thisObj.alertError = function (msg) {
+        var mf, CK;
+        mf = thisObj.msgframe;
+        CK = mf.CK;
+        if (mf.parentIsNative || mf.parentIsWeb) {
+            mf.sendToParent(CK.AlertError, msg);
+        } else {
+            window.alert(msg);
+        }
+    };
     thisObj.spinnerInit = function () {
         var cfg;
         cfg = {
@@ -371,6 +419,37 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
             }
         }
 
+        //removeIf(prod)
+        // ivanicu: set var to value set in sources/testconf.js
+        LgzTest.point(
+            'tp-baseUrlApi',
+            function (value) {
+                thisObj.baseUrl.api = value;
+            }
+        );
+        //endRemoveIf(prod)
+        
+
+        //removeIf(prod)
+        // ivanicu: set var to value set in sources/testconf.js
+        LgzTest.point(
+            'tp-baseUrlMMA',
+            function (value) {
+                thisObj.baseUrl.mma = value;
+            }
+        );
+        //endRemoveIf(prod)
+        
+        //removeIf(prod)
+        // ivanicu: set var to value set in sources/testconf.js
+        LgzTest.point(
+            'tp-baseUrlLang',
+            function (value) {
+                thisObj.baseUrl.lang = value;
+            }
+        );
+        //endRemoveIf(prod)
+        
         thisObj.spinnerInit();
         thisObj.lang = new LgzLib.Lang(thisObj);
         thisObj.hud = new LgzLib.Hud(thisObj);
