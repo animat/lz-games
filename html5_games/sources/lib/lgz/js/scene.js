@@ -149,9 +149,9 @@ LgzLib.Scenes.Splash.prototype.start = function () {
         console.debug('nm.eventLoadOK callback');
         thisObj.eventNmLoadOK();
     };
-    nm.eventLoadFAIL = function () {
-        console.debug('nm.eventLoadFail callback');
-        thisObj.eventNmLoadFAIL();
+    nm.eventLoadFAIL = function (err) {
+        console.debug('nm.eventLoadFAIL callback');
+        thisObj.eventNmLoadFAIL(err);
     };
  
     this.lgzMgr.nm.load();
@@ -161,10 +161,11 @@ LgzLib.Scenes.Splash.prototype.eventNmLoadOK = function () {
     console.debug('Scenes.Splash: nmLoadOK:');
     this.game.state.start(this.key,  true, false);
 };
-LgzLib.Scenes.Splash.prototype.eventNmLoadFAIL = function () {
+LgzLib.Scenes.Splash.prototype.eventNmLoadFAIL = function (err) {
     'use strict';
-    //todo: display error to user
+    // todo: provide/log more detail of server error (err)?
     console.error('Scene: Splash: Could not load xml data from server');
+    this.lgzMgr.alertError('Could not load question/answer data from server');
 };
 //Scene: Welcome
 LgzLib.Scenes.Welcome  = function (lgzMgr) {

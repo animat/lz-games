@@ -150,14 +150,17 @@ LgzLib.Hud = function (mgr) {
         }
     };
     thisObj.onResizePost2 = function () {
+        console.log('LgzLib.Hud.onResizePost2:a w:' + window.innerWidth);
         lgzContainer.style.width = game.canvas.style.width;
         lgzContainer.style.height = game.canvas.style.height;
 
+        console.log('LgzLib.Hud.onResizePost2:b w:' + window.innerWidth);
         //for ipad
         if (!game.device.desktop &&  thisObj.isFullScreen()) {
             window.scrollTo(0, 0);
         }
         mgr.scenes.current.eventResized();
+        console.log('LgzLib.Hud.onResizePost2:c w:' + window.innerWidth);
     };
     thisObj.onResizePost = function () {
         
@@ -174,10 +177,10 @@ LgzLib.Hud = function (mgr) {
     };
     thisObj.onResize = function () {
         if (resizeDirty) {
-            console.log('LgzLib.Hud.onResize: ' + resizeDirty);
+            console.log('LgzLib.Hud.onResize: dirty: ' + resizeDirty);
             return;
         }
-        console.log('LgzLib.Hud.onResize: ' + resizeDirty);
+        console.log('LgzLib.Hud.onResize: dirty: ' + resizeDirty);
         resizeDirty = true;
         window.setTimeout(function () { thisObj.onResizePost(); }, 100);
     };
@@ -224,6 +227,7 @@ LgzLib.Hud = function (mgr) {
         console.log('LgzLib.Hud.fullScreenStart: ');
         thisObj.requestedFS = true;
 
+
         $lgzHide.css('display', 'none');
         $lgzMin.addClass('lgzMin');
 
@@ -237,13 +241,14 @@ LgzLib.Hud = function (mgr) {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.setShowAll();
-
+        
         game.scale.startFullScreen(true);
-        console.log('LgzLib.Hud.fullScreenStart: past return');
+        
+
         if (!game.device.desktop) {
             thisObj.fullScreenMsgFrame(true);
         }
-        return;
+        
     };
     thisObj.fullScreenStopPost = function () {
 
@@ -402,6 +407,31 @@ LgzLib.Hud = function (mgr) {
         thisObj._localizeHUD();
         thisObj._localizeCJS();
          
+    };
+    thisObj.charSetInit = function ($charSet) {
+        var thisObj, i, set, charArr, strHTML, $ac, lgzInput;
+
+        console.log('LgzLib.Hud.charSetInit:');
+     
+        thisObj = this;
+        charArr = $charSet.find('character');
+        strHTML = '';
+        for (i = 0; i < charArr.length; i += 1) {
+            strHTML += '<a url="#" >' + charArr[i].innerHTML + '</a>';
+        }
+        if (charArr.length) {
+            lgzInput = $('#lgzInput')[0];
+            $ac = $('#lgzAccentBar');
+            $ac[0].innerHTML = strHTML;
+            if (lgzInput) {
+                $ac.click(function (event) {
+                    if (event.target !== $ac[0]) {
+                        thisObj.lgzHud.inputSelectReplace(event.target.innerHTML);
+                    }
+                });
+            }
+        }
+
     };
     /*
      * 

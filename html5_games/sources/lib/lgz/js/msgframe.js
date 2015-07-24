@@ -30,7 +30,10 @@ LgzLib.MsgFrameConstants = function () {
         ViewIsNormal: 22,
         
         GameParmsGet: 31,
-        GameParmsReply: 32
+        GameParmsReply: 32,
+
+        AlertError: 41
+
        
     };
 };
@@ -58,7 +61,7 @@ LgzLib.MsgFrame.prototype.init = function () {
     this.baseUrl  = {};
     for (prop in K.baseUrl) {
         if (K.baseUrl.hasOwnProperty(prop)) {
-	        this.baseUrl[prop] = K.baseUrl[prop];
+            this.baseUrl[prop] = K.baseUrl[prop];
         }
     }
 
@@ -127,6 +130,7 @@ LgzLib.MsgFrames.Parent.prototype.gameParms = function () {
 
     baseUrl = JSON.parse(JSON.stringify(this.baseUrl));
 
+
 /*
  * note: not used.  first try at passing parms between 
  * ionic/angular to msgframe.parent which then passes on to child loader and child game
@@ -156,6 +160,10 @@ LgzLib.MsgFrames.Parent.prototype.gameParms = function () {
     return parms;
 
 };
+LgzLib.MsgFrames.Parent.prototype.eventAlertError = function (msg) {
+    'use strict';
+    window.alert(msg);
+};
 LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen = function () {
     'use strict';
     var h;
@@ -166,6 +174,7 @@ LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen = function () {
 LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
     'use strict';
     var thisObj, $f, w, h, ratio;
+
     console.log('LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen');
 
     $f = this.$lgzFrame;
@@ -175,6 +184,7 @@ LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
     $f.css('top', '0px');
     $f.css('left', '0px');
     
+    /*
     if (this.orientRequest === this.CK.OrientLockPortrait) {
         w = parseInt($f.attr('width'), 10);
         h = parseInt($f.attr('height'), 10);
@@ -185,24 +195,33 @@ LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
         w = $(window).width();
         h = $(window).height();
     }
+    */
+
+    ratio = 425 / 600;
+    w = $(window).width();
+    h = Math.round(w * ratio);
+
     
     console.log('eventViewFullScreen: w x h: ' + w + ' x ' + h);
     
     this.$lgzFrame.width(w);
     this.$lgzFrame.height(h);
 
+    console.log('eventViewFullScreen: $lgzFrame.width: ' + this.$lgzFrame.width());
+
     thisObj = this;
-    if (this.orientRequest === this.CK.OrientLockPortrait) {
-	    window.setTimeout(
-	        function () {
-	            thisObj._eventViewFullScreen();
-	        },
-	        200
-	    );
+    //if (this.orientRequest === this.CK.OrientLockPortrait) {
+    //}
+    window.setTimeout(
+        function () {
+            thisObj._eventViewFullScreen();
+        },
+        200
+    );
+ 
+    if (window.StatusBar) {
+        StatusBar.hide();
     }
-
-    StatusBar.hide();
-
 };
 LgzLib.MsgFrames.Parent.prototype.eventViewNormal = function () {
     'use strict';
@@ -222,7 +241,9 @@ LgzLib.MsgFrames.Parent.prototype.eventViewNormal = function () {
     this.$lgzFrame.width(w);
     this.$lgzFrame.height(h);
 
-    StatusBar.show();
+    if (window.StatusBar) {
+        StatusBar.show();
+    }
 
 };
 LgzLib.MsgFrames.Parent.prototype.attachToDOM = function () {
@@ -252,6 +273,10 @@ LgzLib.MsgFrames.Parent.prototype.eventSwitch = function (msg) {
         break;
     case this.CK.ViewIsNormal:
         this.eventViewNormal();
+        break;
+
+    case this.CK.AlertError:
+        this.eventAlertError(msg.value);
         break;
     }
 
@@ -311,17 +336,17 @@ LgzLib.MsgFrames.Loader.prototype.eventSwitch = function (msg) {
     switch (msg.event) {
     case this.CK.GameParmsReply:
         parms = msg.value;
-	    if (parms.baseUrl) {
+        if (parms.baseUrl) {
             for (prop in parms.baseUrl) {
                 if (parms.baseUrl.hasOwnProperty(prop)) {
-		            this.baseUrl[prop] = parms.baseUrl[prop];
+                    this.baseUrl[prop] = parms.baseUrl[prop];
                 }
             }
-	    }
-	    console.log('MsgFrames.Loader.eventSwich: gameSWF: ' + parms.gameSWF);
-	    console.log('MsgFrames.Loader.eventSwich: gameid: ' + parms.gameid);
+        }
+        console.log('MsgFrames.Loader.eventSwich: gameSWF: ' + parms.gameSWF);
+        console.log('MsgFrames.Loader.eventSwich: gameid: ' + parms.gameid);
         if (parms.gameSWF && parms.gameSWF.length) {
-	        console.log('MsgFrames.Loader.eventSwich: loadGame');
+            console.log('MsgFrames.Loader.eventSwich: loadGame');
             this.loadGame(parms.gameSWF);
         } else {
             if (parms.gameid && parms.gameid.length) {
@@ -348,8 +373,11 @@ LgzLib.MsgFrames.Game = function (mgr, cbInit) {
     this.lgzMgr = mgr;
     this.lgzHud = mgr.hud;
     this._cbInit = cbInit;
+
+    this.parentIsNative = false;
+    this.parentIsWeb = false;
+
     LgzLib.MsgFrame.call(this);
-    // cbInit();
 };
 LgzLib.MsgFrames.Game.lgzExtends(LgzLib.MsgFrame);
  
@@ -435,7 +463,7 @@ LgzLib.MsgFrames.Game.prototype.identifyParent = function (parentType) {
     'use strict';
     switch (parentType) {
     case this.CK.ParentIsWeb:
-        this.parentIsNative = false;
+        this.parentIsWeb = true;
         break;
     case this.CK.ParentIsNative:
         this.parentIsNative = true;
@@ -452,14 +480,14 @@ LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
     switch (msg.event) {
     case this.CK.GameParmsReply:
         parms = msg.value;
-	    if (parms.baseUrl) {
+        if (parms.baseUrl) {
             for (prop in parms.baseUrl) {
                 if (parms.baseUrl.hasOwnProperty(prop)) {
-		            this.baseUrl[prop] = parms.baseUrl[prop];
+                    this.baseUrl[prop] = parms.baseUrl[prop];
                 }
             }
-	    }
-	    if (parms.parentType) {
+        }
+        if (parms.parentType) {
             this.identifyParent(parms.parentType);
         }
         console.log('FrameGame.eventSwitch:  gameid: '  + parms.gameid);
@@ -520,6 +548,17 @@ LgzLib.MsgFrames.ParentNative  = function () {
     'use strict';
     LgzLib.MsgFrames.Parent.call(this);
     this.parentType = this.CK.ParentIsNative;
+
+    //note: dummy obj/fcn for better simul in browser
+    if (!screen.lockOrientation) {
+        screen.lockOrientation = function () {};
+        screen.unlockOrientation = function () {};
+    }
+    if (!window.StatusBar) {
+        window.StatusBar = {};
+        window.StatusBar.show = function () {};
+        window.StatusBar.hide = function () {};
+    }
 };
 LgzLib.MsgFrames.ParentNative.lgzExtends(LgzLib.MsgFrames.Parent);
 LgzLib.MsgFrames.ParentNative.prototype.eventSwitch = function (msg) {
