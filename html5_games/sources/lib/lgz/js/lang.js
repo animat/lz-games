@@ -15,12 +15,13 @@
 var LgzLib = LgzLib || {};
 LgzLib.Lang = function (lgzMgr) {
     "use strict";
-    var thisObj, pageCode, idxArr;
+    var thisObj, defaultCode, currentPage, idxArr;
     
     thisObj = this;
     thisObj.page = {};
-    pageCode = 'en';
+    defaultCode = 'en';
     idxArr = [];
+    currentPage = defaultCode;
 
     thisObj.str = function (textkey, langCode) {
         if (langCode) {
@@ -30,18 +31,20 @@ LgzLib.Lang = function (lgzMgr) {
                 }
             }
         } else {
-            if (thisObj.page[pageCode]) {
-                if (thisObj.page[pageCode][textkey]) {
-                    return thisObj.page[pageCode][textkey];
+            if (thisObj.page[currentPage]) {
+                if (thisObj.page[currentPage][textkey]) {
+                    return thisObj.page[currentPage][textkey];
                 }
             }
         }
         return textkey;
     };
-    thisObj._OnLoad = function (xml) {
-        console.debug('LgzLib.Lang._OnLoad: ');
+    thisObj.eventLoadOK = function (xml, langCode, loadCb) {
+        console.debug('LgzLib.Lang.eventLoadOK: ');
         var $xml, resname, text;
         thisObj.xml = xml;
+
+        thisObj.page[langCode] = {};
 
         $xml = $(xml);
         $xml.find('[resname]').each(
@@ -49,48 +52,73 @@ LgzLib.Lang = function (lgzMgr) {
                 resname = $(this).attr('resname');
 
                 text = $(this).text();
-                thisObj.page[pageCode][resname] = text.trim();
+                thisObj.page[langCode][resname] = text.trim();
             }
                 
         );
-        if (thisObj.onLoad) {
-            thisObj.onLoad();
+
+        idxArr.push(langCode);
+        currentPage = langCode;
+
+        if (loadCb) {
+            loadCb();
         }
     };
-    thisObj.load = function (name, langStr, onLoad) {
-        var fullurl, langCode;
-        langCode = thisObj.pageCode(langStr);
-        thisObj.page[pageCode] = {};
-        idxArr.push(pageCode);
-        this.onLoad = onLoad;
+    thisObj.eventLoadFAIL = function (err, langStr, loadCb) {
+        console.error('LgzLib.Lang.eventLoadFAIL: langStr: ' + langStr);
+        Lgz.err = err;
+        if (loadCb) {
+            loadCb();
+        }
 
-		fullurl = lgzMgr.baseUrl.lang + '/' + langCode + '/' + name +  '_' + langCode + '.xml';
+    };
+    thisObj.load = function (gameName, langStr, loadCb) {
+        var fullurl, langCode;
+        console.log(
+            'LgzLib.Lang.load: '
+                + 'gameName('  + gameName + ') '
+                + 'langStr('  + langStr + ') '
+        );
+        langCode = thisObj.pageCode(langStr);
+
+        //thisObj.page[pageCode] = {};
+        //idxArr.push(pageCode);
+
+		fullurl = lgzMgr.baseUrl.lang + '/' + langCode + '/' + gameName +  '_' + langCode + '.xml';
         console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);
+        /*
         $.ajax({
             type: 'GET',
             url: fullurl,
             dataType: 'xml',
-            success: thisObj._OnLoad
+            success: thisObj.eventLoadOK
+        });
+        */
+        $.get(fullurl, function (data) {
+            thisObj.eventLoadOK(data, langCode, loadCb);
+        }).error(function (err) {
+            thisObj.eventLoadFAIL(err, langStr, loadCb);
         });
     };
     thisObj.pageSwap = function () {
         var i, swap;
         swap  = 0;
         for (i = 0; i < idxArr.length; i += 1) {
-            if (idxArr[i] === pageCode) {
+            if (idxArr[i] === currentPage) {
                 swap = i + 1;
             }
         }
         if (swap === idxArr.length) {
             swap = 0;
         }
-        pageCode = idxArr[swap];
+        currentPage = idxArr[swap];
     };
     thisObj.pageCode = function (langStr) {
+        var code;
         if (langStr) {
-            pageCode = thisObj.long2code(langStr);
+            code = thisObj.long2code(langStr);
         }
-        return pageCode;
+        return code;
     };
     thisObj.long2code = function (str) {
         var code;
@@ -120,4 +148,3 @@ LgzLib.Lang = function (lgzMgr) {
         return code;
     };
 };
-
