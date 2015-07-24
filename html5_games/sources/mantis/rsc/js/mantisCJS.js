@@ -516,12 +516,14 @@ p.nominalBounds = new cjs.Rectangle(-34.3,-56.4,70,91.3);
 	this.text.lineHeight = 38;
 	this.text.lineWidth = 333;
 	this.text.setTransform(-184,56);
-    this.playBtnHelper = new cjs.ButtonHelper(this.text, 0, 1, 2, false);
 
 	// Layer 2
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(0,153,0,0)").s().p("A7uI6IAAxyMA3cAAAIAARyg");
-	this.shape.setTransform(-11.5,92);
+	this.shape.graphics.f("rgba(110,110,210,0.5)").s().p("A7uI6IAAxyMA3cAAAIAARyg");
+	//this.shape.setTransform(-11.5,92);
+	this.shape.setTransform(-80,70);
+
+    this.playBtnHelper = new cjs.ButtonHelper(this, 0, 1, 2, false);
 
 	this.addChild(this.shape,this.text);
 }).prototype = p = new cjs.Container();
@@ -540,8 +542,9 @@ p.nominalBounds = new cjs.Rectangle(-189,35,355,137);
 
 	// Layer 2
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(1,1,1,0)").s().p("AHUCeIumAAQg3AAgngnQgmgmgBg3IAAgzQABg3AmgnQAngmA3AAIOmAAQA2AAAnAmQAnAngBA3IAAAzQABA3gnAmQgmAng3AAIAAAAg");
-	this.shape.setTransform(59,14.8);
+	this.shape.graphics.f("rgba(110,110,220,0.1)").s().p("AHUCeIumAAQg3AAgngnQgmgmgBg3IAAgzQABg3AmgnQAngmA3AAIOmAAQA2AAAnAmQAnAngBA3IAAAzQABA3gnAmQgmAng3AAIAAAAg");
+	// this.shape.setTransform(80,14.8);
+	this.shape.setTransform(80,15,2,2);
 
 	this.addChild(this.shape,this.text);
     this.helper = new cjs.ButtonHelper(this, 0, 1, 2, false);
@@ -2224,13 +2227,13 @@ p.nominalBounds = new cjs.Rectangle(-40.7,0.8,63,24.5);
 	this.playAgain = new lib.playAgain_btn();
 	this.playAgain.setTransform(58,61.5,1,1,0,0,0,97,11.5);
 
-	this.text = new cjs.Text("Great job! You were able to beat the game and reunite the Mantis with Baby Mantis.", "20px 'Arial'", "#003300");
+	this.text = new cjs.Text("IDS_CONGRATS", "20px 'Arial'", "#003300");
 	this.text.textAlign = "center";
 	this.text.lineHeight = 22;
 	this.text.lineWidth = 394;
 	this.text.setTransform(2,-61);
 
-	this.text_1 = new cjs.Text("Congratulations!", "22px 'Comic Sans MS'", "#000066");
+	this.text_1 = new cjs.Text("IDS_CONGRATULATIONS", "22px 'Comic Sans MS'", "#000066");
 	this.text_1.textAlign = "center";
 	this.text_1.lineHeight = 24;
 	this.text_1.lineWidth = 298;

@@ -48,9 +48,21 @@ Lgz._cbCjsReady = function (mgr) {
     strTags.IDS_PLAY = function (str) {
         root.instance.text.text = str;
     };
+
+    strTags.IDS_CONGRATULATIONS = function (str) {
+        objs.spriteWin.text_1.text = str;
+    };
+
+    strTags.IDS_CONGRATS = function (str) {
+        objs.spriteWin.text.text = str;
+    };
+
+
+
     strTags.IDS_PLAY_AGAIN = function (str) {
         objs.spriteWin.playAgain.text.text = str;
     };
+
     cjs.strTags = strTags;
 
     root.instance.on('click', function () {
