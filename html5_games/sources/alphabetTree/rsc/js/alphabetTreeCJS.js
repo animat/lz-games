@@ -380,8 +380,9 @@ p.nominalBounds = new cjs.Rectangle(0,0,436.4,60.9);
 	this.text.setTransform(90.5,6);
 
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(255,255,255,0.1)").s().p("AuSEiIAApDIckAAIAAJDg");
-	this.shape.setTransform(92.5,31);
+	this.shape.graphics.f("rgba(0,255,0,0.01)").s().p("AuSEiIAApDIckAAIAAJDg");
+	//this.shape.setTransform(92.5,31);
+	this.shape.setTransform(90, 17, 1, 1);
 
 	this.addChild(this.shape,this.text);
     this.helper = new cjs.ButtonHelper(this, 0, 1, 1, false);
@@ -407,8 +408,10 @@ p.nominalBounds = new cjs.Rectangle(1,2,183,58);
 	this.text_1.setTransform(27.4,-27.4);
 
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(255,255,255,0.1)").s().p("AvtFQIAAqfIfbAAIAAKfg");
-	this.shape.setTransform(29.9,6.4);
+	this.shape.graphics.f("rgba(255,255,255,0.01)").s().p("AvtFQIAAqfIfbAAIAAKfg");
+	// this.shape.setTransform(29.9,6.4);
+	this.shape.setTransform(26, -15, 1, 0.70);
+    
 
 	this.addChild(this.shape,this.text_1,this.text);
 
