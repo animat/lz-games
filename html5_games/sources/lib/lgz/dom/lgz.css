@@ -428,7 +428,6 @@ a.btn.btn-red:active {
     font-size: 20px;
     top: 50px;
     left: 200px;
-
 }
 #lgzInputFx {
  
@@ -440,3 +439,14 @@ a.btn.btn-red:active {
 #lgzInputFx span {
     color: red;
 }
+.curGrab1 {
+    cursor: url(../lib/lgz/mma/hand_grab.cur), auto;
+    cursor: -webkit-grab; 
+    cursor: -moz-grab; 
+}
+.curGrab2 {
+    cursor: url(../lib/lgz/mma/hand_grab2.cur), auto;
+    cursor: -webkit-grabbing; 
+    cursor: -moz-grabbing; 
+}
+
