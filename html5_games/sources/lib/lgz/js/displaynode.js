@@ -368,6 +368,14 @@ LgzLib.DisplayBox = function (game, x, y, w, h, configOpts) {
     box.clear();
     box.boundsPadding = 0;
     box.lineStyle(cfg.strokeWidth, cfg.strokeColor, cfg.strokeAlpha);
+
+    if (cfg.fill !== undefined) {
+        box.beginFill(cfg.fill);
+    }
+    if (cfg.fillAlpha !== undefined) {
+        box.fillAlpha = cfg.fillAlpha;
+    }
+
     box.drawRect(0, 0, w - 1, h - 1);
     
     this.texture = box.generateTexture();
