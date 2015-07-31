@@ -26,8 +26,8 @@ LgzTest.parseUrlParms();
 
 
 //Force  specific api url and xml data file to be used in testing
-LgzTest.set('tp-gameid', '8000');
-LgzTest.set('tp-baseUrlApi', "http://192.168.0.10/lgz/svr/api/v2");
+//LgzTest.set('tp-gameid', '8000');
+//LgzTest.set('tp-baseUrlApi', "http://192.168.0.10/lgz/svr/api/v2");
 
 
 //
