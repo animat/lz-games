@@ -426,7 +426,7 @@ LgzLib.Hud = function (mgr) {
             if (lgzInput) {
                 $ac.click(function (event) {
                     if (event.target !== $ac[0]) {
-                        thisObj.lgzHud.inputSelectReplace(event.target.innerHTML);
+                        thisObj.inputSelectReplace(event.target.innerHTML);
                     }
                 });
             }
