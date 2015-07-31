@@ -1,0 +1,16 @@
+{
+	"AccentIcon": "&oslash",
+	"Cancel": "Cancel",
+	"Close": "Close",
+	"ConfirmExitGame": "Exit the game?",
+	"Exit": "Exit",
+	"FullScreen": "FullScreen",
+	"GetAHint": "Get a hint",
+	"Help": "Help",
+	"HintGameDesc": "HintGameDesc",
+	"LangSwap": "Toggle Language",
+	"NoHintAvail": "Sorry, no hint available",
+	"OK": "OK",
+	"ReportABug": "Report a bug",
+	"Send": "Send"
+}
