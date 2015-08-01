@@ -401,6 +401,7 @@ a.btn.btn-red:active {
     border-radius: 20px;
     background: rgba(255,255,255,0.5);
     visibility: hidden;    
+    cursor: pointer;
 }
 #lgzAccentBar a {
     padding: 2px;
