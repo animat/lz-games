@@ -13,7 +13,7 @@ K.font = 'Arial';
 K.filefx = 'png';
 K.renderType = Phaser.CANVAS;
 K.renderForce = false;
-K.renderFPS = 15;
+K.renderFPS = 30;
   
         //"strokeWidth": 3,
         //"strokeColor": 0x00ff00,
