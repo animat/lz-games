@@ -104,17 +104,61 @@ Lgz.Decoy.prototype.overlapTree = function () {
     }
     return false;
 };
+Lgz.Decoy.prototype.eventResetCursor = function () {
+    'use strict';
+    var i, ptr, thisInput;
+    console.log('Lgz.Decoy.eventResetCursor:');
+
+    if (this.ptr) {
+        thisInput = this.input;
+        if (thisInput.checkPointerOver(this.ptr) === false) {
+            thisInput._pointerOutHandler(this.ptr);
+        }
+        this.ptr = null;
+    }
+            
+    
+};
 Lgz.Decoy.prototype.eventTweenToTree = function () {
     'use strict';
+    var thisObj;
+
+    thisObj = this;
+
     this.twCorrect.start();
+
+    window.setTimeout(
+        function () {
+            thisObj.eventResetCursor();
+        },
+        500
+    );
 };
 Lgz.Decoy.prototype.eventTweenToOrigin = function () {
     'use strict';
+    var thisObj;
+
+    thisObj = this;
+
     this.twWrong.start();
+    window.setTimeout(
+        function () {
+            thisObj.eventResetCursor();
+        },
+        500
+    );
 };
-Lgz.Decoy.prototype.eventDragStop = function () {
+Lgz.Decoy.prototype.eventDragStart = function () {
+    'use strict';
+            
+    this.$lgzGameCanvas.attr('class', 'curGrab2');
+    this.game.canvas.blur();
+};
+Lgz.Decoy.prototype.eventDragStop = function (ptr) {
     'use strict';
     console.log('eventDragStop: ' +  this.isCorrect);
+    this.$lgzGameCanvas.attr('class', 'curGrab1');
+
     if (this.overlapTree()) {
         if (this.isCorrect) {
             this.playSet.correct(this);
@@ -129,11 +173,46 @@ Lgz.Decoy.prototype.initInput = function () {
     'use strict';
     var thisObj;
     thisObj = this;
+
     this.inputEnabled = true;
+    this.input.useHandCursor = true;
+
+    this.defaultCursor = '';
+
+    this.$lgzGameCanvas = $('#lgzGameCanvas');
+
     this.input.enableDrag(false);
-    this.events.onDragStop.add(
+    this.events.onInputOver.add(
         function () {
-            thisObj.eventDragStop();
+            console.log('onInputOver:');
+            thisObj.$lgzGameCanvas.attr('class', 'curGrab1');
+            thisObj.game.canvas.style.cursor = 'inherit';
+        },
+        thisObj
+
+    );
+    this.events.onInputOut.add(
+        function () {
+            console.log('onInputOut:');
+            thisObj.$lgzGameCanvas.attr('class', '');
+        },
+        thisObj
+
+    );
+
+    this.events.onDragStart.add(
+        function (sprite, ptr) {
+            console.log('event.onDragStart: ptr: ' + ptr);
+            thisObj.eventDragStart();
+        },
+        thisObj
+
+    );
+    this.events.onDragStop.add(
+        function (sprite, ptr) {
+            console.log('event.onDragStop: ptr.id: ' + ptr.id);
+            thisObj.ptr = ptr;
+            thisObj.eventDragStop(ptr);
         },
         thisObj
 
@@ -187,29 +266,6 @@ Lgz.PlaySet = function (scene) {
             cjsRoot.removeChild(thisObj.cjsArr[i]);
         }
     };
-    thisObj.cjsCreate  = function () {
-        var txt;
-
-        //txt = thisObj.nm.$tpdata.find('set[linkedto="correctGroupName"]').find('option').attr('content');
-        //cjsRoot.optionGroupDisplay.text.text = txt;
-        // cjsRoot.optionGroupDisplay.visible = false;
-
-    };
-    thisObj.cjsBringToFront = function () {
-        cjsRoot.removeChild(thisObj.spriteTryBtn);
-        cjsRoot.addChild(thisObj.spriteTryBtn);
-
-    };
-    thisObj.cjsEndScene = function () {
-        var obj;
-        cjsRoot.removeChild(thisObj.spriteTryBtn);
-        //obj = new lib.win();
-        obj = cjs.objs.spriteWin;
-        obj.setTransform(300, 200);
-        thisObj.cjsAdd(obj);
-        thisObj.spriteWin = obj;
-
-    };
 
     thisObj._create = function () {
         
@@ -219,7 +275,6 @@ Lgz.PlaySet = function (scene) {
         thisObj.nodeCount = thisObj.nm.nodeCount();
         thisObj.nm.reset();
         thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
-        thisObj.cjsCreate();
         thisObj.correctCount = 0;
         thisObj.correctArr = [];
         thisObj.cjsArr = [];
@@ -229,13 +284,12 @@ Lgz.PlaySet = function (scene) {
         question.display = new LgzLib.DisplayNodeBox(
             thisObj.game,
             question.node,
+            300,
             200,
-            20,
             250,
             75,
             K.questionCfg
         );
-        question.display.anchor.setTo(0, 0);
         thisObj.question = question;
 
         thisObj.spriteTimer = new Lgz.Timer(thisObj);
@@ -254,6 +308,10 @@ Lgz.PlaySet = function (scene) {
     };
     thisObj.create = function () {
         thisObj.syncTS = 0;
+
+        //note: Disable CJS mouse over handling as it conflicts
+        //      with Phaser's mouse over (useHandCursor)
+        cjsStage.enableMouseOver(0);
 
         thisObj.lgzMgr.spinnerShow();
         window.setTimeout(
@@ -275,13 +333,22 @@ Lgz.PlaySet = function (scene) {
         console.log('Lgz.PlaySet.shutdown: ');
         thisObj.cjsRemove();
     };
-    thisObj.eventWin = function (decoy) {
+    thisObj.eventWin = function () {
+        var decoy;
         thisObj.question.display.kill();
-        thisObj.spriteTimer.kill();
+        thisObj.spriteTimer.timer.stop();
         while (thisObj.decoyArr.length) {
             decoy = thisObj.decoyArr.pop();
             decoy.kill();
         }
+
+
+        //note: Re-enable CJS mouse over handling 
+        //      needed for CJS drawn buttons in congratulations window
+        cjsStage.enableMouseOver(15);
+
+        //note: Disable phaser input events to allow CJS events to work in IE 
+        thisObj.game.input.disabled = true;
 
         cjsRoot.gotoAndPlay('win');
         thisObj.lgzMgr.postScore();
@@ -312,5 +379,6 @@ Lgz.PlaySet = function (scene) {
         var i;
         decoy.eventTweenToOrigin();
         thisObj.resetDecoys();
+        thisObj.spriteTimer.timer.reset();
     };
 };

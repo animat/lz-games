@@ -36,6 +36,11 @@ LgzLib.Scenes.Welcome.prototype.rscload = function () {
 LgzLib.Scenes.Welcome.prototype.create = function () {
     'use strict';
     console.debug('Scenes2.Welcome.create: key ' + this.key);
+
+    //ivanixcu: disable phase input event handling for cjs play button in welcome window
+    //          required for ie11
+    this.game.input.disabled = true;
+
     this.lgzMgr.cjs.root.gotoAndPlay('intro');
 };
 LgzLib.Scenes.Welcome.prototype.render = function () {
@@ -64,6 +69,10 @@ LgzLib.Scenes.Main.prototype.create = function () {
     console.debug('Scenes2.create: key ' + this.key);
 
     this.lgzMgr.cjs.root.gotoAndPlay('game');
+
+    //ivanixcu: renable phaser input handling events on phaser sprites
+    this.game.input.disabled = false;
+
     this.playSet.create();
 };
 LgzLib.Scenes.Main.prototype.update = function () {

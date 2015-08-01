@@ -15,11 +15,13 @@ K.renderType = Phaser.CANVAS;
 K.renderForce = false;
 K.renderFPS = 15;
   
+        //"strokeWidth": 3,
+        //"strokeColor": 0x00ff00,
+        //"strokeAlpha": 0.4
 K.questionCfg = {
     "box": {
-        "strokeWidth": 3,
-        "strokeColor": 0x00ff00,
-        "strokeAlpha": 0.4
+        "fill": 0xffffff,
+        "fillAlpha": 0.5
     },
     "text": {
         "style": {
