@@ -9,8 +9,8 @@
 	window: true,
 	document: true,
 	console: true
-
 */
+/*jslint  nomen: true */
 
 var LgzLib = LgzLib || {};
 LgzLib.Lang = function (lgzMgr) {
@@ -19,7 +19,7 @@ LgzLib.Lang = function (lgzMgr) {
     
     thisObj = this;
     thisObj.page = {};
-    defaultCode = 'en';
+    defaultCode = K.lang;
     idxArr = [];
     currentPage = defaultCode;
 
@@ -39,12 +39,22 @@ LgzLib.Lang = function (lgzMgr) {
         }
         return textkey;
     };
-    thisObj.eventLoadOK = function (xml, langCode, loadCb) {
+    thisObj.eventLoadOK = function (xml, lang, loadCb) {
         console.debug('LgzLib.Lang.eventLoadOK: ');
-        var $xml, resname, text;
+        var $xml, resname, text, p, src;
         thisObj.xml = xml;
 
-        thisObj.page[langCode] = {};
+        thisObj.page[lang.code] =  thisObj.page[lang.code] || {};
+
+        //note: prefill page with fallback values found in default page of K.lang (en)
+        if (lang.code !== K.lang) {
+            src = thisObj.page[K.lang];
+	        for (p in src) {
+	            if (src.hasOwnProperty(p)) {
+	                thisObj.page[lang.code][p] = src[p];
+	            }
+	        }
+        }
 
         $xml = $(xml);
         $xml.find('[resname]').each(
@@ -52,53 +62,88 @@ LgzLib.Lang = function (lgzMgr) {
                 resname = $(this).attr('resname');
 
                 text = $(this).text();
-                thisObj.page[langCode][resname] = text.trim();
+                thisObj.page[lang.code][resname] = text.trim();
             }
                 
         );
 
-        idxArr.push(langCode);
-        currentPage = langCode;
+        idxArr.push(lang.code);
+        currentPage = lang.code;
 
         if (loadCb) {
             loadCb();
         }
     };
-    thisObj.eventLoadFAIL = function (err, langStr, loadCb) {
-        console.error('LgzLib.Lang.eventLoadFAIL: langStr: ' + langStr);
+    thisObj.eventLoadFAIL = function (err, lang, loadCb) {
+        console.error('LgzLib.Lang.eventLoadFAIL:'
+            + ' langStr(' + lang.str + ') langCode(' + lang.code + ')');
         Lgz.err = err;
         if (loadCb) {
             loadCb();
         }
 
     };
+    thisObj._loadGameLang = function (gameName, lang, loadCb) {
+        var fullurl;
+        console.log(
+            'LgzLib.Lang._loadGameLang: '
+                + 'gameName('  + gameName + ') '
+                + 'langStr('  + lang.str + ') '
+                + 'langCode('  + lang.code + ') '
+        );
+        //langCode = thisObj.pageCode(langStr);
+
+		fullurl = lgzMgr.baseUrl.lang + '/' + lang.code + '/' + gameName +  '_' + lang.code + '.xml';
+        console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);
+        $.get(fullurl, function (data) {
+            thisObj.eventLoadOK(data, lang, loadCb);
+        }).error(function (err) {
+            thisObj.eventLoadFAIL(err, lang, loadCb);
+        });
+    };
+    thisObj.eventLoadHudOK = function (data, gameName, lang, loadCb) {
+        var p;
+        thisObj.page[lang.code] = {};
+        for (p in data) {
+            if (data.hasOwnProperty(p)) {
+                thisObj.page[lang.code][p] = data[p];
+            }
+        }
+        thisObj._loadGameLang(gameName, lang, loadCb);
+    };
+    thisObj.eventLoadHudFAIL = function (err, gameName, lang, loadCb) {
+        //no hud language file found for given langCode,
+        //proceed try to load game specific language file
+        thisObj._loadGameLang(gameName, lang, loadCb);
+    };
+    thisObj._loadHudLang = function (gameName, langStr, loadCb) {
+        var fullurl, lang;
+        console.log(
+            'LgzLib.Lang._loadHudLang: '
+                + 'gameName('  + gameName + ') '
+                + 'langStr('  + langStr + ') '
+        );
+        lang = {};
+        lang.str = langStr;
+        lang.code = thisObj.pageCode(langStr);
+
+		fullurl = '../lib/lgz/lang/hud/' + lang.code + '.json';
+        console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);
+
+        $.get(fullurl, function (data) {
+            thisObj.eventLoadHudOK(data, gameName, lang, loadCb);
+        }).error(function (err) {
+            thisObj.eventLoadHudFAIL(err, gameName, lang, loadCb);
+        });
+    };
     thisObj.load = function (gameName, langStr, loadCb) {
-        var fullurl, langCode;
         console.log(
             'LgzLib.Lang.load: '
                 + 'gameName('  + gameName + ') '
                 + 'langStr('  + langStr + ') '
         );
-        langCode = thisObj.pageCode(langStr);
-
-        //thisObj.page[pageCode] = {};
-        //idxArr.push(pageCode);
-
-		fullurl = lgzMgr.baseUrl.lang + '/' + langCode + '/' + gameName +  '_' + langCode + '.xml';
-        console.debug('LgzLib.Lang.load: fullurl: ' + fullurl);
-        /*
-        $.ajax({
-            type: 'GET',
-            url: fullurl,
-            dataType: 'xml',
-            success: thisObj.eventLoadOK
-        });
-        */
-        $.get(fullurl, function (data) {
-            thisObj.eventLoadOK(data, langCode, loadCb);
-        }).error(function (err) {
-            thisObj.eventLoadFAIL(err, langStr, loadCb);
-        });
+        // initialize non specific game hud strings first
+        thisObj._loadHudLang(gameName, langStr, loadCb);
     };
     thisObj.pageSwap = function () {
         var i, swap;
