@@ -6,24 +6,31 @@
 /*jslint  nomen: true */
 var K = K || {};
 
-K.renderType = Phaser.CANVAS;
+if (window.Phaser) {
+    K.renderType = Phaser.CANVAS;
+}
 K.renderForce = false;
 K.renderFPS = 25;
 
 //note: urlRscMedia points to game's local multi media assets
 K.urlRscMedia = 'rsc/mma/';
-K.urlLibMedia = 'lib/lgz/mma/';
+K.urlLibMedia = '../lib/lgz/mma/';
 
 K.lang = "en";
 K.region = "US";
 K.locale = "en";
+
+K.platform = {
+    os: ['windows', 'macOS', 'chromeOS', 'linux', 'iOS', 'android'],
+    browser: ['ie', 'safari', 'chrome', 'firefox']
+};
+
 
 K.font = 'Arial';
 K.volumeLevel = 2;
         
 K.StyleButton = { 'font': '30px ' + K.font, 'fill': 'white', 'stroke': 'none', 'strokeThickness': 0, 'align': 'right' };
 K.StyleTitle = { 'font': '60px ' + K.font, 'fill': 'white', 'stroke': 'black', 'strokeThickness': 6, 'align': 'right' };
-
 
 K.nodeTextStyle = { font: '14pt ' + K.font, fill: '#ffffff', align: 'center'};
 
@@ -50,3 +57,29 @@ K.inputFxWrongOpts  = {
     "letter_end": "stay",
     "element_end": "restore"
 };
+/*
+ * example of K settings by os/browser
+ * (not used at moment, since we use curGrab,curGrab2 class in lgz.css)
+ *
+
+K.cursor = {
+    grab: {
+        _osbrowser: {
+            any_any: 'pointer',
+            any_safari: '-webkit-grab',
+            any_chrome: '-webkit-grab',
+            any_firefox: '-moz-grab',
+            any_ie: 'url(../lib/lgz/mma/grab.cur)'
+        }
+    },
+    grabbing: {
+        _osbrowser: {
+            any_any: 'pointer',
+            any_safari: '-webkit-grabbing',
+            any_chrome: '-webkit-grabbing',
+            any_firefox: '-moz-grabbing',
+            any_ie: 'url(../lib/lgz/mma/grabbing.cur)'
+        }
+    }
+};
+*/
