@@ -731,7 +731,6 @@ LgzLib.Hud = function (mgr) {
         thisObj.$lgzInputFx.letterfx(badopts);
 
     };
-
     thisObj._inputAccentInit = function () {
         var $lgzHudAccent, $lgzAccentBar;
         $lgzHudAccent = $('#lgzHudAccent');
@@ -739,6 +738,7 @@ LgzLib.Hud = function (mgr) {
         
         $lgzHudAccent.click(function () {
             thisObj.toggleVisibility($lgzAccentBar);
+            thisObj.$lgzInput.focus();
         });
         console.log('LgzLib.Hud.initAccent: game? ' + game);
    
