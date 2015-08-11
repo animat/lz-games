@@ -690,7 +690,7 @@ LgzLib.Hud = function (mgr) {
         thisObj._inputFxCssCopy('padding');
     };
     thisObj.inputFxWrong = function (correct) {
-        var a, i, len, mask, match, sel, $lgzInputFx, badopts;
+        var a, i, len, mask, match, missingChars, pristine, sel, $lgzInputFx, badopts;
         console.log('LgzLib.Hud.inputFXWrong');
         
         sel = "span";
@@ -700,6 +700,7 @@ LgzLib.Hud = function (mgr) {
         thisObj.$lgzInput.val('');
         
         match = true;
+        pristine = true;
         mask = "";
         for (i = 0; i < a.length; i += 1) {
             if (a.charAt(i) === correct.charAt(i)) {
@@ -715,10 +716,19 @@ LgzLib.Hud = function (mgr) {
                 }
                 mask += a.charAt(i);
                 match = false;
+                pristine = false;
             }
         }
         if (!match) {
             mask += "</" + sel + ">";
+        }
+        if (a.length < correct.length && pristine) {
+          missingChars = correct.length - a.length;
+          mask += "<" + sel + ">";
+          for (i = 0; i < missingChars; i++) {
+            mask += "_";
+          }
+          mask += "</" + sel + ">";
         }
         badopts = LgzLib.copy(K.inputFxWrongOpts);
         badopts.replacement = mask;
