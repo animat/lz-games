@@ -337,6 +337,7 @@ Lgz.PlaySet = function (scene) {
         var decoy;
         thisObj.question.display.kill();
         thisObj.spriteTimer.timer.stop();
+        thisObj.spriteTimer.visible = false;
         while (thisObj.decoyArr.length) {
             decoy = thisObj.decoyArr.pop();
             decoy.kill();
