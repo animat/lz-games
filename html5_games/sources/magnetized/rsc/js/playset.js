@@ -13,78 +13,46 @@
 var Lgz = Lgz || {};
 Lgz.WordTile = function (playSet, word, idx) {
     'use strict';
-    var game, spriteRect, h, w, sx, sy, ox, oy, i, overlap, groupTiles, child, xoverlap, yoverlap;
+    var game, spriteText, spriteRect, h, w;
     this.playSet = playSet;
     this.idx = idx;
     game = this.playSet.game;
 
 
-    // Phaser.Sprite.call(this, game, 0, 0, bmd);
     Phaser.Sprite.call(this, game, 0, 0, 'dot');
 
-    this.anchor.setTo(0.5, 0.5);
+    spriteText = playSet.game.add.text(0, 0, word, LgzLib.jsonCopy(K.wordTextStyle));
 
-    this.spriteText = playSet.game.add.text(0, 0, word, K.wordTextStyle);
-    sx = -Math.ceil(this.spriteText.width / 2);
-    sy = -Math.ceil(this.spriteText.height / 2);
-    this.spriteText.position.setTo(sx, sy);
+    console.log(
+        'spriteText.height: ' + spriteText.height
+            + 'spriteText.text: ' + spriteText.text
+    );
 
+
+    w = spriteText.width + 10;
+    h = spriteText.height;
     spriteRect = game.add.graphics(0, 0);
+    spriteRect.boundsPadding = 10;
     spriteRect.lineStyle(1, 0x000000);
     spriteRect.beginFill(0xffffff);
-    spriteRect.drawRect(sx - 5, sy - 5, this.spriteText.width + 10, this.spriteText.height + 10);
+    spriteRect.drawRect(0, 0, w, h);
     spriteRect.endFill();
+
+    spriteRect.visible = false;
+
+    this.addChild(spriteText);
+
+    this.spriteText = spriteText;
     this.spriteRect = spriteRect;
-    
-    this.addChild(this.spriteRect);
-    this.addChild(this.spriteText);
 
-    this.randomizePos();
-    overlap = true;
-    groupTiles = playSet.groupTiles;
-
-    while (overlap) {
-        overlap = false;
-        for (i = 0; i < groupTiles.children.length; i += 1) {
-            child = groupTiles.children[i];
-            yoverlap = false;
-            xoverlap = false;
-            if (this.x >= child.x && this.x <= (child.x + child.width)) {
-                console.log(' xoverlap: true');
-                xoverlap = true;
-            }
-            if ((this.x + this.width) >= child.x && (this.x + this.width) <= (child.x + child.width)) {
-                yoverlap = true;
-                console.log(' yoverlap: true');
-            }
-            if (this.y >= child.y && this.y <= (child.y + child.height)) {
-                yoverlap = true;
-                console.log(' yoverlap: true');
-            }
-            if ((this.y + this.height) >= child.y && (this.y + this.height) <= (child.y + child.height)) {
-                yoverlap = true;
-                console.log(' yoverlap: true');
-            }
-            if (xoverlap && yoverlap) {
-                overlap  = true;
-            }
-
-        }
-        if (this.x < 0 || (this.x + this.width) > K.canvasVWidth) {
-            overlap = true;
-        }
-        if (this.y < K.tileCeiling || (this.y + this.height) > K.canvasVHeight) {
-            overlap = true;
-        }
-        if (overlap) {
-            this.randomizePos();
-        }
-
-    }
+    this.dotTexture = this.texture;
+    this.texture = this.spriteRect.generateTexture();
 
 
-    //this.inputEnable = true;
-    //this.input.enableDrag(true);
+    this.anchor.setTo(0.5, 0.5);
+    spriteText.anchor.setTo(0.5, 0.5);
+
+    this.initOrigin();
 
 };
 Lgz.WordTile.lgzExtends(Phaser.Sprite);
@@ -127,10 +95,12 @@ Lgz.WordTile.prototype.matchTileLeft = function () {
 };
 Lgz.WordTile.prototype.matchTileRight = function () {
     'use strict';
-    var tiles, i, x, y, tx, ty, hasChildIdx;
+    var tiles, i, x, y, tx, ty, childCount;
     tiles = this.playSet.tileArr;
-    hasChildIdx = this.children.length - 2;
-    if (!hasChildIdx) {
+    //note:  skip the first child which is spriteText, any other children
+    // should be tiles that have been to the right of this tile.
+    childCount = this.children.length - 1;
+    if (!childCount) {
         if (this.idx < (tiles.length - 1)) {
             i = this.idx + 1;
             if (this._matchTile(this, tiles[i])) {
@@ -142,8 +112,11 @@ Lgz.WordTile.prototype.matchTileRight = function () {
 Lgz.WordTile.prototype.findLastTileRight = function () {
     'use strict';
     var tile, childCount, idx;
+    console.log('Lgz.WordTile.findLastTileRight:');
 
-    childCount = this.children.length - 2;
+    //note:  skip the first child which is spriteText, any other children
+    // should be tiles that have been to the right of this tile.
+    childCount = this.children.length - 1;
     if (!childCount) {
         this.matchTileRight();
     } else {
@@ -156,7 +129,7 @@ Lgz.WordTile.prototype.findLastTileRight = function () {
 };
 Lgz.WordTile.prototype.matchTile = function () {
     'use strict';
-    var tile, childCount, idx;
+   
     this.matchTileLeft();
     this.findLastTileRight();
 
@@ -167,6 +140,7 @@ Lgz.WordTile.prototype.initInput = function () {
 
     thisObj = this;
     thisObj.inputEnabled = true;
+    thisObj.input.useHandCursor = true;
     thisObj.input.enableDrag(false);
     thisObj.events.onInputDown.add(
         function () {
@@ -186,17 +160,77 @@ Lgz.WordTile.prototype.randomizePos = function () {
     y = this.game.rnd.integerInRange(K.tileCeiling, K.canvasVHeight);
     this.position.setTo(x, y);
 };
-Lgz.WordTile.prototype.update = function () {
+Lgz.WordTile.prototype.initOrigin = function () {
     'use strict';
-    var input, x, y, h, w;
-    input = this.game.input;
-    x = this.x - ((this.spriteRect.width) / 2) |0;
-    y = this.y - ((this.spriteRect.height) / 2) |0;
-    w = this.spriteRect.width;
-    h = this.spriteRect.height;
-    if (Phaser.Rectangle.containsRaw(x, y, w, h, input.x, input.y)) {
-        this.game.canvas.style.cursor = "pointer";
+    var overlap, groupTiles, playset, i, child, yoverlap, xoverlap;
+
+    this.randomizePos();
+    overlap = true;
+    groupTiles = this.playSet.groupTiles;
+
+    while (overlap) {
+        overlap = false;
+        for (i = 0; i < groupTiles.children.length; i += 1) {
+            child = groupTiles.children[i];
+            yoverlap = false;
+            xoverlap = false;
+            if (this.x >= child.x && this.x <= (child.x + child.width)) {
+                console.log(' xoverlap: true');
+                xoverlap = true;
+            }
+            if ((this.x + this.width) >= child.x && (this.x + this.width) <= (child.x + child.width)) {
+                yoverlap = true;
+                console.log(' yoverlap: true');
+            }
+            if (this.y >= child.y && this.y <= (child.y + child.height)) {
+                yoverlap = true;
+                console.log(' yoverlap: true');
+            }
+            if ((this.y + this.height) >= child.y && (this.y + this.height) <= (child.y + child.height)) {
+                yoverlap = true;
+                console.log(' yoverlap: true');
+            }
+            if (xoverlap && yoverlap) {
+                overlap  = true;
+            }
+
+        }
+        if (this.x < 0 || (this.x + this.width) > K.canvasVWidth) {
+            overlap = true;
+        }
+        if (this.y < K.tileCeiling || (this.y + this.height) > K.canvasVHeight) {
+            overlap = true;
+        }
+        if (overlap) {
+            this.randomizePos();
+        }
+
     }
+};
+Lgz.WordTile.prototype._tweenCorrect = function () {
+    'use strict';
+    var s1;
+    this.texture = this.dotTexture;
+    //this.tint = 0x000000;
+    s1 = LgzLib.jsonCopy(K.ConnectedWordStyle);
+    LgzLib.jsonExtend(this.spriteText, s1);
+};
+Lgz.WordTile.prototype.tweenCorrect = function () {
+    'use strict';
+    var tw, thisObj;
+
+    thisObj = this;
+
+    this.inputEnabled = false;
+    this.tint = 0x55aaff;
+
+    thisObj.spriteText.fill = "#ffffff";
+    tw  = this.game.add.tween(thisObj.spriteText);
+    
+    tw.to({}, 1000)
+          .onComplete.addOnce(thisObj._tweenCorrect, thisObj);
+
+    tw.start();
 
 };
 Lgz.PlaySet = function (scene) {
@@ -257,6 +291,18 @@ Lgz.PlaySet = function (scene) {
         
         console.log('Lgz.PlaySet.create: 1');
 
+        //note: Disable CJS mouse over handling as it conflicts
+        //      with Phaser's mouse over (useHandCursor)
+        cjsStage.enableMouseOver(0);
+
+        //note: needed to reset door when game is played again
+        //
+        cjsRoot.instance.gotoAndPlay(0);
+
+
+        thisObj.game.input.disabled = false;
+
+
         thisObj.nodeCount = thisObj.nm.nodeCount();
         thisObj.sprites = {};
  
@@ -312,23 +358,25 @@ Lgz.PlaySet = function (scene) {
             function () {
                 thisObj.nm.nodeAnswered();
             },
-            2000
+            4000
         );
     };
     thisObj.tweenCorrect = function () {
-        var tile, tw, dx, dy, i, totalWidth;
+        var tile, tw, dx, dy, i, totalWidth, display;
         tile = thisObj.tileArr[0];
-        tw  = thisObj.game.add.tween(tile);
+        tw = thisObj.game.add.tween(tile);
         totalWidth = 0;
 
         for (i = 0; i < thisObj.tileArr.length; i += 1) {
-            thisObj.tileArr[i].spriteRect.visible = false;
+            //todo: readjust tile background
+            thisObj.tileArr[i].tweenCorrect();
             totalWidth += (thisObj.tileArr[i].spriteText.width + 10);
         }
 
-        //dx = 120 + (tile.spriteText.width + 10) / 2;
         dx = ((K.canvasVWidth - totalWidth) / 2) + (tile.spriteText.width / 2);
-        dy = 120;
+        // dy = 120;
+        display = thisObj.question.display;
+        dy = display.y + Math.floor((tile.height + display.mma.height) / 2);
 
         tw.to({x: dx, y: dy}, 1000)
             .onComplete.addOnce(thisObj._tweenCorrect, thisObj);
@@ -348,10 +396,10 @@ Lgz.PlaySet = function (scene) {
     };
     thisObj.load = function () {
         var question, answer, i, substext;
-        console.debug('Lgz.PlaySet.load:');
+        console.log('Lgz.PlaySet.load:');
         question  = {};
         question.node = thisObj.nm.getQuestion();
-        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 175, 70, 250, 30);
+        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 300, 100, 300, 100);
         answer  = {};
         answer.node = thisObj.nm.getResponse();
         answer.text = answer.node.getAttribute('content');
@@ -381,6 +429,14 @@ Lgz.PlaySet = function (scene) {
     };
     thisObj.eventNodeFinish = function () {
         thisObj.lgzMgr.postScore();
+
+        //note: Re-enable CJS mouse over handling 
+        //      needed for CJS drawn buttons in congratulations window
+        cjsStage.enableMouseOver(15);
+
+        //note: Disable phaser input events to allow CJS events to work in IE 
+        thisObj.game.input.disabled = true;
+
         cjsRoot.gotoAndPlay('win');
 
 /*

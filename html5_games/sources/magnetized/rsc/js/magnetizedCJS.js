@@ -851,17 +851,26 @@ p.nominalBounds = new cjs.Rectangle(0,0,32.3,41.3);
 	this.initialize();
 
 	// Layer 1
-	this.text = new cjs.Text("IDS_PLAY_AGAIN", "16px 'Arial'", "#333333");
+	this.text = new cjs.Text("IDS_PLAY_AGAIN", "20px 'Arial'", "#FFFFFF");
 	this.text.textAlign = "center";
 	this.text.lineHeight = 18;
-	this.text.lineWidth = 139;
+	this.text.lineWidth = 200;
 	this.text.setTransform(69.6,0);
 
+/*
 	this.shape = new cjs.Shape();
 	this.shape.graphics.f("rgba(255,255,255,0.1)").s().p("ArYEOIAAoaIWyAAIAAIag");
 	this.shape.setTransform(71,25);
+ */
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(255,255,255, 1)").s().p("ArYEOIAAoaIWyAAIAAIag");
+	this.shape.setTransform(70, 10, 1.5, 0.60 );
 
-	this.addChild(this.shape,this.text);
+	this.shape2 = new cjs.Shape();
+	this.shape2.graphics.f("rgba(0,200,255,1)").s().p("ArYEOIAAoaIWyAAIAAIag");
+	this.shape2.setTransform(70, 10, 1.49, 0.57);
+
+	this.addChild(this.shape, this.shape2, this.text);
 
     this.helper = new cjs.ButtonHelper(this, 0, 1, 1, false);
 }).prototype = p = new cjs.Container();
@@ -2480,16 +2489,34 @@ p.nominalBounds = new cjs.Rectangle(-223.2,103.5,477.5,685.1);
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_12},{t:this.shape_11},{t:this.shape_10},{t:this.shape_9},{t:this.shape_8},{t:this.shape_7},{t:this.shape_6},{t:this.shape_5},{t:this.shape_4},{t:this.shape_3},{t:this.shape_2},{t:this.shape_1},{t:this.shape}]}).to({state:[{t:this.shape_26},{t:this.shape_25},{t:this.shape_24},{t:this.shape_23},{t:this.shape_22},{t:this.shape_21},{t:this.shape_20},{t:this.shape_19},{t:this.shape_18},{t:this.shape_17},{t:this.shape_16},{t:this.shape_15},{t:this.shape_14},{t:this.shape_13}]},2).to({state:[{t:this.shape_40},{t:this.shape_39},{t:this.shape_38},{t:this.shape_37},{t:this.shape_36},{t:this.shape_35,p:{x:5.4,y:-63.2}},{t:this.shape_34,p:{x:4,y:3.7}},{t:this.shape_33},{t:this.shape_32},{t:this.shape_31},{t:this.shape_30},{t:this.shape_29,p:{x:3.1,y:62.9}},{t:this.shape_28,p:{x:-1.9,y:-6.7}},{t:this.shape_27}]},2).to({state:[{t:this.shape_50},{t:this.shape_49},{t:this.shape_48},{t:this.shape_47},{t:this.shape_46},{t:this.shape_35,p:{x:129.9,y:-66.7}},{t:this.shape_34,p:{x:128.5,y:0.2}},{t:this.shape_45},{t:this.shape_44},{t:this.shape_43},{t:this.shape_42},{t:this.shape_29,p:{x:127.6,y:59.4}},{t:this.shape_28,p:{x:122.6,y:-10.2}},{t:this.shape_41}]},2).to({state:[{t:this.shape_52},{t:this.shape_51}]},2).wait(2));
 
 	// Text
-	this.text = new cjs.Text("You", "24px 'Arial'", "#333333");
+	this.text = new cjs.Text("You", "24px 'Arial'", "#FFFFFF");
 	this.text.textAlign = "center";
 	this.text.lineHeight = 26;
 	this.text.lineWidth = 93;
 	this.text.setTransform(-6.2,-67.9);
 
+	this.textCongrats1 = new cjs.Text("IDS_CONGRATS", "22px 'Arial'", "#55AAFF");
+	this.textCongrats1.textAlign = "center";
+	this.textCongrats1.lineHeight = 20;
+	this.textCongrats1.lineWidth = 400;
+	this.textCongrats1.outline = 4;
+	this.textCongrats1.setTransform(0,60);
+
+	this.textCongrats2 = new cjs.Text("IDS_CONGRATS", "22px 'Arial'", "#FFFFFF");
+	this.textCongrats2.textAlign = "center";
+	this.textCongrats2.lineHeight = 20;
+	this.textCongrats2.lineWidth = 400;
+	this.textCongrats2.setTransform(0,60);
+
 	this.instance = new lib.win("synched",0);
 	this.instance.setTransform(-186.9,-70.8);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance},{t:this.text}]}).wait(10));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance},
+        {t:this.text},
+        {t:this.textCongrats1},
+        {t:this.textCongrats2}
+        ]}
+        ).wait(10));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-176.2,-92.2,352.5,184.5);
@@ -2807,7 +2834,9 @@ p.nominalBounds = new cjs.Rectangle(12.4,38.7,590,402.5);
 		
 		dispatchEvent ({type:"play", bubbles:true, game:game});*/
 	}
-	this.frame_34 = function() {
+    //ivanixcu: win starts at frame_14
+	//this.frame_34 = function() 
+	this.frame_64 = function() {
         this.stop();
 		/* stop();
 		
@@ -2820,25 +2849,38 @@ p.nominalBounds = new cjs.Rectangle(12.4,38.7,590,402.5);
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1).call(this.frame_1).wait(1).call(this.frame_2).wait(6).call(this.frame_8).wait(26).call(this.frame_34).wait(1));
+	//this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1).call(this.frame_1).wait(1).call(this.frame_2).wait(6).call(this.frame_8).wait(26).call(this.frame_34).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1).call(this.frame_1).wait(1).call(this.frame_2).wait(6).call(this.frame_8).wait(56).call(this.frame_64).wait(1));
 
 	// Text
-	this.text = new cjs.Text("IDS_CONGRATS", "18px 'Arial-ItalicMT'", "#333333");
+	this.text = new cjs.Text("IDS_CONGRATS", "18px 'Arial-ItalicMT'", "#55AAFF");
 	this.text.textAlign = "center";
 	this.text.lineHeight = 20;
-	this.text.lineWidth = 392;
-	this.text.setTransform(297.8,63.2);
+	//this.text.lineWidth = 392;
+	this.text.lineWidth = 400;
+	// this.text.setTransform(297.8,63.2);
+	this.text.setTransform(300,63.2);
 
 	this.text_1 = new cjs.Text("", "18px 'Arial-ItalicMT'", "#FFFFFF");
 	this.text_1.textAlign = "center";
 	this.text_1.lineHeight = 20;
-	this.text_1.lineWidth = 392;
+	this.text_1.lineWidth = 400;
 	this.text_1.setTransform(298.8,64.2);
 
 	this.playAgain = new lib.playAgain();
-	this.playAgain.setTransform(438.5,375,1,1,0,0,0,71.5,25);
+	//this.playAgain.setTransform(438.5,375,1,1,0,0,0,71.5,25);
+	this.playAgain.setTransform(300,380,1,1,0,0,0,71.5,25);
+	this.playAgain._off = true;
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.text_1},{t:this.text,p:{x:297.8,y:63.2,text:"",font:"18px 'Arial-ItalicMT'",lineHeight:20,lineWidth:392}}]},8).to({state:[{t:this.text,p:{x:238.5,y:331,text:"Congrats, you finished the game!",font:"24px 'Arial'",lineHeight:26,lineWidth:283}},{t:this.playAgain}]},6).wait(21));
+//note: original tween from adobe export
+//
+//this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.text_1},{t:this.text,p:{x:297.8,y:63.2,text:"",font:"18px 'Arial-ItalicMT'",lineHeight:20,lineWidth:392}}]},8).to({state:[{t:this.text,p:{x:238.5,y:331,text:"Congrats, you finished the game!",font:"24px 'Arial'",lineHeight:26,lineWidth:283}},{t:this.playAgain}]},6).wait(21));
+//
+
+	//this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[ {t:this.playAgain}]},6).wait(10000));
+	//this.timeline.addTween(cjs.Tween.get(this.playAgain).wait(25).to({_off:false},0).wait(50));
+    
+	this.timeline.addTween(cjs.Tween.get(this.playAgain).wait(60).to({_off:false}, 0).wait(1));
 
 	// Buttons
 	this.text_2 = new cjs.Text("IDS_INSTRUCTIONS", "italic bold 18px 'Arial'", "#333333");
@@ -2912,7 +2954,7 @@ p.nominalBounds = new cjs.Rectangle(12.4,38.7,590,402.5);
 	this.instance.setTransform(299.5,174.5,1.266,1.304);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_12},{t:this.shape_11},{t:this.shape_10},{t:this.shape_9},{t:this.shape_8},{t:this.shape_7},{t:this.shape_6},{t:this.shape_5},{t:this.shape_4},{t:this.shape_3},{t:this.shape_2},{t:this.shape_1},{t:this.shape}]},8).to({state:[{t:this.instance}]},22).wait(5));
-
+    
 	// Fridge
 	this.fridge = new lib.fridge();
 	this.fridge.setTransform(564.5,153.9,1,1,0,0,0,284.8,320.8);
