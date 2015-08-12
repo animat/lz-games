@@ -29,13 +29,22 @@ LgzLib.NodeManager = function (mgr) {
      * 
      */
     thisObj.reset = function () {
-        var i;
+        var i, node, subnode, str;
         thisObj.idx = 0;
 
         thisObj.remaining = thisObj.$nodes.length;
         
         for (i = 0; i < thisObj.$nodes.length; i += 1) {
-            thisObj.$nodes[i].answered = thisObj.K_NOTYET;
+            node = thisObj.$nodes[i];
+            node.answered = thisObj.K_NOTYET;
+
+            //note: trim leading/trailing blank spaces from text content
+            subnode = node.querySelector('question');
+            str = subnode.getAttribute('content');
+            subnode.setAttribute('content', str.trim());
+            subnode = node.querySelector('response');
+            str = subnode.getAttribute('content');
+            subnode.setAttribute('content', str.trim());
         }
         return;
     };
