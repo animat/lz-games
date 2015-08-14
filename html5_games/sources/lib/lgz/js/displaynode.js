@@ -261,12 +261,23 @@ LgzLib.DisplayNodeText.prototype.center = function (w, h) {
 };
 LgzLib.DisplayNodeText.prototype.maxTextFont = function (w, h) {
 	'use strict';
-	var maxW, maxH, size, spriteText, sizeMin, sizeMax;
+	var maxW, maxH, size, spriteText, sizeMin, sizeMax, pfont;
 
 	console.debug('maxTextFont:');
 
     spriteText = this.spriteText;
-	// spriteText.font = K.font;
+
+	console.debug('maxTextFont: font: ' + spriteText.font);
+
+    //note: pixiStyle stores font as "size fontFamily"
+    // or "modifier size fontFamily" i.e. "bold 12px Arial"
+    // Phaser font requires only family to be specified
+    //
+    pfont = this.copyStyle.font.split(' ');
+    if (pfont.length) {
+        spriteText.font = pfont[pfont.length - 1];
+    }
+
 	maxW = w;
 	maxH = h;
 
