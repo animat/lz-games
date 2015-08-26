@@ -419,7 +419,11 @@ a.btn.btn-red:active {
     width: 15px;
     height: 24px;    
     padding: 5px;
-    visibility: hidden;    
+    visibility: hidden;
+    background-image: url(../mma/globe.png);
+    background-size: 24px 24px;
+    background-position: 1px 0px;
+    background-repeat: no-repeat;
 }
 #lgzInput { 
     position: absolute;
