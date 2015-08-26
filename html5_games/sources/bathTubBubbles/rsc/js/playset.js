@@ -18,6 +18,8 @@ Lgz.Bubble = function (playSet, node, bmd) {
     game = this.playSet.game;
     this.game = game;
     this.vx = 10;
+
+
     // Cjs2Phaser.Sprite.call(this, game, lib.bubble,  0, 0, 200, 200, 80, 80);
     
     Phaser.Sprite.call(this, game, 0, 0, bmd);
@@ -55,8 +57,8 @@ Lgz.Bubble = function (playSet, node, bmd) {
         },
         thisObj
     );
-    this.reset();
-    this.tweenLoop();
+    thisObj.reset();
+    thisObj.tweenLoop();
 };
 Lgz.Bubble.lgzExtends(Phaser.Sprite);
 Lgz.Bubble.prototype.reset = function () {
@@ -65,8 +67,11 @@ Lgz.Bubble.prototype.reset = function () {
     this.x = this.game.rnd.integerInRange(0, 600);
     this.y = this.game.rnd.integerInRange(0, 400);
     this.revive();
+    this.alpha = 0;
     this.visible = true;
     this.spriteMMA.visible = true;
+
+    this.tweenFadeIn();
 
 };
 Lgz.Bubble.prototype.eventPopped = function () {
@@ -126,26 +131,100 @@ Lgz.Bubble.prototype.eventPop = function (check) {
     if (check) {
         this.eventPopCallBack =  function () {
             thisObj.playSet.check(thisObj);
-        }
+        };
     }
 
 };
-Lgz.Bubble.prototype.tweenLoop = function () {
+Lgz.Bubble.prototype._tweenFadeIn = function () {
     'use strict';
-    var thisObj, tw, toX, toY, delayXY;
+    var thisObj, tw, tw1, tw2, toX, toY, toS, duration, delay, alpha;
+    console.log('Lgz.Bubble._tweenFadeIn:');
 
     thisObj = this;
-    tw = this.game.add.tween(this);
+
+    tw = this.game.add.tween(thisObj.scale);
+    tw1 = this.game.add.tween(thisObj.scale);
+    tw2 = this.game.add.tween(thisObj.scale);
+    //toS = this.game.rnd.integerInRange(1.15, 1.45);
+    toS = 1.7;
+    duration = 500;
+    //delay = this.game.rnd.integerInRange(100, 900);
+    delay = 0;
+
+    // 
+    // Parms to tween function to(
+    //  properties, duration, ease, autoStart, delay, repeat, yoyo
+    // ) 
+    //
+    tw = this.game.add.tween(thisObj);
+    tw.to(
+        { alpha: 1 },
+        duration,
+        Phaser.Easing.Quadratic.InOut,
+        true,
+        delay,
+        false,
+        false
+    );
+
+    tw1.to(
+        { x: toS, y: toS },
+        duration,
+        Phaser.Easing.Quadratic.InOut,
+        true,
+        delay,
+        false,
+        true
+    );
+
+    tw2.to(
+        { x: (toS * 0.8), y: (toS * 0.8) },
+        duration,
+        Phaser.Easing.Quadratic.InOut,
+        false,
+        0,
+        false,
+        true
+    );
+
+    tw1.chain(tw2);
+
+
+
+
+};
+Lgz.Bubble.prototype.tweenFadeIn = function () {
+    'use strict';
+    var thisObj, delay;
+
+    delay = this.game.rnd.integerInRange(0, 1000);
+    thisObj = this;
+
+    thisObj._fadeTOID = window.setTimeout(
+        function () {
+            thisObj._tweenFadeIn();
+        },
+        delay
+    );
+};
+Lgz.Bubble.prototype.tweenLoop = function () {
+    'use strict';
+    var thisObj, tw, toX, toY, toS, duration;
+    //console.log('Lgz.Bubble.tweenLoop:');
+
+    thisObj = this;
+    tw = this.game.add.tween(thisObj);
 
     toX = this.game.rnd.integerInRange(0, 600);
     toY = this.game.rnd.integerInRange(0, 400);
-    delayXY = this.game.rnd.integerInRange(8000, 16000);
+    duration = this.game.rnd.integerInRange(8000, 16000);
 
 
-    tw.to({ x: toX, y: toY }, delayXY, Phaser.Easing.Quadratic.InOut)
+    tw.to({ x: toX, y: toY }, duration, Phaser.Easing.Quadratic.InOut)
         .onComplete.addOnce(thisObj.tweenLoop, thisObj);
     tw.start();
     this.tween = tw;
+
 
 };
 /*
@@ -166,10 +245,12 @@ Lgz.PlaySet = function (scene) {
     thisObj.game = thisObj.lgzMgr.game;
     thisObj.nm = thisObj.lgzMgr.nm;
  
-    thisObj.cjsRoot = cjsRoot;
 
     cjs = thisObj.lgzMgr.cjs;
     cjsRoot = thisObj.lgzMgr.cjs.root;
+
+    thisObj.cjsRoot = cjsRoot;
+
     cjsStage = thisObj.lgzMgr.cjs.stage;
 
 
@@ -245,6 +326,15 @@ Lgz.PlaySet = function (scene) {
             obj = new Lgz.Bubble(thisObj, thisObj.$optArr[i], thisObj.bmdBubble);
             thisObj.groupBubbles.addChild(obj);
         }
+        i = thisObj.$optArr.length - 1;
+        //ivanixcu: debug alpha bleeding
+        //
+        //
+        thisObj.dot = thisObj.game.add.sprite(-1, -1, 'dot');
+
+
+        //scaleY is same as scaleX (4.225)
+        thisObj.pointsBubbleScale = cjsRoot.pointsBubbleBG.scaleX;
 
         thisObj.load();
         thisObj.lgzMgr.spinnerHide();
@@ -287,6 +377,73 @@ Lgz.PlaySet = function (scene) {
     thisObj.dialogCongrats = function () {
         thisObj.lgzMgr.postScore();
     };
+    thisObj.tweenPointsBubbleRestore = function (idx) {
+        var toS0, tw1;
+        console.log('Lgz.Bubble.tweenPointsBubbleRestore: ' + idx);
+        //from BathTubBubblesCJS.js pointsBubbbleBG
+        toS0 = thisObj.pointsBubbleScale;
+        tw1 = this.game.add.tween(cjsRoot.pointsBubbleBG);
+        tw1.to(
+            { scaleX: toS0, scaleY: toS0 },
+            100,
+            Phaser.Easing.Linear.None,
+            true,
+            0,
+            false,
+            false
+        );
+    };
+    thisObj.tweenPointsBubble = function (idx) {
+        var thisObj, tw1, tw2, toS0, toS1, toS2, pct;
+        console.log('Lgz.Bubble.tweenPointsBubble: ' + idx);
+    
+        thisObj = this;
+
+        //from BathTubBubblesCJS.js pointsBubbbleBG
+        toS0 = thisObj.pointsBubbleScale;
+
+        pct = (1 + idx)  / (1 + thisObj.groupBubbles.children.length);
+        console.log('Lgz.PlaySet.tweenPointsBubble: pct: '  + pct + '   idx: ' + idx);
+
+        toS1 = toS0 * 1.5 * pct;
+        toS2 = toS0 * 2 * pct;
+    
+        //cjsRoot.pointsBubbleBG.scaleX  = toS1;
+        //cjsRoot.pointsBubbleBG.scaleY  = toS1;
+        //
+        tw1 = this.game.add.tween(cjsRoot.pointsBubbleBG);
+        tw2 = this.game.add.tween(cjsRoot.pointsBubbleBG);
+
+        // 
+        // Parms to tween function to(
+        //  properties, duration, ease, autoStart, delay, repeat, yoyo
+        // ) 
+        //
+        // Phaser.Easing.Quadratic.InOut,
+    
+        tw1.to(
+            { scaleX: toS1, scaleY: toS1 },
+            100,
+            Phaser.Easing.Linear.None,
+            true,
+            0,
+            false,
+            false
+        );
+
+        tw2.to(
+            { scaleX: toS2, scaleY: toS2 },
+            200,
+            Phaser.Easing.Linear.None,
+            false,
+            0,
+            false,
+            false
+        );
+
+        tw1.chain(tw2);
+
+    };
     thisObj._eventBoatAnim = function () {
         console.log('_eventBoatAnim:');
         cjsRoot.boy.removeEventListener('done', this.eventBoatListener);
@@ -307,10 +464,10 @@ Lgz.PlaySet = function (scene) {
         cjsRoot.boy.gotoAndPlay('correct');
         thisObj.lgzMgr.soundPlay('splashmp3', 1000);
 
-	    tw = this.game.add.tween(thisObj.question.display);
-	    tw.to({ y: -100 }, 300, Phaser.Easing.Quadratic.Out, true, 700, false, true);
-	    tw.start();
-	    this.tween = tw;
+        tw = this.game.add.tween(thisObj.question.display);
+        tw.to({ y: -100 }, 300, Phaser.Easing.Quadratic.Out, true, 700, false, true);
+        tw.start();
+        this.tween = tw;
       
     };
     thisObj.eventWaitEmpty = function () {
@@ -344,8 +501,17 @@ Lgz.PlaySet = function (scene) {
     thisObj.eventPopBubble = function (idx, bubble) {
         thisObj.popTOID = window.setTimeout(
             function () {
+                thisObj.tweenPointsBubble(idx);
                 thisObj.scoreIncr(1);
                 bubble.eventPop();
+            },
+            (idx * 300)
+        );
+    };
+    thisObj.eventPopAllDone = function (idx) {
+        thisObj.popDoneTOID = window.setTimeout(
+            function () {
+                thisObj.tweenPointsBubbleRestore(idx);
             },
             (idx * 300)
         );
@@ -359,6 +525,7 @@ Lgz.PlaySet = function (scene) {
                 thisObj.eventPopBubble(idx, bubbles[idx]);
             }
         }
+        thisObj.eventPopAllDone(idx+1);
         thisObj.eventWaitEmpty();
     };
     thisObj.correct = function () {
@@ -383,17 +550,17 @@ Lgz.PlaySet = function (scene) {
         cjsRoot.boy.gotoAndPlay('wrong');
     };
     thisObj.check = function (bubble) {
-	    var txtNode, txtAnswer;
-	    txtNode = bubble.node.getAttribute('content');
-	    txtAnswer  = thisObj.answer.text;
+        var txtNode, txtAnswer;
+        txtNode = bubble.node.getAttribute('content');
+        txtAnswer  = thisObj.answer.text;
 
         window.clearTimeout(thisObj.checkTOID);
 
-	    if (txtNode === txtAnswer) {
-	        thisObj.correct();
-	    } else {
-	        thisObj.wrong();
-	    }
+        if (txtNode === txtAnswer) {
+            thisObj.correct();
+        } else {
+            thisObj.wrong();
+        }
     };
     thisObj.resetBubbles = function () {
         var i, bubbles;
@@ -414,7 +581,7 @@ Lgz.PlaySet = function (scene) {
         question  = {};
         question.node = thisObj.nm.getQuestion();
         console.debug('Lgz.PlaySet.load: mark 2');
-        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 110, 175, 300, 25);
+        question.display = new LgzLib.DisplayNodeBox(thisObj.game, question.node, 300, 190, 300, 25);
         console.debug('Lgz.PlaySet.load: mark 3');
         answer  = {};
         answer.node = thisObj.nm.getResponse();
