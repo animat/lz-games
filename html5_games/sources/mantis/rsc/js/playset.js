@@ -100,17 +100,32 @@ Lgz.PlaySet = function (scene) {
         obj.setTransform(70, 340);
         thisObj.cjsAdd(obj);
         thisObj.spriteTimer = obj;
-
         thisObj.timer = new LgzLib.Timer(thisObj.spriteTimer.text);
+
+
+	    obj = new createjs.Shape();
+	    obj.graphics.f("rgba(0, 0, 0, 0.9)").s().p("ArYEOIAAoaIWyAAIAAIag");
+        obj.setTransform(0, 55, 8.5, 0.02);
+        thisObj.cjsAdd(obj);
+        thisObj.spriteInputBgBorder = obj;
+
+	    obj = new createjs.Shape();
+	    obj.graphics.f("rgba(200,200,255, 0.5)").s().p("ArYEOIAAoaIWyAAIAAIag");
+        obj.setTransform(0, 0, 8.5, 2);
+        thisObj.cjsAdd(obj);
+        thisObj.spriteInputBg = obj;
 
         obj = new lib.try_btn();
         //note: fix text inside button
         obj.text.y = 2.5;
         obj.text_1.y = 2.5;
         obj.text.font = K.nodeTextStyle.font;
+        
         //obj.text.scaleX = 0.5;
         //obj.text.scaleY = 0.5;
+        
         obj.text_1.font = K.nodeTextStyle.font;
+       
         //obj.text_1.scaleX = 0.5;
         //obj.text_1.scaleY = 0.5;
         obj.setTransform(500, 2, 2, 2);
@@ -163,6 +178,7 @@ Lgz.PlaySet = function (scene) {
         var sprite;
         console.log('Lgz.PlaySet.create: 1');
         thisObj.sprites = {};
+
         thisObj.cont = true;
         thisObj.nm.reset();
         thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
