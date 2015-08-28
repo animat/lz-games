@@ -56,6 +56,28 @@ LgzLib.splitUrl = function (url) {
 	return obj;
 
 };
+LgzLib.jsonCopy = function (obj) {
+    'use strict';
+    return JSON.parse(JSON.stringify(obj));
+};
+LgzLib.jsonExtend = function (obj, extra) {
+    'use strict';
+    var prop;
+    for (prop in extra) {
+        if (extra.hasOwnProperty(prop)) {
+            obj[prop] = extra[prop];
+        }
+    }
+    return obj;
+};
+LgzLib.jsonCopyExtend = function (obj, extra) {
+    'use strict';
+    var copy;
+    copy = LgzLib.jsonCopy(obj);
+    return LgzLib.jsonExtend(copy, extra);
+};
+
+//todo: deprecate copy, use jsonCopy above instead
 LgzLib.copy = function (obj) {
     'use strict';
     var copy, prop;

@@ -41,7 +41,9 @@ Lgz._cbCjsReady = function (mgr) {
         root.playGame.text.text = str;
     };
     strTags.IDS_CONGRATS = function (str) {
-        root.text.text = str;
+        //root.text.text = str;
+        root.instance.textCongrats1.text = str;
+        root.instance.textCongrats2.text = str;
     };
     strTags.IDS_PLAY_AGAIN = function (str) {
         root.playAgain.text.text = str;
