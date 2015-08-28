@@ -153,8 +153,16 @@ Lgz.PlaySet = function (scene) {
         }
     };
     thisObj.cjsBringToFront = function () {
+        
+        cjsRoot.removeChild(thisObj.spriteInputBgBorder);
+        cjsRoot.addChild(thisObj.spriteInputBgBorder);
+        
+        cjsRoot.removeChild(thisObj.spriteInputBg);
+        cjsRoot.addChild(thisObj.spriteInputBg);
+
         cjsRoot.removeChild(thisObj.spriteTryBtn);
         cjsRoot.addChild(thisObj.spriteTryBtn);
+
         cjsRoot.removeChild(thisObj.spriteTimer);
         cjsRoot.addChild(thisObj.spriteTimer);
     };
@@ -327,14 +335,14 @@ Lgz.PlaySet = function (scene) {
             cjsRoot.removeChild(thisObj.spriteIncorrect);
         }
 
-        if (2 < thisObj.nm.remaining) {
-            cjsRoot.addChild(thisObj.spriteIncorrect);
-            thisObj.cjsBringToFront();
-            thisObj.spriteIncorrect.gotoAndPlay(0);
-        } else {
+        if (thisObj.nm.remaining === 1) {
             cjsRoot.addChild(thisObj.spriteCongrats);
             thisObj.cjsBringToFront();
             thisObj.spriteCongrats.gotoAndPlay('incorrect');
+        } else {
+            cjsRoot.addChild(thisObj.spriteIncorrect);
+            thisObj.cjsBringToFront();
+            thisObj.spriteIncorrect.gotoAndPlay(0);
         }
 
     };
