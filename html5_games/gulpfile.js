@@ -130,21 +130,23 @@ gulp.task('min_compile', function () {
         .pipe(replace(/css\?/g, 'css'))
         .pipe(replace(/js\?/g, 'js'))
         .pipe(usemin({
-            html: [function() {return minifyHtml({empty: true}); } ]
             css: [minifyCss(), 'concat'],
-            html: [minifyHtml({empty: true})],
-            js1: [uglify({
+            html: [function() {return minifyHtml({empty: true}); } ],
+            js1: [function() {
+                return uglify({
                 outSourceMap: true,
                 compress: {drop_console: true}
-            })],
-            js2: [uglify({
+            }); } ],
+            js2: [function() {
+                return uglify({
                 outSourceMap: true,
                 compress: {drop_console: true}
-            })],
-            js3: [uglify({
+            }); } ],
+            js3: [function() {
+                return uglify({
                 outSourceMap: true,
                 compress: {drop_console: true}
-            })]
+            }); } ]
         }))
         .pipe(gulp.dest('min/'));
 });
