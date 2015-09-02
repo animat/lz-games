@@ -223,6 +223,13 @@ gulp.task('build_min_lib', function () {
 	gulp.src(srcArr).pipe(gulp.dest(buildMin));
 
 });
+gulp.task('build_min_kconf', function () {
+	'use strict';
+	var srcArr;
+	srcArr = ['**/kconf.js'];
+	gulp.src(srcArr).pipe(gulp.dest(buildMin));
+
+});
 gulp.task('build_lib', function (cb) {
     'use strict';
     var srcDir;
@@ -236,6 +243,7 @@ gulp.task('build_lib', function (cb) {
         'build_raw_lib',
         'build_min_clean',
         'build_min_lib',
+        'build_min_kconf',
         cb
     );
 
