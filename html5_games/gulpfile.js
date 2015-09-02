@@ -6,6 +6,7 @@
  */
 /*jslint  nomen: true */
 
+
 var path = require('path');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
@@ -120,12 +121,16 @@ gulp.task('min_links',  function () {
             }
         ));
 });
+
 gulp.task('min_compile', function () {
     'use strict';
-    return gulp.src('./game.html')
+    var srcArr;
+	srcArr = ['./*.html'];
+    return gulp.src(srcArr)
         .pipe(replace(/css\?/g, 'css'))
         .pipe(replace(/js\?/g, 'js'))
         .pipe(usemin({
+            html: [function() {return minifyHtml({empty: true}); } ]
             css: [minifyCss(), 'concat'],
             html: [minifyHtml({empty: true})],
             js1: [uglify({
@@ -143,7 +148,6 @@ gulp.task('min_compile', function () {
         }))
         .pipe(gulp.dest('min/'));
 });
-
 gulp.task('compile_game',  function (cb) {
 	'use strict';
     runSequence(
