@@ -26,6 +26,7 @@ var uglify = require('gulp-uglify');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var rev = require('gulp-rev');
+var removeCode = require('gulp-remove-code');
 
  
 // include plug-ins
@@ -88,9 +89,9 @@ gulp.task('min_clean',  function () {
 	return gulp.src(dst, {read: false})
         .pipe(shell(
 	        [
-                'echo "cleaning `pwd`/min" ',
-                'rm -f min/*;'
-
+                'echo "cleaning `pwd`/min"',
+                'if [ -d min ]; then mv min  min.del; fi',
+                'if [ -d min.del ]; then rm -rf  min.del; fi'
 	        ],
             {
                 templateData: {
@@ -129,15 +130,21 @@ gulp.task('min_compile', function () {
     return gulp.src(srcArr)
         .pipe(replace(/css\?/g, 'css'))
         .pipe(replace(/js\?/g, 'js'))
+        .pipe(removeCode({prod: true}))
         .pipe(usemin({
             css: [minifyCss(), 'concat'],
-            html: [function() {return minifyHtml({empty: true}); } ],
-            js1: [function() {
-                return uglify({
-                outSourceMap: true,
-                compress: {drop_console: true}
-            }); } ],
-            js2: [function() {
+            html: [ function() { return minifyHtml({empty: true}); } ],
+            js1: [
+                function() {
+                    return removeCode({prod: true});
+                },
+                function() {
+                    return uglify({
+                    outSourceMap: true,
+                    compress: {drop_console: true}
+                }); } ],
+            js2: [
+                function() {
                 return uglify({
                 outSourceMap: true,
                 compress: {drop_console: true}
