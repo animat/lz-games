@@ -123,6 +123,12 @@ LgzLib.MsgFrames.Parent.prototype.gameParms = function () {
     if (parms.userid) {
         this.$lgzFrame.attr('userid', parms.userid);
     }
+    if (parms.gameswf) {
+        this.$lgzFrame.attr('gameswf', parms.gameswf);
+    }
+    if (parms.gameSWF) {
+        this.$lgzFrame.attr('gameswf', parms.gameSWF);
+    }
 
     parms.userid = this.$lgzFrame.attr('userid');
     
