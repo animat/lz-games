@@ -6,6 +6,7 @@
  */
 /*jslint  nomen: true */
 
+
 var path = require('path');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
@@ -25,6 +26,7 @@ var uglify = require('gulp-uglify');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var rev = require('gulp-rev');
+var removeCode = require('gulp-remove-code');
 
  
 // include plug-ins
@@ -87,9 +89,9 @@ gulp.task('min_clean',  function () {
 	return gulp.src(dst, {read: false})
         .pipe(shell(
 	        [
-                'echo "cleaning `pwd`/min" ',
-                'rm -f min/*;'
-
+                'echo "cleaning `pwd`/min"',
+                'if [ -d min ]; then mv min  min.del; fi',
+                'if [ -d min.del ]; then rm -rf  min.del; fi'
 	        ],
             {
                 templateData: {
@@ -120,30 +122,41 @@ gulp.task('min_links',  function () {
             }
         ));
 });
+
 gulp.task('min_compile', function () {
     'use strict';
-    return gulp.src('./game.html')
+    var srcArr;
+	srcArr = ['./*.html'];
+    return gulp.src(srcArr)
         .pipe(replace(/css\?/g, 'css'))
         .pipe(replace(/js\?/g, 'js'))
+        .pipe(removeCode({prod: true}))
         .pipe(usemin({
             css: [minifyCss(), 'concat'],
-            html: [minifyHtml({empty: true})],
-            js1: [uglify({
+            html: [ function() { return minifyHtml({empty: true}); } ],
+            js1: [
+                function() {
+                    return removeCode({prod: true});
+                },
+                function() {
+                    return uglify({
+                    outSourceMap: true,
+                    compress: {drop_console: true}
+                }); } ],
+            js2: [
+                function() {
+                return uglify({
                 outSourceMap: true,
                 compress: {drop_console: true}
-            })],
-            js2: [uglify({
+            }); } ],
+            js3: [function() {
+                return uglify({
                 outSourceMap: true,
                 compress: {drop_console: true}
-            })],
-            js3: [uglify({
-                outSourceMap: true,
-                compress: {drop_console: true}
-            })]
+            }); } ]
         }))
         .pipe(gulp.dest('min/'));
 });
-
 gulp.task('compile_game',  function (cb) {
 	'use strict';
     runSequence(
@@ -217,6 +230,13 @@ gulp.task('build_min_lib', function () {
 	gulp.src(srcArr).pipe(gulp.dest(buildMin));
 
 });
+gulp.task('build_min_kconf', function () {
+	'use strict';
+	var srcArr;
+	srcArr = ['**/kconf.js'];
+	gulp.src(srcArr).pipe(gulp.dest(buildMin));
+
+});
 gulp.task('build_lib', function (cb) {
     'use strict';
     var srcDir;
@@ -230,6 +250,7 @@ gulp.task('build_lib', function (cb) {
         'build_raw_lib',
         'build_min_clean',
         'build_min_lib',
+        'build_min_kconf',
         cb
     );
 
