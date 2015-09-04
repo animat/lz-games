@@ -118,7 +118,7 @@ LgzLib.DisplayNodeImage.prototype._load = function () {
     if (splitUrl.proto) {
         url = splitUrl.proto + '//' + splitUrl.base + '.' +  splitUrl.ext;
     } else {
-        url = this.baseUrl.mma + '/media/image/' + splitUrl.base + '.' + splitUrl.ext;
+        url = this.baseUrl.mma + '/' + splitUrl.base + '.' + splitUrl.ext;
     }
 
     this.loader = this.game.load.image(this.lgzContent, url, false);
