@@ -365,6 +365,49 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
             window.alert(msg);
         }
     };
+    thisObj.getDeviceProp = function (arr, notfound) {
+        var i, dev, prop;
+        dev = this.game.device;
+        for (i = 0;  i < arr.length; i += 1) {
+            prop = arr[i];
+            console.log('checking prop: ' + prop);
+            if (dev[prop]) {
+                console.log('found prop: ' + prop);
+                return prop;
+            }
+        }
+        return notfound;
+    };
+    thisObj.getPlatformK = function (k) {
+        var i, device, os, browser, key;
+        if (!thisObj._os) {
+            os = thisObj.getDeviceProp(K.platform.os, 'any');
+            browser = thisObj.getDeviceProp(K.platform.browser, 'any');
+            thisObj._os =  os;
+            thisObj._browser = browser;
+        }
+        if (!k._osbrowser) {
+            return k;
+        }
+        key =  thisObj._os + '_' + thisObj._browser;
+        if (k._osbrowser[key]) {
+            return k._osbrowser[key];
+        }
+
+        key =  thisObj._os + '_' + 'any';
+        if (k._osbrowser[key]) {
+            return k._osbrowser[key];
+        }
+        key =  'any' + '_' + thisObj._browser;
+        if (k._osbrowser[key]) {
+            return k._osbrowser[key];
+        }
+        key =  'any' + '_' + 'any';
+        if (k._osbrowser[key]) {
+            return k._osbrowser[key];
+        }
+
+    };
     thisObj.spinnerInit = function () {
         var cfg;
         cfg = {
