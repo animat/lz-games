@@ -414,6 +414,12 @@ gulp.task('build_game',['build_game1'], function () {
 	'use strict';
      process.exit(0);
 });
+/*
+ * TODO: remove
+ *
+ * Bug in gulp sometimes causes hangs when calling itself.
+ * build_all and build_games now handled externally by buildall.sh
+ *
 gulp.task('build_games', function () {
     'use strict';
     var srcArr;
@@ -444,6 +450,7 @@ gulp.task('build_all', function () {
         'build_games'
     );
 });
+*/
 
 gulp.task('build_test',  function () {
 	'use strict';
