@@ -13,7 +13,7 @@ do
   if [ -d "$child" ]; then 
   if [ "$child" != "sources/lib" ] && [ "$child" != "sources/svr" ]; then
   echo "$0: Processing: $child"
-  echo "cd $child; gulp build_game1;" |bash
+  echo "cd $child; gulp build_game;" |bash
   fi
   fi
 done
