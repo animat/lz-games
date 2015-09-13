@@ -14,7 +14,8 @@ echo "$0: Setting file permisisons"
 find  sources -type f -exec chmod 644  {} \;
 echo "$0: Installing npm modules"
 rm -f npm.out
-npm install | tee npm.out
+
+npm install 2>&1 | tee npm.out
 . ./build.env
 rm -f build.out
 

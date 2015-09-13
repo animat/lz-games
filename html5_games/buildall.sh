@@ -17,6 +17,6 @@ do
   fi
   fi
 done
-echo "$0: Build All Completed"
+echo "$0: Build completed"
 
-
+bash cksum.sh
