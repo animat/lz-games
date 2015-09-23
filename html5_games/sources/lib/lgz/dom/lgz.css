@@ -420,7 +420,7 @@ a.btn.btn-red:active {
     height: 24px;    
     padding: 5px;
     visibility: hidden;
-    background-image: url(../mma/globe.png);
+    background-image: url(../lib/lgz/mma/globe.png);
     background-size: 24px 24px;
     background-position: 1px 0px;
     background-repeat: no-repeat;
