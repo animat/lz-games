@@ -194,8 +194,7 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     thisObj.sendBug = function () {
         var url, $lgzParms, $form, sdata, gameid, userid, body;
      
-        //todo: add url prefix, games will not reside on linguazone
-        url = '/play/report_bug';
+        url = thisObj.baseUrl.post  + '/play/report_bug';
         $lgzParms = $("#lgzParms");
         gameid = $lgzParms.attr("gameid");
 
@@ -221,8 +220,8 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
     };
     thisObj.postScore = function (scoreval) {
         var $lgzParms, userid, gameid, url;
-        //todo: add url prefix, games will not reside on linguazone
-        url = "/high_scores/create";
+
+        url = thisObj.baseUrl.post  + "/high_scores/create";
         $lgzParms = $("#lgzParms");
         gameid = $lgzParms.attr("gameid");
         userid = $lgzParms.attr("userid");
