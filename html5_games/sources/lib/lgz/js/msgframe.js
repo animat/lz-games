@@ -32,7 +32,11 @@ LgzLib.MsgFrameConstants = function () {
         GameParmsGet: 31,
         GameParmsReply: 32,
 
-        AlertError: 41
+        AlertError: 41,
+
+        IphoneNormal: 101,
+        IphoneFsPortrait: 102,
+        IphoneFsLandscape: 103
 
        
     };
@@ -88,13 +92,13 @@ LgzLib.MsgFrame.prototype.getJsonFromUrl = function () {
 };
 LgzLib.MsgFrame.prototype.sendToParent = function (event, value) {
     'use strict';
-    console.log('(embedded)LgzLib.MsgFrame.sendToParent');
+    console.log('LgzLib.MsgFrame.prototype.sendToParent:');
     //parent.postMessage({'event': event, 'value': value}, location.origin);
     parent.postMessage({'event': event, 'value': value}, '*');
 };
 LgzLib.MsgFrame.prototype.sendToChild = function (event, value) {
     'use strict';
-    console.log('(embedded)LgzLib.MsgFrame.sendToChild');
+    console.log('LgzLib.MsgFrame.prototype.sendToChild:');
     //this.childWin.postMessage({'event': event, 'value': value}, location.origin);
     this.childWin.postMessage({'event': event, 'value': value}, '*');
 };
@@ -137,30 +141,9 @@ LgzLib.MsgFrames.Parent.prototype.gameParms = function () {
     baseUrl = JSON.parse(JSON.stringify(this.baseUrl));
 
 
-/*
- * note: not used.  first try at passing parms between 
- * ionic/angular to msgframe.parent which then passes on to child loader and child game
- * tbd: if api returns updated baseUrls, ionic will pass as arguments to 
- * Lgz.eventFrameInit() in js/controllers.js
- *
-    parm = this.$lgzFrame.attr('gamedir');
-    if (parm && parm.length) {
-        baseUrl.games = parm;
-    }
-
-    parm = this.$lgzFrame.attr('api');
-    if (parm && parm.length) {
-        baseUrl.api = parm;
-    }
-*/
-
     baseUrl.lang = this.baseUrl.lang;
 
     parms.baseUrl = baseUrl;
-
-    //ivanixcu: note swf is for dev/demo prototyping
-    // normally gameSWF is provided by info.xml
-    //
     parms.gameSWF = this.$lgzFrame.attr('gameswf');
     
     return parms;
@@ -174,6 +157,7 @@ LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen = function () {
     'use strict';
     var h;
     console.log('LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen');
+    window.clearTimeout(thisObj._fullScreenTOID);
     h = $(window).height();
     this.$lgzFrame.height(h);
 };
@@ -181,7 +165,7 @@ LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
     'use strict';
     var thisObj, $f, w, h, ratio;
 
-    console.log('LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen');
+    console.log('LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen:');
 
     $f = this.$lgzFrame;
     
@@ -208,17 +192,15 @@ LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
     h = Math.round(w * ratio);
 
     
-    console.log('eventViewFullScreen: w x h: ' + w + ' x ' + h);
+    console.log('    calc dim: w x h: ' + w + ' x ' + h);
     
     this.$lgzFrame.width(w);
     this.$lgzFrame.height(h);
 
-    console.log('eventViewFullScreen: $lgzFrame.width: ' + this.$lgzFrame.width());
+    console.log('    $lgzFrame.width: ' + this.$lgzFrame.width());
 
     thisObj = this;
-    //if (this.orientRequest === this.CK.OrientLockPortrait) {
-    //}
-    window.setTimeout(
+    thisObj._fullScreenTOID = window.setTimeout(
         function () {
             thisObj._eventViewFullScreen();
         },
@@ -232,7 +214,7 @@ LgzLib.MsgFrames.Parent.prototype.eventViewFullScreen = function () {
 LgzLib.MsgFrames.Parent.prototype.eventViewNormal = function () {
     'use strict';
     var $f, w, h, ratio;
-    console.log('LgzLib.MsgFrames.Parent.prototype.eventViewNormal');
+    console.log('LgzLib.MsgFrames.Parent.prototype.eventViewNormal:');
 
     $f = this.$lgzFrame;
     
@@ -260,21 +242,19 @@ LgzLib.MsgFrames.Parent.prototype.attachToDOM = function () {
 LgzLib.MsgFrames.Parent.prototype.eventSwitch = function (msg) {
     'use strict';
     var value;
-    console.log('FrameParent.eventSwitch:  event: '
-            + msg.event
-            + ' value: ' + msg.value
-        );
+    console.log('LgzLib.MsgFrames.Parent.prototype.eventSwitch:');
+    console.log('    event: ' + msg.event + ' value: ' + msg.value);
     switch (msg.event) {
     case this.CK.GameParmsGet:
         value = this.gameParms();
         value.parentType = this.parentType;
-        console.log('FrameParent/gameParms: gameid: ' + value.gameid);
-        console.log('FrameParent/gameParms: gameSWF: ' + value.gameSWF);
+        console.log('    gameid: ' + value.gameid);
+        console.log('    gameSWF: ' + value.gameSWF);
         this.sendToChild(this.CK.GameParmsReply, value);
         break;
 
     case this.CK.ViewIsFullScreen:
-        console.log('frameParent: ViewIsFullScreen');
+        console.log('    frameParent: ViewIsFullScreen');
         this.eventViewFullScreen();
         break;
     case this.CK.ViewIsNormal:
@@ -297,11 +277,12 @@ LgzLib.MsgFrames.Loader.lgzExtends(LgzLib.MsgFrame);
 LgzLib.MsgFrames.Loader.prototype.loadGame = function (name) {
     'use strict';
     var href, idx;
+    console.log('LgzLib.MsgFrames.Loader.prototype.loadGame:');
     
     idx = location.pathname.search('/Frame');
     href = this.baseUrl.games
         + '/' + name + '/game.html?';
-    console.log('LgzLib.MsgFrames.Loader: href: ' + href);
+    console.log('    href: ' + href);
     
     //todo: test url exists before loading?
     //todo: have parent of iframe monitor for any fails from server
@@ -312,13 +293,13 @@ LgzLib.MsgFrames.Loader.prototype.loadGame = function (name) {
 LgzLib.MsgFrames.Loader.prototype.loadInfoOK = function (data) {
     'use strict';
     var name;
-    console.log('LgzLib.MsgFrameLoader.loadInfoOK');
+    console.log('LgzLib.MsgFrameLoader.prototype.loadInfoOK:');
     name = $(data).find('gameInfo').attr('gameSWF');
     this.loadGame(name);
 };
 LgzLib.MsgFrames.Loader.prototype.loadInfoFAIL = function (e) {
     'use strict';
-    console.error('LgzLib.MsgFrameLoader.loadInfoFAIL:' + e.statusText);
+    console.error('LgzLib.MsgFrames.Loader.prototype.loadInfoFAIL:' + e.statusText);
 };
 LgzLib.MsgFrames.Loader.prototype.loadInfo = function (gameid) {
     'use strict';
@@ -335,7 +316,8 @@ LgzLib.MsgFrames.Loader.prototype.loadInfo = function (gameid) {
 LgzLib.MsgFrames.Loader.prototype.eventSwitch = function (msg) {
     'use strict';
     var parms, prop;
-    console.log('FrameLoader.eventSwitch:  event: '
+    console.log('LgzLib.MsgFrames.Loader.prototype.eventSwitch:');
+    console.log('   event: '
         + msg.event
         + ' value: '
         + msg.value);
@@ -349,18 +331,18 @@ LgzLib.MsgFrames.Loader.prototype.eventSwitch = function (msg) {
                 }
             }
         }
-        console.log('MsgFrames.Loader.eventSwich: gameSWF: ' + parms.gameSWF);
-        console.log('MsgFrames.Loader.eventSwich: gameid: ' + parms.gameid);
+        console.log('    gameSWF: ' + parms.gameSWF);
+        console.log('    gameid: ' + parms.gameid);
         if (parms.gameSWF && parms.gameSWF.length) {
-            console.log('MsgFrames.Loader.eventSwich: loadGame');
+            console.log('    eventSwitch: loadGame');
             this.loadGame(parms.gameSWF);
         } else {
             if (parms.gameid && parms.gameid.length) {
-                console.log('MsgFrames.Loader.eventSwich: loadInfo');
+                console.log('    loadInfo');
                 this.loadInfo(parms.gameid);
             } else {
                 //todo: send errormsg back to parent of iframe to display error on native app
-                console.error('MsgFrames.Loader.eventSwich: Missing gameid from parent of iframe');
+                console.error('    Missing gameid from parent of iframe');
             }
         }
         break;
@@ -383,6 +365,8 @@ LgzLib.MsgFrames.Game = function (mgr, cbInit) {
     this.parentIsNative = false;
     this.parentIsWeb = false;
 
+    this.$html = $('html');
+
     LgzLib.MsgFrame.call(this);
 };
 LgzLib.MsgFrames.Game.lgzExtends(LgzLib.MsgFrame);
@@ -391,7 +375,7 @@ LgzLib.MsgFrames.Game.prototype.loadAccentsOK = function (data) {
     'use strict';
     var thisObj, i, set, charArr, strHTML, $ac, lgzInput;
 
-    console.log('MsgFramesGame.loadAccentsOK:');
+    console.log('LgzLib.MsgFramesGame.prototype.loadAccentsOK:');
     
     thisObj = this;
     set = $(data).find('set');
@@ -416,18 +400,19 @@ LgzLib.MsgFrames.Game.prototype.loadAccentsOK = function (data) {
 };
 LgzLib.MsgFrames.Game.prototype.loadAccentsFAIL = function (e) {
     'use strict';
-    console.error('LgzLib.MsgFrameGame.loadAccentsFAIL: ' + e.statusText);
+    console.error('LgzLib.MsgFrameGame.prototype.loadAccentsFAIL: ' + e.statusText);
     this.err = e;
 };
 LgzLib.MsgFrames.Game.prototype.loadAccents = function (gameid) {
     'use strict';
     var thisObj, href;
     thisObj = this;
+    console.log('LgzLib.MsgFrames.Game.prototype.loadAccents:');
 
-    console.log('MsgFrames.Game.loadAccents:gameid: ' + gameid);
+    console.log('   gameid: ' + gameid);
 
     href = this.urlInfo(gameid);
-    console.log('MsgFrames.Game.loadAccents:href: ' + href);
+    console.log('    href: ' + href);
 
     $.get(href, function (data) {
         thisObj.loadAccentsOK(data);
@@ -452,19 +437,6 @@ LgzLib.MsgFrames.Game.prototype.gameParmsUrl = function () {
     return false;
 
 };
-/*
- * TODO: move to game
- * accent chars now in game data xml.
- *
-LgzLib.MsgFrames.Game.prototype._initFrame = function () {
-    'use strict';
-    var gameid;
-    
-    gameid = this.$lgzParms.attr('gameid');
-    this.loadAccents(gameid);
-    this._cbInit();
-};
-*/
 LgzLib.MsgFrames.Game.prototype.identifyParent = function (parentType) {
     'use strict';
     switch (parentType) {
@@ -476,13 +448,43 @@ LgzLib.MsgFrames.Game.prototype.identifyParent = function (parentType) {
         break;
     }
 };
+LgzLib.MsgFrames.Game.prototype.eventIphoneNormal = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.Game.prototype.eventIphoneNormal:');
+    this.$html.css('-webkit-transform-origin','0 0');
+};
+LgzLib.MsgFrames.Game.prototype.eventIphoneFsPortrait = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.Game.prototype.eventIphoneFsPortrait:');
+    this.$html.css('-webkit-transform-origin','0 0');
+    this.$html.css('-webkit-transform','scale(0.53)');
+};
+LgzLib.MsgFrames.Game.prototype._eventIphoneFsLandscape = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.Game.prototype._eventIphoneFsLandscape:');
+    window.clearTimeout(this._iphoneFsTOID);
+    this.$html.css('-webkit-transform','scale(1)');
+};
+LgzLib.MsgFrames.Game.prototype.eventIphoneFsLandscape = function () {
+    'use strict';
+    var thisObj;
+    console.log('LgzLib.MsgFrames.Game.prototype.eventIphoneFsLandscape:');
+    this.$html.css('-webkit-transform-origin','0 0');
+    this.$html.css('-webkit-transform','scale(0.5)');
+    thisObj = this;
+    thisObj._iphoneFsTOID = window.setTimeout(
+        function () {
+            thisObj._eventIphoneFsLandscape();
+        },
+        800
+    );
+};
 LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
     'use strict';
     var parms, prop;
-    console.log('FrameGame.eventSwitch:  event: '
-        + msg.event
-        + ' value: '
-        + msg.value);
+    console.log('LgzLib.MsgFrames.Game.prototype.eventSwitch:');
+
+    console.log('    event: ' + msg.event + ' value: ' + msg.value);
     switch (msg.event) {
     case this.CK.GameParmsReply:
         parms = msg.value;
@@ -496,20 +498,30 @@ LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
         if (parms.parentType) {
             this.identifyParent(parms.parentType);
         }
-        console.log('FrameGame.eventSwitch:  gameid: '  + parms.gameid);
-        console.log('FrameGame.eventSwitch:  userid: '  + parms.userid);
+        console.log('   gameid: '  + parms.gameid);
+        console.log('   userid: '  + parms.userid);
         this.$lgzParms.attr('gameid', parms.gameid);
         this.$lgzParms.attr('userid', parms.userid);
         this._cbInit();
+        break;
+    case this.CK.IphoneNormal:
+        this.eventIphoneNormal();
+        break;
+    case this.CK.IphoneFsPortrait:
+        this.eventIphoneFsPortrait();
+        break;
+    case this.CK.IphoneFsLandscape:
+        this.eventIphoneFsLandscape();
         break;
     }
 };
 LgzLib.MsgFrames.Game.prototype.init = function () {
     'use strict';
+    console.log('LgzLib.MsgFrames.Game.prototype.init');
     this._super.init.call(this);
     this.$lgzParms = $('#lgzParms');
     if (this.gameParmsUrl()) {
-        console.log('LgzLib.MsgFrames.Game.initFrame: gameParmsUrl true');
+        console.log('    gameParmsUrl is true');
         this._cbInit();
     } else {
         this.sendToParent(this.CK.ChildIsGame);
@@ -544,7 +556,7 @@ LgzLib.MsgFrames.ParentWeb.prototype.eventViewFullScreen = function () {
     w = $(window).width();
     h = Math.round(w * ratio);
 
-    console.log('eventViewFullScreen: w x h: ' + w + ' x ' + h);
+    console.log('    eventViewFullScreen: w x h: ' + w + ' x ' + h);
     
     this.$lgzFrame.width(w);
     this.$lgzFrame.height(h);
@@ -567,54 +579,90 @@ LgzLib.MsgFrames.ParentNative  = function () {
     }
 };
 LgzLib.MsgFrames.ParentNative.lgzExtends(LgzLib.MsgFrames.Parent);
+LgzLib.MsgFrames.ParentNative.prototype.iframeNormal = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeNormal:');
+
+    var $lgzFrame = this.$lgzFrame;	
+
+    if(window.innerWidth === 320) {
+    	//ivanixcu: set iframe 300x213 for iphone/4/5
+       $lgzFrame.width(300);
+       $lgzFrame.height(213);
+       $lgzFrame.css('-webkit-transform','scale(0.5)');
+       $lgzFrame.css('-webkit-transform-origin','0 0');
+        this.sendToChild(this.CK.IphoneNormal);
+    } else {
+    	//ivanixcu: set iframe 600x425 for all others
+       $lgzFrame.width(600);
+       $lgzFrame.height(425);
+    }
+};
+LgzLib.MsgFrames.ParentNative.prototype.iframeFsPortrait = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeFsPortrait:');
+    var $lgzFrame = this.$lgzFrame;	
+    $lgzFrame.css('-webkit-transform','scale(1)');
+    $lgzFrame.css('-webkit-transform-origin','0 0');
+    this.sendToChild(this.CK.IphoneFsPortrait);
+};
+LgzLib.MsgFrames.ParentNative.prototype.iframeFsLandscape = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeFsLandscape:');
+    var $lgzFrame = this.$lgzFrame;	
+    $lgzFrame.css('-webkit-transform','scale(1)');
+    $lgzFrame.css('-webkit-transform-origin','0 0');
+    this.sendToChild(this.CK.IphoneFsLandscape);
+};
+LgzLib.MsgFrames.ParentNative.prototype.iframeFs = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeFs:');
+    if(window.innerWidth === 320) {
+      this.iframeFsPortrait();
+    }
+    if(window.innerHeight === 320) {
+      this.iframeFsLandscape();
+    }
+};
+LgzLib.MsgFrames.ParentNative.prototype.attachToDOM = function () {
+    'use strict';
+    console.log('LgzLib.MsgFrames.ParentNative.prototype.attachToDOM:');
+    this._super.attachToDOM.call(this);
+    this.iframeNormal();
+};
 LgzLib.MsgFrames.ParentNative.prototype.eventSwitch = function (msg) {
     'use strict';
     var value;
-    console.log('ParentNative.eventSwitch:  event: '
-            + msg.event
-            + ' value: ' + msg.value
-        );
+    console.log('LgzLib.MsgFrames.ParentNative.prototype.eventSwitch:');
+    console.log('    event: ' + msg.event + ' value: ' + msg.value);
     switch (msg.event) {
-    /*
-    case this.CK.GameParmsGet:
-        value = this.gameParms();
-        value.parentType = this.parentType;
-        console.log('FrameParent/gameParms: gameid: ' + value.gameid);
-        console.log('FrameParent/gameParms: gameSWF: ' + value.gameSWF);
-        this.sendToChild(this.CK.GameParmsReply, value);
-        break;
-    */
 
     //
     // note: requires cordova plugin:
     //       net.yoik.cordova.plugins.screenorientation
     //
     case this.CK.OrientLockLandScape:
-        console.log('FrameNativeParent.eventSwitch: '
-            + ' OrientLockLandScape');
+        console.log('    orient request: ' + 'OrientLockLandScape');
 
         this.orientRequest = msg.event;
         screen.lockOrientation('landscape');
         break;
 
     case this.CK.OrientLockPortrait:
-        console.log('FrameNativeParent.eventSwitch: '
-            + ' OrientLockPortrait');
+        console.log('    orient request: ' + 'OrientLockPortrait');
 
         this.orientRequest = msg.event;
         screen.lockOrientation('portrait');
         break;
 
     case this.CK.OrientUnlock:
-        console.log('FrameNativeParent.eventSwitch: '
-            + ' OrientUnlock');
+        console.log('    orient request: ' + 'OrientUnlock');
         this.orientRequest = msg.event;
         screen.unlockOrientation();
         break;
 
     case this.CK.OrientNormal:
-        console.log('FrameNativeParent.eventSwitch: '
-            + ' OrientNormal');
+        console.log('    orient request: ' + 'OrientNormal');
         this.orientRequest = msg.event;
         this.eventOrientNormal();
         break;
