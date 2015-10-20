@@ -157,7 +157,7 @@ LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen = function () {
     'use strict';
     var h;
     console.log('LgzLib.MsgFrames.Parent.prototype._eventViewFullScreen');
-    window.clearTimeout(thisObj._fullScreenTOID);
+    window.clearTimeout(this._fullScreenTOID);
     h = $(window).height();
     this.$lgzFrame.height(h);
 };
