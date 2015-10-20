@@ -218,7 +218,7 @@ LgzLib.MsgFrames.Parent.prototype.eventViewNormal = function () {
 
     $f = this.$lgzFrame;
     
-    $f.css('background', '#ff00ff');
+    $f.css('background', '#222222');
     $f.css('position', '');
     $f.css('top', '');
     $f.css('left', '');
@@ -453,11 +453,12 @@ LgzLib.MsgFrames.Game.prototype.eventIphoneNormal = function () {
     console.log('LgzLib.MsgFrames.Game.prototype.eventIphoneNormal:');
     this.$html.css('-webkit-transform-origin','0 0');
 };
-LgzLib.MsgFrames.Game.prototype.eventIphoneFsPortrait = function () {
+LgzLib.MsgFrames.Game.prototype.eventIphoneFsPortrait = function (widthRatio) {
     'use strict';
     console.log('LgzLib.MsgFrames.Game.prototype.eventIphoneFsPortrait:');
+    console.log('    widthRatio: ' + widthRatio);
     this.$html.css('-webkit-transform-origin','0 0');
-    this.$html.css('-webkit-transform','scale(0.53)');
+    this.$html.css('-webkit-transform','scale(' + widthRatio + ')');
 };
 LgzLib.MsgFrames.Game.prototype._eventIphoneFsLandscape = function () {
     'use strict';
@@ -508,7 +509,7 @@ LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
         this.eventIphoneNormal();
         break;
     case this.CK.IphoneFsPortrait:
-        this.eventIphoneFsPortrait();
+        this.eventIphoneFsPortrait(msg.value);
         break;
     case this.CK.IphoneFsLandscape:
         this.eventIphoneFsLandscape();
@@ -583,33 +584,35 @@ LgzLib.MsgFrames.ParentNative.prototype.iframeNormal = function () {
     'use strict';
     console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeNormal:');
 
-    var $lgzFrame = this.$lgzFrame;	
+    var $lgzFrame = this.$lgzFrame;        
 
-    if(window.innerWidth === 320) {
-    	//ivanixcu: set iframe 300x213 for iphone/4/5
+    if(window.innerWidth < 640) {
+            //ivanixcu: set iframe 300x213 for iphone/4/5/6
        $lgzFrame.width(300);
        $lgzFrame.height(213);
        $lgzFrame.css('-webkit-transform','scale(0.5)');
        $lgzFrame.css('-webkit-transform-origin','0 0');
         this.sendToChild(this.CK.IphoneNormal);
     } else {
-    	//ivanixcu: set iframe 600x425 for all others
+            //ivanixcu: set iframe 600x425 for all others
        $lgzFrame.width(600);
        $lgzFrame.height(425);
     }
 };
 LgzLib.MsgFrames.ParentNative.prototype.iframeFsPortrait = function () {
     'use strict';
+    var ratioWidth;
     console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeFsPortrait:');
-    var $lgzFrame = this.$lgzFrame;	
+    var $lgzFrame = this.$lgzFrame;
     $lgzFrame.css('-webkit-transform','scale(1)');
     $lgzFrame.css('-webkit-transform-origin','0 0');
-    this.sendToChild(this.CK.IphoneFsPortrait);
+    ratioWidth = window.innerWidth / 600;
+    this.sendToChild(this.CK.IphoneFsPortrait, ratioWidth.toFixed(3));
 };
 LgzLib.MsgFrames.ParentNative.prototype.iframeFsLandscape = function () {
     'use strict';
     console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeFsLandscape:');
-    var $lgzFrame = this.$lgzFrame;	
+    var $lgzFrame = this.$lgzFrame;
     $lgzFrame.css('-webkit-transform','scale(1)');
     $lgzFrame.css('-webkit-transform-origin','0 0');
     this.sendToChild(this.CK.IphoneFsLandscape);
@@ -617,11 +620,17 @@ LgzLib.MsgFrames.ParentNative.prototype.iframeFsLandscape = function () {
 LgzLib.MsgFrames.ParentNative.prototype.iframeFs = function () {
     'use strict';
     console.log('LgzLib.MsgFrames.ParentNative.prototype.iframeFs:');
-    if(window.innerWidth === 320) {
-      this.iframeFsPortrait();
+    if(window.innerWidth < 640) {
     }
-    if(window.innerHeight === 320) {
-      this.iframeFsLandscape();
+    if (window.innerWidth < window.innerHeight) {
+        // portrait mode
+        if(window.innerWidth < 640) {
+           this.iframeFsPortrait();
+        }
+    } else {
+        if(window.innerHeight < 640) {
+           this.iframeFsLandscape();
+        }
     }
 };
 LgzLib.MsgFrames.ParentNative.prototype.attachToDOM = function () {
