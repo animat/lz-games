@@ -15,13 +15,34 @@
 window.console = window.console || {};
 window.console.debug = window.console.debug || window.console.log || function () { "use strict"; };
 var LgzLib = LgzLib || {};
-Function.prototype.lgzExtends = function (parent) {
+LgzLib._$super = function(alias, method) {
+    var args = Array.prototype.slice.call(arguments,2);
+    return this['_$'+alias][method].apply(this,args);
+};
+Function.prototype.lgzExtends = function (parent, alias) {
     'use strict';
     var child;
     child = this;
     child.prototype = Object.create(parent.prototype);
     child.prototype.constructor = child;
     child.prototype._super = parent.prototype;
+
+   if (alias) {
+	   var superalias = '_$$'+ alias ;
+	   if (parent.prototype[superalias]) {
+	      throw new Error('alias super class already exists! (' + superalias +')');
+	   } else {
+	      child.prototype[superalias] = parent;
+	   }
+	   superalias = '_$'+ alias ;
+	   if (parent.prototype[superalias]) {
+	      throw new Error('alias super proto already exists! (' + superalias +')');
+	   } else {
+	      child.prototype[superalias] = parent.prototype;
+	   }
+   }
+   child.prototype._$super = LgzLib._$super;
+
 };
 LgzLib.splitUrl = function (url) {
 	"use strict";

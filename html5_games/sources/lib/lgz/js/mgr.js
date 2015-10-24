@@ -160,12 +160,12 @@ LgzLib.Mgr = function (globLgz, gamePrefix, onReady) {
         );
     };
     thisObj.exit = function () {
+        thisObj.hud.winClose('winExitConfirm',true);
         thisObj.hud.orientNormalRequest();
         thisObj.hud.fullScreenStop();
         thisObj.hud.fullScreenStopPost();
         thisObj.hud.onResize();
         thisObj.welcome();
-        //window.location.reload();
     };
     thisObj.langSwap = function () {
         thisObj.lang.pageSwap();
