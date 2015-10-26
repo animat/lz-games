@@ -136,7 +136,6 @@ LgzLib.Hud = function (mgr) {
         CK = mf.CK;
         if (mf.parentIsNative) {
 
-            thisObj.orientManage = function () {};
 
             switch (thisObj.orient) {
             case thisObj.ORIENT.PORTRAIT:
@@ -166,12 +165,16 @@ LgzLib.Hud = function (mgr) {
         
         resizeDirty = false;
         if (!thisObj.isFullScreen()) {
-            thisObj.fullScreenStopPost();
+            if (!mgr.msgframe.parentIsNative) {
+                thisObj.fullScreenStopPost();
+            }
         }
 
         if (!game.device.desktop) {
             thisObj.toggleFsButtons();
-            thisObj.orientManage();
+            if (!mgr.msgframe.parentIsNative) {
+                thisObj.orientManage();
+            }
         }
         thisObj.onResizePost2();
     };
@@ -284,9 +287,6 @@ LgzLib.Hud = function (mgr) {
         game.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
 
-        //ivanix: hack to remove h/w properties set by document['webkitCancelFullScreen']();
-        //window.setTimeout(function () { thisObj.fullScreenStopPost(); }, 100);
-        //window.setTimeout(function () { thisObj.onResize(); }, 500);
     };
     thisObj.isFullScreen = function () {
             //
