@@ -78,7 +78,8 @@ Lgz.Decoy = function (playSet, nodeIdx) {
 
     this.posTree = K.mapTree[nodeIdx];
 
-    Phaser.Sprite.call(this, game, pos.x, pos.y, 'dot');
+    //Phaser.Sprite.call(this, game, pos.x, pos.y, 'dot');
+    Phaser.Sprite.call(this, game, pos.x + K.mapAdj.x, pos.y + K.mapAdj.y, 'dot');
     game.add.existing(this);
 
     spriteMMA = new LgzLib.DisplayNodeMMA(game, this.nodeQuestion, 0, 0);
