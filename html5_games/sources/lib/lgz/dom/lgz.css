@@ -96,7 +96,7 @@ a.btn.btn-red:active {
 }
 #lgzContainer p {
     font-weight: bold;
-    font-size: larger;
+    font-size: 1em;
     color: #ffffff;
     text-align: center;
 }
@@ -235,8 +235,7 @@ a.btn.btn-red:active {
 
 #lgzHud button {
 
-    font-weight: bold;
-    font-size: medium;
+    font-size: 1em;
     
     min-width: 5em;
     
