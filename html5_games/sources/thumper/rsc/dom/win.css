@@ -1,10 +1,10 @@
 
 #winPlay .msgballoon {
     position: absolute;
-    top: 250px;
+    top: 210px;
     margin: 0;
-    padding: 20px;
-    width: 400px;
+    padding: 10px;
+    width: 410px;
     margin-left: 20px;
 }
 .fs#lgzHud #winPlay .msgballoon {
@@ -28,21 +28,10 @@
     top: 110px;
     width: 240px;
 }
-.xxxfs#lgzHud #winWon .msgballoon {
-    width: 50vh;
-    top: 30vh;
-    right: 10vh;
-}
 #winWon #lgzBtnPlayAgain {
     position: absolute;
     top: 330px;
     right: 60px;
     width: 200px;
     /* min-height: 5%; */
-}
-.xxxfs#lgzHud #winWon button {
-    position: absolute;
-    top: 80vh;
-    left: 82vh;
-    width: 45vh;
 }

@@ -25,7 +25,7 @@ Lgz.Matrix = function (playSet) {
     thisObj.avl = function (x, y) {
         var idx;
         if (thisObj.idx(x,y) % 2) {
-            // console.debug('Lgz.Matrix.avl: disallow odd idx');
+            // console.log('Lgz.Matrix.avl: disallow odd idx');
             return false;
         }
         if (thisObj.cell[thisObj.idx(x,y)]) {
@@ -166,13 +166,13 @@ Lgz.PlaySet = function (scene) {
         
     };    
     thisObj.start = function () {
-        console.debug('Lgz.PlaySet.start:');
+        console.log('Lgz.PlaySet.start:');
         thisObj.nm.reset();
         return;
     };    
     thisObj.tryRand = function () {
         this.tryTS = Date.now() + this.game.rnd.integerInRange(K.tryRand.Min, K.tryRand.Max);
-        console.debug('tryRand: ' + this.tryTS);
+        //console.log('tryRand: ' + this.tryTS);
     };
     thisObj._playLoop = function () {
         var idx, len, vcount, wordArr, ts, tryshow;
@@ -192,7 +192,7 @@ Lgz.PlaySet = function (scene) {
             } else {
  
                 if (thisObj.cont && vcount < K.showMax &&  thisObj.tryTS < ts && wordArr[idx].tryTS < ts) {
-                     console.debug('_playLoop: trying idx: ' + idx);
+                     // console.log('_playLoop: trying idx: ' + idx);
                     if (wordArr[idx].tryReserve()) {
                         thisObj.tryRand();
                         vcount += 1;
@@ -204,7 +204,7 @@ Lgz.PlaySet = function (scene) {
     };    
     thisObj.load = function () {
         var question, answer, i, substext;
-        console.debug('Lgz.PlaySet.load:');
+        console.log('Lgz.PlaySet.load:');
 
         question  = {};
         question.node = thisObj.nm.getQuestion();
@@ -281,12 +281,12 @@ Lgz.PlaySet = function (scene) {
 
     };
     thisObj.hitWrong = function () {
-        console.debug('Lgz.PlaySet._hitWrong: ');
+        console.log('Lgz.PlaySet._hitWrong: ');
         thisObj.score.total += 1;
         thisObj.scoreUpdateDisplay();
     };
     thisObj._hitCorrect = function () {
-        console.debug('Lgz.PlaySet.hitCorrect: ');        
+        console.log('Lgz.PlaySet.hitCorrect: ');        
         if (!thisObj.cont) {
             return;
         }

@@ -21,11 +21,14 @@
  * 
 
  */
+LgzLib.Scenes.Splash.prototype.p_preinit = LgzLib.Scenes.Splash.prototype.preinit;
 LgzLib.Scenes.Splash.prototype.preinit = function () {
     console.debug('LgzLib.Scenes2.Splash.prototype.preinit');
+    this.lgzHud.objJQ('#winPlay button');
+    this.lgzHud.objJQ('#winPlay .msgballoon');
     this.lgzHud.objJQ('#winWon .msgballoon');
     this.lgzHud.objJQ('#winWon button');
-    this.lgzHud.objArrSave();
+    this.p_preinit();
 
 };
 LgzLib.Scenes.Main.prototype.preinit = function () {
@@ -51,11 +54,7 @@ LgzLib.Scenes.Main.prototype.eventResized = function () {
    this.lgzHud.objArrResize();   
 };
 LgzLib.Scenes.Main.prototype.update = function () {
-    Lgz.hud.print('wih: ' + window.innerHeight 
-            + ' bh: ' + $('body').height()
-            + ' ch: ' + $('canvas').height());
     this.playSet.update();
-
 };
 
 LgzLib.Scenes.Main.prototype.eventNodeBeforeNext = function () {
