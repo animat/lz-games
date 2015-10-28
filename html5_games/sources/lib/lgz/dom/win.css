@@ -23,12 +23,17 @@
 #winExitConfirm {
     position: absolute;
 }
+#winExitConfirm .msgbox {
+    padding: 20px;
+    margin: 20px;
+}
 #winHint [subref] {
     display: none;
 }
 #winHint button {
     width: 120px;
-    font-size: 10px;        
+    font-size: 1em;        
+
 }
 #winWon  {
 	position: absolute;
@@ -39,3 +44,45 @@
     background: rgba(0,255,0,0.5);
 
 }
+/*
+ * After adjusting common button font-size to 1em
+ * Need to beautify button in main winHelp
+ */
+
+/*
+ * Adjustments for iphone screens
+ */
+#winHelp button { 
+       min-width: 10em;
+}
+
+@media (max-width: 600px) {
+    #lgzHud textarea {
+        height: 5em;
+        font-size: 1.5em;
+        width: 90%;
+    }
+    #winBug button { 
+        margin: 4em;
+    }
+}
+@media (max-width: 320px) {
+    #lgzContainer p {
+        font-size: 1.5em;
+        
+    }
+    #lgzHud .msgbox {
+        margin: 0.5em;
+        padding: 1em;
+    }
+    #lgzHud textarea {
+        height: 6em;
+        font-size: 1.25em;
+        width: 95%;
+    }
+    #winBug button { 
+        margin: 1em;
+    }
+
+}
+
