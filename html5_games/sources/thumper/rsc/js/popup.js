@@ -73,8 +73,8 @@ Lgz.Popup = function (playSet, spriteMMA, nodeIdx) {
     spriteMask = thisObj.game.add.graphics(0, 0);
     spriteMask.beginFill(0xffffff);
     spriteMask.moveTo(0, 0);
-    spriteMask.lineTo(K.popBaseWidth, 0);
-    spriteMask.lineTo(K.popBaseWidth, maskHeight);
+    spriteMask.lineTo(K.popBaseWidth * 1, 0);
+    spriteMask.lineTo(K.popBaseWidth * 1, maskHeight);
     spriteMask.lineTo(0, maskHeight);
     spriteMask.lineTo(0, 0);
     spriteMask.endFill();
@@ -199,8 +199,7 @@ Lgz.Popup.prototype._show = function () {
     distance = ((thisObj.y + 200) / 600);
     thisObj.scale.x = distance;
     thisObj.scale.y = distance;
-    //thisObj.spriteMask.x = thisObj.spriteMMA.x;
-    thisObj.spriteMask.x = -(thisObj.spriteMMA.vwidth()/2)|0;
+    thisObj.spriteMask.x =  -(thisObj.spriteMMA.width/2)|0;
     thisObj.frameRate = K.Frame.Rate;
     
     thisObj.frameLoop(1, 1);
