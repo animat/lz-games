@@ -152,7 +152,7 @@ Lgz.PlaySet = function (scene) {
 
         $lgzInput.keypress(
             function (event) {
-                if (event.keyCode === 13) {
+                if (event.which === 13) {
                     thisObj.check();
                 }
             }
