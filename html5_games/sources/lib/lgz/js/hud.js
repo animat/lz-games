@@ -805,6 +805,15 @@ LgzLib.Hud = function (mgr) {
                 thisObj.onOrientChange(event);
             });
         }
+
+        $('#textbug').on('keypress',
+            function (event) {
+                if (event.which === 13) {
+                    mgr.sendBug();
+                }
+                return true;
+            }
+        );
     };
     thisObj._init();
 };
