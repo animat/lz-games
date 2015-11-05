@@ -95,7 +95,9 @@ a.btn.btn-red:active {
     color: #ffffff;
 }
 #lgzContainer p {
+    /*
     font-weight: bold;
+    */
     font-size: 1em;
     color: #ffffff;
     text-align: center;

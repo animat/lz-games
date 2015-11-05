@@ -36,11 +36,10 @@
     font-size: 1em;        
 
 }
-/*
-#winHint > .msgbox {
-    margin-top: 1em;
+#winHint p {
+    font-size: 1em;
+    font-weight: normal;
 }
-*/
 #lgzHintBtns {
     display: inline-flex;
     margin-top: 1em;
@@ -87,7 +86,9 @@
 }
 @media (max-width: 320px) {
     #lgzContainer p {
+        /*
         font-size: 1.5em;
+        */
         
     }
     #lgzHud .msgbox {
@@ -126,3 +127,35 @@
         width: 99%;
     }
 }
+
+@media (max-width: 768px) {
+
+    #lgzHintBtns button {
+        font-size: 0.6em;
+        /*
+        width: 11em;
+        */
+        height: 7em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        margin: 0.05em !important;
+    }
+}
+@media (max-width: 480px) {
+    #lgzHintBtns button {
+        font-size: 1em;
+        /*
+        width: 30%;
+        */
+    }
+}
+@media (max-width: 320px) {
+    #lgzHintBtns button {
+        font-size: 0.75em;
+        width: 20em;
+        height: 5em;
+        margin: 1em !important;
+    }
+            
+}
+
