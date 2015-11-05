@@ -27,6 +27,7 @@
     padding: 20px;
     margin: 20px;
 }
+
 #winHint [subref] {
     display: none;
 }
@@ -34,6 +35,24 @@
     width: 120px;
     font-size: 1em;        
 
+}
+/*
+#winHint > .msgbox {
+    margin-top: 1em;
+}
+*/
+#lgzHintBtns {
+    display: inline-flex;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#lgzHintBtns button {
+    font-size: smaller;
+    width: 12em;
+    height: 7em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin: 0.5em !important;
 }
 #winWon  {
 	position: absolute;
