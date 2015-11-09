@@ -355,10 +355,10 @@ Lgz.PlaySet = function (scene) {
         }
     };
     thisObj.nextLetter = function () {
-        var ival, len;
+        var ival, len, ltr;
         ival = $lgzInput.val();
         len = ival.length;
-        ltr = thisObj.answer.next.substr(len,1);
+        ltr = thisObj.answer.text.substr(len,1);
         $lgzInput.val(ival + ltr);
     };
 };
