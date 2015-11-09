@@ -16,7 +16,9 @@ LgzLib.Hints = function (mgr) {
     thisObj.event = function (type, punit, pval) {
         hud.winCloseAll('winHint', false);
 
-        thisObj.eventPenalty(punit, pval);
+        if (punit && pval) {
+            thisObj.eventPenalty(punit, pval);
+        }
         switch (type) {
         case 'giveup':
             thisObj.eventGiveUp();
@@ -50,22 +52,24 @@ LgzLib.Hints = function (mgr) {
         console.log('LgzLib.Hints.add: decpenalty: ' + decpenalty);
 
         if (decpenalty === 'undefined') {
-            return;
-        }
-        $btn[0].innerHTML = decpenalty;
-        txtpenalty = $btn.text();
-
-        regval = txtpenalty.match(/second|point/);
-        if(regval) {
-            punit = regval[0];
-        }
-
-        regval = txtpenalty.match(/[0-9]+/);
-        if(regval) {
-            pval = parseInt(regval[0], 10);
-
+            punit = null;
+            pval = null;
         } else {
-            pval = 0;
+           $btn[0].innerHTML = decpenalty;
+           txtpenalty = $btn.text();
+   
+           regval = txtpenalty.match(/second|point/);
+           if(regval) {
+               punit = regval[0];
+           }
+   
+           regval = txtpenalty.match(/[0-9]+/);
+           if(regval) {
+               pval = parseInt(regval[0], 10);
+   
+           } else {
+               pval = 0;
+           }
         }
 
         $btn.click(
