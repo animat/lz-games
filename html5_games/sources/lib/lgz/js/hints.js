@@ -62,7 +62,8 @@ LgzLib.Hints = function (mgr) {
 
         regval = txtpenalty.match(/[0-9]+/);
         if(regval) {
-            pval = regval[0];
+            pval = parseInt(regval[0], 10);
+
         } else {
             pval = 0;
         }
