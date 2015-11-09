@@ -198,8 +198,8 @@ Lgz.PlaySet = function (scene) {
         question.display = new LgzLib.DisplayNodeBox(
             thisObj.game,
             question.node,
-            175,
-            50,
+            275,
+            55,
             300,
             50,
             cfgOpts
