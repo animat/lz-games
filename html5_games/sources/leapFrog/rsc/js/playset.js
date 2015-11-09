@@ -199,7 +199,7 @@ Lgz.PlaySet = function (scene) {
             thisObj.game,
             question.node,
             275,
-            55,
+            60,
             300,
             50,
             cfgOpts
