@@ -315,4 +315,11 @@ Lgz.PlaySet = function (scene) {
             thisObj.wrong();
         }
     };
+    thisObj.nextLetter = function () {
+        var ival, len, ltr;
+        ival = $lgzInput.val();
+        len = ival.length;
+        ltr = thisObj.answer.text.substr(len,1);
+        $lgzInput.val(ival + ltr);
+    };
 };
