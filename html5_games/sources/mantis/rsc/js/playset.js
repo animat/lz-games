@@ -188,6 +188,7 @@ Lgz.PlaySet = function (scene) {
         thisObj.sprites = {};
 
         thisObj.cont = true;
+         
         thisObj.nm.reset();
         thisObj.sfx = thisObj.lgzMgr.rscAudioTracks('sfx');
         thisObj.cjsCreate();
@@ -271,7 +272,7 @@ Lgz.PlaySet = function (scene) {
         time = thisObj.timer.value();
         thisObj.lgzMgr.postScore(time);
         clip = {};
-        clip.time = time;
+        clip.time = (time);
         clip.spriteTimer = thisObj.spriteTimer;
         thisObj.lgzMgr.clip = clip;
 
@@ -352,5 +353,12 @@ Lgz.PlaySet = function (scene) {
         } else {
             thisObj.wrong();
         }
+    };
+    thisObj.nextLetter = function () {
+        var ival, len;
+        ival = $lgzInput.val();
+        len = ival.length();
+        ltr = thisObj.answer.next.substr(len,1);
+        $lgzInput.val(ival + ltr);
     };
 };

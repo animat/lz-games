@@ -52,6 +52,7 @@ LgzLib.Timer = function (spriteText, countdown) {
         spriteText.text = min + ':' + sec.toFixed(2).toString().replace('0.', '');
         thisObj.eventTime(dur);
 
+        // console.log('LgzLib.Timer.updateCountUp: timestr: ' + spriteText.text);
     };
     thisObj.updateCountDown = function () {
         var  dur, min, rem;
@@ -67,6 +68,9 @@ LgzLib.Timer = function (spriteText, countdown) {
         thisObj.eventTime(rem);
 
     };
+    thisObj.penalty = function (value) {
+        thisObj.beginTS = thisObj.beginTS - (value * 1000)
+    }
     thisObj.reset = function () {
         thisObj.beginTS = new Date();
         thisObj.endTS = thisObj.beginTS;
