@@ -248,7 +248,7 @@ LgzLib.Scenes.Main.prototype.create = function () {
 };
 LgzLib.Scenes.Main.prototype.eventHintPenalty = function (unit, value) {
     'use strict';
-    console.debug('Scenes.Main.eventHintPenalty: ' + unit + ',' + value);
+    console.debug('Scenes.Main.eventHintPenalty: OVERRIDE! ' + unit + ',' + value);
     //todo: record penalty on score or time here
 };
 LgzLib.Scenes.Main.prototype.eventHintGiveUp = function () {

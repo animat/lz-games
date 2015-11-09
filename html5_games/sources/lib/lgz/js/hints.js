@@ -101,6 +101,7 @@ LgzLib.Hints = function (mgr) {
     
 };
 LgzLib.Hints.prototype.eventPenalty = function (unit, value) {
+    console.log('LgzLib.Hints.prototype.eventPenalty: OVERRIDE! unit: ' + unit + ' value: '  + value);
     //note: register event 
 };
 LgzLib.Hints.prototype.eventMoveToEnd = function () {
