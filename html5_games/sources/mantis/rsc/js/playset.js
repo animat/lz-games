@@ -357,7 +357,7 @@ Lgz.PlaySet = function (scene) {
     thisObj.nextLetter = function () {
         var ival, len;
         ival = $lgzInput.val();
-        len = ival.length();
+        len = ival.length;
         ltr = thisObj.answer.next.substr(len,1);
         $lgzInput.val(ival + ltr);
     };
