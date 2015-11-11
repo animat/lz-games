@@ -16,7 +16,9 @@ LgzLib.Hints = function (mgr) {
     thisObj.event = function (type, punit, pval) {
         hud.winCloseAll('winHint', false);
 
-        thisObj.eventPenalty(punit, pval);
+        if (punit && pval) {
+            thisObj.eventPenalty(punit, pval);
+        }
         switch (type) {
         case 'giveup':
             thisObj.eventGiveUp();
@@ -30,21 +32,44 @@ LgzLib.Hints = function (mgr) {
         }
         
     };
-    thisObj.add = function ($winHintAvl, hintnode) {
-        var i,  type,   $btn, $penalty, $para, punit, pval;
-        type = hintnode.getAttribute('type');
+    thisObj.add = function ($winHintAvl, $hintnode) {
+        var i,  type,   $btn, btn, encpenalty, decpenalty, txtpenalty, regval, punit, pval;
+        console.log('LgzLib.Hints.add: $hintnode: ' + $hintnode);
+        type = $hintnode.text();
+        console.log('LgzLib.Hints.add: type: ' + type);
         $btn = $winHintAvl.find('[subref=' + type + ']');
         
         if (!$btn.length) {
-            //todo: log error
+            console.error('LgzLib.Hints.add: no hint button for type: ' + type);
             return;
         }
+        console.log('LgzLib.Hints.add: $btn.length: ' + $btn.length);
 
         $btn.css('display', 'inline');
-        $penalty = $(hintnode).find('penalty');
-        if ($penalty.length) {
-            punit = $penalty.attr('unit');
-            pval =  $penalty.attr('value');
+
+        encpenalty = $hintnode.attr('penalty');
+        decpenalty = decodeURIComponent(encpenalty);
+        console.log('LgzLib.Hints.add: decpenalty: ' + decpenalty);
+
+        if (decpenalty === 'undefined') {
+            punit = null;
+            pval = null;
+        } else {
+           $btn[0].innerHTML = decpenalty;
+           txtpenalty = $btn.text();
+   
+           regval = txtpenalty.match(/second|point/);
+           if(regval) {
+               punit = regval[0];
+           }
+   
+           regval = txtpenalty.match(/[0-9]+/);
+           if(regval) {
+               pval = parseInt(regval[0], 10);
+   
+           } else {
+               pval = 0;
+           }
         }
 
         $btn.click(
@@ -52,36 +77,36 @@ LgzLib.Hints = function (mgr) {
                 thisObj.event(type, punit, pval);
             }
         );
-        if (!$penalty.length) {
-            return;
-        }
-        $para = $btn.find('p')[1];
-        if (!$para) {
-            return;
-        }
 
-        $para.textContent = '+' + pval + ' ' + punit + ' penalty';
+
 
     };
     thisObj.init = function () {
         //note: must be called AFTER nodemgr has loaded xml file
-        var hlist, $winHintAvl, i;
+        var i, hlist, $winHintAvl, $lgzGameDesc, gameDesc;
         
-        hlist = mgr.nm.dataFind('hint');
+        hlist = mgr.nm.dataFind('hints').find('type');
         if (!hlist.length) {
             $('#winHint [subref=none]').css('display','block');
             return;
         }
         $winHintAvl = $('#winHint [subref=avail]');
+
+        gameDesc = mgr.nm.dataFind('description').find('text').text();
+        $lgzGameDesc = $winHintAvl.find('[resname=lgzGameDesc]');
+        $lgzGameDesc.text(gameDesc);
+
+
         $winHintAvl.css('display','block');
         for(i =0; i < hlist.length; i += 1) {
-            thisObj.add($winHintAvl, hlist[i]);
+            thisObj.add($winHintAvl, $(hlist[i]));
         }
             
     };
     
 };
 LgzLib.Hints.prototype.eventPenalty = function (unit, value) {
+    console.log('LgzLib.Hints.prototype.eventPenalty: OVERRIDE! unit: ' + unit + ' value: '  + value);
     //note: register event 
 };
 LgzLib.Hints.prototype.eventMoveToEnd = function () {
