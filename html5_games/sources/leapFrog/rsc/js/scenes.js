@@ -98,6 +98,14 @@ LgzLib.Scenes.Main.prototype.eventResized = function () {
     console.debug('Scenes2.Main.eventResized: key ' + this.key);
     this.lgzHud.objArrResize();
 };
+LgzLib.Scenes.Main.prototype.eventHintPenalty = function (unit, value) {
+    console.log('Scenes2.Main.eventHintPenalty: unit: ' + unit + ', value: ' + value);
+    this.playSet.timer.penalty(value);
+};
+LgzLib.Scenes.Main.prototype.eventHintNextLetter = function () {
+    console.log('Scenes2.Main.eventHintNextLetter');
+    this.playSet.nextLetter();
+};
 LgzLib.Scenes.End.prototype.rscload = function () {
     'use strict';
     console.debug('Scene.rscload: key ' + this.key);
