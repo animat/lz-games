@@ -210,15 +210,15 @@ Lgz.Balloon.prototype._killTail = function () {
     thisObj = this;
     
     if (thisObj.strArr) {
-        for (i = 0; i < thisObj.strArr.segments; i += 1) {
+        for (i = 0; i < thisObj.strArr.length; i += 1) {
             thisObj.strArr[i].kill();
         }
-        // thisObj.strArr = null;
     }
 };
 Lgz.Balloon.prototype.killTail = function (nodelay) {
     'use strict';
     var thisObj, i, delayTO;
+    console.log('Lgz.Balloon.prototype.killTail:');
     thisObj = this;
     delayTO = 5000;
     thisObj.game.physics.p2.removeConstraint(thisObj.k1);
@@ -229,6 +229,7 @@ Lgz.Balloon.prototype.killTail = function (nodelay) {
 
     window.setTimeout(
         function () {
+            console.log('Lgz.Balloon.prototype.killTail: setTimeout');
             thisObj._killTail();
         },
         delayTO
@@ -236,6 +237,7 @@ Lgz.Balloon.prototype.killTail = function (nodelay) {
 };
 Lgz.Balloon.prototype.kill = function () {
     'use strict';
+    console.log('Lgz.Balloon.prototype.kill:');
     if (this.strArr) {
         this.killTail(true);
     }
