@@ -320,7 +320,7 @@ LgzLib.Hud = function (mgr) {
         desktop = game.device.desktop;
  
         if (!fs) {
-            if (desktop) {
+            if (desktop && mgr.msgframe.prem) {
                 $lgzBtnFS.css('display', 'block');
                 $winPlay.removeClass('modal');
             } else {

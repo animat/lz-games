@@ -477,6 +477,9 @@ LgzLib.MsgFrames.Game.prototype.eventSwitch = function (msg) {
         }
         // console.log('   gameid: '  + parms.gameid);
         // console.log('   userid: '  + parms.userid);
+        if (parms.prem) {
+            this.prem = parms.prem;
+        }
         this.$lgzParms.attr('gameid', parms.gameid);
         this.$lgzParms.attr('userid', parms.userid);
         this._cbInit();
